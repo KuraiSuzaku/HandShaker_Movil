@@ -5,27 +5,15 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-// ========================
+//////
 import Colores from '../Estilos/Colores';
 import {
     EncabezadoApp,
     EncabezadoPerfil,
     Navegacion,
 } from '../Componentes/Indice';
-// =========================
-
-const Estilos = StyleSheet.create({
-    ContenedorApp: {
-        flex: 1,
-        backgroundColor: Colores.fondo,
-    },
-    Contenido: {
-        flex: 10,
-    },
-});
-
+//////
 export default PerfilPremium = () => {
-    
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
             <EncabezadoApp />
@@ -38,3 +26,13 @@ export default PerfilPremium = () => {
         </SafeAreaProvider>
     );
 };
+// ESTILOS
+const Estilos = StyleSheet.create({
+    ContenedorApp: {
+        flex: 1,
+        backgroundColor: Colores.fondo,
+    },
+    Contenido: {
+        flex: 10,
+    },
+});

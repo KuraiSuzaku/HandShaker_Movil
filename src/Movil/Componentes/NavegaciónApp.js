@@ -2,23 +2,16 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
-///////////////////////////
+//////
 import Colores from '../Estilos/Colores';
-///////////////////////////
-
+//////
+// COMPONENTES GLOBALES
 const BarraNavegacion = createBottomTabNavigator();
-
-const Estilos = StyleSheet.create({
-  BarraNavegacion: {
-    backgroundColor: Colores.fondoOscuro,
-    borderBottomWidth: 2,
-  },
-});
-
+//////
 export default BarraNavegacion = () => {
-
+    // ATRIBUTOS
     const notificaciones = 0;
-
+    //////
     return(
         <BarraNavegacion.Navigator
             initialRouteName='Home'
@@ -68,3 +61,10 @@ export default BarraNavegacion = () => {
         </BarraNavegacion.Navigator>
     );
 };
+// ESTILOS
+const Estilos = StyleSheet.create({
+  BarraNavegacion: {
+    backgroundColor: Colores.fondoOscuro,
+    borderBottomWidth: 2,
+  },
+});
