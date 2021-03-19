@@ -11,7 +11,7 @@ import {
     EncabezadoApp,
     EncabezadoPerfil,
     Navegacion,
-} from '../Componentes/Index';
+} from '../Componentes/Indice';
 // =========================
 
 const Estilos = StyleSheet.create({

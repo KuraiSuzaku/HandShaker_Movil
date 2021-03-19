@@ -16,6 +16,8 @@ target 'App_Movil' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'RNCMaskedView', :path => '../node_modules/@react-native-masked-view/masked-view'
+
   target 'App_MovilTests' do
     inherit! :complete
     # Pods for testing
