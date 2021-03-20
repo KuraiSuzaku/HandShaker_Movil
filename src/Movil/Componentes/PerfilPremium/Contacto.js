@@ -8,7 +8,7 @@ import {
     Text,
 } from 'react-native-elements';
 
-export default Contacto = () => {
+export default Contacto = ({contacto}) => {
     return(
         <View>
             <Text style={Estilos.Titulo}>
@@ -16,14 +16,14 @@ export default Contacto = () => {
             </Text>
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text style={Estilos.Dato}>
-                    Correo: <Text>correo</Text>
+                    Correo: <Text>{contacto.correo}</Text>
                 </Text>
                 <Text style={Estilos.Dato}>
-                    Teléfono: <Text>telefono</Text>
+                    Teléfono: <Text>{contacto.telefono}</Text>
                 </Text><Text style={Estilos.Dato}>
-                    Celular: <Text>celular</Text>
+                    Celular: <Text>{contacto.celular}</Text>
                 </Text><Text style={Estilos.Dato}>
-                    Domicilio: <Text>domicilio</Text>
+                    Domicilio: <Text>{contacto.domicilio}</Text>
                 </Text>
             </Card>
             {/*Google Maps*/}

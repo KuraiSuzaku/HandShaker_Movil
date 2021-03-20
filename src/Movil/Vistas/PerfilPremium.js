@@ -25,6 +25,12 @@ export default PerfilPremium = () => {
                               contenido: 'Si no es una cosa es otraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
                             }
                           ]
+    const contacto = {
+                        correo: 'a17310020@cet.mx',
+                        telefono: '36-52-01-45',
+                        celular: '+52 33-18-07-29-45',
+                        domicilio: 'Calle Paseo de Los Brezos 727C, Tabachines, 45188 Zapopan, Jal.'
+                      }
     const costos = [
                     {
                       titulo: 'Logo',
@@ -65,6 +71,7 @@ export default PerfilPremium = () => {
             titulo={titulo}
             descripcion={descripcion}
             publicaciones={publicaciones}
+            contacto={contacto}
             costos={costos}
             resenas={resenas}
             />

@@ -67,6 +67,7 @@ export default Contenedor = (props) => {
                                 <Componentes.PerfilPremium.ListaResenas
                                     {...props}
                                     />}
+                            options={{title: 'Reseñas'}}
                             />
                     </Pestañas.Navigator>
                 </ScrollView>
