@@ -76,6 +76,7 @@ const Estilos = StyleSheet.create({
         fontSize: 10,
     },
     Contenido: {
+        marginTop: 5,
         fontSize: 11,
     },
 });

@@ -5,7 +5,7 @@ import PublicacionPremium from './PerfilPremium/PublicacionPremium';
 import MultimediaPremium from './PerfilPremium/MultimediaPremium';
 import ContactoPremium from './PerfilPremium/ContactoPremium';
 import CostosPremium from './PerfilPremium/CostosPremium';
-import ReseñasPremium from './PerfilPremium/ReseñasPremium';
+import ReseñasPremium from './PerfilPremium/ReseñaPremium';
 
 export {
     EncabezadoApp,

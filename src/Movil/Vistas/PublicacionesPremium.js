@@ -12,24 +12,22 @@ import Colores from '../Estilos/Colores';
 //////
 export default VistaPublicacion = ({avatar,
                                     nombre,
-                                    valoracion}) => {
+                                    valoracion,
+                                    publicaciones}) => {
     return(
         <View>
-            <PublicacionPremium
-                avatar={avatar}
-                nombre={nombre}
-                fecha='xx/xx/xxxx'
-                valoracion={valoracion}
-                contenido='Contenido de la publicacion'
-                imagen={require('../../../public/Images/test.jpg')}
-                />
-            <PublicacionPremium
-                avatar={avatar}
-                nombre={nombre}
-                fecha='xx/xx/xxxx'
-                valoracion={valoracion}
-                contenido='Contenido de la publicacion'
-                />
+            {
+                publicaciones.map((p, i) => (
+                    <PublicacionPremium
+                        avatar={avatar}
+                        nombre={nombre}
+                        fecha={p.fecha}
+                        valoracion={valoracion}
+                        contenido={p.contenido}
+                        imagen={p.imagen}
+                        />
+                ))
+            }
             <Text style={Estilos.EtiquetaFinal}>No hay más publicaciones</Text>
         </View>
     );
