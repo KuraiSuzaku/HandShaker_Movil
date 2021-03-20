@@ -46,8 +46,8 @@ export default PublicacionesPremium = ({nombre,
                         imageSize={15} 
                         readonly 
                         startingValue={valoracion} 
-                        ratingColor={Colores.negro}
-                        ratingBackgroundColor={Colores.blanco}
+                        ratingColor={Colores.simbolos}
+                        ratingBackgroundColor={Colores.fondoOscuro}
                         tintColor={Colores.blanco}
                         type='custom'
                         />

@@ -1,101 +1,36 @@
 import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {
-    ScrollView,
-    StyleSheet,
-    View,
-} from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 //////
-import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
-import * as Vistas from './Indice';
 //////
-// COMPONENTES GLOBALES
-const Pestañas = createMaterialTopTabNavigator();
-//////
-export default PerfilPremium = (props) => {
+export default PerfilPremium = () => {
+    // PRUEBA
+    const imagenFondo = require('../../../public/Images/test.jpg');
+    const avatar = require('../../../public/Profile/user.png');
+    const valoracion = 2.5;
+    const nombre = 'María Jośe Arellano';
+    const titulo = 'Lic. Diseño Gráfico';
+    const descripcion = 'Me dedico a crear páginas y aplicaciones';
+    const publicaciones = [
+                            { 
+                              fecha: '12/03/2020',
+                              contenido: 'Creando mi perfil de HandShaker',
+                              imagen: require('../../../public/Images/test.jpg')
+                            },
+                            {
+                              fecha: '28/02/2021',
+                              contenido: 'Lamento informar que estamos y estaremos muy retrasados en el desarrollo de nuestro proyecto'
+                            }
+                          ];
+    //////
     return(
-        <SafeAreaProvider style={Estilos.ContenedorApp}>
-            <Componentes.EncabezadoApp />
-            <View style={Estilos.Contenido}>
-                <ScrollView>
-                    <Componentes.EncabezadoPerfil 
-                        {...props}
-                        />
-                    <Pestañas.Navigator
-                        initialRouteName='Publicaciones'
-                        tabBarOptions={{
-                            style: Estilos.BarraPestañas,
-                            tabStyle: Estilos.Pestañas,
-                            labelStyle: Estilos.EtiquetasPestañas,
-                            activeTintColor: Colores.simbolos,
-                            inactiveTintColor: Colores.negro,
-                        }}
-                        >
-                        <Pestañas.Screen
-                            name='Publicaciones'
-                            component={() => 
-                                <Vistas.PublicacionesPremium
-                                    {...props}
-                                    />}
-                            />
-                        <Pestañas.Screen
-                            name='Multimedia'
-                            component={() =>
-                                <Componentes.MultimediaPremium
-                                    {...props}
-                                    />}
-                            />
-                        <Pestañas.Screen
-                            name='Contacto'
-                            component={() =>
-                                <Componentes.ContactoPremium
-                                    {...props}
-                                    />}
-                            />
-                        <Pestañas.Screen
-                            name='Costos'
-                            component={() =>
-                                <Componentes.CostosPremium
-                                    {...props}
-                                    />}
-                            />
-                        <Pestañas.Screen
-                            name='Reseñas'
-                            component={() =>
-                                <Componentes.ReseñasPremium
-                                    {...props}
-                                    />}
-                            />
-                    </Pestañas.Navigator>
-                </ScrollView>
-            </View>
-            <Componentes.Navegacion />
-        </SafeAreaProvider>
+        <Componentes.ContenedorPremium
+            imagenFondo={imagenFondo}
+            avatar={avatar}
+            valoracion={valoracion}
+            nombre={nombre}
+            titulo={titulo}
+            descripcion={descripcion}
+            publicaciones={publicaciones}
+            />
     );
-};
-// ESTILOS
-const Estilos = StyleSheet.create({
-    ContenedorApp: {
-        flex: 1,
-        backgroundColor: Colores.fondo,
-    },
-    Contenido: {
-        flex: 10,
-    },
-    BarraPestañas: {
-        height: 20,
-        backgroundColor: Colores.fondo,
-        borderBottomWidth: 1,
-    },
-    EtiquetasPestañas: {
-        fontSize: 9,
-        fontWeight: 'bold',
-    },
-    Pestañas: {
-        padding: 0,
-        justifyContent: 'flex-start',
-        alignContent: 'center',
-    },
-});
+}

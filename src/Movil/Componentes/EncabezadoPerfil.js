@@ -37,8 +37,8 @@ export default EncabezadoPerfil = ({imagenFondo,
                     imageSize={20} 
                     readonly 
                     startingValue={valoracion} 
-                    ratingColor={Colores.negro}
-                    ratingBackgroundColor={Colores.blanco}
+                    ratingColor={Colores.simbolos}
+                    ratingBackgroundColor={Colores.fondoOscuro}
                     tintColor={Colores.fondo}
                     type='custom'
                     style={Estilos.ContenedorComponente} 
