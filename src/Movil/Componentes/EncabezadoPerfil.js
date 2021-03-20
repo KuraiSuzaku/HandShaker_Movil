@@ -14,15 +14,12 @@ import {
 //////
 import Colores from '../Estilos/Colores';
 //////
-export default EncabezadoPerfil = () => {
-    // ATRIBUTOS
-    const imagenFondo = require('../../../public/Images/test.jpg');
-    const avatar = require('../../../public/Profile/user.png');
-    const valoracion = 2.5;
-    const nombre = 'María Jośe Arellano';
-    const titulo = 'Lic. Diseño Gráfico';
-    const descripcion = 'Me dedico a crear páginas y aplicaciones';
-    //////
+export default EncabezadoPerfil = ({imagenFondo,
+                                    avatar,
+                                    valoracion,
+                                    nombre,
+                                    titulo,
+                                    descripcion}) => {
     // METODOS
     const Contratar = () => {
         console.log('Botón Contratar');
@@ -40,8 +37,8 @@ export default EncabezadoPerfil = () => {
                     imageSize={20} 
                     readonly 
                     startingValue={valoracion} 
-                    ratingColor={Colores.simbolos}
-                    ratingBackgroundColor={Colores.fondoOscuro}
+                    ratingColor={Colores.negro}
+                    ratingBackgroundColor={Colores.blanco}
                     tintColor={Colores.fondo}
                     type='custom'
                     style={Estilos.ContenedorComponente} 
@@ -111,7 +108,8 @@ const Estilos = StyleSheet.create({
     },
     Datos: {
         alignItems: 'center',
-        marginTop: 60,
+        marginTop: 55,
+        marginBottom: 5,
     },
     Infromacion: {
         fontSize: 12,

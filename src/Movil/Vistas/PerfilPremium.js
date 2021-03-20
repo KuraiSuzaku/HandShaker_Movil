@@ -5,24 +5,73 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 //////
 import Colores from '../Estilos/Colores';
-import {
-    EncabezadoApp,
-    EncabezadoPerfil,
-    Navegacion,
-} from '../Componentes/Indice';
+import * as Componentes from '../Componentes/Indice';
+import * as Vistas from './Indice';
 //////
-export default PerfilPremium = () => {
+// COMPONENTES GLOBALES
+const Pestañas = createMaterialTopTabNavigator();
+//////
+export default PerfilPremium = (props) => {
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
-            <EncabezadoApp />
+            <Componentes.EncabezadoApp />
             <View style={Estilos.Contenido}>
                 <ScrollView>
-                    <EncabezadoPerfil />
+                    <Componentes.EncabezadoPerfil 
+                        {...props}
+                        />
+                    <Pestañas.Navigator
+                        initialRouteName='Publicaciones'
+                        tabBarOptions={{
+                            style: Estilos.BarraPestañas,
+                            tabStyle: Estilos.Pestañas,
+                            labelStyle: Estilos.EtiquetasPestañas,
+                            activeTintColor: Colores.simbolos,
+                            inactiveTintColor: Colores.negro,
+                        }}
+                        >
+                        <Pestañas.Screen
+                            name='Publicaciones'
+                            component={() => 
+                                <Vistas.PublicacionesPremium
+                                    {...props}
+                                    />}
+                            />
+                        <Pestañas.Screen
+                            name='Multimedia'
+                            component={() =>
+                                <Componentes.MultimediaPremium
+                                    {...props}
+                                    />}
+                            />
+                        <Pestañas.Screen
+                            name='Contacto'
+                            component={() =>
+                                <Componentes.ContactoPremium
+                                    {...props}
+                                    />}
+                            />
+                        <Pestañas.Screen
+                            name='Costos'
+                            component={() =>
+                                <Componentes.CostosPremium
+                                    {...props}
+                                    />}
+                            />
+                        <Pestañas.Screen
+                            name='Reseñas'
+                            component={() =>
+                                <Componentes.ReseñasPremium
+                                    {...props}
+                                    />}
+                            />
+                    </Pestañas.Navigator>
                 </ScrollView>
             </View>
-            <Navegacion />
+            <Componentes.Navegacion />
         </SafeAreaProvider>
     );
 };
@@ -34,5 +83,19 @@ const Estilos = StyleSheet.create({
     },
     Contenido: {
         flex: 10,
+    },
+    BarraPestañas: {
+        height: 20,
+        backgroundColor: Colores.fondo,
+        borderBottomWidth: 1,
+    },
+    EtiquetasPestañas: {
+        fontSize: 9,
+        fontWeight: 'bold',
+    },
+    Pestañas: {
+        padding: 0,
+        justifyContent: 'flex-start',
+        alignContent: 'center',
     },
 });

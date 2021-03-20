@@ -16,10 +16,10 @@ export default BarraNavegacion = () => {
         <BarraNavegacion.Navigator
             initialRouteName='Home'
             tabBarOptions={{
-            showLabel: false,
-            tabStyle: Estilos.BarraNavegacion,
-            activeTintColor: Colores.simbolos,
-            inactiveTintColor: Colores.blanco,
+                showLabel: false,
+                tabStyle: Estilos.BarraNavegacion,
+                activeTintColor: Colores.simbolos,
+                inactiveTintColor: Colores.blanco,
             }}
             >
             <BarraNavegacion.Screen
