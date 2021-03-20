@@ -8,7 +8,7 @@ import {
     Text,
 } from 'react-native-elements';
 
-export default ContactoPremium = () => {
+export default Contacto = () => {
     return(
         <View>
             <Text style={Estilos.Titulo}>

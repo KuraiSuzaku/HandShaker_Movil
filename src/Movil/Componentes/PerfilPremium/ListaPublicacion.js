@@ -7,10 +7,10 @@ import {
     Text,
 } from 'react-native-elements';
 //////
-import { PublicacionPremium } from '../Componentes/Indice';
-import Colores from '../Estilos/Colores';
+import * as Componentes from '../Indice';
+import Colores from '../../Estilos/Colores';
 //////
-export default VistaPublicacion = ({avatar,
+export default ListaPublicacion = ({avatar,
                                     nombre,
                                     valoracion,
                                     publicaciones}) => {
@@ -18,13 +18,11 @@ export default VistaPublicacion = ({avatar,
         <View>
             {
                 publicaciones.map((p, i) => (
-                    <PublicacionPremium
+                    <Componentes.PerfilPremium.Publicacion
                         avatar={avatar}
                         nombre={nombre}
-                        fecha={p.fecha}
                         valoracion={valoracion}
-                        contenido={p.contenido}
-                        imagen={p.imagen}
+                        {...p}
                         />
                 ))
             }

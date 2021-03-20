@@ -9,12 +9,11 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 //////
 import Colores from '../../Estilos/Colores';
 import * as Componentes from '../Indice';
-import * as Vistas from '../../Vistas/Indice';
 //////
 // COMPONENTES GLOBALES
 const Pestañas = createMaterialTopTabNavigator();
 //////
-export default PerfilPremium = (props) => {
+export default Contenedor = (props) => {
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
             <Componentes.EncabezadoApp />
@@ -24,7 +23,8 @@ export default PerfilPremium = (props) => {
                         {...props}
                         />
                     <Pestañas.Navigator
-                        initialRouteName='Publicaciones'
+                        initialRouteName='Resenas'
+                        lazy={true}
                         tabBarOptions={{
                             style: Estilos.BarraPestañas,
                             tabStyle: Estilos.Pestañas,
@@ -36,35 +36,35 @@ export default PerfilPremium = (props) => {
                         <Pestañas.Screen
                             name='Publicaciones'
                             component={() => 
-                                <Vistas.PublicacionesPremium
+                                <Componentes.PerfilPremium.ListaPublicacion
                                     {...props}
                                     />}
                             />
-                        <Pestañas.Screen
+                       <Pestañas.Screen
                             name='Multimedia'
                             component={() =>
-                                <Componentes.MultimediaPremium
+                                <Componentes.PerfilPremium.Multimedia
                                     {...props}
                                     />}
                             />
                         <Pestañas.Screen
                             name='Contacto'
                             component={() =>
-                                <Componentes.ContactoPremium
+                                <Componentes.PerfilPremium.Contacto
                                     {...props}
                                     />}
                             />
                         <Pestañas.Screen
                             name='Costos'
                             component={() =>
-                                <Componentes.CostosPremium
+                                <Componentes.PerfilPremium.ListaCostos
                                     {...props}
                                     />}
                             />
                         <Pestañas.Screen
-                            name='Reseñas'
+                            name='Resenas'
                             component={() =>
-                                <Componentes.ReseñasPremium
+                                <Componentes.PerfilPremium.ListaResenas
                                     {...props}
                                     />}
                             />

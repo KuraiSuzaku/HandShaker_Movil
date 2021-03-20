@@ -13,20 +13,23 @@ import {
 //////
 import Colores from '../../Estilos/Colores';
 //////
-export default PublicacionesPremium = ({nombre,
-                                        valoracion,
-                                        fecha,
-                                        avatar,
-                                        contenido,
-                                        imagen}) => {
+export default Publicacion = ({ nombre,
+                                valoracion,
+                                fecha,
+                                avatar,
+                                contenido,
+                                imagen}) => {
     // METODOS
     const VerificarImagen = () => {
         if(imagen)
-            return(<Card.Image
-                    source={imagen}
-                    style={{borderRadius: 15}}
-                    PlaceholderContent={<ActivityIndicator />}
-                    />);
+            return( <>
+                    <Card.Divider/>
+                    <Card.Image
+                        source={imagen}
+                        style={{borderRadius: 15}}
+                        PlaceholderContent={<ActivityIndicator />}
+                        />
+                    </>);
         else
             return null;
     }
@@ -55,7 +58,6 @@ export default PublicacionesPremium = ({nombre,
                 </View>
             </View>
             <Text style={Estilos.Contenido}>{contenido}</Text>
-            <Card.Divider/>
             {VerificarImagen()}
         </Card>
     );

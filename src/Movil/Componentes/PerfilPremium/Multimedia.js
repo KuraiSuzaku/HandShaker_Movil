@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ReseñasPremium = () => {
+export default Multimedia = () => {
     return(
         <>
         </>

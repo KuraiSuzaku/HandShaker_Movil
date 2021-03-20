@@ -19,11 +19,45 @@ export default PerfilPremium = () => {
                             {
                               fecha: '28/02/2021',
                               contenido: 'Lamento informar que estamos y estaremos muy retrasados en el desarrollo de nuestro proyecto'
+                            },
+                            {
+                              fecha: '20/03/2021',
+                              contenido: 'Si no es una cosa es otraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
                             }
-                          ];
+                          ]
+    const costos = [
+                    {
+                      titulo: 'Logo',
+                      icono: (require('../../../public/Icons/icon32.png')),
+                      descripcion: 'Cuando estés satisfecho con tu logo personalizado, Puedes descargarlo como un archivo vectorial de alta calidad que puedes usar para tu página web, tarjetas de visita, mercancía o donde quieras.',
+                      precio: 800
+                    },
+                    {
+                      titulo: 'Marketing',
+                      icono: require('../../../public/Icons/icon32.png'),
+                      descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet quis at mi congue id tempus, arcu. Amet interdum massa ut vel lectus quam sit diam feugiat.',
+                      precio: 5000
+                    }
+                   ]
+    const resenas = [
+                      {
+                        nombre: 'Carlos Eduardo Cervera Flota',
+                        valoracion: 5,
+                        comentario: 'Me parecio excelente su trabajo',
+                        fecha: '10/12/2020',
+                        avatar: require('../../../public/Profile/user.png'),
+                      },
+                      {
+                        nombre: 'Daniel Alberto Castañeda Mejía',
+                        valoracion: 3,
+                        comentario: 'Odie cada momento y cada aspecto de su ser.n0/100 si pudiera la despediria yo mismo.',
+                        fecha: '10/12/2020',
+                        avatar: require('../../../public/Profile/user.png'),
+                      }
+                    ]
     //////
     return(
-        <Componentes.ContenedorPremium
+        <Componentes.PerfilPremium.Contenedor
             imagenFondo={imagenFondo}
             avatar={avatar}
             valoracion={valoracion}
@@ -31,6 +65,8 @@ export default PerfilPremium = () => {
             titulo={titulo}
             descripcion={descripcion}
             publicaciones={publicaciones}
+            costos={costos}
+            resenas={resenas}
             />
     );
 }
