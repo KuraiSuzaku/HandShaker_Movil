@@ -1,4 +1,4 @@
-import Contenedor from './Contenedor';
+import Navegacion from './Navegacion';
 import ListaPublicacion from './ListaPublicacion';
 import Publicacion from './Publicacion';
 import Multimedia from './Multimedia';
@@ -6,7 +6,7 @@ import ListaCostos from './ListaCostos';
 import Costo from './Costo';
 
 export {
-    Contenedor,
+    Navegacion,
     ListaPublicacion,
     Publicacion,
     Multimedia,
