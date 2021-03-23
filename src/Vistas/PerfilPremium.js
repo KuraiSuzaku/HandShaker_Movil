@@ -1,6 +1,6 @@
 import React from 'react';
 //////
-import * as Componentes from '../Componentes/Indice';
+import * as Componentes from '../Movil/Componentes/Indice';
 //////
 export default PerfilPremium = () => {
     // PRUEBA
