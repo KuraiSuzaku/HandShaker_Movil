@@ -12,7 +12,7 @@ import {
     Text,
 } from 'react-native-elements';
 //////
-import Colores from '../Estilos/Colores';
+import Colores from '../../Estilos/Colores';
 //////
 export default EncabezadoPerfil = ({imagenFondo,
                                     avatar,

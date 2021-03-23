@@ -19,7 +19,7 @@ export default Contenedor = (props) => {
             <Componentes.EncabezadoApp />
             <View style={Estilos.Contenido}>
                 <ScrollView>
-                    <Componentes.EncabezadoPerfil 
+                    <Componentes.PerfilTrabajador.EncabezadoPerfil 
                         {...props}
                         />
                     <Pestañas.Navigator
@@ -50,7 +50,7 @@ export default Contenedor = (props) => {
                         <Pestañas.Screen
                             name='Contacto'
                             component={() =>
-                                <Componentes.PerfilPremium.Contacto
+                                <Componentes.PerfilTrabajador.Contacto
                                     {...props}
                                     />}
                             />
@@ -64,7 +64,7 @@ export default Contenedor = (props) => {
                         <Pestañas.Screen
                             name='Resenas'
                             component={() =>
-                                <Componentes.PerfilPremium.ListaResenas
+                                <Componentes.PerfilTrabajador.ListaResenas
                                     {...props}
                                     />}
                             options={{title: 'Reseñas'}}
