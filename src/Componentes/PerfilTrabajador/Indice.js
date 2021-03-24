@@ -3,6 +3,7 @@ import EncabezadoPerfil from './EncabezadoPerfil';
 import Contacto from './Contacto';
 import ListaResenas from './ListaResenas';
 import Resena from './Resena';
+import FinSeccion from './FinSeccion';
 
 export {
     Contenedor,
@@ -10,4 +11,5 @@ export {
     Contacto,
     ListaResenas,
     Resena,
+    FinSeccion,
 }

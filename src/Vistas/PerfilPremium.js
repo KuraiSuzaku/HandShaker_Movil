@@ -71,6 +71,12 @@ export default PerfilPremium = () => {
                           },
                           {
                             imagen: require('../../public/Images/test.jpg')
+                          },
+                          {
+                            imagen: require('../../public/Images/test.jpg')
+                          },
+                          {
+                            imagen: require('../../public/Images/test.jpg')
                           }
                         ]
     //////

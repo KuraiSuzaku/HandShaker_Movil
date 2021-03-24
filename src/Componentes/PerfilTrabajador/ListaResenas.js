@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import * as Componentes from './Indice';
+import * as Componentes from '../Indice';
 
 export default ListaResenas = ({ resenas }) => {
     return(
@@ -10,11 +10,12 @@ export default ListaResenas = ({ resenas }) => {
             </Text>
             {
                 resenas.map((r, i) => (
-                    <Componentes.Resena
+                    <Componentes.PerfilTrabajador.Resena
                         {...r}
                         />
                 ))
             }
+            <Componentes.PerfilTrabajador.FinSeccion />
         </View>
     );
 }
