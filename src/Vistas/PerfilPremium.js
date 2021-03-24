@@ -7,7 +7,7 @@ export default PerfilPremium = () => {
     const imagenFondo = require('../../public/Images/test.jpg');
     const avatar = require('../../public/Profile/user.png');
     const valoracion = 2.5;
-    const nombre = 'María Jośe Arellano';
+    const nombre = 'María José Arellano';
     const titulo = 'Lic. Diseño Gráfico';
     const descripcion = 'Me dedico a crear páginas y aplicaciones';
     const isPremium = true;
@@ -57,11 +57,22 @@ export default PerfilPremium = () => {
                       {
                         nombre: 'Daniel Alberto Castañeda Mejía',
                         valoracion: 3,
-                        comentario: 'Odie cada momento y cada aspecto de su ser.n0/100 si pudiera la despediria yo mismo.',
+                        comentario: 'Odie cada momento y cada aspecto de su ser.\n0/100 si pudiera la despediria yo mismo.',
                         fecha: '10/12/2020',
                         avatar: require('../../public/Profile/user.png'),
                       }
                     ]
+    const multimedia =  [
+                          {
+                            imagen: require('../../public/Images/test.jpg')
+                          },
+                          {
+                            imagen: require('../../public/Images/test.jpg')
+                          },
+                          {
+                            imagen: require('../../public/Images/test.jpg')
+                          }
+                        ]
     //////
     return(
         <Componentes.PerfilTrabajador.Contenedor
@@ -73,6 +84,7 @@ export default PerfilPremium = () => {
             descripcion={descripcion}
             isPremium={isPremium}
             publicaciones={publicaciones}
+            multimedia={multimedia}
             contacto={contacto}
             costos={costos}
             resenas={resenas}
