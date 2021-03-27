@@ -1,9 +1,16 @@
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+    Text,
+    TouchableOpacity,
+    useColorScheme,
+    View
+} from 'react-native';
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 //////
 import * as Vistas from './Indice';
 import * as Componentes from '../Componentes/Indice';
 import Colores from '../Estilos/Colores';
+import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 //////
 
 const Drawer = createDrawerNavigator();
@@ -11,7 +18,8 @@ const Drawer = createDrawerNavigator();
 export default Menu = () => {
     return(
         <Drawer.Navigator 
-            initialRouteName='PerfilPremium'
+            drawerContent={props => customDrawerContent(props)}
+            initialRouteName='Inicio'
             drawerContentOptions={{
                 activeTintColor: Colores.simbolos,
                 inactiveTintColor: Colores.blanco,
@@ -20,16 +28,14 @@ export default Menu = () => {
             drawerStyle={{
                 backgroundColor: Colores.fondoOscuro
             }}
-            sceneContainerStyle={{
-                
-            }}
             >
+            <Drawer.Screen
+                name='Inicio'
+                component={Vistas.Construccion}
+                />
             <Drawer.Screen 
                 name='Perfil' 
                 component={Vistas.PerfilPremium}
-                options={{
-
-                }}
                 />
             <Drawer.Screen
                 name='Contrataciones'
@@ -54,4 +60,25 @@ export default Menu = () => {
                 />
         </Drawer.Navigator>
     );
+}
+
+const customDrawerContent = (props) => {
+    return (
+        <View style={{flex: 1, marginTop: 40}}>
+            <Avatar
+                source={require('../../public/Profile/user.png')}
+                rounded
+                size='medium'
+                />
+            <Text style={{color:Colores.blanco}}>Usuario</Text>
+            <DrawerItemList {...props} />
+            <View>
+                <TouchableOpacity onPress={() => {}}>
+                    <View>
+                        <Text style={{color:Colores.blanco}}>Cerrar Sesión</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
 }
