@@ -6,7 +6,7 @@ import * as Vistas from './src/Vistas/Indice';
 export default App = () => {
   return (
     <NavigationContainer>
-      <Vistas.PerfilPremium />
+      <Vistas.Menu />
     </NavigationContainer>
   );
 };

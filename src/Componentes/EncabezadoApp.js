@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
     StyleSheet,
 } from 'react-native';
@@ -11,12 +12,13 @@ import {
 import Colores from '../Estilos/Colores';
 //////
 export default Encabezado = (props) => {
+    const navigation = useNavigation();
     // METODOS
     const Buscar = () => {
         console.log('Realizar Busqueda');
     };
     const AbrirMenu = () => {
-        console.log('Abrir Menu');
+        navigation.toggleDrawer();
     };
     //////
     return(
