@@ -44,7 +44,7 @@ export default Encabezado = (props) => {
                 containerStyle={Estilos.ContenedorBusqueda}
                 inputContainerStyle={Estilos.Busqueda}
                 inputStyle={Estilos.TextoBusqueda}
-                onChangeText={(search) => setSearch(search)}
+                onChangeText={ setSearch }
                 />
             <Icon
                 name='search'
@@ -53,7 +53,7 @@ export default Encabezado = (props) => {
                 color={Colores.simbolos}
                 containerStyle={Estilos.ContenedorIcono}
                 iconStyle={Estilos.Icono}
-                onPress={() => Buscar}
+                onPress={ Buscar }
                 />
         </Header>
     );

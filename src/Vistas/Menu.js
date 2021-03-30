@@ -58,6 +58,10 @@ export default Menu = () => {
                     title: 'Volverse Trabajador Premium'
                 }}
                 />
+            <Drawer.Screen
+                name='Login'
+                component={Componentes.Login}
+                />
         </Drawer.Navigator>
     );
 }
@@ -68,7 +72,8 @@ const customDrawerContent = (props) => {
             || val === 'Perfil'
             || val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Premium')
+            || val === 'Premium'
+            || val === 'Login')
             return true;
         return false;
     };
