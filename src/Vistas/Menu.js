@@ -2,10 +2,12 @@ import React from 'react';
 import {
     StyleSheet,
     Text,
-    TouchableOpacity,
     View
 } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import {
+    Avatar,
+    Icon
+} from 'react-native-elements';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 import * as Vistas from './Indice';
 import * as Componentes from '../Componentes/Indice';
@@ -27,24 +29,43 @@ export default props => {
                 backgroundColor: Colores.fondoOscuro
             }}
             >
-            <Drawer.Screen
-                name='Inicio'
-                component={Vistas.Construccion}
-                />
             <Drawer.Screen 
                 name='Perfil' 
                 component={Vistas.PerfilPremium}
+                options={{
+                    drawerIcon: ({ focused, size }) => 
+                                        <Icon
+                                            name='user'
+                                            type='font-awesome'
+                                            size={25}
+                                            color={focused ? Colores.simbolos : Colores.blanco}
+                                        />
+                }}
                 />
             <Drawer.Screen
                 name='Contrataciones'
                 component={Vistas.Construccion}
-                options={{ title: 'Ver Contrataciones' }}
+                options={{ title: 'Ver Contrataciones',
+                            drawerIcon: ({ focused, size }) => 
+                                            <Icon
+                                                name='book'
+                                                type='font-awesome'
+                                                size={25}
+                                                color={focused ? Colores.simbolos : Colores.blanco}
+                                            />}}
                 />
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
                 options={{  title: 'Sobre Nosotros',
-                            unmountOnBlur: true }}
+                            unmountOnBlur: true,
+                            drawerIcon: ({ focused, size }) => 
+                                            <Icon
+                                                name='info'
+                                                type='font-awesome'
+                                                size={25}
+                                                color={focused ? Colores.simbolos : Colores.blanco}
+                                            /> }}
                 />
             <Drawer.Screen
                 name='Premium'
@@ -55,7 +76,14 @@ export default props => {
             <Drawer.Screen
                 name='Cerrar Sesión'
                 component={Componentes.LogOut}
-                options={{  unmountOnBlur: true }}
+                options={{  unmountOnBlur: true, 
+                            drawerIcon: ({ focused, size }) => 
+                                            <Icon
+                                                name='sign-out'
+                                                type='font-awesome'
+                                                size={25}
+                                                color={focused ? Colores.simbolos : Colores.blanco}
+                                            /> }}
                 />
             <Drawer.Screen
                 name='Login'
