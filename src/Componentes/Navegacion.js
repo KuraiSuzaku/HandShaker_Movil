@@ -1,16 +1,18 @@
 import React from 'react';
 import {
-    View,
+    StyleSheet,
+    View
 } from 'react-native';
-import { StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 //////
 import Colores from '../Estilos/Colores';
 //////
 export default Navegacion = (props) => {
+    const navigation = useNavigation();
     // METODOS
     const Navegar = (newView) => {
-        console.log('Navegar a ' + newView);
+        navigation.navigate(newView);
     }
     //////
     return(
