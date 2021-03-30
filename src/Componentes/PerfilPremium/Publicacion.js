@@ -26,6 +26,7 @@ export default Publicacion = ({ nombre,
                     <Card.Divider style={{ marginTop: 5 }}/>
                     <Card.Image
                         source={imagen}
+                        resizeMode='contain'
                         style={{borderRadius: 15}}
                         PlaceholderContent={<ActivityIndicator />}
                         />

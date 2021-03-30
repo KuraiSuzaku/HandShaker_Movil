@@ -30,6 +30,7 @@ export default EncabezadoPerfil = ({imagenFondo,
             <Image
                 source={imagenFondo}
                 style={Estilos.ImagenFondo}
+                resizeMode='cover'
                 PlaceholderContent={<ActivityIndicator />}
                 />
             <View style={Estilos.Fila}>
