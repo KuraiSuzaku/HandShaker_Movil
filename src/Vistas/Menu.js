@@ -1,21 +1,19 @@
 import React from 'react';
 import {
+    StyleSheet,
     Text,
     TouchableOpacity,
-    useColorScheme,
     View
 } from 'react-native';
+import { Avatar } from 'react-native-elements';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
-//////
 import * as Vistas from './Indice';
 import * as Componentes from '../Componentes/Indice';
 import Colores from '../Estilos/Colores';
-import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
-//////
 
 const Drawer = createDrawerNavigator();
 
-export default Menu = (props) => {
+export default props => {
     return(
         <Drawer.Navigator 
             drawerContent={props => customDrawerContent(props)}
@@ -55,6 +53,11 @@ export default Menu = (props) => {
                             unmountOnBlur: true }}
                 />
             <Drawer.Screen
+                name='Cerrar Sesión'
+                component={Componentes.LogOut}
+                options={{  unmountOnBlur: true }}
+                />
+            <Drawer.Screen
                 name='Login'
                 component={Componentes.Login}
                 options={{ swipeEnabled: false,
@@ -70,7 +73,8 @@ const customDrawerContent = (props) => {
             || val === 'Perfil'
             || val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Premium')
+            || val === 'Premium'
+            || val === 'Cerrar Sesión')
             return true;
         return false;
     };
@@ -83,21 +87,33 @@ const customDrawerContent = (props) => {
       },
     };
     return (
-        <View style={{flex: 1, marginTop: 40}}>
-            <Avatar
-                source={require('../../public/Profile/user.png')}
-                rounded
-                size='medium'
-                />
-            <Text style={{color:Colores.blanco}}>Usuario</Text>
-            <DrawerItemList {...filteredProps} />
-            <View>
-                <TouchableOpacity onPress={() => {}}>
-                    <View>
-                        <Text style={{color:Colores.blanco}}>Cerrar Sesión</Text>
-                    </View>
-                </TouchableOpacity>
+        <View style={Estilos.MenuContainer}>
+            <View style={Estilos.MenuHeader}>
+                <Avatar
+                    source={require('../../public/Profile/user.png')}
+                    rounded
+                    size='large'
+                    />
+                <Text style={Estilos.UserName}>Usuario</Text>
             </View>
+            <DrawerItemList {...filteredProps} />
         </View>
-    )
-}
+    );
+};
+
+const Estilos = StyleSheet.create({
+    MenuContainer: {
+        marginTop: 40
+    },
+    MenuHeader: {
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        paddingBottom: 20,
+        borderBottomColor: Colores.etiquetas,
+        borderBottomWidth: 2,
+    },
+    UserName: {
+        paddingTop: 5,
+        color: Colores.blanco
+    }
+});

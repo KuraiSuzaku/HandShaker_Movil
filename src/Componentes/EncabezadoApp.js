@@ -8,15 +8,15 @@ import {
     Icon,
     Input,
 } from 'react-native-elements';
-//////
 import Colores from '../Estilos/Colores';
-//////
+
 export default Encabezado = (props) => {
     const [search, setSearch] = useState(null);
     const navigation = useNavigation();
     // METODOS
     const Buscar = () => {
-        console.log('Buscar ' + search);
+        if(search)
+            console.log('Buscar ' + search);
     };
     const AbrirMenu = () => {
         navigation.toggleDrawer();
