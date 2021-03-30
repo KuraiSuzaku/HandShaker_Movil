@@ -1,13 +1,12 @@
-import { DrawerContentScrollView } from '@react-navigation/drawer';
 import React, { useState } from 'react';
 import {
     Alert,
     StyleSheet,
     TextInput,
+    TouchableOpacity,
     View
 } from 'react-native';
 import { Card, Text } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colores from '../../Estilos/Colores';
 
 export default props => {

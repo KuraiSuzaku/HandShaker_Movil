@@ -4,6 +4,7 @@ import Publicacion from './Publicacion';
 import NewPublication from './NewPublication';
 import ListaMultimedia from './ListaMultimedia';
 import Multimedia from './Multimedia';
+import NewMultimedia from './NewMultimedia';
 import ListaCostos from './ListaCostos';
 import Costo from './Costo';
 
@@ -14,6 +15,7 @@ export {
     NewPublication,
     ListaMultimedia,
     Multimedia,
+    NewMultimedia,
     ListaCostos,
     Costo,
 }
