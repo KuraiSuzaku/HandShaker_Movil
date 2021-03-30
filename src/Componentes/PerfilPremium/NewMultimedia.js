@@ -9,6 +9,7 @@ import {
     Card,
     Text
 } from 'react-native-elements';
+import Colores from '../../Estilos/Colores';
 
 export default props => {
     const [image, setImage] = useState(null);

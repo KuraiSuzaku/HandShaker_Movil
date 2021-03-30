@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 //////
-export default PerfilPremium = () => {
+export default () => {
     // PRUEBA
     const props = {
       currentUser: 'example@handshaker.com',
