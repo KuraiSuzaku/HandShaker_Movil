@@ -9,10 +9,16 @@ import * as Componentes from '../Indice';
 //////
 export default Contenedor = (props) => {
     const checkPremium = () => {
-        if(props.isPremium)
-            return(<Componentes.PerfilPremium.Navegacion {...props} />);
+        let owner;
+        if(props.profileUser === props.currentUser)
+            owner = true;
         else
+            owner = false;
+        if(props.isPremium) {
+            return(<Componentes.PerfilPremium.Navegacion {...props} owner={owner} />);
+        } else {
             return(null); // <<< Navegación del perfil trabajador normal
+        }
     }
     return(
         <View style={Estilos.Contenido}>
