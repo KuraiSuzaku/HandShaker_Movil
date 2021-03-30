@@ -15,11 +15,11 @@ import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 
 const Drawer = createDrawerNavigator();
 
-export default Menu = () => {
+export default Menu = (props) => {
     return(
         <Drawer.Navigator 
             drawerContent={props => customDrawerContent(props)}
-            initialRouteName='Inicio'
+            initialRouteName='Login'
             drawerContentOptions={{
                 activeTintColor: Colores.simbolos,
                 inactiveTintColor: Colores.blanco,
@@ -72,8 +72,7 @@ const customDrawerContent = (props) => {
             || val === 'Perfil'
             || val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Premium'
-            || val === 'Login')
+            || val === 'Premium')
             return true;
         return false;
     };
