@@ -7,6 +7,7 @@ import Multimedia from './Multimedia';
 import NewMultimedia from './NewMultimedia';
 import ListaCostos from './ListaCostos';
 import Costo from './Costo';
+import NewProduct from './NewProduct';
 
 export {
     Navegacion,
@@ -18,4 +19,5 @@ export {
     NewMultimedia,
     ListaCostos,
     Costo,
+    NewProduct
 }
