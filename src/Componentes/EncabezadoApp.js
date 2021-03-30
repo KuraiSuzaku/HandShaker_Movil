@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
     StyleSheet,
@@ -12,10 +12,11 @@ import {
 import Colores from '../Estilos/Colores';
 //////
 export default Encabezado = (props) => {
+    const [search, setSearch] = useState(null);
     const navigation = useNavigation();
     // METODOS
     const Buscar = () => {
-        console.log('Realizar Busqueda');
+        console.log('Buscar ' + search);
     };
     const AbrirMenu = () => {
         navigation.toggleDrawer();
@@ -43,6 +44,7 @@ export default Encabezado = (props) => {
                 containerStyle={Estilos.ContenedorBusqueda}
                 inputContainerStyle={Estilos.Busqueda}
                 inputStyle={Estilos.TextoBusqueda}
+                onChangeText={(search) => setSearch(search)}
                 />
             <Icon
                 name='search'
@@ -51,7 +53,7 @@ export default Encabezado = (props) => {
                 color={Colores.simbolos}
                 containerStyle={Estilos.ContenedorIcono}
                 iconStyle={Estilos.Icono}
-                onPress={() => Buscar()}
+                onPress={() => Buscar}
                 />
         </Header>
     );
