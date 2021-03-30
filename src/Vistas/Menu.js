@@ -63,6 +63,23 @@ export default Menu = () => {
 }
 
 const customDrawerContent = (props) => {
+    const check = (val) => {
+        if( val === 'Inicio'
+            || val === 'Perfil'
+            || val === 'Contrataciones'
+            || val === 'Nosotros'
+            || val === 'Premium')
+            return true;
+        return false;
+    };
+    const filteredProps = {
+      ...props,
+      state: {
+        ...props.state,
+        routeNames: props.state.routeNames.filter((routeName) => check(routeName)),
+        routes: props.state.routes.filter((route) => check(route.name)),
+      },
+    };
     return (
         <View style={{flex: 1, marginTop: 40}}>
             <Avatar
@@ -71,7 +88,7 @@ const customDrawerContent = (props) => {
                 size='medium'
                 />
             <Text style={{color:Colores.blanco}}>Usuario</Text>
-            <DrawerItemList {...props} />
+            <DrawerItemList {...filteredProps} />
             <View>
                 <TouchableOpacity onPress={() => {}}>
                     <View>
