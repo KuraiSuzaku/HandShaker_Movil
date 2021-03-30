@@ -40,27 +40,25 @@ export default Menu = (props) => {
             <Drawer.Screen
                 name='Contrataciones'
                 component={Vistas.Construccion}
-                options={{
-                    title: 'Ver Contrataciones'
-                }}
+                options={{ title: 'Ver Contrataciones' }}
                 />
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
-                options={{
-                    title: 'Sobre Nosotros'
-                }}
+                options={{  title: 'Sobre Nosotros',
+                            unmountOnBlur: true }}
                 />
             <Drawer.Screen
                 name='Premium'
                 component={Vistas.Construccion}
-                options={{
-                    title: 'Volverse Trabajador Premium'
-                }}
+                options={{  title: 'Volverse Trabajador Premium',
+                            unmountOnBlur: true }}
                 />
             <Drawer.Screen
                 name='Login'
                 component={Componentes.Login}
+                options={{ swipeEnabled: false,
+                    unmountOnBlur: true }}
                 />
         </Drawer.Navigator>
     );
