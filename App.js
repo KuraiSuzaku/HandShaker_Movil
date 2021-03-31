@@ -1,5 +1,8 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+
 import * as Vistas from './src/Vistas/Indice';
 import { NavigationContainer } from '@react-navigation/native';
 import {createAppContainer } from 'react-navigation';
@@ -19,9 +22,10 @@ const AppNavigator = createStackNavigator({
 const AppContainer = createAppContainer(AppNavigator);  
 
 export default App = () => {
+  const [user, setUser] = useState(null);
   return (
-  <NavigationContainer>
-    <AppContainer />
-  </NavigationContainer>
+    <NavigationContainer>
+      <Vistas.Menu />
+    </NavigationContainer>
   );
 };
