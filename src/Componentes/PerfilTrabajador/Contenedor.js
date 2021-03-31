@@ -12,7 +12,7 @@ export default Contenedor = (props) => {
         if(props.isPremium)
             return(<Componentes.PerfilPremium.Navegacion {...props} />);
         else
-            return(null); // <<< Navegación del perfil trabajador normal
+            return(<Componentes.PerfilTrabajador.Navegacion {...props} />); // <<< Navegación del perfil trabajador normal
     }
     return(
         <View style={Estilos.Contenido}>
@@ -25,6 +25,7 @@ export default Contenedor = (props) => {
         </View>
     );
 };
+
 // ESTILOS
 const Estilos = StyleSheet.create({
     Contenido: {
