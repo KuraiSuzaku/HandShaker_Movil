@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native';
 import {
     StyleSheet,
     Text,
@@ -23,6 +22,10 @@ export default () => {
       setVisible(!visible);
     };
 
+    const GetImage = () => {
+        console.log('Get Image');
+    };
+
     return(
         <>
         <Button
@@ -37,25 +40,28 @@ export default () => {
                 Nuevo Producto o Servicio
             </Text>
             <View style={{flexDirection: 'row'}}>
-                <View>
+                <View style={{}}>
                     <TextInput
                         placeholder='Nombre del producto'
-                        style={Estilos.Text}
+                        style={[Estilos.Text, Estilos.Input]}
                         />
                     <Button
                         title='Imagen'
-                        style={Estilos.Text}
+                        buttonStyle={Estilos.BotonImagen}
+                        titleStyle={Estilos.Text}
+                        onPress={GetImage}
                         />
                 </View>
-                <View>
+                <View style={{}}>
                     <TextInput
                         placeholder='$ Precio'
                         keyboardType='number-pad'
+                        style={[Estilos.Text, Estilos.Input]}
                         />
                     <TextInput
                         placeholder='Agregue una descripción de su producto o servicio'
                         multiline={true}
-                        style={Estilos.Text}
+                        style={[Estilos.Text, Estilos.Input]}
                         />
                 </View>
             </View>
@@ -73,11 +79,23 @@ const Estilos = StyleSheet.create({
         paddingHorizontal: 25,
         borderRadius: 25,
     },
+    BotonImagen: {
+        backgroundColor: Colors.fondoBotonOscuro,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 25
+    },
     EtiquetaBoton: {
         fontSize: 12,
         color: Colors.letrasSobreNegro
     },
     Text: {
         fontSize: 12
+    },
+    Input: {
+        borderWidth: 1,
+        margin: 5,
+        borderRadius: 5,
+        maxWidth: 240
     }
 });
