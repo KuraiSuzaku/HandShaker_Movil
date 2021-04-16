@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Styles } from './Indice';
 import {
     ScrollView,
@@ -7,121 +7,145 @@ import {
     TextInput,
     TouchableOpacity,
 } from 'react-native';
+import { add } from 'react-native-reanimated';
 
-class EditClientPrivProfile extends Component {
+export default props => {
+    const [currentPass, setCurrentPass] = useState(null);
+    const [newPass, setNewPass] = useState(null);
+    const [confirmPass, setConfirmPass] = useState(null);
+    const [address, setAddress] = useState(props.address);
+    const [number, setNumber] = useState(props.number);
+    const [colony, setColony] = useState(props.colony);
+    const [street1, setStreet1] = useState(props.street1);
+    const [street2, setStreet2] = useState(props.street2);
 
-    _savePassword() {
-        alert("Contraseña guardada");
+    const savePassword = () => {
+        if(newPass != confirmPass)
+            alert("Las contraseñas no coinciden.\nIntentelo de nuevo.");
+        else if(newPass == null)
+            alert("La nueva contraseña no cumple con los requerimientos de seguridad.");
+        else
+            alert("Contraseña guardada.");
     }
 
-    _saveAddress() {
+    const saveAddress = () => {
         alert("Dirección guardada");
     }
 
-    render() {
-        return(
-            <>
-                <View style={Styles.Content}>
-                    <ScrollView>
-                        <View style={{flex:1}}>
-                            <Text style={Styles.Label}>
-                                Correo electrónico: 
+    return(
+        <>
+            <View style={Styles.Content}>
+                <ScrollView>
+                    <View style={{flex:1}}>
+                        <Text style={Styles.Label}>
+                            Correo electrónico: 
+                        </Text>
+                    </View>
+                    <View style={Styles.SectionContainer}>
+                        <Text style={[Styles.Label, Styles.SectionLabel]}>
+                            Cambiar Contraseña
+                        </Text>
+                        <Text style={Styles.Label}>
+                            Contraseña Actual
+                        </Text>
+                        <TextInput 
+                            style={Styles.Input}
+                            placeholder='xxxxxxxxxxxxxxx'
+                            onChangeText={setCurrentPass}
+                        />
+                        <Text style={Styles.Label}>
+                            Contraseña Nueva
+                        </Text>
+                        <TextInput 
+                            style={Styles.Input}
+                            placeholder='xxxxxxxxxxxxxxx'
+                            onChangeText={setNewPass}
+                        />
+                        <Text style={Styles.Label}>
+                            Confirmar Contraseña Nueva
+                        </Text>
+                        <TextInput 
+                            style={Styles.Input}
+                            placeholder='xxxxxxxxxxxxxxx'
+                            onChangeText={setConfirmPass}
+                        />
+                        <TouchableOpacity onPress={savePassword}>
+                        <View style={Styles.Button}>
+                            <Text style={Styles.ButtonLabel}>
+                                Guardar
                             </Text>
                         </View>
-                        <View style={Styles.SectionContainer}>
-                            <Text style={[Styles.Label, Styles.SectionLabel]}>
-                                Cambiar Contraseña
-                            </Text>
-                            <Text style={Styles.Label}>
-                                Contraseña Actual
-                            </Text>
-                            <TextInput 
-                                style={Styles.Input}
-                                placeholder='xxxxxxxxxxxxxxx'
-                            />
-                            <Text style={Styles.Label}>
-                                Contraseña Nueva
-                            </Text>
-                            <TextInput 
-                                style={Styles.Input}
-                                placeholder='xxxxxxxxxxxxxxx'
-                            />
-                            <Text style={Styles.Label}>
-                                Confirmar Contraseña Nueva
-                            </Text>
-                            <TextInput 
-                                style={Styles.Input}
-                                placeholder='xxxxxxxxxxxxxxx'
-                            />
-                            <TouchableOpacity onPress={this._savePassword}>
-                            <View style={Styles.Button}>
-                                <Text style={Styles.ButtonLabel}>
-                                    Guardar
-                                </Text>
-                            </View>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={Styles.SectionContainer}>
-                            <Text style={[Styles.Label, Styles.SectionLabel]}>
-                                Dirección Personal
-                            </Text>
-                            <Text style={[Styles.Label, Styles.InfoLabel]}>
-                                Esta dirección puede ser la de su casa o lugar de trabajo
-                            </Text>
-                            <Text style={Styles.Label}>
-                                Calle
-                            </Text>
-                            <TextInput 
-                                style={[Styles.Input, {maxWidth: 500}]}
-                                placeholder='Calle principal'
-                            />
-                            <View style={{flexDirection: 'row'}}>
-                                <View style={{flex: 1}}>
-                                    <Text style={Styles.Label}>
-                                        Número
-                                    </Text>
-                                    <TextInput
-                                        style={Styles.Input}
-                                    />
-                                </View>
-                                <View style={{flex: 3}}>
-                                    <Text style={Styles.Label}>
-                                        Colonia
-                                    </Text>
-                                    <TextInput
-                                        style={Styles.Input}
-                                    />
-                                </View>
-                            </View>
-                            <View style={{flexDirection: 'row', marginTop: 10}}>
-                                <Text style={[Styles.Label, {flex: 2, textAlign: 'left'}]}>
-                                    Entre
+                        </TouchableOpacity>
+                    </View>
+                    <View style={Styles.SectionContainer}>
+                        <Text style={[Styles.Label, Styles.SectionLabel]}>
+                            Dirección Personal
+                        </Text>
+                        <Text style={[Styles.Label, Styles.InfoLabel]}>
+                            Esta dirección puede ser la de su casa o lugar de trabajo
+                        </Text>
+                        <Text style={Styles.Label}>
+                            Calle
+                        </Text>
+                        <TextInput 
+                            style={[Styles.Input, {maxWidth: 500}]}
+                            placeholder='Calle principal'
+                            onChangeText={setAddress}
+                            defaultValue={address}
+                        />
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={{flex: 1}}>
+                                <Text style={Styles.Label}>
+                                    Número
                                 </Text>
                                 <TextInput
-                                    style={[Styles.Input, {flex: 7}]}
-                                    placeholder='Calle 1'
+                                    keyboardType='number-pad'
+                                    style={Styles.Input}
+                                    onChangeText={setNumber}
+                                    defaultValue={number}
                                 />
-                                <Text style={[Styles.Label, {flex: 1, textAlign: 'left'}]}>
-                                    Y
+                            </View>
+                            <View style={{flex: 3}}>
+                                <Text style={Styles.Label}>
+                                    Colonia
                                 </Text>
                                 <TextInput
-                                    style={[Styles.Input, {flex: 7}]}
-                                    placeholder='Calle 2'
+                                    style={Styles.Input}
+                                    onChangeText={setColony}
+                                    defaultValue={colony}
                                 />
                             </View>
-                            <TouchableOpacity onPress={this._saveAddress}>
-                            <View style={Styles.Button}>
-                                <Text style={Styles.ButtonLabel}>
-                                    Guardar
-                                </Text>
-                            </View>
-                            </TouchableOpacity>
                         </View>
-                    </ScrollView>
-                </View>
-            </>
-        );
-    }
-}
-
-export default EditClientPrivProfile;
+                        <View style={{flexDirection: 'row', marginTop: 10}}>
+                            <Text style={[Styles.Label, {flex: 2, textAlign: 'left'}]}>
+                                Entre
+                            </Text>
+                            <TextInput
+                                style={[Styles.Input, {flex: 7}]}
+                                placeholder='Calle 1'
+                                onChangeText={setStreet1}
+                                defaultValue={street1}
+                            />
+                            <Text style={[Styles.Label, {flex: 1, textAlign: 'left'}]}>
+                                Y
+                            </Text>
+                            <TextInput
+                                style={[Styles.Input, {flex: 7}]}
+                                placeholder='Calle 2'
+                                onChangeText={setStreet2}
+                                defaultValue={street2}
+                            />
+                        </View>
+                        <TouchableOpacity onPress={saveAddress}>
+                        <View style={Styles.Button}>
+                            <Text style={Styles.ButtonLabel}>
+                                Guardar
+                            </Text>
+                        </View>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </View>
+        </>
+    );
+};

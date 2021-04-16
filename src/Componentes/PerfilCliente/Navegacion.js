@@ -22,18 +22,24 @@ export default props => {
         >
             <TabBar.Screen
                 name='publico'
-                component={Components.PerfilCliente.ClientEditPublic}
                 options={{
                     title: 'Perfil Público'
                 }}
-            />
+            >
+                {() => <Components.PerfilCliente.ClientEditPublic
+                    {...props}
+                />}
+            </TabBar.Screen>
             <TabBar.Screen
                 name='privado'
-                component={Components.PerfilCliente.ClientEditPrivate}
                 options={{
                     title: 'Información Privada'
                 }}
-            />
+            >
+                {() => <Components.PerfilCliente.ClientEditPrivate
+                    {...props}
+                />}
+            </TabBar.Screen>
         </TabBar.Navigator>
     );
 };
