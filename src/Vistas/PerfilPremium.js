@@ -110,4 +110,4 @@ const Estilos = StyleSheet.create({
       flex: 1,
       backgroundColor: Colores.fondo,
   },
-})
+});
