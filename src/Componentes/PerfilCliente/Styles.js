@@ -2,18 +2,15 @@ import { StyleSheet } from 'react-native';
 import Colors from '../../Estilos/Colores';
 
 const Styles = StyleSheet.create({
-    MainContainer: {
-        flex: 1,
-        backgroundColor: Colors.background,
-    },
     Content: {
         flex: 8,
         paddingHorizontal: 10,
         paddingTop: 10,
+        backgroundColor: Colors.fondo,
     },
     SectionContainer: {
         borderTopWidth: 1,
-        borderColor: Colors.separator,
+        borderColor: Colors.separador,
     },
     ProfileImage: {
         flex: 1,
@@ -33,7 +30,7 @@ const Styles = StyleSheet.create({
     },
     SectionLabel: {
         alignSelf:'center',
-        color: Colors.black,
+        color: Colors.negro,
     },
     InfoLabel: {
         fontSize: 10,
@@ -41,8 +38,8 @@ const Styles = StyleSheet.create({
         fontWeight: 'normal',
     },
     Input: {
-        color: Colors.grayLetters,
-        backgroundColor: Colors.white,
+        color: Colors.etiquetas,
+        backgroundColor: Colors.blanco,
         marginHorizontal: 5,
         paddingHorizontal: 20/2,
         paddingVertical: 2,
@@ -52,7 +49,7 @@ const Styles = StyleSheet.create({
         maxWidth: 300,
     },
     Button: {
-        backgroundColor: Colors.buttonBackground,
+        backgroundColor: Colors.fondoBotonOscuro,
         paddingVertical: 5,
         paddingHorizontal: 20,
         borderRadius: 20,
@@ -61,7 +58,7 @@ const Styles = StyleSheet.create({
         alignContent: 'center',
     },
     ButtonLabel: {
-        color: Colors.buttonLabel,
+        color: Colors.letrasSobreNegro,
         fontWeight: 'bold',
         fontSize: 15,
     },

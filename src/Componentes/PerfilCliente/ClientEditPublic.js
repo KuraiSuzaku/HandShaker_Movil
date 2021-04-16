@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Styles } from './Indice';
 import {
-    View,
     ScrollView,
     Text,
     TextInput,
     TouchableOpacity,
+    View
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 
@@ -24,6 +24,7 @@ class EditClientPubProfile extends Component {
                         <Avatar
                             rounded
                             source={require('../../../public/Profile/user.png')}
+                            size='large'
                         />
                         <View style={{flex:3, paddingLeft: 10, alignContent: 'center'}}>
                             <Text style={Styles.Label}>
