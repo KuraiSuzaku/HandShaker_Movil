@@ -11,6 +11,7 @@ import {
     Rating,
     Text,
 } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 //////
 import Colores from '../../Estilos/Colores';
 //////
@@ -20,11 +21,16 @@ export default EncabezadoPerfil = ({imagenFondo,
                                     nombre,
                                     titulo,
                                     descripcion}) => {
-    // METODOS
+
+
+                                        // METODOS
     const Contratar = () => {
+        this.props.navigation.navigate('Contratacion');
         console.log('Botón Contratar');
     };
     //////
+    const navigation = useNavigation();
+
     return(
         <View>
             <Image
