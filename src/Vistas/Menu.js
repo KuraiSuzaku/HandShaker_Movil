@@ -31,7 +31,7 @@ export default props => {
             >
             <Drawer.Screen 
                 name='Perfil' 
-                component={Vistas.PerfilCliente}
+                component={Vistas.PerfilPremium}
                 options={{
                     drawerIcon: ({ focused, size }) => 
                                         <Icon
