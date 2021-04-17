@@ -7,13 +7,24 @@ import {
     View
 } from 'react-native';
 import { Card, Text } from 'react-native-elements';
+import { ImagePicker, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Colores from '../../Estilos/Colores';
+
+//const ImagePickerManager = ImagePicker();
 
 export default props => {
     const [publication, setPublication] = useState(null);
     const [image, setImage] = useState(null);
     const AddImage = () => {
-        console.log('Get image');
+        const options = {
+            mediaType: 'photo',
+            quality: 1,
+            cameraType: 'back',
+            includeBase64: true
+        };
+        launchImageLibrary(options, res => {
+            console.log('Get image' + res.uri);
+        });
     };
     const Publish = () => {
         if(publication)
