@@ -2,9 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import * as Componentes from '../Indice';
 
-export default ListaCostos = ({costos}) => {
+export default ListaCostos = ({ owner,
+                                costos}) => {
     return(
         <View>
+            { owner ? <Componentes.PerfilPremium.NewProduct /> : <></> }
             {
                 costos.map((c, i) => (
                     <Componentes.PerfilPremium.Costo
