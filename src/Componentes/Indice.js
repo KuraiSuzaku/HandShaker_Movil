@@ -1,11 +1,17 @@
 import EncabezadoApp from './EncabezadoApp';
 import Navegacion from './Navegacion';
-import EncabezadoPerfil from './EncabezadoPerfil';
+import Login from './Login/Login';
+import LogOut from './Login/LogOut';
+import * as PerfilCliente from './PerfilCliente/Indice';
 import * as PerfilPremium from './PerfilPremium/Indice';
+import * as PerfilTrabajador from './PerfilTrabajador/Indice';
 
 export {
     EncabezadoApp,
     Navegacion,
-    EncabezadoPerfil,
+    Login,
+    LogOut,
+    PerfilCliente,
     PerfilPremium,
-}
+    PerfilTrabajador,
+};

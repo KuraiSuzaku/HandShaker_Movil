@@ -1,21 +1,23 @@
-import Contenedor from './Contenedor';
+import Navegacion from './Navegacion';
 import ListaPublicacion from './ListaPublicacion';
 import Publicacion from './Publicacion';
+import NewPublication from './NewPublication';
+import ListaMultimedia from './ListaMultimedia';
 import Multimedia from './Multimedia';
-import Contacto from './Contacto';
+import NewMultimedia from './NewMultimedia';
 import ListaCostos from './ListaCostos';
 import Costo from './Costo';
-import ListaResenas from './ListaResenas';
-import Resena from './Resena';
+import NewProduct from './NewProduct';
 
 export {
-    Contenedor,
+    Navegacion,
     ListaPublicacion,
     Publicacion,
+    NewPublication,
+    ListaMultimedia,
     Multimedia,
-    Contacto,
+    NewMultimedia,
     ListaCostos,
     Costo,
-    ListaResenas,
-    Resena,
+    NewProduct
 }
