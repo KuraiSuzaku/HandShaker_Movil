@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
     ActivityIndicator,
     StyleSheet,
@@ -15,22 +15,12 @@ import { useNavigation } from '@react-navigation/native';
 //////
 import Colores from '../../Estilos/Colores';
 //////
-export default EncabezadoPerfil = ({imagenFondo,
-                                    avatar,
-                                    valoracion,
-                                    nombre,
-                                    titulo,
-                                    descripcion}) => {
-
-
-                                        // METODOS
-    const Contratar = () => {
-        this.props.navigation.navigate('Contratacion');
-        console.log('Botón Contratar');
-    };
-    //////
+export default EncabezadoPerfil = ({imagenFondo, avatar,
+                                    valoracion, nombre,
+                                    titulo, descripcion}) => {
+    
     const navigation = useNavigation();
-
+    
     return(
         <View>
             <Image
@@ -62,7 +52,7 @@ export default EncabezadoPerfil = ({imagenFondo,
                     containerStyle={Estilos.ContenedorComponente}
                     buttonStyle={Estilos.BotonContratar}
                     titleStyle={Estilos.EtiquetaBoton}
-                    onPress={Contratar}
+                    onPress={() => navigation.navigate('Contratar')}
                     />
             </View>
             <View style={Estilos.Datos}>
