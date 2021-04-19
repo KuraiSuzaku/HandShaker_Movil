@@ -1,22 +1,19 @@
 import React from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    ScrollView,
-
-} from 'react-native';
-import {
-    Card,
-    Input,
-    Button,
-} from 'react-native-elements';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {Card, Input, Button} from 'react-native-elements';
 import Colores from '../Estilos/Colores';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import DatePicker from 'react-native-datepicker'
 
 export default Contratacion = () => {
+
     
+    const ObtenerNombre = () =>{
+        console.log("Obteniendo nombre, esta función debería de hacerlo conforme al padre, ya sea por id y buscando en base de datos o por el nombre en si");
+        return "Nombre Trabajador Placeholder";
+    }
+
     const Contratar = () => {
         //Comprobar que los datos están completos.
         //Enviar mensaje de alerta de si quiere contratar de verdad
@@ -36,22 +33,52 @@ export default Contratacion = () => {
         console.log('Regresando al perfil');
     };
 
+    const fechaactual = new Date().getDate();
+    const aniolimite = new Date().getFullYear() + 1;
+    const nombre_trabajador = ObtenerNombre();
+
     return(
         <SafeAreaProvider>
             <ScrollView>
             <Card containerStyle={Estilos.Tarjeta}>
+                <Text style={Estilos.Titulo, {padding: 10, fontSize: 18, textAlign: "center", marginBottom: 10}}>Solicitar contratación de {nombre_trabajador}</Text>
                 <Input
                     name='asunto'
                     placeholder='Asunto'
                     style={Estilos.Input}
                     inputContainerStyle={{borderBottomWidth:0}}
                 />
-                <Input
-                    name='fecha'
-                    placeholder='¿Cuando lo necesita? (DD/MM/AA)'
-                    style={Estilos.Input}
-                    inputContainerStyle={{borderBottomWidth:0}}
-                />
+                <View style={{flexDirection:'row', padding: 10, marginBottom: 10, justifyContent:'space-between'}}>
+                    <Text style={Estilos.Texto}>
+                        Fecha de{"\n"}realización
+                    </Text>
+                    <DatePicker
+                        style={{width: 200}}
+                        date={fechaactual}
+                        mode="date"
+                        placeholder="Elija Fecha"
+                        format="DD-MM-YYYY"
+                        minDate={fechaactual}
+                        maxDate={"31-12-"+aniolimite}
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                              position: 'absolute',
+                              left: 0,
+                              top: 4,
+                              marginLeft: 0
+                            },
+                            dateInput: {
+                                borderRadius: 10,
+                                backgroundColor: '#FFFFFF',
+                                textAlignVertical: 'top',
+                                borderColor: '#FFFFFF',
+                                borderBottomWidth: 0,
+                            }
+                          }}
+                    />
+                </View>
                 <Input
                     name='indicaciones'
                     placeholder={'Indicaciones o información del trabajo a realizar \n \n \n \n \n'}
@@ -149,7 +176,7 @@ const Estilos = StyleSheet.create({
     Texto: {
         color: Colores.etiquetas,
         fontSize: 16,   
-        textAlign: 'center',
+        textAlign: 'left',
     },
     TextoSecundario: {
         color: Colores.etiquetas,

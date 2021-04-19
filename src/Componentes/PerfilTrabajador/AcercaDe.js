@@ -1,21 +1,27 @@
 import React from 'react';
-import {
-    StyleSheet,
-    View,
-} from 'react-native';
-import {
-    Card,
-    Text,
-    Image,
-} from 'react-native-elements';
+import {StyleSheet, View} from 'react-native';
+import {Card, Text, Image, Button} from 'react-native-elements';
+import Colores from '../../Estilos/Colores';
 
 export default AcercaDe = ({acercade}) => {
     
+    const CambiarDatos = () =>{
+        console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
+    }
+
     return(
         <View>
+            <View  style={{flexDirection:'row', padding: 10, justifyContent:'space-between'}}>
             <Text style={Estilos.Titulo}>
-                Acerca De <Text>{acercade.nombre}</Text>
+                Acerca De {acercade.nombre}
             </Text>
+            <Button
+                    title='Editar'
+                    buttonStyle={Estilos.Boton}
+                    titleStyle={Estilos.EtiquetaBoton}
+                    onPress={CambiarDatos}
+                />
+            </View>
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text>{acercade.informacion}</Text>
                     <Image
@@ -45,5 +51,20 @@ const Estilos = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: 300,
+    },
+    Boton: {
+        backgroundColor: Colores.fondoBotonOscuro,
+        borderRadius: 20,
+        height: 25,
+        width: 75,
+        padding: 0,
+        alignContent: "center",
+    },
+    EtiquetaBoton: {
+        marginHorizontal: 15,
+        marginVertical: 3,
+        padding: 0,
+        color: Colores.letrasSobreNegro,
+        fontSize: 12,
     },
 });
