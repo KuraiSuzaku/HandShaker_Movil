@@ -91,6 +91,12 @@ export default props => {
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
                 />
+            <Drawer.Screen
+                name='Registro'
+                component={Componentes.Registro}
+                options={{ swipeEnabled: false,
+                    unmountOnBlur: true }}
+                />
         </Drawer.Navigator>
     );
 }

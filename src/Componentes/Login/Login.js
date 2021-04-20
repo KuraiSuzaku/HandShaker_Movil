@@ -116,7 +116,7 @@ export default class Login extends Component {
 
                     <View style={ styles.btnsView }>
                         <FormButton txt="Registrarse"
-                            handleLogin={ () => this.props.navigation.navigate('Perfil') }
+                            handleLogin={ () => this.props.navigation.navigate('Registro') }
                         />
                         <FormButton 
                             txt="Iniciar sesión" 
