@@ -32,7 +32,7 @@ export default props => {
             />
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                <TouchableOpacity onPress={ AddImage}>
+                <TouchableOpacity onPress={ AddImage }>
                     <View style={Estilos.Boton}>
                         <Text style={Estilos.EtiquetaBoton}>
                             Agregar imagen

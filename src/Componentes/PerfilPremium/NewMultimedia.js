@@ -20,7 +20,7 @@ export default props => {
     
     const Publish = () => {
         if(image)
-            console.log('Publicate ' + image);
+            console.log('Publicate ');
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };

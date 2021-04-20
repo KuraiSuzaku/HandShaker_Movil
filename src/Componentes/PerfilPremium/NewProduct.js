@@ -44,6 +44,7 @@ export default () => {
                     <TextInput
                         placeholder='Nombre del producto'
                         style={[Estilos.Text, Estilos.Input]}
+                        onChangeText={setName}
                         />
                     <Button
                         title='Imagen'
@@ -57,11 +58,13 @@ export default () => {
                         placeholder='$ Precio'
                         keyboardType='number-pad'
                         style={[Estilos.Text, Estilos.Input]}
+                        onChangeText={setPrice}
                         />
                     <TextInput
                         placeholder='Agregue una descripción de su producto o servicio'
                         multiline={true}
                         style={[Estilos.Text, Estilos.Input]}
+                        onChangeText={setDescription}
                         />
                 </View>
             </View>
