@@ -8,12 +8,6 @@ import DatePicker from 'react-native-datepicker'
 
 export default Contratacion = () => {
 
-    
-    const ObtenerNombre = () =>{
-        console.log("Obteniendo nombre, esta función debería de hacerlo conforme al padre, ya sea por id y buscando en base de datos o por el nombre en si");
-        return "Nombre Trabajador Placeholder";
-    }
-
     const Contratar = () => {
         //Comprobar que los datos están completos.
         //Enviar mensaje de alerta de si quiere contratar de verdad
@@ -35,8 +29,8 @@ export default Contratacion = () => {
 
     const fechaactual = new Date().getDate();
     const aniolimite = new Date().getFullYear() + 1;
-    const nombre_trabajador = ObtenerNombre();
-
+    const nombre_trabajador = "Nombre Trabajador PlaceHolder";
+    
     return(
         <SafeAreaProvider>
             <ScrollView>

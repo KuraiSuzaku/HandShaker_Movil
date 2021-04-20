@@ -69,7 +69,7 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Premium'
-                component={Vistas.Construccion}
+                component={Vistas.PagoAPremium}
                 options={{  title: 'Volverse Trabajador Premium',
                             unmountOnBlur: true }}
                 />

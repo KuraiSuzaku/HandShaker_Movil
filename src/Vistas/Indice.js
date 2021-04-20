@@ -3,6 +3,7 @@ import PerfilPremium from './PerfilPremium';
 import Construccion from './Construccion';
 import PerfilTrabajador from './PerfilTrabajador';
 import Contratacion from './Contratacion';
+import PagoAPremium from './PagoAPremium';
 
 export {
     Menu,
@@ -10,4 +11,5 @@ export {
     Construccion,
     PerfilTrabajador,
     Contratacion,
+    PagoAPremium,
 }
