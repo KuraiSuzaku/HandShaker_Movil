@@ -5,6 +5,7 @@ import LogOut from './Login/LogOut';
 import * as PerfilCliente from './PerfilCliente/Indice';
 import * as PerfilPremium from './PerfilPremium/Indice';
 import * as PerfilTrabajador from './PerfilTrabajador/Indice';
+import * as Promociones from './Promociones/Indice';
 
 export {
     EncabezadoApp,
@@ -14,4 +15,5 @@ export {
     PerfilCliente,
     PerfilPremium,
     PerfilTrabajador,
+    Promociones,
 };

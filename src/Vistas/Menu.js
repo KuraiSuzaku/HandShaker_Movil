@@ -91,6 +91,13 @@ export default props => {
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
                 />
+            <Drawer.Screen
+                name='Promociones'
+                component={Vistas.Promociones}
+                options={{
+                    unmountOnBlur: true
+                }}
+            />
         </Drawer.Navigator>
     );
 }
