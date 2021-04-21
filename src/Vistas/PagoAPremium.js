@@ -1,18 +1,46 @@
-import React from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
-import {Input, Button, Image, Divider} from 'react-native-elements';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
+import {Input, Button, Image} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import DatePicker from 'react-native-datepicker'
+import MonthPicker from 'react-native-month-year-picker';
+import moment from "moment"; 
 /////////
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 /////////
 
-export default Construccion = () => {
+export default PagoAPremium = () => {
 
     let img_tarjeta = require('../../public/Images/otratarjeta.png');
     const img_handshaker = require('../../public/Icons/handshaker.png');
+    const [fecha_vencimiento, setFechaVencimiento] = useState(new Date());
+    const [state, setState] = useState('no');
+    
+    const mostrar_picker = () => {
+        setState('si');      
+    };
+
+    const ocultar_picker = () =>{
+        setState('no');
+    };
+
+    onValueChange = (event, fecha) => {
+        console.log(fecha);
+        const nuevafecha = fecha || fecha_vencimiento;
+        ocultar_picker();
+        setFechaVencimiento(nuevafecha);
+    };
+
+    const HacerPremium = () =>{
+        console.log('YA ERES PREMIUM WUUUUUU');
+    };
+
+    const navigation = useNavigation();
+    const Cancelar = () =>{
+        navigation.goBack();
+        console.log('Regresando al perfil');
+    };
 
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
@@ -33,6 +61,7 @@ export default Construccion = () => {
                         label='Número de Tarjeta'
                         labelStyle={Estilos.TextoSecundario}
                         placeholder='xxxx-xxxx-xxxx-xxxx'
+                        keyboardType = 'numeric'
                         style={Estilos.Input}
                         inputContainerStyle={{borderBottomWidth:0}}
                     />  
@@ -62,35 +91,60 @@ export default Construccion = () => {
                     inputContainerStyle={{borderBottomWidth:0}}
                 />
             </View>
-            <View style={{flexDirection: 'row', flex: 6, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15}}>
-                <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-                    <Input
-                        name='mes_vencimiento'
-                        label='Mes'
-                        labelStyle={Estilos.TextoSecundario}
-                        placeholder='01'
-                        style={Estilos.Input}
-                        inputContainerStyle={{borderBottomWidth:0}}
+            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15, marginBottom: 10}}>
+                <View style={{flex: 1, width: "50%", marginLeft: 15}}>
+                    <Text style={Estilos.TextoSecundario}>Fecha Vencimiento</Text>
+                    <Button
+                        title={moment(fecha_vencimiento).format("MM/YYYY")}
+                        buttonStyle={Estilos.BotonFechaVencimiento}
+                        padding= '100'
+                        titleStyle={Estilos.TextoSecundario}
+                        onPress={mostrar_picker}
                     />
-                    <Input
-                        name='año_vencimiento'
-                        label='Año'
-                        labelStyle={Estilos.TextoSecundario}
-                        placeholder=''
-                        style={Estilos.Input}
-                        inputContainerStyle={{borderBottomWidth:0}}
-                    />
+                    {state === 'si' && 
+                    <MonthPicker
+                        onChange = {onValueChange}
+                        value={fecha_vencimiento}
+                        minimumDate={new Date()}
+                        maximumDate={new Date(2050, 12)}
+                        mode='shortNumber'
+                        okButton='Confirmar'
+                        cancelButton='Cancelar'
+                        onPress={ocultar_picker}
+                    />}
                 </View>
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, width: "50%"}}>
                     <Input
                         name='codigo_seguridad'
                         label='Código de seguridad'
                         labelStyle={Estilos.TextoSecundario}
-                        placeholder=''
+                        keyboardType = 'numeric'
+                        placeholder='xxx'
                         style={Estilos.Input}
                         inputContainerStyle={{borderBottomWidth:0}}
                     />
+                    
                 </View>
+            </View>
+            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15, marginBottom: 10, marginTop:25}}>
+                <Text style={Estilos.Texto}>Usted está de acuerdo con el montón de cláusulas que vamos a poner aquí</Text>
+            </View>
+            <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1, marginBottom: 10,}}>
+                <Button
+                    title={"¡Hazme Premium!"}
+                    buttonStyle={Estilos.BotonHazmePremium}
+                    padding= '100'
+                    titleStyle={Estilos.EtiquetaBoton}
+                    onPress={HacerPremium}
+                />              
+            </View>
+            <View style={{flexDirection: 'row', justifyContent: 'center', flex: 3, marginBottom: 10, marginTop:25}}>
+                <Button
+                    title={"Cancelar"}
+                    buttonStyle={Estilos.BotonCancelar}
+                    titleStyle={Estilos.EtiquetaBoton}
+                    onPress={Cancelar}
+                />       
             </View>
             <Componentes.Navegacion />
         </SafeAreaProvider>
@@ -116,6 +170,8 @@ const Estilos = StyleSheet.create({
         color: Colores.etiquetas,
         fontSize: 16,   
         textAlign: 'left',
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
     TextoSecundario: {
         color: Colores.etiquetas,
@@ -143,27 +199,24 @@ const Estilos = StyleSheet.create({
         width: 80,
         height: 50,
     },
-    BotonAutocompletar: {
-        left: '145%' ,
-        backgroundColor: Colores.fondoBotonOscuro,
-        borderRadius: 20,
-        height: 55,
-        width: 200,
+    BotonFechaVencimiento: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
         padding: 0,
+        height: 50,
+        width: 160,
     },
-    BotonContratar: {
+    BotonHazmePremium: {
         backgroundColor: Colores.fondoBotonOscuro,
         borderRadius: 20,
         left: '3%',
         height: 60,
-        width: 150,
+        width: 200,
         padding: 0,
     },
     BotonCancelar: {
         backgroundColor: Colores.fondoBotonOscuro,
         borderRadius: 20,
-        top: '3%',
-        left: '50%',
         height: 35,
         width: 120,
         padding: 0,

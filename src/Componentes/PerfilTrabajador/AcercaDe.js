@@ -11,16 +11,20 @@ export default AcercaDe = ({acercade}) => {
 
     return(
         <View>
-            <View  style={{flexDirection:'row', padding: 10, justifyContent:'space-between'}}>
+            <View  style={{flexDirection:'row', justifyContent:'space-between', paddingTop: 10, paddingRight: 10}}>
+            <View style={{flex:4}}>
             <Text style={Estilos.Titulo}>
                 Acerca De {acercade.nombre}
             </Text>
+            </View>
+            <View style={{flex:1, paddingTop: 10}}>
             <Button
                     title='Editar'
                     buttonStyle={Estilos.Boton}
                     titleStyle={Estilos.EtiquetaBoton}
                     onPress={CambiarDatos}
-                />
+            />
+            </View>
             </View>
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text>{acercade.informacion}</Text>
@@ -37,7 +41,7 @@ export default AcercaDe = ({acercade}) => {
 // ESTILOS
 const Estilos = StyleSheet.create({
     Titulo: {    
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: 'bold',
         marginTop: 12,
         marginLeft: 26,
