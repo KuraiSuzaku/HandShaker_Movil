@@ -87,6 +87,37 @@ export default class Login extends Component {
 
 }
 
+
+handleGetAllWorkers( event ){
+    console.log("All Workers");
+
+    let allWorkers= new Worker()//Login
+    allWorkers.GetAllWorkers().then(res=>{       
+       //Look at Worker Class, it returns an array of all workers
+    })  
+}
+
+
+handleGetOnlyWorkers( event ){
+    console.log("Worker");
+
+    let OnlyWorkers= new Worker()//Login
+    OnlyWorkers.GetOnlyWorkers().then(res=>{       
+       //Look at Worker Class, it returns an array of only workers
+    })  
+}
+
+handleGetPremiumWorkers( event ){
+    console.log("Premium Worker");
+
+    //Code to get all Workers 
+    let OnlyPremiumWorkers= new PremiumWorker()//Login
+    OnlyPremiumWorkers.GetPremiumWorkers().then(res=>{       
+       //Look at Premium Worker Class, it returns an array of PremiumWorkers 
+
+    })  
+}
+
     render() {
         return (
             <View style={ styles.container }>
@@ -121,6 +152,14 @@ export default class Login extends Component {
                         <FormButton 
                             txt="Iniciar sesión" 
                             handleLogin={ this.handleLogin }
+                        />
+                        <FormButton 
+                            txt="funciones Get Info" 
+                            handleLogin={ this.handleGetOnlyWorkers}
+                        />
+                          <FormButton 
+                            txt="pagina perfil" 
+                            handleLogin={  this.props.navigation.navigate('Perfil')}
                         />
                     </View>
                 </ScrollView>

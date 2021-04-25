@@ -42,6 +42,31 @@ export  class PremiumWorker extends User {
         }
       }
 
+      async GetPremiumWorkers() {// Get All workers, even the premium workers
+        var num = 0;    
+        try {
+          const response = await axios.post("http://192.168.1.72:3001/api/PremiumWorker/GetAllPremiumWorkers",{ });//the object to send must be *WorkerObject*           
+          console.log("Premium Worker")
+          console.log(JSON.stringify(response.data)); 
+          let PremiumWorkerArray:PremiumWorker[]
+
+          PremiumWorkerArray= response.data;
+          console.log("Aquiiii");
+           console.log(JSON.stringify(PremiumWorkerArray)); 
+           console.log("element");
+          PremiumWorkerArray.forEach(element => {
+            console.log(element.Name);
+          });
+        
+          return PremiumWorkerArray; //returns an array of premiumWorker
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+      }
+
    
 }
 export default PremiumWorker
