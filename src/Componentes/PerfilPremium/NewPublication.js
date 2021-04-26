@@ -1,5 +1,7 @@
 import React, { Component, useState } from 'react';
+import { PanResponder } from 'react-native';
 import {
+    ActivityIndicator,
     Alert,
     StyleSheet,
     TextInput,
@@ -7,7 +9,7 @@ import {
     View
 } from 'react-native';
 import { Card, Text } from 'react-native-elements';
-import ImagePicker, { launchImageLibrary } from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker';
 import Colores from '../../Estilos/Colores';
 
 export default class NewPublication extends Component {
@@ -31,16 +33,26 @@ export default class NewPublication extends Component {
             quality: 1,
             includeBase64: true
         };
-        launchImageLibrary(options, res => {
-            console.log('Response: ' + res);
-        });
+        ImagePicker.showImagePicker(options, (response) => {
+            //console.log('Response = ', response);
+      
+            if(response.didCancel){
+              console.log('User cancelled image picker');
+            }
+            else{
+             this.setState({ fileURL: response.uri,
+                 imageName: response.fileName });
+            }
+          });
     }
 
     publicar() {
-        if(this.state.publication)
+        if(this.state.publication) {
             console.log('Publicate ' + this.state.publication);
-        else
+            console.log(this.state.fileURL);
+        } else {
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');
+        }
     }
 
     render() {
@@ -57,7 +69,9 @@ export default class NewPublication extends Component {
                     <TouchableOpacity onPress={ () => this.addImage() }>
                         <View style={Estilos.Boton}>
                             <Text style={Estilos.EtiquetaBoton}>
-                                Agregar imagen
+                                {this.state.imageName ?
+                                this.state.imageName :
+                                'Agregar imagen'}
                             </Text>
                         </View>
                     </TouchableOpacity>
@@ -69,6 +83,16 @@ export default class NewPublication extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+                {this.state.fileURL ?
+                    <>
+                    <Card.Divider />
+                    <Card.Image
+                        uri={this.state.fileURL}
+                        resizeMode='contain'
+                        style={{borderRadius: 15}}
+                        PlaceholderContent={<ActivityIndicator />}
+                    /></> : 
+                    null}
             </Card>
         );
     }
