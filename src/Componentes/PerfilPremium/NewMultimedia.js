@@ -10,14 +10,17 @@ import {
     Card,
     Text
 } from 'react-native-elements';
+import ImagePicker from 'react-native-image-picker';
 import Colores from '../../Estilos/Colores';
 
 export default class NewMultimedia extends Component {
     constructor() {
         super();
         this.state = {
-            fileURL: null,
+            imageName: null,
         };
+        this.publish = this.publish.bind(this);
+        this.addImage = this.addImage.bind(this);
     }
 
     addImage() {
@@ -28,19 +31,20 @@ export default class NewMultimedia extends Component {
         };
         ImagePicker.showImagePicker(options, (response) => {
             //console.log('Response = ', response);
-      
-            if(response.didCancel){
+            
+            if(response.didCancel) {
               console.log('User cancelled image picker');
-            }
-            else{
-             this.setState({ fileURL: response.uri,
-                 imageName: response.fileName });
+            } else {
+                this.setState({
+                    fileURL: response.uri,
+                    imageName: response.fileName
+                });
             }
           });
     }
 
     publish() {
-        if(this.state.fileURL)
+        if(this.state.imageName)
             console.log('Publicate ');
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
@@ -51,14 +55,14 @@ export default class NewMultimedia extends Component {
             <Card containerStyle={Estilos.Tarjeta}>
                 <View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <TouchableOpacity onPress={ () => this.addImage() }>
+                    <TouchableOpacity onPress={ this.addImage }>
                         <View style={Estilos.Boton}>
                             <Text style={Estilos.EtiquetaBoton}>
                                 Seleccionar imagen
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={ () => this.publish() }>
+                    <TouchableOpacity onPress={ this.publish }>
                         <View style={[Estilos.Boton, { backgroundColor: Colores.simbolos }]}>
                             <Text style={Estilos.EtiquetaBoton}>
                                 Publicar
@@ -66,6 +70,13 @@ export default class NewMultimedia extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+                <Text>
+                    {
+                        this.state.imageName ?
+                        this.state.imageName :
+                        null
+                    }
+                </Text>
                 <TextInput
                     placeholder='¿Desea agregar una descripción?'
                     style={Estilos.Input}
