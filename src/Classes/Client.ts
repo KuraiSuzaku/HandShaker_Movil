@@ -3,6 +3,7 @@ import User  from './User'
 import axios from 'axios'
 
 export  class Client extends User {
+    _id?:string  
     IdClient?:string
     ClientType?:boolean
     Addresses?:AddressClass[]
@@ -19,7 +20,8 @@ export  class Client extends User {
     
         try {
           const response = await axios.post("http://192.168.1.72:3001/api/Client/GetClientInformation",{ ClientObject });//the object to send must be *ClientObject*
-          ClientObject=response.data;      
+          ClientObject=response.data;
+          console.log("ID...   "+ClientObject._id);      
           this.Response = "1";
           return this;
         } catch (error) {

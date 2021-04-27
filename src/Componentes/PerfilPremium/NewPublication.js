@@ -7,6 +7,9 @@ import {
     View
 } from 'react-native';
 import { Card, Text } from 'react-native-elements';
+import { Post } from '../../Classes/Post';
+import { Posts } from '../../Classes/Posts';
+import { Image } from '../../Classes/Image';
 import Colores from '../../Estilos/Colores';
 
 export default props => {
@@ -16,8 +19,16 @@ export default props => {
         console.log('Get image');
     };
     const Publish = () => {
-        if(publication)
+        if(publication){
+
+            /*Add a new Post*/
+            var date = new Date(); 
             console.log('Publicate ' + publication);
+            img=new Image("descripcion","ruta/r");
+            PostObbject=new Post(date,publication,img);
+            PostsObject=new Posts("605fac174791ea436cc76741",PostObbject);
+            PostsObject.AddPost(PostsObject)
+        }
         else
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');
     };

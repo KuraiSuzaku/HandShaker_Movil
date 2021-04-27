@@ -3,6 +3,7 @@ import User  from './User'
 import axios from 'axios'
 
 export  class PremiumWorker extends User {
+    _id?:string 
     IdPremiumWorker?:string
     Category?:string
     Profession?:string
@@ -32,6 +33,7 @@ export  class PremiumWorker extends User {
         try {
           const response = await axios.post("http://192.168.1.72:3001/api/PremiumWorker/GetPremiumWorkerInformation",{ PremiumWorkerObject });//the object to send must be *PremiumWorkerObject*
           PremiumWorkerObject=response.data;
+          console.log("ID...   "+PremiumWorkerObject._id);
           this.Response = "1";
           return this;
         } catch (error) {

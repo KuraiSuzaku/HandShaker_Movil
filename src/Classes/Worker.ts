@@ -3,6 +3,7 @@ import User  from './User'
 import axios from 'axios'
 
 export  class Worker extends User {
+    _id?:string
     IdWorker?:string
     Category?:string
     Profession?:string
@@ -34,6 +35,7 @@ export  class Worker extends User {
           console.log("aqui...")
           console.log(JSON.stringify(WorkerObject));
           console.log("profesion   "+WorkerObject.Profession);
+          console.log("ID...   "+WorkerObject._id);
           return WorkerObject;
         } catch (error) {
           console.log("error del tipo" + error);
