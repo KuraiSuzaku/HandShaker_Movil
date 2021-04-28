@@ -45,7 +45,7 @@ export default class NewMultimedia extends Component {
 
     publish() {
         if(this.state.imageName)
-            console.log('Publicate ');
+            console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };

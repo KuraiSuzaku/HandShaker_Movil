@@ -19,6 +19,9 @@ export default class NewPublication extends Component {
             publication: null,
             image: null
         };
+        this.setPublication = this.setPublication.bind(this);
+        this.addImage = this.addImage.bind(this);
+        this.publicar = this.publicar.bind(this);
     }
 
     setPublication(pubContent) {
@@ -30,8 +33,7 @@ export default class NewPublication extends Component {
     addImage() {
         const options = {
             mediaType: 'photo',
-            quality: 1,
-            includeBase64: true
+            quality: 1
         };
         ImagePicker.showImagePicker(options, (response) => {
             //console.log('Response = ', response);
