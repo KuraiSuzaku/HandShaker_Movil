@@ -1,31 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Card, Text, Image, Button} from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
+import EditarAcercaDe from './EditarAcercaDe';
 
 export default AcercaDe = ({acercade}) => {
-    
+    const [propietario, setPropietario] = useState('si');
+    const [editando, setEditando] = useState('no');
+
     const CambiarDatos = () =>{
+        setEditando('si');
         console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
+    }
+
+    const GuardarCambios = () => {
+        setEditando('no'); 
+        console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
     }
 
     return(
         <View>
             <View  style={{flexDirection:'row', justifyContent:'space-between', paddingTop: 10, paddingRight: 10}}>
-            <View style={{flex:4}}>
-            <Text style={Estilos.Titulo}>
-                Acerca De {acercade.nombre}
-            </Text>
+                <View style={{flex:4}}>
+                <Text style={Estilos.Titulo}>
+                    Acerca De {acercade.nombre}
+                </Text>
+                </View>
+                <View style={{flex:1, paddingTop: 10}}>
+                {propietario === 'si' && editando === 'no' &&
+                    
+                    <Button
+                        title='Editar'
+                        buttonStyle={Estilos.Boton}
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={CambiarDatos}
+                    />
+                }
+                {propietario === 'si' && editando === 'si' &&
+                    <Button
+                        title='Guardar'
+                        buttonStyle={Estilos.Boton}
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={GuardarCambios}
+                    />
+                }
+                </View>
             </View>
-            <View style={{flex:1, paddingTop: 10}}>
-            <Button
-                    title='Editar'
-                    buttonStyle={Estilos.Boton}
-                    titleStyle={Estilos.EtiquetaBoton}
-                    onPress={CambiarDatos}
-            />
-            </View>
-            </View>
+            {propietario === 'si' && editando === 'si' && 
+                <EditarAcercaDe />
+            }
+            {propietario == 'no' || editando == 'no' &&
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text>{acercade.informacion}</Text>
                     <Image
@@ -33,6 +57,7 @@ export default AcercaDe = ({acercade}) => {
                         style={Estilos.Imagen}
                     />
             </Card>
+            }
         </View>
     );
 }
