@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Image } from './../../Classes/Image';
+import { Prices } from './../../Classes/Prices';
+import { ItemPrice } from './../../Classes/ItemPrice';
 import {
     Alert,
     StyleSheet,
@@ -52,8 +55,25 @@ export default class NewProduct extends Component {
             || !this.state.price
             || !this.state.description)
             Alert.alert('Todos los campos deben ser llenados para publicar un nuevo producto.');
+            //please add date and hour to the image so there can;t be duplicates
+            var date = new Date(); 
+            if(typeof this.state.fileURL === 'undefined'){
+                console.log(this.state.name+" * "+this.state.price+" * "+this.state.description);
+                img=new Image("","");
+                ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
+                PriceObject=new Prices("605fac174791ea436cc76741",ItemPriceObject);
+                PriceObject.AddPrice(PriceObject)
+             }
+            else{            
+            console.log(this.state.name+this.state.price+this.state.description+"foto"+this.state.fileURL+this.state.imageName);
+            img=new Image("NamePicture","ruta/r");
+            ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
+            PriceObject=new Prices("605fac174791ea436cc76741",ItemPriceObject);
+            PriceObject.AddPrice(PriceObject)       
+            }             
             return;
-        // REGISTRAR NUEVO PRODUCTO
+        // REGISTRAR NUEVO 
+       
     }
 
     render() {

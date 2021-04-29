@@ -11,7 +11,9 @@ import {
     Text
 } from 'react-native-elements';
 import { MultimediaItems } from '../../Classes/MultimediaItems';
+import { Multimedia } from '../../Classes/Multimedia';
 import ImagePicker from 'react-native-image-picker';
+import { Image } from './../../Classes/Image';
 import Colores from '../../Estilos/Colores';
 
 export default class NewMultimedia extends Component {
@@ -45,12 +47,10 @@ export default class NewMultimedia extends Component {
     }
 
     publish() {
-        if(this.state.imageName)
-            console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
-            if(image)
-            { console.log('Publicate ' + image);
+
+            if(typeof this.state.fileURL !== 'undefined'){
+             console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
              var date = new Date(); 
-             console.log('Publicate ' + image);
              img=new Image("descripcion","ruta/r");
              MultimediaItemObject=new MultimediaItems(date,"texto imagen",img);
              MultimediaObject=new Multimedia("605fac174791ea436cc76741",MultimediaItemObject);

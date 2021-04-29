@@ -7,13 +7,25 @@ export class Multimedia {
     ListOfMultimediaItems: MultimediaItems[]
     _id:String
 
+    constructor(IdPremiumWorker:string,Item:MultimediaItems,_id?:string){
+     
+      this.IdPremiumWorker=IdPremiumWorker
+      this.ListOfMultimediaItems = new Array();
+      this.ListOfMultimediaItems.push(Item)
+  }
+
+
     async AddMultimedia(MultimediaObject: Multimedia) {// fill ClientObject with all information of the client
         var num = 0;
     
         try {
           console.log("add Multimedia")
+
+          console.log(MultimediaObject)
           const response = await axios.post("http://192.168.1.72:3001/api/Multimedia/Add",{ MultimediaObject });//the object to send must be *PostObject*
-          return this;
+          console.log("respuestaaa")
+
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -26,7 +38,8 @@ export class Multimedia {
         var num = 0;
     
         try {
-          console.log("add POST")
+        
+
           const response = await axios.post("http://192.168.1.72:3001/api/Multimedia/GetMultimedia",{ MultimediaObject });//the object to send must be *PostObject*
           return this;
         } catch (error) {

@@ -1,0 +1,11 @@
+*
+*en todos falta la implementacion de anadir a firebase
+*con la ruta que ustedes escogan lo enviaran a la base de datos
+*en todos falta enviar el premium ID correcto
+
+
+*Ya se agregan los productos(costos), falta que a la foto le agreguen en el nombre la fecha u hora para evitar duplicados/ C:\Users\BREND\Desktop\proyecto8\HandShaker_Movil\src\Componentes\PerfilPremium\NewPublication.js
+*ya esta el login 
+*ya se agrega multimedia, falta corregir 
+*ya se agrega publicaciones 
+*falta 
