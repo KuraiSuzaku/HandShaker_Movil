@@ -61,10 +61,7 @@ export default class NewPublication extends Component {
              img=new Image("NamePicture","ruta/r");
              PostObbject=new Post(date,publication,img);
              PostsObject=new Posts("605fac174791ea436cc76741",PostObbject);
-             PostsObject.AddPost(PostsObject).then(res=>{
-                console.log("RESULTADO "+res.Response);
-                console.log("desp")
-                console.log("respuesta"+res.status);        
+             PostsObject.AddPost(PostsObject).then(res=>{            
                 if  (res.status==200){
                    Alert.alert('Se Agrego correctamente');
                  }
@@ -77,10 +74,7 @@ export default class NewPublication extends Component {
                 img=new Image("","");
                 PostObbject=new Post(date,publication,img);
                 PostsObject=new Posts("605fac174791ea436cc76741",PostObbject);
-                PostsObject.AddPost(PostsObject).then(res=>{
-                    console.log("RESULTADO "+res.Response);
-                    console.log("desp")
-                    console.log("respuesta"+res.status);        
+                PostsObject.AddPost(PostsObject).then(res=>{                     
                     if  (res.status==200){
                        Alert.alert('Se Agrego correctamente');
                      }

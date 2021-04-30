@@ -20,8 +20,7 @@ export class Posts {
         try {
           console.log("add POST")
           const response = await axios.post("http://192.168.1.72:3001/api/Posts/Add",{ PostObject });//the object to send must be *PostObject*
-          console.log("respuestaaa")
-          
+        
           return response;
         } catch (error) {
           console.log("error del tipo" + error);

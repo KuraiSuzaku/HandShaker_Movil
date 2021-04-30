@@ -8,4 +8,9 @@
 *ya esta el login 
 *ya se agrega multimedia, falta corregir 
 *ya se agrega publicaciones 
-*falta 
+*falta agregarle a todos un aviso de que se envio 
+
+
+Multimedia listo, falta imagen a firebase y corregir ruta
+Publicaciones listo, falta imagen a firebase y corregir ruta
+costos listo, falta imagen a firebase y corregir ruta

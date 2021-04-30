@@ -62,14 +62,22 @@ export default class NewProduct extends Component {
                 img=new Image("","");
                 ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
                 PriceObject=new Prices("605fac174791ea436cc76741",ItemPriceObject);
-                PriceObject.AddPrice(PriceObject)
+                PriceObject.AddPrice(PriceObject).then(res=>{                     
+                    if  (res.status==200){
+                       Alert.alert('Se Agrego correctamente');
+                     }
+                })  
              }
             else{            
             console.log(this.state.name+this.state.price+this.state.description+"foto"+this.state.fileURL+this.state.imageName);
             img=new Image("NamePicture","ruta/r");
             ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
             PriceObject=new Prices("605fac174791ea436cc76741",ItemPriceObject);
-            PriceObject.AddPrice(PriceObject)       
+            PriceObject.AddPrice(PriceObject).then(res=>{                     
+                if  (res.status==200){
+                   Alert.alert('Se Agrego correctamente');
+                 }
+            })         
             }             
             return;
         // REGISTRAR NUEVO 

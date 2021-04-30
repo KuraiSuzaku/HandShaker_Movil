@@ -23,7 +23,7 @@ export class Prices {
           console.log(PriceObject)
           const response = await axios.post("http://192.168.1.72:3001/api/Prices/Add",{ PriceObject });//the object to send must be *PostObject*
 
-          return response.status;
+          return response;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

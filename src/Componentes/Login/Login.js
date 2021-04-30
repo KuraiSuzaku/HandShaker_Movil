@@ -158,8 +158,8 @@ handleGetPremiumWorkers( event ){
                             handleLogin={ this.handleGetOnlyWorkers}
                         />
                           <FormButton 
-                            txt="pagina perfil" 
-                            handleLogin={  this.props.navigation.navigate('Perfil')}
+                            //txt="pagina perfil" 
+                         //   handleLogin={  this.props.navigation.navigate('Perfil')}
                         />
                     </View>
                 </ScrollView>

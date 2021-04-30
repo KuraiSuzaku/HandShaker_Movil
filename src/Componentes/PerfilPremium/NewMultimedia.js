@@ -54,7 +54,11 @@ export default class NewMultimedia extends Component {
              img=new Image("descripcion","ruta/r");
              MultimediaItemObject=new MultimediaItems(date,"texto imagen",img);
              MultimediaObject=new Multimedia("605fac174791ea436cc76741",MultimediaItemObject);
-             MultimediaObject.AddMultimedia(MultimediaObject)
+             MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
+                if  (res.status==200){
+                   Alert.alert('Se Agrego correctamente');
+                 }
+            })  
             }
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');

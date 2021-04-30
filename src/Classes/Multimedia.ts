@@ -25,7 +25,7 @@ export class Multimedia {
           const response = await axios.post("http://192.168.1.72:3001/api/Multimedia/Add",{ MultimediaObject });//the object to send must be *PostObject*
           console.log("respuestaaa")
 
-          return response.status;
+          return response;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
