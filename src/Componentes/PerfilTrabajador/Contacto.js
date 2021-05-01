@@ -1,9 +1,8 @@
 import React, {useState}  from 'react';
 import {StyleSheet, View,} from 'react-native';
 import {Card, Text, Button,} from 'react-native-elements';
-//////////
 import Colores from '../../Estilos/Colores';
-//////////
+import EditarContacto from './EditarContacto';
 
 export default Contacto = ({contacto}) => {
     const [propietario, setPropietario] = useState('si');
@@ -22,42 +21,47 @@ export default Contacto = ({contacto}) => {
     return(
         <View>
             <View  style={{flexDirection:'row', justifyContent:'space-between', paddingTop: 10, paddingRight: 10}}>
-            <View style={{flex:4}}>
-            <Text style={Estilos.Titulo}>
-                Informacion de Contacto
-            </Text>
+                <View style={{flex:4}}>
+                <Text style={Estilos.Titulo}>
+                    Informacion de Contacto
+                </Text>
+                </View>
+                <View style={{flex:1, paddingTop: 10}}>
+                    {propietario === 'si' && editando === 'no' &&
+                    <Button
+                        title='Editar'
+                        buttonStyle={Estilos.Boton}
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={CambiarDatos}
+                    />
+                    }
+                    {propietario === 'si' && editando === 'si' &&
+                    <Button
+                        title='Guardar'
+                        buttonStyle={Estilos.Boton}
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={GuardarCambios}
+                    />
+                    }
+                </View>
             </View>
-            <View style={{flex:1, paddingTop: 10}}>
-                {propietario === 'si' && editando === 'no' &&
-                <Button
-                    title='Editar'
-                    buttonStyle={Estilos.Boton}
-                    titleStyle={Estilos.EtiquetaBoton}
-                    onPress={CambiarDatos}
-                />
-                }
-                {propietario === 'si' && editando === 'si' &&
-                <Button
-                    title='Guardar'
-                    buttonStyle={Estilos.Boton}
-                    titleStyle={Estilos.EtiquetaBoton}
-                    onPress={GuardarCambios}
-                />
-                }
-            </View>
-            </View>
+            {propietario === 'si' && editando === 'si' &&
+                <EditarContacto />
+            }
+            {propietario === 'no' || editando === 'no' &&
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text style={Estilos.Dato}>
                     Correo: <Text>{contacto.correo}</Text>
                 </Text>
                 <Text style={Estilos.Dato}>
-                    Teléfono: <Text>{contacto.telefono}</Text>
+                    Teléfono: <Text style={Estilos.DatoSecundario}>{contacto.telefono}</Text>
                 </Text><Text style={Estilos.Dato}>
                     Celular: <Text>{contacto.celular}</Text>
                 </Text><Text style={Estilos.Dato}>
                     Domicilio: <Text>{contacto.domicilio}</Text>
                 </Text>
             </Card>
+            }
             {/*Google Maps*/}
         </View>
     );
@@ -65,7 +69,7 @@ export default Contacto = ({contacto}) => {
 // ESTILOS
 const Estilos = StyleSheet.create({
     Titulo: {    
-        fontSize: 14,
+        fontSize: 18,
         fontWeight: 'bold',
         marginTop: 12,
         marginLeft: 26,
@@ -75,8 +79,11 @@ const Estilos = StyleSheet.create({
         paddingVertical: 10,
     },
     Dato: {
-        fontSize: 12,
+        fontSize: 16,
         fontWeight: 'bold'
+    },
+    DatoSecundario: {
+        fontSize: 16,
     },
     Boton: {
         backgroundColor: Colores.fondoBotonOscuro,
