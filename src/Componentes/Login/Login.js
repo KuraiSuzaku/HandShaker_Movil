@@ -114,7 +114,11 @@ handleGetPremiumWorkers( event ){
     let OnlyPremiumWorkers= new PremiumWorker()//Login
     OnlyPremiumWorkers.GetPremiumWorkers().then(res=>{       
        //Look at Premium Worker Class, it returns an array of PremiumWorkers 
-
+       console.log("TRABAJADORES PREMIUM");
+       res.forEach(element => {
+        console.log("trabajador n");
+        console.log(element.Name);
+      });
     })  
 }
 
@@ -155,7 +159,7 @@ handleGetPremiumWorkers( event ){
                         />
                         <FormButton 
                             txt="funciones Get Info" 
-                            handleLogin={ this.handleGetOnlyWorkers}
+                            handleLogin={ this.handleGetPremiumWorkers}
                         />
                           <FormButton 
                             //txt="pagina perfil" 
