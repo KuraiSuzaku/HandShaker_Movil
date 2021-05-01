@@ -35,7 +35,7 @@ export  class PremiumWorker extends User {
           PremiumWorkerObject=response.data;
           console.log("ID...   "+PremiumWorkerObject._id);
           this.Response = "1";
-          return this;
+          return PremiumWorkerObject;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);

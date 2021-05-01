@@ -35,6 +35,7 @@ export default class Login extends Component {
         userObject.Login(userObject).then(res=>{
             console.log("RESULTADO "+res.Response);
         if ( res.Response=="1"){
+            //userObject//este es el usuario
         //the user exist and *userObject has its properties filled.
         console.log("tipo Usuario\t"+ userObject.UserType)// check the user type 
         if( userObject.UserType.includes("Worker")&& !userObject.UserType.includes("Premium")){
@@ -44,7 +45,7 @@ export default class Login extends Component {
             //on here WorkerObject has all the information of the user.
             //here you can send it to its corresponding component
             WorkerObject=res;
-    
+            this.props.setUser(WorkerObject);
             ToastAndroid.show(("Worker User"), ToastAndroid.SHORT);
           });
         }
@@ -55,6 +56,9 @@ export default class Login extends Component {
             //on here PremiumWorkerObject has all the information of the user.
             //here you can send it to its corresponding component
             PremiumWorkerObject=res;
+            console.log("**IMPRESION EN LOGIN (PW)**");
+            console.log(PremiumWorkerObject);
+            this.props.setUser(PremiumWorkerObject);
            ToastAndroid.show(("Premium Worker User"), ToastAndroid.SHORT);
 
           });
@@ -66,6 +70,7 @@ export default class Login extends Component {
             //on here ClientObject has all the information of the user.
             //here you can send it to its corresponding component
             ClientObject=res;        
+            this.props.setUser(ClientObject);
             ToastAndroid.show(("Client User"), ToastAndroid.SHORT);
           });
         }
