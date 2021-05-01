@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import Colores from '../../Estilos/Colores'
 
-export default class PremiumWorker extends Component {
+export default class PremiumWorkerC extends Component {
+    constructor(props){
+        super(props);
+    }
+
     render() {
         return (
             <View style={ styles.premiumWorker }>
@@ -13,10 +17,10 @@ export default class PremiumWorker extends Component {
                 />
                 <View style={ styles.premiumWorkerContent }>
                     <Text>
-                        María Elena Hernández Pérez
+                        { this.props.premiumWorker.Name }
                     </Text>
                     <Text>
-                        Desarrollador ****
+                        { this.props.premiumWorker.Profession } ****
                     </Text>
                     <View style={ styles.premiumWorkerContentImages }>
                         <Image 
