@@ -50,9 +50,10 @@ export default class NewProduct extends Component {
     uploadProduct() {
         if( !this.state.name
             || !this.state.price
-            || !this.state.description)
+            || !this.state.description) {
             Alert.alert('Todos los campos deben ser llenados para publicar un nuevo producto.');
             return;
+        }
         // REGISTRAR NUEVO PRODUCTO
     }
 
