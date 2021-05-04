@@ -1,5 +1,6 @@
 import {AddressClass } from './AddressClass'
 import User  from './User'
+import {rooturl} from './ip'
 import axios from 'axios'
 
 export  class Worker extends User {
@@ -30,7 +31,7 @@ export  class Worker extends User {
         var num = 0;
     
         try {
-          const response = await axios.post("http://192.168.1.75:3001/api/Worker/GetWorkerInformation",{ WorkerObject });//the object to send must be *WorkerObject*  
+          const response = await axios.post(rooturl+"Worker/GetWorkerInformation",{ WorkerObject });//the object to send must be *WorkerObject*  
           WorkerObject=response.data;
           console.log("aqui...")
           console.log(JSON.stringify(WorkerObject));
@@ -49,7 +50,7 @@ export  class Worker extends User {
         var num = 0;
     
         try {
-          const response = await axios.post("http://192.168.1.75:3001/api/Worker/GetAllWorkers",{ });//the object to send must be *WorkerObject*           
+          const response = await axios.post(rooturl+"/Worker/GetAllWorkers",{ });//the object to send must be *WorkerObject*           
           console.log("All Worker")
           console.log(JSON.stringify(response.data)); 
           let AllWorkerArray:Worker[]
@@ -76,7 +77,7 @@ export  class Worker extends User {
         var num = 0;
     
         try {
-          const response = await axios.post("http://192.168.1.75:3001/api/Worker/GetOnlyWorkers",{ });//the object to send must be *WorkerObject*           
+          const response = await axios.post(rooturl+"Worker/GetOnlyWorkers",{ });//the object to send must be *WorkerObject*           
           console.log("Only Worker")
           console.log(JSON.stringify(response.data)); 
           let OnlyWorkerArray:Worker[]

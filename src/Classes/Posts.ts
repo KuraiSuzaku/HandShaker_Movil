@@ -1,5 +1,6 @@
 
 import { Post } from './Post';
+import {rooturl} from './ip'
 import axios from 'axios'
 export class Posts {
     _id:String
@@ -19,7 +20,7 @@ export class Posts {
     
         try {
           console.log("add POST")
-          const response = await axios.post("http://192.168.1.72:3001/api/Posts/Add",{ PostObject });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Posts/Add",{ PostObject });//the object to send must be *PostObject*
         
           return response;
         } catch (error) {
@@ -35,7 +36,7 @@ export class Posts {
     
         try {
           console.log("Get POST")
-          const response = await axios.post("http://192.168.1.72:3001/api/Posts/GetPosts",{ IdPremiumWorker });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Posts/GetPosts",{ IdPremiumWorker });//the object to send must be *PostObject*
           return this;
         } catch (error) {
           console.log("error del tipo" + error);

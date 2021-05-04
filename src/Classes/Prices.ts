@@ -1,6 +1,7 @@
 import { Image } from './Image';
 import { ItemPrice } from './ItemPrice';
 import axios from 'axios'
+import {rooturl} from './ip'
 
 export class Prices {
     //_id?:String
@@ -21,7 +22,7 @@ export class Prices {
         try {
           console.log("add POST")
           console.log(PriceObject)
-          const response = await axios.post("http://192.168.1.72:3001/api/Prices/Add",{ PriceObject });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Prices/Add",{ PriceObject });//the object to send must be *PostObject*
 
           return response;
         } catch (error) {
@@ -37,7 +38,7 @@ export class Prices {
     
         try {
           console.log("Get Price")
-          const response = await axios.post("http://192.168.1.72:3001/api/Prices/Get",{ IdPremiumWorker });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Prices/Get",{ IdPremiumWorker });//the object to send must be *PostObject*
           return this;
         } catch (error) {
           console.log("error del tipo" + error);

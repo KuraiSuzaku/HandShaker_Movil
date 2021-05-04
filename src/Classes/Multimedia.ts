@@ -1,7 +1,7 @@
 import { Image } from './Image';
 import { MultimediaItems } from './MultimediaItems';
 import axios from 'axios'
-
+import {rooturl} from './ip'
 export class Multimedia {
     IdPremiumWorker:string
     ListOfMultimediaItems: MultimediaItems[]
@@ -22,7 +22,7 @@ export class Multimedia {
           console.log("add Multimedia")
 
           console.log(MultimediaObject)
-          const response = await axios.post("http://192.168.1.72:3001/api/Multimedia/Add",{ MultimediaObject });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Multimedia/Add",{ MultimediaObject });//the object to send must be *PostObject*
           console.log("respuestaaa")
 
           return response;
@@ -40,7 +40,7 @@ export class Multimedia {
         try {
         
 
-          const response = await axios.post("http://192.168.1.72:3001/api/Multimedia/GetMultimedia",{ MultimediaObject });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Multimedia/GetMultimedia",{ MultimediaObject });//the object to send must be *PostObject*
           return this;
         } catch (error) {
           console.log("error del tipo" + error);
