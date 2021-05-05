@@ -20,6 +20,7 @@ export default EditarContacto = ({contacto}) => {
                 label='Telefono'
                 labelStyle={Estilos.TextoSecundario}
                 placeholder="3369423427"
+                keyboardType = 'numeric'
                 style={Estilos.Input}
                 inputContainerStyle={{borderBottomWidth:0}}
                 maxLength={200}
@@ -29,6 +30,7 @@ export default EditarContacto = ({contacto}) => {
                 label='Celular'
                 labelStyle={Estilos.TextoSecundario}
                 placeholder="3369423427"
+                keyboardType = 'numeric'
                 style={Estilos.Input}
                 inputContainerStyle={{borderBottomWidth:0}}
                 maxLength={200}

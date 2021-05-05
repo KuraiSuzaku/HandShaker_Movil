@@ -9,6 +9,9 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
        
     const [propietario, setPropietario] = useState('si');
     const [editando, setEditando] = useState('no');
+    const [editcategoria, setCategoria] = useState();
+    const [editprofesion, setProfesion] = useState();
+    const [editdescripcion, setDescripcion] = useState();
     
     const CambiarDatos = () =>{
         setEditando('si');
@@ -18,6 +21,9 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
     const GuardarCambios = () => {
         setEditando('no'); 
         console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        console.log("categoria: " + editcategoria);
+        console.log("profesion: " + editprofesion);
+        console.log("descripcion: " + editdescripcion);
     }
 
     const navigation = useNavigation();
@@ -91,7 +97,14 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
             }
             {propietario === 'si' && editando === 'si' &&
             <View style = {{padding: 40}}>
-                <EditarPerfil/>
+                <EditarPerfil
+                    setCategoria = {setCategoria}
+                    setDescripcion = {setDescripcion}
+                    setProfesion = {setProfesion}
+                    auxCategoria = "categoriaASDAS"
+                    auxProfesion = "profesionASDASD" //Estos los debo obtener desde la BD
+                    auxDescripcion = "descripcionASDADSA"
+                />
             </View>
             }
         </View>
