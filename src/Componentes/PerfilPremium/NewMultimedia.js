@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    ActivityIndicator,
     Alert,
     StyleSheet,
     TextInput,
@@ -17,7 +18,10 @@ export default class NewMultimedia extends Component {
     constructor() {
         super();
         this.state = {
-            imageName: null,
+            image: {
+                name: null,
+                uri: null
+            }
         };
         this.publish = this.publish.bind(this);
         this.addImage = this.addImage.bind(this);
@@ -36,8 +40,10 @@ export default class NewMultimedia extends Component {
               console.log('User cancelled image picker');
             } else {
                 this.setState({
-                    fileURL: response.uri,
-                    imageName: response.fileName
+                    image: {
+                        name: response.fileName,
+                        uri: response.uri
+                    }
                 });
             }
           });
@@ -70,19 +76,22 @@ export default class NewMultimedia extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text>
-                    {
-                        this.state.imageName ?
-                        this.state.imageName :
-                        null
-                    }
-                </Text>
                 <TextInput
                     placeholder='¿Desea agregar una descripción?'
                     style={Estilos.Input}
                     onChangeText={newDescr => this.setState({ description: newDescr })}
                 />
                 </View>
+                {this.state.image.uri ?
+                    <>
+                    <Card.Divider />
+                    <Card.Image
+                        source={this.state.image}
+                        resizeMode='contain'
+                        style={{borderRadius: 15}}
+                        PlaceholderContent={<ActivityIndicator />}
+                    /></> : 
+                    null}
             </Card>
         );
     }

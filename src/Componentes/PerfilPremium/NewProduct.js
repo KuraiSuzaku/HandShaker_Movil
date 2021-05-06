@@ -20,7 +20,10 @@ export default class NewProduct extends Component {
             visible: null,
             name: null,
             price: null,
-            image: null,
+            image: {
+                name: null,
+                uri: null
+            },
             description: null
         }
         this.addImage = this.addImage.bind(this);
@@ -31,7 +34,6 @@ export default class NewProduct extends Component {
         const options = {
             mediaType: 'photo',
             quality: 1,
-            includeBase64: true
         };
         ImagePicker.showImagePicker(options, (response) => {
             //console.log('Response = ', response);
@@ -40,8 +42,10 @@ export default class NewProduct extends Component {
               console.log('User cancelled image picker');
             } else {
                 this.setState({
-                    fileURL: response.uri,
-                    imageName: response.fileName
+                    image: {
+                        name: null,
+                        uri: null
+                    }
                 });
             }
           });
@@ -84,6 +88,13 @@ export default class NewProduct extends Component {
                             titleStyle={Estilos.Text}
                             onPress={() => this.addImage()}
                             />
+                        <Text>
+                            {
+                                this.state.image.name ?
+                                this.state.image.name :
+                                null
+                            }
+                        </Text>
                     </View>
                     <View style={{}}>
                         <TextInput
@@ -105,7 +116,7 @@ export default class NewProduct extends Component {
                     buttonStyle={[Estilos.BotonForm, Estilos.BotonConfirmar]}
                     titleStyle={Estilos.Text}
                     onPress={() => this.uploadProduct()}
-                    />
+                />
             </Overlay>
             </>
         );
