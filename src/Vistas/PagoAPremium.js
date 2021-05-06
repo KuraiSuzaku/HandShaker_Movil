@@ -12,7 +12,9 @@ import * as Componentes from '../Componentes/Indice';
 
 export default PagoAPremium = () => {
 
-    let img_tarjeta = require('../../public/Images/otratarjeta.png');
+    let img_otra = require('../../public/Images/otratarjeta.png');
+    let img_visa = require('../../public/Images/visa.png');
+    let img_mastercard = require('../../public/Images/mastercard.png');
     const img_handshaker = require('../../public/Icons/handshaker.png');
     const [fecha_vencimiento, setFechaVencimiento] = useState(new Date());
     const [state, setState] = useState('no');
@@ -49,9 +51,15 @@ export default PagoAPremium = () => {
     };
 
     const ValidarTarjeta = (inputtexto) => {
-        visa = "^4[0-9]{12}(?:[0-9]{3})?$";
-        mastercard = "mastercard";
-
+        let visa = new RegExp("^4[0-9]{12}(?:[0-9]{3})?$");
+        let mastercard = new RegExp("^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$");
+        if(visa.test(inputtexto)){
+            console.log("Soy Visa wuuuuuuu")
+        }
+        if(mastercard.test(inputtexto)){
+            console.log("Soy MasterCard wuuuuu")
+        }
+        console.log("Numero Tarjeta actual: ", numero);
         setNumero(inputtexto);
     };
 
