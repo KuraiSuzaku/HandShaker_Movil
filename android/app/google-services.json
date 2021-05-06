@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "495618189191",
+    "project_id": "handshaker-cb383",
+    "storage_bucket": "handshaker-cb383.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495618189191:android:45d1c815cb54243ea25522",
+        "android_client_info": {
+          "package_name": "com.ceti.handshaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495618189191-49p4v669v5c2b8d4t3h1aubgektbur4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIIxDRwdoU46RVwEJyw_OJJ50_tNIUFvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495618189191-49p4v669v5c2b8d4t3h1aubgektbur4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
