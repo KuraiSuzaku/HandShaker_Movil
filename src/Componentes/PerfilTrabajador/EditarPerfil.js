@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Card, Text, Input} from 'react-native-elements';
+import {Card, Input} from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
 import {Picker} from '@react-native-picker/picker';
 

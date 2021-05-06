@@ -7,6 +7,7 @@ import EditarAcercaDe from './EditarAcercaDe';
 export default AcercaDe = ({acercade}) => {
     const [propietario, setPropietario] = useState('si');
     const [editando, setEditando] = useState('no');
+    const [edittexto, setTexto] = useState();
 
     const CambiarDatos = () =>{
         setEditando('si');
@@ -16,6 +17,7 @@ export default AcercaDe = ({acercade}) => {
     const GuardarCambios = () => {
         setEditando('no'); 
         console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        console.log("acerca de: " + edittexto);
     }
 
     return(
@@ -47,7 +49,10 @@ export default AcercaDe = ({acercade}) => {
                 </View>
             </View>
             {propietario === 'si' && editando === 'si' && 
-                <EditarAcercaDe />
+                <EditarAcercaDe 
+                    setTexto = {setTexto}
+                    auxTexto = {acercade.informacion}
+                />
             }
             {propietario == 'no' || editando == 'no' &&
             <Card containerStyle={Estilos.Tarjeta}>

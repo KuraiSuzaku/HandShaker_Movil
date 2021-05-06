@@ -3,14 +3,15 @@ import {StyleSheet, View} from 'react-native';
 import {Card, Input, Text, Button} from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
 
-export default EditarContacto = ({contacto}) => {
+export default EditarContacto = (props) => {
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <Input 
                 name='correo'
                 label='Correo'
                 labelStyle={Estilos.TextoSecundario}
-                placeholder="mi_correo@dominio.com"
+                placeholder={props.auxCorreo}
+                onChangeText={(inputtexto)=>{props.setCorreo(inputtexto)}}
                 style={Estilos.Input}
                 inputContainerStyle={{borderBottomWidth:0}}
                 maxLength={200}
@@ -19,7 +20,8 @@ export default EditarContacto = ({contacto}) => {
                 name='telefono'
                 label='Telefono'
                 labelStyle={Estilos.TextoSecundario}
-                placeholder="3369423427"
+                placeholder={props.auxTelefono}
+                onChangeText={(inputtexto)=>{props.setTelefono(inputtexto)}}
                 keyboardType = 'numeric'
                 style={Estilos.Input}
                 inputContainerStyle={{borderBottomWidth:0}}
@@ -29,7 +31,8 @@ export default EditarContacto = ({contacto}) => {
                 name='celular'
                 label='Celular'
                 labelStyle={Estilos.TextoSecundario}
-                placeholder="3369423427"
+                placeholder={props.auxCelular}
+                onChangeText={(inputtexto)=>{props.setCelular(inputtexto)}}
                 keyboardType = 'numeric'
                 style={Estilos.Input}
                 inputContainerStyle={{borderBottomWidth:0}}
@@ -39,7 +42,8 @@ export default EditarContacto = ({contacto}) => {
                 name='domicilio'
                 label='Domicilio'
                 labelStyle={Estilos.TextoSecundario}
-                placeholder="Calle shidori Col. La quinta china Zapopan, Jalisco"
+                placeholder={props.auxDomicilio}
+                onChangeText={(inputtexto)=>{props.setDomicilio(inputtexto)}}
                 style={Estilos.Input}
                 inputContainerStyle={{borderBottomWidth:0}}
                 maxLength={200}

@@ -5,8 +5,13 @@ import Colores from '../../Estilos/Colores';
 import EditarContacto from './EditarContacto';
 
 export default Contacto = ({contacto}) => {
+    
     const [propietario, setPropietario] = useState('si');
     const [editando, setEditando] = useState('no');
+    const [editcorreo, setCorreo] = useState();
+    const [edittelefono, setTelefono] = useState();
+    const [editcelular, setCelular] = useState();
+    const [editdomicilio, setDomicilio] = useState();
 
     const CambiarDatos = () =>{
         setEditando('si');
@@ -16,6 +21,10 @@ export default Contacto = ({contacto}) => {
     const GuardarCambios = () => {
         setEditando('no'); 
         console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        console.log("correo: " + editcorreo);
+        console.log("telefono: " + edittelefono);
+        console.log("celular: " + editcelular);
+        console.log("domicilio: " + editdomicilio);
     }
 
     return(
@@ -46,7 +55,16 @@ export default Contacto = ({contacto}) => {
                 </View>
             </View>
             {propietario === 'si' && editando === 'si' &&
-                <EditarContacto />
+                <EditarContacto 
+                    setCorreo = {setCorreo}
+                    setTelefono = {setTelefono}
+                    setCelular = {setCelular}
+                    setDomicilio = {setDomicilio}
+                    auxCorreo = {contacto.correo}
+                    auxTelefono = {contacto.telefono}
+                    auxCelular = {contacto.celular}
+                    auxDomicilio = {contacto.domicilio}
+                />
             }
             {propietario === 'no' || editando === 'no' &&
             <Card containerStyle={Estilos.Tarjeta}>

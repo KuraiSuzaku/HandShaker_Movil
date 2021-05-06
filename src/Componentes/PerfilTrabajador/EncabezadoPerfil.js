@@ -102,8 +102,8 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
                     setDescripcion = {setDescripcion}
                     setProfesion = {setProfesion}
                     auxCategoria = "categoriaASDAS"
-                    auxProfesion = "profesionASDASD" //Estos los debo obtener desde la BD
-                    auxDescripcion = "descripcionASDADSA"
+                    auxProfesion = {titulo} //Estos los debo obtener desde la BD
+                    auxDescripcion = {descripcion}
                 />
             </View>
             }
