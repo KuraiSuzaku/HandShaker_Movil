@@ -3,6 +3,7 @@ import { PanResponder } from 'react-native';
 import {
     ActivityIndicator,
     Alert,
+    Image,
     StyleSheet,
     TextInput,
     TouchableOpacity,
@@ -10,6 +11,7 @@ import {
 } from 'react-native';
 import { Card, Text } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
 import Colores from '../../Estilos/Colores';
 
 export default class NewPublication extends Component {
@@ -17,7 +19,10 @@ export default class NewPublication extends Component {
         super();
         this.state = {
             publication: null,
-            image: null
+            image: {
+                uri: null,
+                name: null
+            }
         };
         this.setPublication = this.setPublication.bind(this);
         this.addImage = this.addImage.bind(this);
@@ -42,16 +47,39 @@ export default class NewPublication extends Component {
               console.log('User cancelled image picker');
             }
             else{
-             this.setState({ fileURL: response.uri,
-                 imageName: response.fileName });
+             this.setState({
+                image: {
+                    uri: response.uri,
+                    name: response.fileName
+                }
+             });
             }
           });
     }
 
+    async uploadImage() {
+        const { uri, fileName } = this.state.image;
+
+        const task = storage()
+        .ref(fileName)
+        .putFile(uri);
+
+        try {
+            await task;
+        } catch (e) {
+            console.error(e);
+        }
+
+        Alert.alert(
+            'Photo uploaded!',
+            'Your photo has been uploaded to Firebase Cloud Storage!'
+          );
+    }
+
     publicar() {
         if(this.state.publication) {
-            console.log('Publicate ' + this.state.publication);
-            console.log(this.state.fileURL);
+            console.log('---PUBLICAR---');
+            this.uploadImage();
         } else {
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');
         }
@@ -67,16 +95,21 @@ export default class NewPublication extends Component {
                     onChangeText={ pubContent => this.setPublication(pubContent) }
                 />
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 5}}>
                     <TouchableOpacity onPress={ () => this.addImage() }>
                         <View style={Estilos.Boton}>
                             <Text style={Estilos.EtiquetaBoton}>
-                                {this.state.imageName ?
-                                this.state.imageName :
-                                'Agregar imagen'}
+                                Agregar imagen
                             </Text>
                         </View>
                     </TouchableOpacity>
+                    <Text style={{fontSize: 11}}>
+                        {
+                            this.state.imageName ?
+                            this.state.imageName :
+                            null
+                        }
+                    </Text>
                     <TouchableOpacity onPress={ () => this.publicar() }>
                         <View style={[Estilos.Boton, { backgroundColor: Colores.simbolos }]}>
                             <Text style={Estilos.EtiquetaBoton}>
@@ -85,11 +118,11 @@ export default class NewPublication extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                {this.state.fileURL ?
+                {this.state.image.uri ?
                     <>
                     <Card.Divider />
                     <Card.Image
-                        uri={this.state.fileURL}
+                        source={this.state.image}
                         resizeMode='contain'
                         style={{borderRadius: 15}}
                         PlaceholderContent={<ActivityIndicator />}
