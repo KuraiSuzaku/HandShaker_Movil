@@ -31,7 +31,7 @@ export default props => {
             >
             <Drawer.Screen 
                 name='Perfil' 
-                component={Vistas.PerfilPremium}
+                component={Vistas.PerfilTrabajador}
                 options={{
                     drawerIcon: ({ focused, size }) => 
                                         <Icon
@@ -69,7 +69,7 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Premium'
-                component={Vistas.Construccion}
+                component={Vistas.PagoAPremium}
                 options={{  title: 'Volverse Trabajador Premium',
                             unmountOnBlur: true }}
                 />
@@ -99,6 +99,12 @@ export default props => {
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
                 />
+            <Drawer.Screen
+                name='Contratar'
+                component={Vistas.Contratacion}
+                options={{ swipeEnabled: false,
+                    unmountOnBlur: true }}
+            />
         </Drawer.Navigator>
     );
 }
