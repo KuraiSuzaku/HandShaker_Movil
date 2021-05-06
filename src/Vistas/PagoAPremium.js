@@ -16,7 +16,12 @@ export default PagoAPremium = () => {
     const img_handshaker = require('../../public/Icons/handshaker.png');
     const [fecha_vencimiento, setFechaVencimiento] = useState(new Date());
     const [state, setState] = useState('no');
-    
+
+    const [numero, setNumero] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [apellidos, setApellidos] = useState("");
+    const [codigo, setCodigo] = useState("");
+
     const mostrar_picker = () => {
         setState('si');      
     };
@@ -33,13 +38,46 @@ export default PagoAPremium = () => {
     };
 
     const HacerPremium = () =>{
-        console.log('YA ERES PREMIUM WUUUUUU');
+        if(ValidarCampos()){
+            console.log("Numero Tarjeta: ", numero);
+            console.log("Nombre: ", nombre);
+            console.log("Apellidos: ", apellidos);
+            console.log("Fecha Vencimiento: ", moment(fecha_vencimiento).format("MM/YYYY"));
+            console.log("Codigo: ", codigo);
+            console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
+        }
+    };
+
+    const ValidarTarjeta = (inputtexto) => {
+        visa = "^4[0-9]{12}(?:[0-9]{3})?$";
+        mastercard = "mastercard";
+
+        setNumero(inputtexto);
+    };
+
+    const ValidarCampos = () => {
+        if (!numero.trim()) {
+            alert('Falta el número de tarjeta');
+            return false;
+        }
+        if (!nombre.trim()) {
+            alert('Falta el nombre del propietario');
+            return false;
+        }
+        if (!apellidos.trim()) {
+            alert('Faltan los apellidos del propietario');
+            return false;
+        }
+        if (!codigo.trim()) {
+            alert('Falta el código de seguridad de la tarjeta');
+            return false;
+        }
+        return true;
     };
 
     const navigation = useNavigation();
     const Cancelar = () =>{
         navigation.goBack();
-        console.log('Regresando al perfil');
     };
 
     return(
@@ -62,6 +100,7 @@ export default PagoAPremium = () => {
                         labelStyle={Estilos.TextoSecundario}
                         placeholder='xxxx-xxxx-xxxx-xxxx'
                         keyboardType = 'numeric'
+                        onChangeText={(inputtexto)=>{ValidarTarjeta(inputtexto)}}
                         style={Estilos.Input}
                         inputContainerStyle={{borderBottomWidth:0}}
                     />  
@@ -79,6 +118,7 @@ export default PagoAPremium = () => {
                     label='Nombre(s)'
                     labelStyle={Estilos.TextoSecundario}
                     placeholder=''
+                    onChangeText={(inputtexto)=>{setNombre(inputtexto)}}
                     style={Estilos.Input}
                     inputContainerStyle={{borderBottomWidth:0}}
                 />
@@ -87,6 +127,7 @@ export default PagoAPremium = () => {
                     label='Apellidos'
                     labelStyle={Estilos.TextoSecundario}
                     placeholder=''
+                    onChangeText={(inputtexto)=>{setApellidos(inputtexto)}}
                     style={Estilos.Input}
                     inputContainerStyle={{borderBottomWidth:0}}
                 />
@@ -120,6 +161,7 @@ export default PagoAPremium = () => {
                         labelStyle={Estilos.TextoSecundario}
                         keyboardType = 'numeric'
                         placeholder='xxx'
+                        onChangeText={(inputtexto)=>{setCodigo(inputtexto)}}
                         style={Estilos.Input}
                         inputContainerStyle={{borderBottomWidth:0}}
                     />
