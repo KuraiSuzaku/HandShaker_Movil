@@ -19,6 +19,7 @@ export default Navegacion = (props) => {
                 labelStyle: Estilos.EtiquetasPestañas,
                 activeTintColor: Colores.simbolos,
                 inactiveTintColor: Colores.negro,
+                indicatorStyle: { backgroundColor: Colores.simbolos }
             }}
             >
             <Pestañas.Screen name='Publicaciones'>

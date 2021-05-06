@@ -87,7 +87,15 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Login'
-                component={Componentes.Login}
+                // component={Componentes.Login}
+                options={{ swipeEnabled: false,
+                    unmountOnBlur: true }}
+                >
+                    { ()=><Componentes.Login setUser={ (userLogged)=>props.setUser(userLogged) }/> }
+                </Drawer.Screen>
+            <Drawer.Screen
+                name='Registro'
+                component={Componentes.Registro}
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
                 />
