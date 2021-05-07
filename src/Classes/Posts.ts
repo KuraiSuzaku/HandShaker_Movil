@@ -1,15 +1,16 @@
 
 import { Post } from './Post';
+import {rooturl} from './ip'
 import axios from 'axios'
 export class Posts {
     _id:String
-    IdPremiumWorker:string
+    EmailPremiumWorker:string
     ListOfPosts: Post[]
 
 
-    constructor(IdPremiumWorker?:string,Post?:Post,_id?:string){
+    constructor(EmailPremiumWorker?:string,Post?:Post,_id?:string){
         this._id=_id
-        this.IdPremiumWorker=IdPremiumWorker 
+        this.EmailPremiumWorker=EmailPremiumWorker 
         this.ListOfPosts = new Array();
         this.ListOfPosts.push(Post)
     }
@@ -19,7 +20,7 @@ export class Posts {
     
         try {
           console.log("add POST")
-          const response = await axios.post("http://192.168.1.72:3001/api/Posts/Add",{ PostObject });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Posts/Add",{ PostObject });//the object to send must be *PostObject*
         
           return response;
         } catch (error) {
@@ -30,12 +31,12 @@ export class Posts {
       }
 
 
-      async GetPosts(IdPremiumWorker: String) {// fill ClientObject with all information of the client
+      async GetPosts(EmailPremiumWorker: String) {// fill ClientObject with all information of the client
         var num = 0;
     
         try {
           console.log("Get POST")
-          const response = await axios.post("http://192.168.1.72:3001/api/Posts/GetPosts",{ IdPremiumWorker });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Posts/GetPosts",{ EmailPremiumWorker });//the object to send must be *PostObject*
           return this;
         } catch (error) {
           console.log("error del tipo" + error);
