@@ -3,13 +3,13 @@ import { MultimediaItems } from './MultimediaItems';
 import axios from 'axios'
 import {rooturl} from './ip'
 export class Multimedia {
-    IdPremiumWorker:string
+  EmailPremiumWorker:string
     ListOfMultimediaItems: MultimediaItems[]
     _id:String
 
-    constructor(IdPremiumWorker:string,Item:MultimediaItems,_id?:string){
+    constructor(EmailPremiumWorker:string,Item:MultimediaItems,_id?:string){
      
-      this.IdPremiumWorker=IdPremiumWorker
+      this.EmailPremiumWorker=EmailPremiumWorker
       this.ListOfMultimediaItems = new Array();
       this.ListOfMultimediaItems.push(Item)
   }

@@ -5,13 +5,13 @@ import {rooturl} from './ip'
 
 export class Prices {
     //_id?:String
-    IdPremiumWorker?:string
+    EmailPremiumWorker?:string
     ListOfPrices?: ItemPrice[]
     Id?:String
 
-    constructor(IdPremiumWorker:string,Item:ItemPrice,_id?:string){
+    constructor(EmailPremiumWorker:string,Item:ItemPrice,_id?:string){
      
-        this.IdPremiumWorker=IdPremiumWorker
+        this.EmailPremiumWorker=EmailPremiumWorker
         this.ListOfPrices = new Array();
         this.ListOfPrices.push(Item)
     }
@@ -33,12 +33,12 @@ export class Prices {
       }
 
 
-      async GetPrice(IdPremiumWorker: String) {// fill ClientObject with all information of the client
+      async GetPrice(EmailPremiumWorker: String) {// fill ClientObject with all information of the client
         var num = 0;
     
         try {
           console.log("Get Price")
-          const response = await axios.post(rooturl+"Prices/Get",{ IdPremiumWorker });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Prices/Get",{ EmailPremiumWorker });//the object to send must be *PostObject*
           return this;
         } catch (error) {
           console.log("error del tipo" + error);

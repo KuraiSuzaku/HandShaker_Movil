@@ -4,13 +4,13 @@ import {rooturl} from './ip'
 import axios from 'axios'
 export class Posts {
     _id:String
-    IdPremiumWorker:string
+    EmailPremiumWorker:string
     ListOfPosts: Post[]
 
 
-    constructor(IdPremiumWorker?:string,Post?:Post,_id?:string){
+    constructor(EmailPremiumWorker?:string,Post?:Post,_id?:string){
         this._id=_id
-        this.IdPremiumWorker=IdPremiumWorker 
+        this.EmailPremiumWorker=EmailPremiumWorker 
         this.ListOfPosts = new Array();
         this.ListOfPosts.push(Post)
     }
@@ -31,12 +31,12 @@ export class Posts {
       }
 
 
-      async GetPosts(IdPremiumWorker: String) {// fill ClientObject with all information of the client
+      async GetPosts(EmailPremiumWorker: String) {// fill ClientObject with all information of the client
         var num = 0;
     
         try {
           console.log("Get POST")
-          const response = await axios.post(rooturl+"Posts/GetPosts",{ IdPremiumWorker });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Posts/GetPosts",{ EmailPremiumWorker });//the object to send must be *PostObject*
           return this;
         } catch (error) {
           console.log("error del tipo" + error);
