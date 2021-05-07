@@ -1,5 +1,6 @@
 import {AddressClass } from './AddressClass'
 import User  from './User'
+import {rooturl} from './ip'
 import axios from 'axios'
 
 export  class Client extends User {
@@ -19,7 +20,7 @@ export  class Client extends User {
         var num = 0;
     
         try {
-          const response = await axios.post("http://192.168.1.75:3001/api/Client/GetClientInformation",{ ClientObject });//the object to send must be *ClientObject*
+          const response = await axios.post(rooturl+"Client/GetClientInformation",{ ClientObject });//the object to send must be *ClientObject*
           ClientObject=response.data;
           console.log("ID...   "+ClientObject._id);      
           this.Response = "1";
