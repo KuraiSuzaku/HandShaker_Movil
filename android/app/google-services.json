@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "495618189191",
     "project_id": "handshaker-cb383",
-    "storage_bucket": "handshaker-cb383.appspot.com"
+    "storage_bucket": "gs://handshaker-cb383.appspot.com"
   },
   "client": [
     {

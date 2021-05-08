@@ -20,6 +20,10 @@ target 'App_Movil' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBStorage', :path => '../node_modules/@react-native-firebase/storage'
+
   target 'App_MovilTests' do
     inherit! :complete
     # Pods for testing

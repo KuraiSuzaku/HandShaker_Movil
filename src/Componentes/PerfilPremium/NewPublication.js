@@ -1,9 +1,7 @@
 import React, { Component, useState } from 'react';
-import { PanResponder } from 'react-native';
 import {
     ActivityIndicator,
     Alert,
-    Image,
     StyleSheet,
     TextInput,
     TouchableOpacity,
@@ -59,6 +57,8 @@ export default class NewPublication extends Component {
 
     async uploadImage() {
         const { uri, fileName } = this.state.image;
+
+        console.log('========== ready to upload ===========')
 
         const task = storage()
         .ref(fileName)
