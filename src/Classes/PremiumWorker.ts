@@ -31,7 +31,7 @@ export  class PremiumWorker extends User {
         var num = 0;
     
         try {
-          const response = await axios.post("http://192.168.1.75:3001/api/PremiumWorker/GetPremiumWorkerInformation",{ PremiumWorkerObject });//the object to send must be *PremiumWorkerObject*
+          const response = await axios.post("http://192.168.100.9:3001/api/PremiumWorker/GetPremiumWorkerInformation",{ PremiumWorkerObject });//the object to send must be *PremiumWorkerObject*
           PremiumWorkerObject=response.data;
           console.log("ID...   "+PremiumWorkerObject._id);
           this.Response = "1";
@@ -47,7 +47,7 @@ export  class PremiumWorker extends User {
       async GetPremiumWorkers() {// Get All workers, even the premium workers
         var num = 0;    
         try {
-          const response = await axios.post("http://192.168.1.75:3001/api/PremiumWorker/GetAllPremiumWorkers",{ });//the object to send must be *WorkerObject*           
+          const response = await axios.post("http://192.168.100.9:3001/api/PremiumWorker/GetAllPremiumWorkers",{ });//the object to send must be *WorkerObject*           
           console.log("Premium Worker")
           console.log(JSON.stringify(response.data)); 
           let PremiumWorkerArray:PremiumWorker[]

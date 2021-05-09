@@ -10,7 +10,7 @@ import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 /////////
 
-export default PagoAPremium = () => {
+export default PagoAPremium = (props) => {
 
     let img_otra = require('../../public/Images/otratarjeta.png');
     let img_visa = require('../../public/Images/visa.png');
@@ -41,9 +41,12 @@ export default PagoAPremium = () => {
 
     const HacerPremium = () =>{
         if(ValidarCampos()){
+            console.log("IDUser: ", props.user.IdUser);
+            console.log("_id: ", props.user._id);
+            console.log("Nombre del usuario: ", props.user.Name);
             console.log("Numero Tarjeta: ", numero);
-            console.log("Nombre: ", nombre);
-            console.log("Apellidos: ", apellidos);
+            console.log("Nombre del propietario: ", nombre);
+            console.log("Apellidos del propietario: ", apellidos);
             console.log("Fecha Vencimiento: ", moment(fecha_vencimiento).format("MM/YYYY"));
             console.log("Codigo: ", codigo);
             console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
@@ -108,6 +111,7 @@ export default PagoAPremium = () => {
                         labelStyle={Estilos.TextoSecundario}
                         placeholder='xxxx-xxxx-xxxx-xxxx'
                         keyboardType = 'numeric'
+                        maxLength={16}
                         onChangeText={(inputtexto)=>{ValidarTarjeta(inputtexto)}}
                         style={Estilos.Input}
                         inputContainerStyle={{borderBottomWidth:0}}
@@ -115,7 +119,7 @@ export default PagoAPremium = () => {
                 </View>
                 <View style={{flex: 1, padding: 10, marginTop: 10}}>
                     <Image
-                        source={img_tarjeta}
+                        source={img_otra}
                         style={Estilos.Imagen}
                     />  
                 </View>
@@ -169,6 +173,7 @@ export default PagoAPremium = () => {
                         labelStyle={Estilos.TextoSecundario}
                         keyboardType = 'numeric'
                         placeholder='xxx'
+                        maxLength={3}
                         onChangeText={(inputtexto)=>{setCodigo(inputtexto)}}
                         style={Estilos.Input}
                         inputContainerStyle={{borderBottomWidth:0}}

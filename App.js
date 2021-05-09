@@ -4,12 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Vistas from './src/Vistas/Indice';
 
 export default App = () => {
-  const [user, setUser] = useState(null);
-  console.log("=============================================================")
+  const [user, setUser] = useState({
+    UserType: null,
+  });
+  console.log("=============================================================");
   console.log(user);
   return (
     <NavigationContainer>
-      <Vistas.Menu setUser={ (userLogged)=>setUser(userLogged) }/>
+      <Vistas.Menu 
+        setUser={ (userLogged)=>setUser(userLogged) }
+        user = {user}
+        />
     </NavigationContainer>
   );
 };
