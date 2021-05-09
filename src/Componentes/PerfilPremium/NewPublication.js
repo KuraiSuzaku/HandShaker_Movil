@@ -60,8 +60,12 @@ export default class NewPublication extends Component {
 
         console.log('========== ready to upload ===========')
 
+        try{
         const task = storage()
-        .ref(fileName)
+        .ref('images/xd');
+        } catch (e) {
+            console.log(e);
+        }/*
         .putFile(uri);
 
         try {
@@ -73,7 +77,7 @@ export default class NewPublication extends Component {
         Alert.alert(
             'Photo uploaded!',
             'Your photo has been uploaded to Firebase Cloud Storage!'
-          );
+          );*/
     }
 
     publicar() {
@@ -86,6 +90,7 @@ export default class NewPublication extends Component {
     }
 
     render() {
+        console.log('Carga upload aaaaaaaaaaaaaa');
         return(
             <Card containerStyle={Estilos.Tarjeta} >
                 <View>
