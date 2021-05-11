@@ -14,7 +14,7 @@ export  class Worker extends User {
     Addresses?:AddressClass[]
     WorkerType?:boolean
 
-    constructor(UserEmail:string,UserPassword:string,IdWorker?:string,Category?:string,Profession?:string,JobDescription?:string,EmailContact?:string,isPremium?:boolean,Addressess?:AddressClass[],WorkerType?:boolean){
+    constructor(UserEmail:string,UserPassword?:string,IdWorker?:string,Category?:string,Profession?:string,JobDescription?:string,EmailContact?:string,isPremium?:boolean,Addressess?:AddressClass[],WorkerType?:boolean){
         super(UserEmail,UserPassword)
         this.IdWorker=IdWorker
         this.Category=Category
@@ -98,6 +98,23 @@ export  class Worker extends User {
           return this;
         }
       }
-   
+
+      async UpdateWorkers(WorkerObject: Worker) {// Get All workers, even the premium workers
+        var num = 0;
+
+        console.log(JSON.stringify(WorkerObject)); 
+
+        try {
+          const response = await axios.post(rooturl+"Worker/UpdateWorker",{ WorkerObject });//the object to send must be *WorkerObject*
+          return response; //returns an array of premiumWorker
+
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+
+      }
 }
 export default Worker
