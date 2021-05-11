@@ -61,23 +61,14 @@ export default class NewPublication extends Component {
         console.log('========== ready to upload ===========')
 
         try{
-        const task = storage()
-        .ref('images/xd');
+            let reference = storage().ref('test/testImage.jpg');//.putFile(uri);
         } catch (e) {
             console.log(e);
-        }/*
-        .putFile(uri);
-
-        try {
-            await task;
-        } catch (e) {
-            console.error(e);
         }
 
         Alert.alert(
-            'Photo uploaded!',
-            'Your photo has been uploaded to Firebase Cloud Storage!'
-          );*/
+            'Se ha creado la publicación'
+          );
     }
 
     publicar() {
