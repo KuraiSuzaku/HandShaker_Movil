@@ -61,10 +61,13 @@ export default class NewPublication extends Component {
         console.log('========== ready to upload ===========')
 
         try{
-            let reference = storage().ref('test/testImage.jpg');//.putFile(uri);
+            const reference = storage().ref('test/testImage.jpg');
+            //const task = reference.putFile(uri);
         } catch (e) {
             console.log(e);
         }
+
+        //await task;
 
         Alert.alert(
             'Se ha creado la publicación'
