@@ -34,14 +34,26 @@ export class Multimedia {
       }
 
 
-      async GetMultimedia(MultimediaObject: Multimedia) {// fill ClientObject with all information of the client
+      async GetMultimedia(EmailPremiumWorker: string) {// fill ClientObject with all information of the client
         var num = 0;
     
         try {
-        
-
-          const response = await axios.post(rooturl+"Multimedia/GetMultimedia",{ MultimediaObject });//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Multimedia/GetMultimedia",{EmailPremiumWorker});//the object to send must be *PostObject*
           return this;
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);          
+          return this;
+        }
+      }
+
+      async DeleteMultimedia(EmailPremiumWorker: String,IdAgenda:String) {// fill ClientObject with all information of the client
+        var num = 0;
+    
+        try {
+  
+          const response = await axios.post(rooturl+"Multimedia/Delete",{ EmailPremiumWorker, IdAgenda});//the object to send must be *PostObject*
+          return response;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
