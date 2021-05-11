@@ -5,13 +5,16 @@ import {useNavigation} from '@react-navigation/native';
 import Colores from '../../Estilos/Colores';
 import EditarPerfil from './EditarPerfil';
 
-export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, titulo, descripcion}) => {
+export default EncabezadoPerfil = (props) => {
        
+    console.log("Estoy imprimiendo en EncabezadoPerfil Brenda");
+    console.log(props);
+
     const [propietario, setPropietario] = useState('si');
     const [editando, setEditando] = useState('no');
-    const [editcategoria, setCategoria] = useState();
-    const [editprofesion, setProfesion] = useState();
-    const [editdescripcion, setDescripcion] = useState();
+    const [editcategoria, setCategoria] = useState(props.user.Category);
+    const [editprofesion, setProfesion] = useState(props.user.Profession);
+    const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
     
     const CambiarDatos = () =>{
         setEditando('si');
@@ -21,6 +24,7 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
     const GuardarCambios = () => {
         setEditando('no'); 
         console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        console.log("IDUser (email): " + props.user.Email);
         console.log("categoria: " + editcategoria);
         console.log("profesion: " + editprofesion);
         console.log("descripcion: " + editdescripcion);
@@ -31,7 +35,7 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
     return(
         <View>
             <Image
-                source={imagenFondo}
+                source={props.imagenFondo}
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'
                 PlaceholderContent={<ActivityIndicator />}
@@ -40,7 +44,7 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
                 <Rating 
                     imageSize={20} 
                     readonly 
-                    startingValue={valoracion} 
+                    startingValue={props.valoracion} 
                     ratingColor={Colores.simbolos}
                     ratingBackgroundColor={Colores.fondoOscuro}
                     tintColor={Colores.fondo}
@@ -50,7 +54,7 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
                 <Avatar
                     rounded
                     icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={avatar}
+                    source={props.avatar}
                     size={100}
                     containerStyle={Estilos.ContenedorAvatar}
                     />
@@ -85,13 +89,13 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
             {editando === 'no' &&
                 <View style={Estilos.Datos}>
                     <Text style={Estilos.Informacion}>
-                        {nombre}
+                        {props.user.Name}
                     </Text>
                     <Text style={Estilos.Informacion}>
-                        {titulo}
+                        {props.user.Profession}
                     </Text>
                     <Text style={Estilos.Informacion}>
-                        {descripcion}
+                        {props.user.JobDescription}
                     </Text>
                 </View>
             }
@@ -101,9 +105,9 @@ export default EncabezadoPerfil = ({imagenFondo, avatar, valoracion, nombre, tit
                     setCategoria = {setCategoria}
                     setDescripcion = {setDescripcion}
                     setProfesion = {setProfesion}
-                    auxCategoria = "categoriaASDAS"
-                    auxProfesion = {titulo} //Estos los debo obtener desde la BD
-                    auxDescripcion = {descripcion}
+                    auxCategoria = {props.user.Category}
+                    auxProfesion = {props.user.Profession} //Estos los debo obtener desde la BD
+                    auxDescripcion = {props.user.JobDescription}
                 />
             </View>
             }

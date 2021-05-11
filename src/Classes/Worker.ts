@@ -50,7 +50,7 @@ export  class Worker extends User {
         var num = 0;
     
         try {
-          const response = await axios.post(rooturl+"/Worker/GetAllWorkers",{ });//the object to send must be *WorkerObject*           
+          const response = await axios.post(rooturl+"/Worker/GetAllWorkers",{ });//the object to send must be *WorkerObject* 
           console.log("All Worker")
           console.log(JSON.stringify(response.data)); 
           let AllWorkerArray:Worker[]

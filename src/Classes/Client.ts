@@ -24,7 +24,7 @@ export  class Client extends User {
           ClientObject=response.data;
           console.log("ID...   "+ClientObject._id);      
           this.Response = "1";
-          return this;
+          return ClientObject;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);

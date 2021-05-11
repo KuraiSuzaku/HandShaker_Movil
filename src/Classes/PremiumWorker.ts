@@ -49,6 +49,7 @@ export  class PremiumWorker extends User {
         var num = 0;    
         try {
           const response = await axios.post(rooturl+"PremiumWorker/GetAllPremiumWorkers",{ });//the object to send must be *WorkerObject*           
+
           console.log("Premium Worker")
           console.log(JSON.stringify(response.data)); 
           let PremiumWorkerArray:PremiumWorker[]

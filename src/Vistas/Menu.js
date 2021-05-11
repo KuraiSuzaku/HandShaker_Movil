@@ -18,7 +18,9 @@ const Drawer = createDrawerNavigator();
 export default props => {
     return(
         <Drawer.Navigator 
-            drawerContent={props => customDrawerContent(props)}
+            drawerContent={(auxprops) => <CustomDrawerContent {...auxprops}
+                                        user = {props.user}
+                                        />}//(props) => {customDrawerContent(props)}}
             initialRouteName='Login'
             drawerContentOptions={{
                 activeTintColor: Colores.simbolos,
@@ -31,7 +33,7 @@ export default props => {
             >
             <Drawer.Screen 
                 name='Perfil' 
-                component={Vistas.PerfilTrabajador}
+
                 options={{
                     drawerIcon: ({ focused, size }) => 
                                         <Icon
@@ -41,7 +43,9 @@ export default props => {
                                             color={focused ? Colores.simbolos : Colores.blanco}
                                         />
                 }}
-                />
+                >
+                { ()=><Validar_perfil user={props.user}/> }
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
                 component={Vistas.Construccion}
@@ -69,10 +73,11 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Premium'
-                component={Vistas.PagoAPremium}
                 options={{  title: 'Volverse Trabajador Premium',
                             unmountOnBlur: true }}
-                />
+                >
+                { ()=><Vistas.PagoAPremium user={props.user}/> }
+                </Drawer.Screen>
             <Drawer.Screen
                 name='Cerrar Sesión'
                 component={Componentes.LogOut}
@@ -91,7 +96,11 @@ export default props => {
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
                 >
-                    { ()=><Componentes.Login setUser={ (userLogged)=>props.setUser(userLogged) }/> }
+                    { ({navigation}) =>
+                    <Componentes.Login 
+                        setUser={ (userLogged)=>props.setUser(userLogged)}
+                        navigation={navigation}
+                    /> }
                 </Drawer.Screen>
             <Drawer.Screen
                 name='Registro'
@@ -109,17 +118,19 @@ export default props => {
     );
 }
 
-const customDrawerContent = (props) => {
+const CustomDrawerContent = (props) => {
     const check = (val) => {
-        if( val === 'Inicio'
-            || val === 'Perfil'
+        if( val === 'Perfil'
             || val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Premium'
             || val === 'Cerrar Sesión')
             return true;
+            if(props.user.UserType === "Worker")
+                if(val === 'Premium')
+                return true;
         return false;
     };
+
     const filteredProps = {
       ...props,
       state: {
@@ -140,6 +151,35 @@ const customDrawerContent = (props) => {
             </View>
             <DrawerItemList {...filteredProps} />
         </View>
+    );
+};
+
+const Validar_perfil = (props) => {
+    
+    if(props.user.UserType == "PremiumWorker"){
+        return (
+            <Vistas.PerfilPremium 
+                user={props.user}
+            />
+        );
+    }
+    else if(props.user.UserType == "Worker"){
+        return (
+            <Vistas.PerfilTrabajador
+                user={props.user}
+            />
+        );
+    }
+    else if(props.user.UserType == "Client"){
+        return (
+            <Vistas.PerfilCliente
+                user={props.user}
+            />
+        );
+    }
+
+    return(
+        <Text>ESTO ES UN ERROR, SI ESTÁS VIENDO ESTA PÁGINA POR FAVOR CONTACTA A brendasamantha@gmail.com y dile que fue en el login :C</Text>
     );
 };
 

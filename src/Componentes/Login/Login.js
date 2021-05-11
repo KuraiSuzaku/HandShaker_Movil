@@ -7,7 +7,6 @@ import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
 
 
-
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +27,7 @@ export default class Login extends Component {
      }
 
     handleLogin( event ){
+        console.log("Estoy en handlelogin wuuu");
         //Login code with front end
         let Email=this.state.email;
         let Password=this.state.password;      
@@ -47,6 +47,7 @@ export default class Login extends Component {
             WorkerObject=res;
             this.props.setUser(WorkerObject);
             ToastAndroid.show(("Worker User"), ToastAndroid.SHORT);
+            this.props.navigation.navigate('Perfil')
           });
         }
         if(userObject.UserType.includes("PremiumWorker")){
@@ -59,8 +60,8 @@ export default class Login extends Component {
             console.log("**IMPRESION EN LOGIN (PW)**");
             console.log(PremiumWorkerObject);
             this.props.setUser(PremiumWorkerObject);
-           ToastAndroid.show(("Premium Worker User"), ToastAndroid.SHORT);
-
+            ToastAndroid.show(("Premium Worker User"), ToastAndroid.SHORT);
+            this.props.navigation.navigate('Perfil')
           });
         }
         if(userObject.UserType.includes("Client")){
@@ -72,8 +73,10 @@ export default class Login extends Component {
             ClientObject=res;        
             this.props.setUser(ClientObject);
             ToastAndroid.show(("Client User"), ToastAndroid.SHORT);
+            this.props.navigation.navigate('Perfil')
           });
         }
+        
       } 
     else{ //there was an error on the login
       if(res.Response=="404")
@@ -166,9 +169,8 @@ handleGetPremiumWorkers( event ){
                             txt="funciones Get Info" 
                             handleLogin={ this.handleGetPremiumWorkers}
                         />
-                          <FormButton 
-                            //txt="pagina perfil" 
-                         //   handleLogin={  this.props.navigation.navigate('Perfil')}
+                        <FormButton 
+                            handleLogin={ () => this.props.navigation.navigate('Perfil')}
                         />
                     </View>
                 </ScrollView>

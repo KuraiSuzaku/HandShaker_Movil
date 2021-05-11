@@ -5,8 +5,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 //////
-export default PerfilTrabajador = () => {
-    // PRUEBA
+export default PerfilTrabajador = (props) => {
+  
+  // PRUEBA
     const imagenFondo = require('../../public/Images/test.jpg');
     const avatar = require('../../public/Profile/user.png');
     const valoracion = 3.5;
@@ -43,7 +44,7 @@ export default PerfilTrabajador = () => {
                     ]
     return(
       <SafeAreaProvider style={Estilos.ContenedorApp}>
-        <Componentes.EncabezadoApp />
+        <Componentes.EncabezadoApp/>
         <Componentes.PerfilTrabajador.Contenedor
             imagenFondo={imagenFondo}
             avatar={avatar}
@@ -55,6 +56,7 @@ export default PerfilTrabajador = () => {
             contacto={contacto}
             resenas={resenas}
             acercade={acercade}
+            user = {props.user}
             />
         <Componentes.Navegacion />
       </SafeAreaProvider>
