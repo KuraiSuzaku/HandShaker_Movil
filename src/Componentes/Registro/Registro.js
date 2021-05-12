@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { View, Image, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
-import Colores from './../../Estilos/Colores'
+import Colores from '../../Estilos/Colores'
+import DatePicker from 'react-native-datepicker'
 
-export default class RegistroCliente extends Component {
+export default class Registro extends Component {
 
     constructor(props) {
         super(props);
@@ -12,6 +13,7 @@ export default class RegistroCliente extends Component {
         this.handleLastNames = this.handleLastNames.bind(this);
         this.handlePhone = this.handlePhone.bind(this);
         this.handleBirthDate = this.handleBirthDate.bind(this);
+        this.userType = this.handleUserType.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
         this.state = {
             email: '',
@@ -19,7 +21,8 @@ export default class RegistroCliente extends Component {
             names: '',
             lastNames: '',
             phone: '',
-            birthDate: '',
+            birthDate: new Date(),
+            userType: 'Cliente',
 
             nameError: ''
         };
@@ -30,7 +33,8 @@ export default class RegistroCliente extends Component {
     handleNames (text){     this.setState({ names: text })}
     handleLastNames (text){ this.setState({ lastNames: text })}
     handlePhone (text){     this.setState({ phone: text })}
-    handleBirthDate (text){   this.setState({ birthDate: text })}
+    handleBirthDate (date){   this.setState({ birthDate: date })}
+    handleUserType (text){   this.setState({ userType: text })}
 
     handleRegister( event ){
         if (this.state.email.trim() === ""){
@@ -71,7 +75,8 @@ export default class RegistroCliente extends Component {
                         <FormInput label="Nombres" value={ this.state.names } onChangeText={ this.handleNames }/>
                         <FormInput label="Apellidos" value={ this.state.lastNames } onChangeText={ this.handleLastNames }/>
                         <FormInput label="Teléfono" value={ this.state.phone } onChangeText={ this.handlePhone }/>
-                        <FormInput label="Fecha de nacimiento" value={ this.state.birthDate } onChangeText={ this.handleBirthDate } required={ true }/>
+                        <FormInput label="Tipo usuario (provisional)" value={ this.state.userType } onChangeText={ this.handleUserType } required={ true }/>
+                        <DateInput label="Fecha de nacimiento" value={ this.state.birthDate } onDateChange={ this.handleBirthDate } required={ true }/>
                     </View>
 
                     <Text style={ styles.errorTxt }>
@@ -100,6 +105,26 @@ const FormInput = ( props ) => (
         />
     </View>
 );
+
+const DateInput = ( props ) => (
+    <View>
+        <Text style={ styles.label }>
+            { props.label }{ props.required ? <Text style={ styles.errorTxt }> *</Text> : '' }
+        </Text>
+        <DatePicker
+            style={ styles.datePicker }
+            mode="date"
+            confirmBtnText="Confirmar"
+            cancelBtnText="Cancelar"
+            format="DD-MM-YYYY"
+            minDate="01-01-1920"
+            maxDate="01-01-2003"
+
+            date={ props.value }
+            onDateChange={ props.onDateChange } 
+        />
+    </View>
+)
 
 const styles = StyleSheet.create({
     container: {
@@ -143,5 +168,8 @@ const styles = StyleSheet.create({
     errorTxt: {
         color: '#f00',
         alignSelf: 'center'
+    },
+    datePicker: {
+        width: 200
     }
 })
