@@ -10,6 +10,7 @@ export default Multimedia = ({ imagen }) => {
         <Card containerStyle={Estilos.Tarjeta}>
             <Card.Image
                 source={imagen}
+                resizeMode='contain'
                 style={Estilos.Imagen}
                 PlaceholderContent={<ActivityIndicator />}
                 />

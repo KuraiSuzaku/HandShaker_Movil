@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
     StyleSheet,
 } from 'react-native';
@@ -7,16 +8,18 @@ import {
     Icon,
     Input,
 } from 'react-native-elements';
-//////
 import Colores from '../Estilos/Colores';
-//////
+
 export default Encabezado = (props) => {
+    const [search, setSearch] = useState(null);
+    const navigation = useNavigation();
     // METODOS
     const Buscar = () => {
-        console.log('Realizar Busqueda');
+        if(search)
+            console.log('Buscar ' + search);
     };
     const AbrirMenu = () => {
-        console.log('Abrir Menu');
+        navigation.toggleDrawer();
     };
     //////
     return(
@@ -49,7 +52,7 @@ export default Encabezado = (props) => {
                 color={Colores.simbolos}
                 containerStyle={Estilos.ContenedorIcono}
                 iconStyle={Estilos.Icono}
-                onPress={() => Buscar()}
+                onPress={ Buscar }
                 />
         </Header>
     );

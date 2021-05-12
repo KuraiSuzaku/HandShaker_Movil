@@ -1,12 +1,20 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Vistas from './src/Vistas/Indice';
 
 export default App = () => {
+  const [user, setUser] = useState({
+    UserType: null,
+  });
+  console.log("=============================================================");
+  console.log(user);
   return (
     <NavigationContainer>
-      <Vistas.PerfilPremium />
+      <Vistas.Menu 
+        setUser={ (userLogged)=>setUser(userLogged) }
+        user = {user}
+        />
     </NavigationContainer>
   );
 };
