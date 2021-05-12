@@ -33,7 +33,21 @@ export  class Client extends User {
         }
       }
 
-
+      async Register(ClientObject: Client) {// Needs Password, Needs Email, needs SuscriptionDate,
+        var num = 0;
+      
+        try {
+      
+          const response = await axios.post(rooturl+"Client/Register",{ ClientObject });//the object to send must be *WorkerObject*  
+        
+          return 1;
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+      }
    
 }
 

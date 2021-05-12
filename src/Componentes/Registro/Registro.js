@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { View, Image, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import Colores from '../../Estilos/Colores'
 import DatePicker from 'react-native-datepicker'
+import {User}   from "./../../Classes/User"
+import {PhoneNumber}   from "./../../Classes/PhoneNumber"
+import {Client}   from "./../../Classes/Client"
+import {Worker}   from "./../../Classes/Worker"
 
 export default class Registro extends Component {
 
@@ -47,9 +51,35 @@ export default class Registro extends Component {
             this.setErrorTxt( 'fecha de nacimiento' )
         }
         else{
-            //ToastAndroid.show((this.state.email+' - '+this.state.password+' - '+this.state.names+' - '+this.state.lastNames+' - '+this.state.phone+' - '+this.state.birthDate), ToastAndroid.SHORT);
-            this.setState({ nameError: '' })
-            ToastAndroid.show(('Registro'), ToastAndroid.SHORT);
+            ToastAndroid.show((this.state.email+' - '+this.state.password+' - '+this.state.names+' - '+this.state.lastNames+' - '+this.state.phone+' - '+this.state.birthDate), ToastAndroid.SHORT);
+           // this.setState({ nameError: '' })
+            //ToastAndroid.show(('Registro'), ToastAndroid.SHORT);
+
+            let userObject= new User(this.state.email,this.state.password)//Login
+            userObject.Name=this.state.names
+            userObject.LastName=this.state.lastNames
+            let phone= new PhoneNumber("Numero de telefono",this.state.phone)
+            userObject.Birthday=this.state.birthDate            
+            userObject.Phones.push(phone)
+            if(this.state.userType.includes("Cliente")){
+                console.log("Cliente")
+                client= new Client(userObject.Name,userObject.Password)
+                client.Name=userObject.Name
+                client.LastName=userObject.LastName
+                client.Phones=userObject.Phones
+                client.Birthday=userObject.Birthday
+                client.Register(client)
+            }else{
+                console.log("Trabajador")
+                WorkerUser= new Worker()
+            
+                WorkerUser=userObject
+                console.log(client)
+                WorkerUser.ClientType
+                WorkerUser.Register(WorkerUser)
+            }
+           
+
         }
     }
 
