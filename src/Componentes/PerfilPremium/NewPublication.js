@@ -13,6 +13,9 @@ import ImgToBase64 from 'react-native-image-base64';
 //import storage from '@react-native-firebase/storage';
 //import firebase from '../../../firebase';
 import Colores from '../../Estilos/Colores';
+import { Post } from './../../Classes/Post';
+import { Image } from './../../Classes/Image';
+import { Posts } from './../../Classes/Posts';
 
 export default class NewPublication extends Component {
     constructor() {
@@ -104,8 +107,35 @@ export default class NewPublication extends Component {
 
     publicar() {
         if(this.state.publication) {
-            console.log('---PUBLICAR---');
-            this.uploadImage();
+             /*Add a new Post*/
+             if(typeof this.state.fileURL !== 'undefined'){
+             publication=this.state.publication
+             var date = new Date(); 
+             console.log('Publicate ' + publication);
+             img=new Image("NamePicture","ruta/r");
+             PostObbject=new Post(date,publication,img);
+             PostsObject=new Posts("605fac174791ea436cc76741",PostObbject);
+             PostsObject.AddPost(PostsObject).then(res=>{            
+                if  (res.status==200){
+                   Alert.alert('Se Agrego correctamente');
+                 }
+            })              
+            }
+            else{
+                publication=this.state.publication
+                var date = new Date(); 
+                console.log('Publicate ' + publication);
+                img=new Image("","");
+                PostObbject=new Post(date,publication,img);
+                PostsObject=new Posts("605fac174791ea436cc76741",PostObbject);
+                PostsObject.AddPost(PostsObject).then(res=>{                     
+                    if  (res.status==200){
+                       Alert.alert('Se Agrego correctamente');
+                     }
+                })  
+    
+    
+            }
         } else {
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');
         }

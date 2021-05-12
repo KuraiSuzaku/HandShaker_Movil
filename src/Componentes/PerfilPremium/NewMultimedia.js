@@ -11,7 +11,10 @@ import {
     Card,
     Text
 } from 'react-native-elements';
+import { MultimediaItems } from '../../Classes/MultimediaItems';
+import { Multimedia } from '../../Classes/Multimedia';
 import ImagePicker from 'react-native-image-picker';
+import { Image } from './../../Classes/Image';
 import ImgToBase64 from 'react-native-image-base64';
 import Colores from '../../Estilos/Colores';
 
@@ -61,9 +64,18 @@ export default class NewMultimedia extends Component {
     }
 
     publish() {
-        if(this.state.imageName)
-            console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
-            
+            if(typeof this.state.fileURL !== 'undefined'){
+             console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
+             var date = new Date(); 
+             img=new Image("descripcion","ruta/r");
+             MultimediaItemObject=new MultimediaItems(date,"texto imagen",img);
+             MultimediaObject=new Multimedia("605fac174791ea436cc76741",MultimediaItemObject);
+             MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
+                if  (res.status==200){
+                   Alert.alert('Se Agrego correctamente');
+                 }
+            })  
+            }
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };

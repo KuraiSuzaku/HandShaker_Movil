@@ -9,6 +9,7 @@ import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.imagepicker.ImagePickerPackage;
+import com.imagepicker.ImagePickerPackage;
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
