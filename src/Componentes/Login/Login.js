@@ -143,7 +143,7 @@ handleGetPremiumWorkers( event ){
                         <FormInput 
                             label="Correo electrónico" 
                             value={ this.state.email }
-                            onChangeText={ this.handleEmail } 
+                            onChangeText={ this.handleEmail }
                         />
                         <FormInput 
                             label="Contraseña" 
@@ -193,6 +193,7 @@ const FormInput = ( props ) => (
         <TextInput 
             style={ styles.input }
             secureTextEntry={ props.password ? true : false }
+            keyboardType={!props.password ? 'email-address' : 'default' }
             value={ props.value }
             onChangeText={ props.onChangeText }
         />
