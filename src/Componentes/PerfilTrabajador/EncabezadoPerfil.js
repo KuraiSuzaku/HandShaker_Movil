@@ -4,6 +4,8 @@ import {Avatar, Button, Image, Rating, Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import Colores from '../../Estilos/Colores';
 import EditarPerfil from './EditarPerfil';
+import {Worker} from '../../Classes/Worker';
+import Clases from '../../Classes/Indice';
 
 export default EncabezadoPerfil = (props) => {
        
@@ -28,6 +30,12 @@ export default EncabezadoPerfil = (props) => {
         console.log("categoria: " + editcategoria);
         console.log("profesion: " + editprofesion);
         console.log("descripcion: " + editdescripcion);
+
+        let WorkerObject = new Worker(props.user.Email);
+        WorkerObject.Category = editcategoria;
+        WorkerObject.Profession = editprofesion;
+        WorkerObject.JobDescription = editdescripcion;
+        WorkerObject.UpdateWorkers(WorkerObject);
     }
 
     const navigation = useNavigation();

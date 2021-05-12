@@ -33,7 +33,7 @@ export  class User {
     this.Name = Name;
     this.LastName = LastName;
     this.ProfilePicture = ProfilePicture;
-    this.Phones = Phones;
+    this.Phones = new Array();
     this.Email = Email;
     this.UserType = UserType;
     this.Birthday = Birthday;
@@ -60,6 +60,8 @@ export  class User {
       this.Response = error.response.status;
       return this;}
     }
+
+    
   
 /*
    await axios.post("http://192.168.1.72:3001/api/user/Login", {userObject})
