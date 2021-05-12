@@ -6,6 +6,7 @@ import {User}   from "./../../Classes/User"
 import {PhoneNumber}   from "./../../Classes/PhoneNumber"
 import {Client}   from "./../../Classes/Client"
 import {Worker}   from "./../../Classes/Worker"
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 export default class Registro extends Component {
 
@@ -54,29 +55,31 @@ export default class Registro extends Component {
             ToastAndroid.show((this.state.email+' - '+this.state.password+' - '+this.state.names+' - '+this.state.lastNames+' - '+this.state.phone+' - '+this.state.birthDate), ToastAndroid.SHORT);
            // this.setState({ nameError: '' })
             //ToastAndroid.show(('Registro'), ToastAndroid.SHORT);
-
+                
             let userObject= new User(this.state.email,this.state.password)//Login
             userObject.Name=this.state.names
             userObject.LastName=this.state.lastNames
             let phone= new PhoneNumber("Numero de telefono",this.state.phone)
             userObject.Birthday=this.state.birthDate            
             userObject.Phones.push(phone)
+            
             if(this.state.userType.includes("Cliente")){
-                console.log("Cliente")
-                client= new Client(userObject.Name,userObject.Password)
+              
+                client= new Client(userObject.Email,userObject.Password)
                 client.Name=userObject.Name
                 client.LastName=userObject.LastName
                 client.Phones=userObject.Phones
                 client.Birthday=userObject.Birthday
                 client.Register(client)
             }else{
-                console.log("Trabajador")
-                WorkerUser= new Worker()
-            
-                WorkerUser=userObject
-                console.log(client)
-                WorkerUser.ClientType
-                WorkerUser.Register(WorkerUser)
+               
+                WorkerUser= new Worker(userObject.Email,userObject.Password)
+         
+                WorkerUser.Name=userObject.Name
+                WorkerUser.LastName=userObject.LastName
+                WorkerUser.Phones=userObject.Phones              
+                WorkerUser.Birthday=userObject.Birthday       
+                WorkerUser.Register(WorkerUser);
             }
            
 
@@ -86,6 +89,11 @@ export default class Registro extends Component {
     setErrorTxt( txt ){
         this.setState({ nameError: 'El campo ' + txt + ' no puede estar vacío' })
     }
+
+    radio_props = [
+        {label: 'Cliente', value: 'Cliente' },
+        {label: 'Trabajador', value: 'Trabajador' }
+    ];
 
     render() {
         return (
@@ -105,8 +113,17 @@ export default class Registro extends Component {
                         <FormInput label="Nombres" value={ this.state.names } onChangeText={ this.handleNames }/>
                         <FormInput label="Apellidos" value={ this.state.lastNames } onChangeText={ this.handleLastNames }/>
                         <FormInput label="Teléfono" value={ this.state.phone } onChangeText={ this.handlePhone }/>
-                        <FormInput label="Tipo usuario (provisional)" value={ this.state.userType } onChangeText={ this.handleUserType } required={ true }/>
+                        {/* <FormInput label="Tipo usuario (provisional)" value={ this.state.userType } onChangeText={ this.handleUserType } required={ true }/> */}
                         <DateInput label="Fecha de nacimiento" value={ this.state.birthDate } onDateChange={ this.handleBirthDate } required={ true }/>
+                        {/* <RadioInput label="¿Cómo desea registrarse" value={ this.state.userType } radio_props={ this.radio_props } onUserTypeChange={ this.handleUserType }/> */}
+                        <Text style={ styles.label, styles.radioInput }>
+                            ¿Cómo desea registrarse
+                        </Text>
+                        <RadioForm
+                            radio_props={this.radio_props}
+                            initial={0}
+                            onPress={(value) => {this.handleUserType(value)}}
+                        />
                     </View>
 
                     <Text style={ styles.errorTxt }>
@@ -121,6 +138,15 @@ export default class Registro extends Component {
         )
     }
 }
+
+const RadioInput = ( props ) => (
+    <View>
+        <Text style={ styles.label }>
+            { props.label }{ props.required ? <Text style={ styles.errorTxt }> *</Text> : '' }
+        </Text>
+        
+    </View>
+)
 
 const FormInput = ( props ) => (
     <View>
@@ -173,6 +199,9 @@ const styles = StyleSheet.create({
     label: {
         marginVertical: 0,
         color: Colores.etiquetas
+    },
+    radioInput: {
+        marginTop: 15
     },
     input: {
         height: 30,
