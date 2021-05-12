@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    ActivityIndicator,
     Alert,
     StyleSheet,
     TextInput,
@@ -14,13 +15,17 @@ import { MultimediaItems } from '../../Classes/MultimediaItems';
 import { Multimedia } from '../../Classes/Multimedia';
 import ImagePicker from 'react-native-image-picker';
 import { Image } from './../../Classes/Image';
+import ImgToBase64 from 'react-native-image-base64';
 import Colores from '../../Estilos/Colores';
 
 export default class NewMultimedia extends Component {
     constructor() {
         super();
         this.state = {
-            imageName: null,
+            image: {
+                name: null,
+                uri: null
+            }
         };
         this.publish = this.publish.bind(this);
         this.addImage = this.addImage.bind(this);
@@ -38,16 +43,27 @@ export default class NewMultimedia extends Component {
             if(response.didCancel) {
               console.log('User cancelled image picker');
             } else {
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then(base64String => {
+                            const base64 = 'data:image/jpg;base64,' + base64String;
+                            this.setState({ image: { base64: base64 } });
+                        })
+                        .catch(err => console.error(err));
+                } catch (e) {
+                    console.log(e);
+                }
                 this.setState({
-                    fileURL: response.uri,
-                    imageName: response.fileName
+                    image: {
+                        name: response.fileName,
+                        uri: response.uri
+                    }
                 });
             }
           });
     }
 
     publish() {
-
             if(typeof this.state.fileURL !== 'undefined'){
              console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
              var date = new Date(); 
@@ -84,19 +100,22 @@ export default class NewMultimedia extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text>
-                    {
-                        this.state.imageName ?
-                        this.state.imageName :
-                        null
-                    }
-                </Text>
                 <TextInput
                     placeholder='¿Desea agregar una descripción?'
                     style={Estilos.Input}
                     onChangeText={newDescr => this.setState({ description: newDescr })}
                 />
                 </View>
+                {this.state.image.uri ?
+                    <>
+                    <Card.Divider />
+                    <Card.Image
+                        source={this.state.image}
+                        resizeMode='contain'
+                        style={{borderRadius: 15}}
+                        PlaceholderContent={<ActivityIndicator />}
+                    /></> : 
+                    null}
             </Card>
         );
     }

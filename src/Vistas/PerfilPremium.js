@@ -19,15 +19,18 @@ export default () => {
       isPremium : true,
       publicaciones : [
                         { 
+                          key: '1',
                           fecha: '12/03/2020',
                           contenido: 'Creando mi perfil de HandShaker',
                           imagen: require('../../public/Images/test.jpg')
                         },
                         {
+                          key: '2',
                           fecha: '28/02/2021',
                           contenido: 'Lamento informar que estamos y estaremos muy retrasados en el desarrollo de nuestro proyecto'
                         },
                         {
+                          key: '3',
                           fecha: '20/03/2021',
                           contenido: 'Si no es una cosa es otraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
                         }
@@ -40,12 +43,14 @@ export default () => {
                   },
       costos : [
                 {
+                  key: '1',
                   titulo: 'Logo',
                   icono: (require('../../public/Icons/icon32.png')),
                   descripcion: 'Cuando estés satisfecho con tu logo personalizado, Puedes descargarlo como un archivo vectorial de alta calidad que puedes usar para tu página web, tarjetas de visita, mercancía o donde quieras.',
                   precio: 800
                 },
                 {
+                  key: '2',
                   titulo: 'Marketing',
                   icono: require('../../public/Icons/icon32.png'),
                   descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet quis at mi congue id tempus, arcu. Amet interdum massa ut vel lectus quam sit diam feugiat.',
@@ -54,6 +59,7 @@ export default () => {
                 ],
       resenas : [
                   {
+                    key: '1',
                     nombre: 'Carlos Eduardo Cervera Flota',
                     valoracion: 5,
                     comentario: 'Me parecio excelente su trabajo',
@@ -61,6 +67,7 @@ export default () => {
                     avatar: require('../../public/Profile/user.png'),
                   },
                   {
+                    key: '2',
                     nombre: 'Daniel Alberto Castañeda Mejía',
                     valoracion: 3,
                     comentario: 'Odie cada momento y cada aspecto de su ser.\n0/100 si pudiera la despediria yo mismo.',
@@ -70,18 +77,23 @@ export default () => {
                 ],
       multimedia :  [
                       {
+                        key: '1',
                         imagen: require('../../public/Images/test.jpg')
                       },
                       {
+                        key: '2',
                         imagen: require('../../public/Images/test.jpg')
                       },
                       {
+                        key: '3',
                         imagen: require('../../public/Images/test.jpg')
                       },
                       {
+                        key: '4',
                         imagen: require('../../public/Images/test.jpg')
                       },
                       {
+                        key: '5',
                         imagen: require('../../public/Images/test.jpg')
                       }
                     ]
