@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Image, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import Colores from '../../Estilos/Colores'
 import DatePicker from 'react-native-datepicker'
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 export default class Registro extends Component {
 
@@ -57,6 +58,11 @@ export default class Registro extends Component {
         this.setState({ nameError: 'El campo ' + txt + ' no puede estar vacío' })
     }
 
+    radio_props = [
+        {label: 'Cliente', value: 'Cliente' },
+        {label: 'Trabajador', value: 'Trabajador' }
+    ];
+
     render() {
         return (
             <View style={ styles.container }>
@@ -75,8 +81,17 @@ export default class Registro extends Component {
                         <FormInput label="Nombres" value={ this.state.names } onChangeText={ this.handleNames }/>
                         <FormInput label="Apellidos" value={ this.state.lastNames } onChangeText={ this.handleLastNames }/>
                         <FormInput label="Teléfono" value={ this.state.phone } onChangeText={ this.handlePhone }/>
-                        <FormInput label="Tipo usuario (provisional)" value={ this.state.userType } onChangeText={ this.handleUserType } required={ true }/>
+                        {/* <FormInput label="Tipo usuario (provisional)" value={ this.state.userType } onChangeText={ this.handleUserType } required={ true }/> */}
                         <DateInput label="Fecha de nacimiento" value={ this.state.birthDate } onDateChange={ this.handleBirthDate } required={ true }/>
+                        {/* <RadioInput label="¿Cómo desea registrarse" value={ this.state.userType } radio_props={ this.radio_props } onUserTypeChange={ this.handleUserType }/> */}
+                        <Text style={ styles.label, styles.radioInput }>
+                            ¿Cómo desea registrarse
+                        </Text>
+                        <RadioForm
+                            radio_props={this.radio_props}
+                            initial={0}
+                            onPress={(value) => {this.handleUserType(value)}}
+                        />
                     </View>
 
                     <Text style={ styles.errorTxt }>
@@ -91,6 +106,15 @@ export default class Registro extends Component {
         )
     }
 }
+
+const RadioInput = ( props ) => (
+    <View>
+        <Text style={ styles.label }>
+            { props.label }{ props.required ? <Text style={ styles.errorTxt }> *</Text> : '' }
+        </Text>
+        
+    </View>
+)
 
 const FormInput = ( props ) => (
     <View>
@@ -143,6 +167,9 @@ const styles = StyleSheet.create({
     label: {
         marginVertical: 0,
         color: Colores.etiquetas
+    },
+    radioInput: {
+        marginTop: 15
     },
     input: {
         height: 30,
