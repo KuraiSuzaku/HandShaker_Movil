@@ -24,6 +24,8 @@ target 'App_Movil' do
 
   pod 'RNFBStorage', :path => '../node_modules/@react-native-firebase/storage'
 
+  pod 'react-native-image-base64', :path => '../node_modules/react-native-image-base64'
+
   target 'App_MovilTests' do
     inherit! :complete
     # Pods for testing

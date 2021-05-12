@@ -12,6 +12,7 @@ import {
     Text
 } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
 import Colores from '../../Estilos/Colores';
 
 export default class NewMultimedia extends Component {
@@ -39,6 +40,16 @@ export default class NewMultimedia extends Component {
             if(response.didCancel) {
               console.log('User cancelled image picker');
             } else {
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then(base64String => {
+                            const base64 = 'data:image/jpg;base64,' + base64String;
+                            this.setState({ image: { base64: base64 } });
+                        })
+                        .catch(err => console.error(err));
+                } catch (e) {
+                    console.log(e);
+                }
                 this.setState({
                     image: {
                         name: response.fileName,
@@ -52,6 +63,7 @@ export default class NewMultimedia extends Component {
     publish() {
         if(this.state.imageName)
             console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
+            
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };

@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { Card, Text } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-import storage from '@react-native-firebase/storage';
-import firebase from '../../../firebase';
+import ImgToBase64 from 'react-native-image-base64';
+//import storage from '@react-native-firebase/storage';
+//import firebase from '../../../firebase';
 import Colores from '../../Estilos/Colores';
 
 export default class NewPublication extends Component {
@@ -20,7 +21,8 @@ export default class NewPublication extends Component {
             publication: null,
             image: {
                 uri: null,
-                name: null
+                name: null,
+                base64: null
             }
         };
         this.setPublication = this.setPublication.bind(this);
@@ -37,7 +39,10 @@ export default class NewPublication extends Component {
     addImage() {
         const options = {
             mediaType: 'photo',
-            quality: 1
+            quality: 1,
+            maxWidth: 500,
+            maxHeight: 500,
+            includeBase64: true
         };
         ImagePicker.showImagePicker(options, (response) => {
             //console.log('Response = ', response);
@@ -53,21 +58,22 @@ export default class NewPublication extends Component {
                 }
              });
             }
-            const { uri, name } = this.state.image;
-            console.log('URI: ' , uri);
-            console.log('Nombre: ' , name);
-          });
-
-        
+          });        
     }
 
     async uploadImage() {
-
         const { uri, name } = this.state.image;
 
         try {
-            const reference = firebase.storage().ref('test/testImage.jpg');
+            //const reference = firebase.storage().ref('test/testImage.jpg');
             //const task = reference.putFile(uri);
+            ImgToBase64.getBase64String(uri)
+                .then(base64String => {
+                    const base64 = 'data:image/jpg;base64,' + base64String
+                    this.setState({ image: { base64: base64 } });
+                    console.log(this.state.image);
+                })
+                .catch(err => console.error(err));
         } catch (e) {
             console.log(e);
         }
@@ -124,10 +130,10 @@ export default class NewPublication extends Component {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <Text style={{fontSize: 11}}>
+                    <Text style={{fontSize: 11, maxWidth: 200}}>
                         {
-                            this.state.imageName ?
-                            this.state.imageName :
+                            this.state.image.name ?
+                            this.state.image.name :
                             null
                         }
                     </Text>
@@ -139,11 +145,11 @@ export default class NewPublication extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                {this.state.image.uri ?
+                {this.state.image.base64 ?
                     <>
                     <Card.Divider />
                     <Card.Image
-                        source={this.state.image}
+                        source={{uri: this.state.image.base64}}
                         resizeMode='contain'
                         style={{borderRadius: 15}}
                         PlaceholderContent={<ActivityIndicator />}
