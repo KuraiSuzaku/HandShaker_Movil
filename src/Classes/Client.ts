@@ -23,12 +23,12 @@ export  class Client extends User {
           const response = await axios.post(rooturl+"Client/GetClientInformation",{ ClientObject });//the object to send must be *ClientObject*
           ClientObject=response.data;
           console.log("ID...   "+ClientObject._id);      
-          this.Response = "1";
+          this.response = "1";
           return ClientObject;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);
-          this.Response = error.response.status;
+          this.response = error.response.status;
           return this;
         }
       }
@@ -44,7 +44,7 @@ export  class Client extends User {
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);
-          this.Response = error.response.status;
+          this.response = error.response.status;
           return this;
         }
       }

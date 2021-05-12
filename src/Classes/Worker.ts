@@ -29,7 +29,7 @@ export  class Worker extends User {
     
     async Register(WorkerObject: Worker) {// Needs Password, Needs Email, needs SuscriptionDate,
       var num = 0;
-  
+      console.log("trabajador Add");
       try {
 
         const response = await axios.post(rooturl+"Worker/Register",{ WorkerObject });//the object to send must be *WorkerObject*  
