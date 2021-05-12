@@ -10,6 +10,7 @@ import {
 import { Card, Text } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
+import firebase from '../../../firebase';
 import Colores from '../../Estilos/Colores';
 
 export default class NewPublication extends Component {
@@ -52,20 +53,41 @@ export default class NewPublication extends Component {
                 }
              });
             }
+            const { uri, name } = this.state.image;
+            console.log('URI: ' , uri);
+            console.log('Nombre: ' , name);
           });
+
+        
     }
 
     async uploadImage() {
-        const { uri, fileName } = this.state.image;
 
-        console.log('========== ready to upload ===========')
+        const { uri, name } = this.state.image;
 
-        try{
-            const reference = storage().ref('test/testImage.jpg');
+        try {
+            const reference = firebase.storage().ref('test/testImage.jpg');
             //const task = reference.putFile(uri);
         } catch (e) {
             console.log(e);
         }
+
+        /*
+        try{
+            const { uri, fileName } = this.state.image;
+            const response = await fetch(uri);
+            const blob = await response.blob();
+            console.log('Name: ' , this.state.image);
+            console.log('Blob: ' , blob);
+            console.log('========== ready to upload ===========')
+            console.log('FIREBASE ::::::::::::');
+            console.log(firebase.storage());
+            await firebase.app().storage().ref('testImage.jpg').putFile(blob);
+            //var ref = firebase.storage().ref().child('image.jpg');
+            //await ref.put(blob);
+        } catch (e) {
+            console.log(e);
+        }*/
 
         //await task;
 
