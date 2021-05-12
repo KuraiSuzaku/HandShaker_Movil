@@ -5,7 +5,7 @@ import {User} from "./../../Classes/User"
 import {Worker} from "./../../Classes/Worker"
 import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
-
+import { storeUser, getUser } from '../../Functions/Index';
 
 export default class Login extends Component {
     constructor(props) {

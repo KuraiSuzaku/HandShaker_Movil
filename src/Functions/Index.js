@@ -1,5 +1,5 @@
-import Storage from './LocalStorage';
+import LocalStorage from './LocalStorage';
 
 export {
-    Storage
+    LocalStorage
 }
