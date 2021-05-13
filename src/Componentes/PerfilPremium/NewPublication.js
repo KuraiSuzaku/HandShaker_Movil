@@ -142,7 +142,6 @@ export default class NewPublication extends Component {
     }
 
     render() {
-        console.log('Estado: ' , this.state);
         return(
             <Card containerStyle={Estilos.Tarjeta} >
                 <View>

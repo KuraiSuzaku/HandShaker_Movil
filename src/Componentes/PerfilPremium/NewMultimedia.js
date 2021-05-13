@@ -22,8 +22,8 @@ export default class NewMultimedia extends Component {
     constructor() {
         super();
         this.state = {
-            description: null,
             image: {
+                description: null,
                 name: null,
                 uri: null,
                 base64: null
@@ -67,7 +67,6 @@ export default class NewMultimedia extends Component {
     publish() {
         if(typeof this.state.image.uri !== null){
             const { description, name, base64 } = this.state.image;
-            console.log('Publicate ' + this.state.image.name + '\nURI: ' + this.state.image.uri);
             var date = new Date();
             img=new Image(name, base64);
             MultimediaItemObject=new MultimediaItems(date, description, img);
@@ -82,8 +81,7 @@ export default class NewMultimedia extends Component {
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };
 
-    render() { 
-        console.log('Estado: ' , this.state);      
+    render() {   
         return(
             <Card containerStyle={Estilos.Tarjeta}>
                 <View>
@@ -106,7 +104,7 @@ export default class NewMultimedia extends Component {
                 <TextInput
                     placeholder='¿Desea agregar una descripción?'
                     style={Estilos.Input}
-                    onChangeText={newDescr => this.setState({ description: newDescr })}
+                    onChangeText={newDescr => this.setState({ image: { description: newDescr }})}
                 />
                 </View>
                 {this.state.image.uri ?
