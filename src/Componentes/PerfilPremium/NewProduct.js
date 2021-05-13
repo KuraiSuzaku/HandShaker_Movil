@@ -84,7 +84,7 @@ export default class NewProduct extends Component {
             })         
             }             
             return;
-    }
+    }}
 
     render() {
         return(

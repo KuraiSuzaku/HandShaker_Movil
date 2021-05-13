@@ -22,9 +22,11 @@ export default class NewMultimedia extends Component {
     constructor() {
         super();
         this.state = {
+            description: null,
             image: {
                 name: null,
-                uri: null
+                uri: null,
+                base64: null
             }
         };
         this.publish = this.publish.bind(this);
@@ -35,7 +37,8 @@ export default class NewMultimedia extends Component {
         const options = {
             mediaType: 'photo',
             quality: 1,
-            includeBase64: true
+            maxWidth: 500,
+            maxHeight: 500
         };
         ImagePicker.showImagePicker(options, (response) => {
             //console.log('Response = ', response);
@@ -47,44 +50,44 @@ export default class NewMultimedia extends Component {
                     ImgToBase64.getBase64String(response.uri)
                         .then(base64String => {
                             const base64 = 'data:image/jpg;base64,' + base64String;
-                            this.setState({ image: { base64: base64 } });
+                            this.setState({ image: { 
+                                name: response.fileName,
+                                uri: response.uri,
+                                base64: base64 
+                            } });
                         })
                         .catch(err => console.error(err));
                 } catch (e) {
                     console.log(e);
                 }
-                this.setState({
-                    image: {
-                        name: response.fileName,
-                        uri: response.uri
-                    }
-                });
             }
           });
     }
 
     publish() {
-            if(typeof this.state.fileURL !== 'undefined'){
-             console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
-             var date = new Date(); 
-             img=new Image("descripcion","ruta/r");
-             MultimediaItemObject=new MultimediaItems(date,"texto imagen",img);
-             MultimediaObject=new Multimedia("605fac174791ea436cc76741",MultimediaItemObject);
-             MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
+        if(typeof this.state.image.uri !== null){
+            const { description, name, base64 } = this.state.image;
+            console.log('Publicate ' + this.state.image.name + '\nURI: ' + this.state.image.uri);
+            var date = new Date();
+            img=new Image(name, base64);
+            MultimediaItemObject=new MultimediaItems(date, description, img);
+            MultimediaObject=new Multimedia(this.props.user.Email, MultimediaItemObject);
+            MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
                 if  (res.status==200){
-                   Alert.alert('Se Agrego correctamente');
-                 }
-            })  
-            }
+                    Alert.alert('Se Agrego correctamente');
+                    }
+            })
+        }
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };
 
-    render() {        
+    render() { 
+        console.log('Estado: ' , this.state);      
         return(
             <Card containerStyle={Estilos.Tarjeta}>
                 <View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableOpacity onPress={ this.addImage }>
                         <View style={Estilos.Boton}>
                             <Text style={Estilos.EtiquetaBoton}>
@@ -110,7 +113,7 @@ export default class NewMultimedia extends Component {
                     <>
                     <Card.Divider />
                     <Card.Image
-                        source={this.state.image}
+                        source={ this.state.image }
                         resizeMode='contain'
                         style={{borderRadius: 15}}
                         PlaceholderContent={<ActivityIndicator />}

@@ -4,13 +4,13 @@ import {
 } from 'react-native';
 import * as Componentes from '../Indice';
 
-export default ListaMultimedia = ({ owner,
-                                    multimedia }) => {
+
+export default ListaMultimedia = (props) => {
     return(
         <View>
-            {owner ? <Componentes.PerfilPremium.NewMultimedia /> : <></>}
+            {props.owner ? <Componentes.PerfilPremium.NewMultimedia {...props} /> : <></>}
             {
-                multimedia.map((m, i) => (
+                props.multimedia.map((m, i) => (
                     <Componentes.PerfilPremium.Multimedia
                         {...m}
                         />
