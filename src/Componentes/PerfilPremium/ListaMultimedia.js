@@ -1,23 +1,25 @@
+import {Multimedia} from '../../Classes/Multimedia';
+import MultimediaItems from '../../Classes/MultimediaItems';
 import React from 'react';
 import {
     View,
 } from 'react-native';
-import Multimedia from '../../Classes/Multimedia';
 import * as Componentes from '../Indice';
 
-const getMultimedia = (user) => {
-    
-    MultimediaObject = new Multimedia(user, null);
-
-    MultimediaObject.getMultimedia(user)
-        .then( (res) => {
-            console.log(res);
-        });
-
-}
 
 export default ListaMultimedia = (props) => {
-    //getMultimedia(props.user.Email);
+    const getMultimedia = (user) => {
+
+        MultimediaObject = new Multimedia(user);
+
+        MultimediaObject.GetMultimedia(user)
+            .then( (res) => {
+                console.log(res.ListOfMultimediaItems[0].MultimediaImage);
+            });
+    
+    }
+    
+    getMultimedia(props.user.Email);
     return(
         <View>
             {props.owner ? <Componentes.PerfilPremium.NewMultimedia {...props} /> : <></>}

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { Image } from './Image';
 export class MultimediaItems {
     MultimediaImage:Image[]

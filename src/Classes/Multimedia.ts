@@ -1,17 +1,16 @@
-import { Image } from './Image';
-import { MultimediaItems } from './MultimediaItems';
 import axios from 'axios'
 import {rooturl} from './ip'
+import { MultimediaItems } from './MultimediaItems';
 export class Multimedia {
   EmailPremiumWorker:string
     ListOfMultimediaItems: MultimediaItems[]
     _id:String
 
-    constructor(EmailPremiumWorker:string,Item:MultimediaItems,_id?:string){
-     
+    constructor(EmailPremiumWorker:string,Item?:MultimediaItems,_id?:string){
       this.EmailPremiumWorker=EmailPremiumWorker
       this.ListOfMultimediaItems = new Array();
-      this.ListOfMultimediaItems.push(Item)
+      if(Item != null)
+        this.ListOfMultimediaItems.push(Item)
   }
 
 
@@ -36,10 +35,12 @@ export class Multimedia {
 
       async GetMultimedia(EmailPremiumWorker: string) {// fill ClientObject with all information of the client
         var num = 0;
-    
+        let multimediaObj = new Multimedia(EmailPremiumWorker);
+        console.log(EmailPremiumWorker);
         try {
-          const response = await axios.post(rooturl+"Multimedia/GetMultimedia",{EmailPremiumWorker});//the object to send must be *PostObject*
-          return response;
+          const response = await axios.post(rooturl+"Multimedia/Get",{EmailPremiumWorker});//the object to send must be *PostObject*
+          multimediaObj = response.data;
+          return multimediaObj;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
