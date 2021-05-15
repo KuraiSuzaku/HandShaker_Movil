@@ -12,7 +12,7 @@ export default class IndividualCategory extends Component {
                 <Image 
                     style={ styles.categoryImg }
                     resizeMode="contain"
-                    source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    source={{uri: this.props.uri}}
                 />
                 <Text style={ styles.categoryTxt }>{ this.props.name }</Text>
             </View>
