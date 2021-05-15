@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Vistas from './src/Vistas/Indice';
 import * as firebase from './firebase';
 import storage from '@react-native-firebase/storage';
+import Home from './src/Componentes/Home/Home';
 
 //const reference = storage().ref('imagenes/xd');
 /*
@@ -19,11 +20,12 @@ export default App = () => {
   console.log("=============================================================");
   console.log(user);
   return (
-    <NavigationContainer>
-      <Vistas.Menu 
-        setUser={ (userLogged)=>setUser(userLogged) }
-        user = {user}
-        />
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Vistas.Menu 
+    //     setUser={ (userLogged)=>setUser(userLogged) }
+    //     user = {user}
+    //     />
+    // </NavigationContainer>
+    <Home/>
   );
 };

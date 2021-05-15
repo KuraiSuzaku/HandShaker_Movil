@@ -21,6 +21,7 @@ export default class Job extends Component {
                         {
                             this.props.workers.map(item =>
                                 <Image 
+                                    key={ item.name }
                                     style={ styles.workerProfilePicture }
                                     resizeMode="contain"
                                     source={ {uri: item.uri} }

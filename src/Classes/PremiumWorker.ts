@@ -1,3 +1,4 @@
+
 import {AddressClass } from './AddressClass'
 import {rooturl} from './ip'
 import User  from './User'
@@ -102,7 +103,7 @@ export  class PremiumWorker extends User {
       async GetPremiumWorkersWithCategory(Category: string) {// Get All workers, even the premium workers
        
         try {
-          const response = await axios.post(rooturl+"Worker/GetPremiumWorkersCategory",{ Category });//the object to send must be *WorkerObject*
+          const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkersCategory",{ Category });//the object to send must be *WorkerObject*
           return response; //returns an array of premiumWorker
 
         } catch (error) {
@@ -116,10 +117,13 @@ export  class PremiumWorker extends User {
 
       
       async GetPremiumWorkersWithProfession(Profession: string) {// Get 
-       
+       console.log("profession  ************"+Profession)
         try {
-          const response = await axios.post(rooturl+"Worker/GetPremiumWorkersProfession",{ Profession });//the object to send must be *WorkerObject*
-          return response; //returns an array of premiumWorker
+          let ArrPremiumWorkers: PremiumWorker[];
+          const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkersProfession",{ Profession });//the object to send must be *WorkerObject*
+          ArrPremiumWorkers=response.data
+          console.log("respuesta ´de "+Profession +"  "+ArrPremiumWorkers)
+          return ArrPremiumWorkers; //returns an array of premiumWorker
 
         } catch (error) {
           console.log("error del tipo" + error);
