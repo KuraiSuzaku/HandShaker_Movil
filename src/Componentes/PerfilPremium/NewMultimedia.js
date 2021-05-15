@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    ActivityIndicator,
     Alert,
     StyleSheet,
     TextInput,
@@ -14,13 +15,19 @@ import { MultimediaItems } from '../../Classes/MultimediaItems';
 import { Multimedia } from '../../Classes/Multimedia';
 import ImagePicker from 'react-native-image-picker';
 import { Image } from './../../Classes/Image';
+import ImgToBase64 from 'react-native-image-base64';
 import Colores from '../../Estilos/Colores';
 
 export default class NewMultimedia extends Component {
     constructor() {
         super();
         this.state = {
-            imageName: null,
+            image: {
+                description: null,
+                name: null,
+                uri: null,
+                base64: null
+            }
         };
         this.publish = this.publish.bind(this);
         this.addImage = this.addImage.bind(this);
@@ -30,7 +37,8 @@ export default class NewMultimedia extends Component {
         const options = {
             mediaType: 'photo',
             quality: 1,
-            includeBase64: true
+            maxWidth: 500,
+            maxHeight: 500
         };
         ImagePicker.showImagePicker(options, (response) => {
             //console.log('Response = ', response);
@@ -38,37 +46,46 @@ export default class NewMultimedia extends Component {
             if(response.didCancel) {
               console.log('User cancelled image picker');
             } else {
-                this.setState({
-                    fileURL: response.uri,
-                    imageName: response.fileName
-                });
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then(base64String => {
+                            const base64 = 'data:image/jpg;base64,' + base64String;
+                            this.setState({ image: { 
+                                name: response.fileName,
+                                uri: response.uri,
+                                base64: base64 
+                            } });
+                        })
+                        .catch(err => console.error(err));
+                } catch (e) {
+                    console.log(e);
+                }
             }
           });
     }
 
     publish() {
-
-            if(typeof this.state.fileURL !== 'undefined'){
-             console.log('Publicate ' + this.state.imageName + '\nURI: ' + this.state.fileURL);
-             var date = new Date(); 
-             img=new Image("descripcion","ruta/r");
-             MultimediaItemObject=new MultimediaItems(date,"texto imagen",img);
-             MultimediaObject=new Multimedia("605fac174791ea436cc76741",MultimediaItemObject);
-             MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
+        if(typeof this.state.image.uri !== null){
+            const { description, name, base64 } = this.state.image;
+            var date = new Date();
+            img=new Image(name, base64);
+            MultimediaItemObject=new MultimediaItems(date, description, img);
+            MultimediaObject=new Multimedia(this.props.user.Email, MultimediaItemObject);
+            MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
                 if  (res.status==200){
-                   Alert.alert('Se Agrego correctamente');
-                 }
-            })  
-            }
+                    Alert.alert('Se Agrego correctamente');
+                    }
+            })
+        }
         else
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };
 
-    render() {        
+    render() {   
         return(
             <Card containerStyle={Estilos.Tarjeta}>
                 <View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableOpacity onPress={ this.addImage }>
                         <View style={Estilos.Boton}>
                             <Text style={Estilos.EtiquetaBoton}>
@@ -84,19 +101,22 @@ export default class NewMultimedia extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text>
-                    {
-                        this.state.imageName ?
-                        this.state.imageName :
-                        null
-                    }
-                </Text>
                 <TextInput
                     placeholder='¿Desea agregar una descripción?'
                     style={Estilos.Input}
-                    onChangeText={newDescr => this.setState({ description: newDescr })}
+                    onChangeText={newDescr => this.setState({ image: { description: newDescr }})}
                 />
                 </View>
+                {this.state.image.uri ?
+                    <>
+                    <Card.Divider />
+                    <Card.Image
+                        source={ this.state.image }
+                        resizeMode='contain'
+                        style={{borderRadius: 15}}
+                        PlaceholderContent={<ActivityIndicator />}
+                    /></> : 
+                    null}
             </Card>
         );
     }
