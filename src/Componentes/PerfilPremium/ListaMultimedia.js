@@ -1,34 +1,41 @@
 import {Multimedia} from '../../Classes/Multimedia';
-import MultimediaItems from '../../Classes/MultimediaItems';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
 } from 'react-native';
 import * as Componentes from '../Indice';
 
-
 export default ListaMultimedia = (props) => {
+    const [mediaList, setMediaList] = useState(null);
+    const [uploaded, setUploaded] = useState(false);
+    const [firstLoad, setFirstLoad] = useState(true);
+
     const getMultimedia = (user) => {
-
+        console.log('GET MULTIMEDIA');
         MultimediaObject = new Multimedia(user);
-
         MultimediaObject.GetMultimedia(user)
             .then( (res) => {
-                console.log(res.ListOfMultimediaItems[0].MultimediaImage);
+                setMediaList(res.ListOfMultimediaItems);
             });
-    
     }
-    
-    getMultimedia(props.user.Email);
+
+    if(uploaded || firstLoad) { // updates the list if uploaded or first load
+        getMultimedia(props.user.Email);
+        setUploaded(false);
+        setFirstLoad(false);
+    }
+
     return(
         <View>
-            {props.owner ? <Componentes.PerfilPremium.NewMultimedia {...props} /> : <></>}
+            {props.owner ? <Componentes.PerfilPremium.NewMultimedia uploaded={uploaded} setUploaded={ val => setUploaded(val) } {...props} /> : <></>}
             {
-                props.multimedia.map((m, i) => (
+                mediaList ?
+                mediaList.map((m, i) => (
                     <Componentes.PerfilPremium.Multimedia
-                        {...m}
+                        {...m.MultimediaImage}
                         />
-                ))
+                )) :
+                null
             }
             <Componentes.PerfilTrabajador.FinSeccion />
         </View>
