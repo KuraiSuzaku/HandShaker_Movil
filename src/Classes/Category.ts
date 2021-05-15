@@ -4,8 +4,8 @@ import {rooturl} from './ip'
 import {Profession} from './Profession'
 export class Category {
     constructor(
-        Name:String,
-        Categories:Profession
+        Name?:String,
+        Categories?:Profession// RETURNS LIST OF PROFESSION CORRESPONDING TO THE CATEGORY
         ){}
     
 
@@ -32,9 +32,13 @@ export class Category {
         var num = 0;
     
         try {
+          let ArrCategories: Category[];
           const response = await axios.post(rooturl+"Category/Get",{});//the object to send must be *PostObject*
-          console.log(response)
-          return response;
+          console.log("res***   "+response.data);
+        
+          ArrCategories=response.data
+          console.log("res   "+ArrCategories);
+          return ArrCategories;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

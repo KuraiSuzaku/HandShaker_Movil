@@ -4,14 +4,16 @@ import Colores from '../../Estilos/Colores'
 import Job from './Job'
 import PremiumWorkerC from './PremiumWorkerC'
 import IndividualCategory from './IndividualCategory'
-import {PremiumWorker} from "./../../Classes/PremiumWorker"
+import { PremiumWorker } from "./../../Classes/PremiumWorker"
 import Works from "./Works.json"
+import { Category } from "./../../Classes/Category"
 
 export default class Home extends Component {
     constructor(props){
         super(props);
         this.state={
-            premiumWorker: null
+            premiumWorker: null,
+            category: null
         }
     }
 
@@ -29,18 +31,52 @@ export default class Home extends Component {
         })
     }
 
+    category(){
+        cat = new Category();
+        console.log("Categorias")
+        cat.GetAll()
+            .then( (res) => {
+                
+                res.forEach(element => {
+                    console.log("CATEGORIA Nombre "+element.Name);
+                        element.Categories.forEach(profesiones => {
+                            Trabajador=  new PremiumWorker();
+                            Trabajador.GetPremiumWorkersWithProfession(profesiones.Name).then( (trabajadoresWithProfession) => {
+                                trabajadoresWithProfession.forEach(premiumWorker => {
+                                   console.log("trabajador de "+premiumWorker.Name+" nombre profesion " + profesiones.Name+ " foto " + premiumWorker.ProfilePicture.Path )
+                               });
+                                
+                            });                   
+ 
+                            console.log("       profesion "+profesiones.Name )
+                            console.log("       imagen "+profesiones.ImageProfession.Path )
+                        });
+
+                });                   
+            }); 
+    }
+      
+
     render() {
        // this.RandomWorker();
-        console.log("esto pasa despues")
+        this.state.category ?
+        this.category()
+                         : this.category()
+                        this.state.category = 0
         return (
             <ScrollView style={ styles.bg }>
                 {
-                    this.state.premiumWorker ?
-                    <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/> :
-                        this.RandomWorker() 
+                    // this.state.premiumWorker ?
+                    // <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/> :
+                    //     this.RandomWorker() 
+                    
                     
                 }
+                {
+                    
 
+
+                }
                 <Text style={ styles.subtitle }>Categorías</Text>
                 <Categories/>
                 <Text style={ styles.subtitle }>Trabajos</Text>
@@ -49,14 +85,13 @@ export default class Home extends Component {
                 <Job jobTitle="Jardineros"/> */}
                 {
                     data.categories[3].works.map(item =>
-                        <Job jobTitle={ item.name } uri={ item.uri } workers={ item.workers.slice(0, 3) }/>)
+                        <Job jobTitle={ item.name } key={ item.name } uri={ item.uri } workers={ item.workers.slice(0, 3) }/>)
                 }
                 
             </ScrollView>
         )
     }
 }
-
 
 function Categories(){
     return(
