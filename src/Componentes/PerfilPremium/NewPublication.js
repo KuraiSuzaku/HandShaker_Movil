@@ -142,7 +142,6 @@ export default class NewPublication extends Component {
     }
 
     render() {
-        console.log('Carga upload aaaaaaaaaaaaaa');
         return(
             <Card containerStyle={Estilos.Tarjeta} >
                 <View>
@@ -175,11 +174,11 @@ export default class NewPublication extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                {this.state.image.base64 ?
+                {this.state.image.uri ?
                     <>
                     <Card.Divider />
                     <Card.Image
-                        source={{uri: this.state.image.base64}}
+                        source={ this.state.image }
                         resizeMode='contain'
                         style={{borderRadius: 15}}
                         PlaceholderContent={<ActivityIndicator />}

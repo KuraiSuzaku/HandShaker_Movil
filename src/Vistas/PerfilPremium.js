@@ -5,9 +5,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 //////
-export default () => {
+export default (props) => {
     // PRUEBA
-    const props = {
+    const test_props = {
       currentUser: 'example@handshaker.com',
       profileUser: 'example@handshaker.com',
       imagenFondo : require('../../public/Images/test.jpg'),
@@ -23,16 +23,6 @@ export default () => {
                           fecha: '12/03/2020',
                           contenido: 'Creando mi perfil de HandShaker',
                           imagen: require('../../public/Images/test.jpg')
-                        },
-                        {
-                          key: '2',
-                          fecha: '28/02/2021',
-                          contenido: 'Lamento informar que estamos y estaremos muy retrasados en el desarrollo de nuestro proyecto'
-                        },
-                        {
-                          key: '3',
-                          fecha: '20/03/2021',
-                          contenido: 'Si no es una cosa es otraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
                         }
                       ],
       contacto : {
@@ -79,22 +69,6 @@ export default () => {
                       {
                         key: '1',
                         imagen: require('../../public/Images/test.jpg')
-                      },
-                      {
-                        key: '2',
-                        imagen: require('../../public/Images/test.jpg')
-                      },
-                      {
-                        key: '3',
-                        imagen: require('../../public/Images/test.jpg')
-                      },
-                      {
-                        key: '4',
-                        imagen: require('../../public/Images/test.jpg')
-                      },
-                      {
-                        key: '5',
-                        imagen: require('../../public/Images/test.jpg')
                       }
                     ]
     }
@@ -104,6 +78,7 @@ export default () => {
         <Componentes.EncabezadoApp />
         <Componentes.PerfilTrabajador.Contenedor
             {...props}
+            {...test_props}
             />
         <Componentes.Navegacion />
       </SafeAreaProvider>
