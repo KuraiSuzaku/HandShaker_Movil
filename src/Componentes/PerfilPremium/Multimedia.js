@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     ActivityIndicator,
     StyleSheet,
 } from 'react-native';
 import { Card } from 'react-native-elements';
 
-export default Multimedia = ({ imagen }) => {
+export default Multimedia = (props) => {
+    const [image, setImage] = useState(null);
+    const setImageSource = () => {
+        setImage({
+            name: props.Name,
+            uri: props.Path
+        });
+    }
+    if(!image)
+        setImageSource();
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <Card.Image
-                source={imagen}
+                source={image}
                 resizeMode='contain'
                 style={Estilos.Imagen}
                 PlaceholderContent={<ActivityIndicator />}
