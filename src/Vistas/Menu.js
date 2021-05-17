@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ActivityIndicator,
     StyleSheet,
     Text,
     View
@@ -183,7 +184,7 @@ const Validar_perfil = (props) => {
     }
 
     return(
-        <Text>ESTO ES UN ERROR, SI ESTÁS VIENDO ESTA PÁGINA POR FAVOR CONTACTA A brendasamantha@gmail.com y dile que fue en el login :C</Text>
+        <ActivityIndicator size='large' />
     );
 };
 

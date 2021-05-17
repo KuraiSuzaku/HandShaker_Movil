@@ -6,6 +6,7 @@ import {Worker} from "./../../Classes/Worker"
 import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator } from 'react-native'
 
 export default class Login extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ export default class Login extends Component {
         this.handlePassword = this.handlePassword.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.state = {
+            load: false,
             email: '',
             password: '',
         };
@@ -29,6 +31,10 @@ export default class Login extends Component {
                         user: {...storedUser}
                     });
                     this.props.navigation.navigate('Perfil');
+                } else {
+                    this.setState({
+                        load: true
+                    });
                 }
             } catch(e) {
                 console.error(e);
@@ -167,42 +173,48 @@ handleGetPremiumWorkers( event ){
 
     render() {
         return (
-            <View style={ styles.container }>
-                <Image 
-                    style={ styles.img }
-                    source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                />
+            <>
+            {
+                this.state.load ?
+                <View style={ styles.container }>
+                    <Image 
+                        style={ styles.img }
+                        source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    />
 
-                <ScrollView>
-                    <View>
-                        <FormInput 
-                            label="Correo electrónico" 
-                            value={ this.state.email }
-                            onChangeText={ this.handleEmail } 
-                        />
-                        <FormInput 
-                            label="Contraseña" 
-                            password={ true }
-                            value={ this.state.password }
-                            onChangeText={ this.handlePassword } 
-                        />
-                    </View>
+                    <ScrollView>
+                        <View>
+                            <FormInput 
+                                label="Correo electrónico" 
+                                value={ this.state.email }
+                                onChangeText={ this.handleEmail } 
+                            />
+                            <FormInput 
+                                label="Contraseña" 
+                                password={ true }
+                                value={ this.state.password }
+                                onChangeText={ this.handlePassword } 
+                            />
+                        </View>
 
-                    <Text style={ styles.txt }>
-                        ¿Olvidaste tu contraseña?
-                    </Text>
+                        <Text style={ styles.txt }>
+                            ¿Olvidaste tu contraseña?
+                        </Text>
 
-                    <View style={ styles.btnsView }>
-                        <FormButton txt="Registrarse"
-                            handleLogin={ () => this.props.navigation.navigate('Registro') }
-                        />
-                        <FormButton 
-                            txt="Iniciar sesión" 
-                            handleLogin={ this.handleLogin }
-                        />
-                    </View>
-                </ScrollView>
-            </View>
+                        <View style={ styles.btnsView }>
+                            <FormButton txt="Registrarse"
+                                handleLogin={ () => this.props.navigation.navigate('Registro') }
+                            />
+                            <FormButton 
+                                txt="Iniciar sesión" 
+                                handleLogin={ this.handleLogin }
+                            />
+                        </View>
+                    </ScrollView>
+                </View> :
+                <ActivityIndicator size='large' />
+            }
+            </>
         )
     }
 }
