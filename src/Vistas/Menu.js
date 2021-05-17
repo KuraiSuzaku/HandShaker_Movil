@@ -44,7 +44,10 @@ export default props => {
                                         />
                 }}
                 >
-                { ()=><Validar_perfil user={props.user}/> }
+                { ()=><Validar_perfil 
+                        setUser={props.setUser}
+                        user={props.user}
+                    /> }
             </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
@@ -166,6 +169,7 @@ const Validar_perfil = (props) => {
     else if(props.user.UserType == "Worker"){
         return (
             <Vistas.PerfilTrabajador
+                setUser={props.setUser} //AGREGAR ESTA LINEA A LOS DEMÁS
                 user={props.user}
             />
         );
