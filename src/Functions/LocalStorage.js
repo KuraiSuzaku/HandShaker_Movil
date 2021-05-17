@@ -7,13 +7,14 @@ const storeUser = async (value) => {
         console.error(e);
     }
 }
-
+//  Worker@gmail.com
 const getUser = async () => {
+    console.log('Entra a getUser');
     try {
         const value = await AsyncStorage.getItem('@user_Key');
         if(value !== null) {
             //return value;
-            console.log(value);
+            console.log('GET LOCAL USER VALUE: ', value);
         }
     } catch(e) {
         console.error(e);

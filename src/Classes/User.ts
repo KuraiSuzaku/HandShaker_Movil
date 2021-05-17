@@ -46,8 +46,6 @@ export  class User {
    try {
         console.log("login")
       const response = await axios.post(rooturl+"user/Login",{ userObject });
-      console.log(response.status)
-      console.log(response.data)
       this.Email = response.data.Email;
       this.UserType = response.data.UserType;
       this.Response = "1";
