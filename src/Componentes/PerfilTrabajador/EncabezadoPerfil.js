@@ -8,10 +8,7 @@ import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
 
 export default EncabezadoPerfil = (props) => {
-       
-    console.log("Estoy imprimiendo en EncabezadoPerfil Brenda");
-    console.log(props);
-
+    
     const [propietario, setPropietario] = useState('si');
     const [editando, setEditando] = useState('no');
     const [editcategoria, setCategoria] = useState(props.user.Category);
@@ -25,17 +22,35 @@ export default EncabezadoPerfil = (props) => {
 
     const GuardarCambios = () => {
         setEditando('no'); 
-        console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
-        console.log("IDUser (email): " + props.user.Email);
-        console.log("categoria: " + editcategoria);
-        console.log("profesion: " + editprofesion);
-        console.log("descripcion: " + editdescripcion);
-
+        console.log("Impresion 1------------");
+        ImprimirDatos();
         let WorkerObject = new Worker(props.user.Email);
         WorkerObject.Category = editcategoria;
         WorkerObject.Profession = editprofesion;
         WorkerObject.JobDescription = editdescripcion;
         WorkerObject.UpdateWorkers(WorkerObject);
+
+        // Trabajador.GetWorkerInformation(Trabajador).then((res) => {
+        //     props.setUser(res);
+        // });
+
+        ActualizarUsuario(WorkerObject);
+    }
+
+    const ActualizarUsuario = (Trabajador) => {
+        Trabajador.GetWorkerInformation(Trabajador).then((res) => {
+            props.setUser(res)
+        });
+        console.log("Impresion 2 de props------------");
+        console.log(props.user);
+    }
+
+    const ImprimirDatos = () =>{
+        console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        console.log("IDUser (email): " + props.user.Email);
+        console.log("categoria: " + editcategoria);
+        console.log("profesion: " + editprofesion);
+        console.log("descripcion: " + editdescripcion);
     }
 
     const navigation = useNavigation();
