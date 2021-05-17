@@ -1,3 +1,4 @@
+
 import {AddressClass } from './AddressClass'
 import {rooturl} from './ip'
 import User  from './User'
@@ -45,11 +46,26 @@ export  class PremiumWorker extends User {
         }
       }
 
+      async ChangeToPremium(WorkerObject: Worker) {// Needs Password, Needs Email, needs SuscriptionDate,
+        var num = 0;
+    
+        try {
+  
+          const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ WorkerObject });//the object to send must be *WorkerObject*  
+        
+          return 1;
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+      }
+
       async GetPremiumWorkers() {// Get All workers, even the premium workers
         var num = 0;    
         try {
           const response = await axios.post(rooturl+"PremiumWorker/GetAllPremiumWorkers",{ });//the object to send must be *WorkerObject*           
-
           console.log("Premium Worker")
           console.log(JSON.stringify(response.data)); 
           let PremiumWorkerArray:PremiumWorker[]
@@ -68,7 +84,55 @@ export  class PremiumWorker extends User {
           return this;
         }
       }
+      async ChangeToWorker(ChangeToWorker: Worker) {// Needs Password, Needs Email.
+       
+        try {
+  
+          const response = await axios.post(rooturl+"PremiumWorker/ChangeToPremium",{ ChangeToWorker });//the object to send must be *WorkerObject*  
+        
+          return 1;
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+      }
 
+      
+      async GetPremiumWorkersWithCategory(Category: string) {// Get All workers, even the premium workers
+       
+        try {
+          const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkersCategory",{ Category });//the object to send must be *WorkerObject*
+          return response; //returns an array of premiumWorker
+
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+
+      }
+
+      
+      async GetPremiumWorkersWithProfession(Profession: string) {// Get 
+       console.log("profession  ************"+Profession)
+        try {
+          let ArrPremiumWorkers: PremiumWorker[];
+          const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkersProfession",{ Profession });//the object to send must be *WorkerObject*
+          ArrPremiumWorkers=response.data
+          console.log("respuesta ´de "+Profession +"  "+ArrPremiumWorkers)
+          return ArrPremiumWorkers; //returns an array of premiumWorker
+
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+
+      }
    
 }
 export default PremiumWorker

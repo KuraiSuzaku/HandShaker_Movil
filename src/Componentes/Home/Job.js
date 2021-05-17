@@ -13,26 +13,21 @@ export default class Job extends Component {
                 <Image 
                     style={ styles.img }
                     resizeMode="contain"
-                    source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    source={ {uri: this.props.uri} }
                 />
                 <View style={ styles.individualJobContent }>
                     <Text style={ styles.individualJobTitle }>{ this.props.jobTitle }</Text>
                     <View style={ styles.individualJobWorkers }>
-                        <Image 
-                            style={ styles.workerProfilePicture }
-                            resizeMode="contain"
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                        /> 
-                        <Image 
-                            style={ styles.workerProfilePicture }
-                            resizeMode="contain"
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                        />
-                        <Image 
-                            style={ styles.workerProfilePicture }
-                            resizeMode="contain"
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                        />
+                        {
+                            this.props.workers.map(item =>
+                                <Image 
+                                    key={ item.name }
+                                    style={ styles.workerProfilePicture }
+                                    resizeMode="contain"
+                                    source={ {uri: item.uri} }
+                                /> 
+                                )
+                        }
                     </View>
                 </View>
             </View>

@@ -165,13 +165,6 @@ handleGetPremiumWorkers( event ){
                             txt="Iniciar sesión" 
                             handleLogin={ this.handleLogin }
                         />
-                        <FormButton 
-                            txt="funciones Get Info" 
-                            handleLogin={ this.handleGetPremiumWorkers}
-                        />
-                        <FormButton 
-                            handleLogin={ () => this.props.navigation.navigate('Perfil')}
-                        />
                     </View>
                 </ScrollView>
             </View>

@@ -1,5 +1,4 @@
 import React, { Component, useState } from 'react';
-import { PanResponder } from 'react-native';
 import {
     ActivityIndicator,
     Alert,
@@ -10,6 +9,9 @@ import {
 } from 'react-native';
 import { Card, Text } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
+//import storage from '@react-native-firebase/storage';
+//import firebase from '../../../firebase';
 import Colores from '../../Estilos/Colores';
 import { Post } from './../../Classes/Post';
 import { Image } from './../../Classes/Image';
@@ -20,7 +22,11 @@ export default class NewPublication extends Component {
         super();
         this.state = {
             publication: null,
-            image: null
+            image: {
+                uri: null,
+                name: null,
+                base64: null
+            }
         };
         this.setPublication = this.setPublication.bind(this);
         this.addImage = this.addImage.bind(this);
@@ -36,7 +42,10 @@ export default class NewPublication extends Component {
     addImage() {
         const options = {
             mediaType: 'photo',
-            quality: 1
+            quality: 1,
+            maxWidth: 500,
+            maxHeight: 500,
+            includeBase64: true
         };
         ImagePicker.showImagePicker(options, (response) => {
             //console.log('Response = ', response);
@@ -45,10 +54,55 @@ export default class NewPublication extends Component {
               console.log('User cancelled image picker');
             }
             else{
-             this.setState({ fileURL: response.uri,
-                 imageName: response.fileName });
+             this.setState({
+                image: {
+                    uri: response.uri,
+                    name: response.fileName
+                }
+             });
             }
-          });
+          });        
+    }
+
+    async uploadImage() {
+        const { uri, name } = this.state.image;
+
+        try {
+            //const reference = firebase.storage().ref('test/testImage.jpg');
+            //const task = reference.putFile(uri);
+            ImgToBase64.getBase64String(uri)
+                .then(base64String => {
+                    const base64 = 'data:image/jpg;base64,' + base64String
+                    this.setState({ image: { base64: base64 } });
+                    console.log(this.state.image);
+                })
+                .catch(err => console.error(err));
+        } catch (e) {
+            console.log(e);
+        }
+
+        /*
+        try{
+            const { uri, fileName } = this.state.image;
+            const response = await fetch(uri);
+            const blob = await response.blob();
+            console.log('Name: ' , this.state.image);
+            console.log('Blob: ' , blob);
+            console.log('========== ready to upload ===========')
+            console.log('FIREBASE ::::::::::::');
+            console.log(firebase.storage());
+            await firebase.app().storage().ref('testImage.jpg').putFile(blob);
+            //var ref = firebase.storage().ref().child('image.jpg');
+            //await ref.put(blob);
+        } catch (e) {
+            console.log(e);
+        }*/
+
+        //await task;
+
+        Alert.alert(
+            'Se ha creado la publicación'
+          );
     }
 
     publicar() {
@@ -97,16 +151,21 @@ export default class NewPublication extends Component {
                     onChangeText={ pubContent => this.setPublication(pubContent) }
                 />
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 5}}>
                     <TouchableOpacity onPress={ () => this.addImage() }>
                         <View style={Estilos.Boton}>
                             <Text style={Estilos.EtiquetaBoton}>
-                                {this.state.imageName ?
-                                this.state.imageName :
-                                'Agregar imagen'}
+                                Agregar imagen
                             </Text>
                         </View>
                     </TouchableOpacity>
+                    <Text style={{fontSize: 11, maxWidth: 200}}>
+                        {
+                            this.state.image.name ?
+                            this.state.image.name :
+                            null
+                        }
+                    </Text>
                     <TouchableOpacity onPress={ () => this.publicar() }>
                         <View style={[Estilos.Boton, { backgroundColor: Colores.simbolos }]}>
                             <Text style={Estilos.EtiquetaBoton}>
@@ -115,11 +174,11 @@ export default class NewPublication extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                {this.state.fileURL ?
+                {this.state.image.uri ?
                     <>
                     <Card.Divider />
                     <Card.Image
-                        uri={this.state.fileURL}
+                        source={ this.state.image }
                         resizeMode='contain'
                         style={{borderRadius: 15}}
                         PlaceholderContent={<ActivityIndicator />}
