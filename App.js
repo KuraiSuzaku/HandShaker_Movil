@@ -17,15 +17,12 @@ export default App = () => {
   const [user, setUser] = useState({
     UserType: null,
   });
-  console.log("=============================================================");
-  console.log(user);
   return (
-    // <NavigationContainer>
-    //   <Vistas.Menu 
-    //     setUser={ (userLogged)=>setUser(userLogged) }
-    //     user = {user}
-    //     />
-    // </NavigationContainer>
-    <Home/>
+    <NavigationContainer>
+      <Vistas.Menu 
+        setUser={ (userLogged)=>setUser(userLogged) }
+        user = {user}
+        />
+    </NavigationContainer>
   );
 };

@@ -8,8 +8,6 @@ import {
 import * as Componentes from '../Indice';
 //////
 export default Contenedor = (props) => {
-    console.log("Estoy imprimiendo en CONTENEDOR Brenda");
-    console.log(props);
     const checkPremium = () => {
         let owner;
         if(props.profileUser === props.currentUser)
