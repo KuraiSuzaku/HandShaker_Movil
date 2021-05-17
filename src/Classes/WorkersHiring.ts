@@ -3,8 +3,8 @@ import axios from 'axios'
 import {rooturl} from './ip'
 export class WorkersHiring {
     constructor(
-        EmailPremiumWorker:String,
-        ListOfHirings:Hiring[]    
+        EmailPremiumWorker?:String,
+        ListOfHirings?:Hiring[]    
         ){}
     
 
@@ -18,22 +18,23 @@ export class WorkersHiring {
           const response = await axios.post(rooturl+"Hiring/Add",{ HiringObject });//the object to send must be *PostObject*
           console.log("respuestaaa")
 
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
-          return this;
+          return error.response.status;
         }
       }
 
 
       async GetHiring(EmailPremiumWorker: string) {// fill ClientObject with all information of the client
-        var num = 0;
-    
+     
+        let HiringWorker = new WorkersHiring();
         try {
           const response = await axios.post(rooturl+"Hiring/GetHiring",{EmailPremiumWorker});//the object to send must be *PostObject*
-          console.log(response)
-          return response;
+          HiringWorker=response.data
+          console.log(HiringWorker)
+          return HiringWorker;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -43,12 +44,10 @@ export class WorkersHiring {
 
 
       async DeleteHiring(EmailPremiumWorker: string,IdHiring: string) {// fill ClientObject with all information of the client
-        var num = 0;
-    
-        try {
+          try {
           const response = await axios.post(rooturl+"Hiring/Delete",{EmailPremiumWorker,IdHiring});//the object to send must be *PostObject*
           console.log(response)
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

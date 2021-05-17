@@ -22,7 +22,7 @@ export class WorkerAgenda {
           console.log("add Agenda")
           const response = await axios.post(rooturl+"Agenda/Add",{ AgendaObject });//the object to send must be *PostObject*
         
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -32,12 +32,13 @@ export class WorkerAgenda {
 
 
       async GetAgenda(EmailPremiumWorker: String) {// fill ClientObject with all information of the client
-        var num = 0;
-    
+       
+        let Agenda : WorkerAgenda;
         try {
           console.log("Get Agenda")
           const response = await axios.post(rooturl+"Agenda/GetAgenda",{ EmailPremiumWorker });//the object to send must be *PostObject*
-          return response;
+          Agenda=response.data
+          return Agenda;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -52,7 +53,7 @@ export class WorkerAgenda {
         try {
           console.log("Get POST")
           const response = await axios.post(rooturl+"Agenda/Delete",{ EmailPremiumWorker, IdAgenda});//the object to send must be *PostObject*
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

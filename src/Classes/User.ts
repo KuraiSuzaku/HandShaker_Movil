@@ -3,7 +3,7 @@ import {Image} from './Image';
 import {rooturl} from './ip'
 import axios from 'axios'
 export  class User {
-  Email: string;
+  Email?: string;
   Password?: string;
   IdUser?: string;
   Name?: string;

@@ -20,7 +20,7 @@ export class Reviews {
           console.log("add Review")
           const response = await axios.post(rooturl+"Review/Add",{ ReviewObject });//the object to send must be *PostObject*
         
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -30,12 +30,12 @@ export class Reviews {
 
 
       async GetReview(EmailPremiumWorker: String) {// fill ClientObject with all information of the client
-        var num = 0;
-    
+        let ReviewsOfWorker : Reviews;
         try {
           console.log("Get Review")
           const response = await axios.post(rooturl+"Review/GetPosts",{ EmailPremiumWorker });//the object to send must be *PostObject*
-          return response;
+          ReviewsOfWorker=response.data
+          return ReviewsOfWorker;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -49,7 +49,7 @@ export class Reviews {
         try {
   
           const response = await axios.post(rooturl+"Review/Delete",{ EmailPremiumWorker, IdReview});//the object to send must be *PostObject*
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
