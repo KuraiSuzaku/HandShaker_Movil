@@ -7,6 +7,7 @@ import com.facebook.react.ReactApplication;
 import fr.snapp.imagebase64.RNImgToBase64Package;
 import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.imagepicker.ImagePickerPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.imagepicker.ImagePickerPackage;

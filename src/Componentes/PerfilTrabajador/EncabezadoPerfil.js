@@ -8,10 +8,6 @@ import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
 
 export default EncabezadoPerfil = (props) => {
-       
-    console.log("Estoy imprimiendo en EncabezadoPerfil Brenda");
-    console.log(props);
-
     const [propietario, setPropietario] = useState('si');
     const [editando, setEditando] = useState('no');
     const [editcategoria, setCategoria] = useState(props.user.Category);

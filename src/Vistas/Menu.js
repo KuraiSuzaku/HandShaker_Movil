@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ActivityIndicator,
     StyleSheet,
     Text,
     View
@@ -35,13 +36,14 @@ export default props => {
                 name='Perfil' 
 
                 options={{
+                    unmountOnBlur: true,
                     drawerIcon: ({ focused, size }) => 
-                                        <Icon
-                                            name='user'
-                                            type='font-awesome'
-                                            size={25}
-                                            color={focused ? Colores.simbolos : Colores.blanco}
-                                        />
+                        <Icon
+                            name='user'
+                            type='font-awesome'
+                            size={25}
+                            color={focused ? Colores.simbolos : Colores.blanco}
+                        />
                 }}
                 >
                 { ()=><Validar_perfil user={props.user}/> }
@@ -50,13 +52,14 @@ export default props => {
                 name='Contrataciones'
                 component={Vistas.Construccion}
                 options={{ title: 'Ver Contrataciones',
+                            unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
-                                            <Icon
-                                                name='book'
-                                                type='font-awesome'
-                                                size={25}
-                                                color={focused ? Colores.simbolos : Colores.blanco}
-                                            />}}
+                                <Icon
+                                    name='book'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                />}}
                 />
             <Drawer.Screen
                 name='Nosotros'
@@ -64,12 +67,12 @@ export default props => {
                 options={{  title: 'Sobre Nosotros',
                             unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
-                                            <Icon
-                                                name='info'
-                                                type='font-awesome'
-                                                size={25}
-                                                color={focused ? Colores.simbolos : Colores.blanco}
-                                            /> }}
+                                <Icon
+                                    name='info'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                /> }}
                 />
             <Drawer.Screen
                 name='Premium'
@@ -80,19 +83,21 @@ export default props => {
                 </Drawer.Screen>
             <Drawer.Screen
                 name='Cerrar Sesión'
-                component={Componentes.LogOut}
                 options={{  unmountOnBlur: true, 
                             drawerIcon: ({ focused, size }) => 
-                                            <Icon
-                                                name='sign-out'
-                                                type='font-awesome'
-                                                size={25}
-                                                color={focused ? Colores.simbolos : Colores.blanco}
-                                            /> }}
-                />
+                                <Icon
+                                    name='sign-out'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                /> }}
+            >
+                {
+                    ({ navigation }) => <Componentes.LogOut {...props} navigation={navigation} />
+                }
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Login'
-                // component={Componentes.Login}
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
                 >
@@ -179,7 +184,7 @@ const Validar_perfil = (props) => {
     }
 
     return(
-        <Text>ESTO ES UN ERROR, SI ESTÁS VIENDO ESTA PÁGINA POR FAVOR CONTACTA A brendasamantha@gmail.com y dile que fue en el login :C</Text>
+        <ActivityIndicator size='large' />
     );
 };
 
