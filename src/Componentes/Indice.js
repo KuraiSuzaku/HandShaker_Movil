@@ -6,6 +6,7 @@ import Registro from './Registro/Registro';
 import * as PerfilCliente from './PerfilCliente/Indice';
 import * as PerfilPremium from './PerfilPremium/Indice';
 import * as PerfilTrabajador from './PerfilTrabajador/Indice';
+import Home from './Home/Home';
 
 export {
     EncabezadoApp,
@@ -16,4 +17,5 @@ export {
     PerfilCliente,
     PerfilPremium,
     PerfilTrabajador,
+    Home
 };

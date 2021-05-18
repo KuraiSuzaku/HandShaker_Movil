@@ -23,7 +23,7 @@ export default Navegacion = (props) => {
                 color={Colores.simbolos}
                 size={25}
                 containerStyle={Estilos.ContenedorIcono}
-                onPress={() => Navegar('Inicio')}
+                onPress={() => Navegar('Home')}
                 />
             <Icon
                 name='money'
