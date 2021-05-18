@@ -12,13 +12,14 @@ import { ActivityIndicator } from 'react-native';
 
 export default Contenedor = (props) => {
     const [profileUser, setProfileUser] = useState(null);
+    const [load, setLoad] = useState(false);
     const navigation = useNavigation();
     const route = useRoute();
     let owner = false;
 
     useEffect(() => {
         console.log('Parametro: ', route.params);
-        if(route.params.updateProfile) {
+        if(!profileUser || route.params.updateProfile) {
             console.log('Entra a Update');
             if(!route.params.profileUser) {
                 console.log('Entra a Owner');
@@ -42,8 +43,11 @@ export default Contenedor = (props) => {
                     });
                 }
             }
-            navigation.setParams({ updateProfile: false });
         }
+        navigation.setParams({
+            profileUser: null,
+            updateProfile: false
+        });
     }, [route.params.updateProfile]);
 
     const checkPremium = () => {
@@ -57,7 +61,7 @@ export default Contenedor = (props) => {
     return(
         <>
         {
-            !route.params.updateProfile ?
+            profileUser ?
             <View style={Estilos.Contenido}>
                 <ScrollView>
                     <Componentes.PerfilTrabajador.EncabezadoPerfil 
