@@ -20,7 +20,7 @@ export default props => {
     return(
         <Drawer.Navigator 
             drawerContent={(auxprops) => <CustomDrawerContent {...auxprops}
-                                        user = {props.user}
+                                        {...props}
                                         />}//(props) => {customDrawerContent(props)}}
             initialRouteName='Login'
             drawerContentOptions={{
@@ -34,7 +34,10 @@ export default props => {
             >
             <Drawer.Screen 
                 name='Perfil' 
-
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
                 options={{
                     unmountOnBlur: true,
                     drawerIcon: ({ focused, size }) => 
@@ -46,7 +49,10 @@ export default props => {
                         />
                 }}
                 >
-                { ()=><Validar_perfil user={props.user}/> }
+                { ({nav})=><Validar_perfil
+                    {...props}
+                    navigation={nav}
+                /> }
             </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
@@ -157,7 +163,7 @@ const CustomDrawerContent = (props) => {
                     rounded
                     size='large'
                     />
-                <Text style={Estilos.UserName}>Usuario</Text>
+                <Text style={Estilos.UserName}>{props.user.Name}</Text>
             </View>
             <DrawerItemList {...filteredProps} />
         </View>
@@ -169,21 +175,21 @@ const Validar_perfil = (props) => {
     if(props.user.UserType == "PremiumWorker"){
         return (
             <Vistas.PerfilPremium 
-                user={props.user}
+                {...props}
             />
         );
     }
     else if(props.user.UserType == "Worker"){
         return (
             <Vistas.PerfilTrabajador
-                user={props.user}
+                {...props}
             />
         );
     }
     else if(props.user.UserType == "Client"){
         return (
             <Vistas.PerfilCliente
-                user={props.user}
+                {...props}
             />
         );
     }

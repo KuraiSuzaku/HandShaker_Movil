@@ -8,14 +8,12 @@ import * as Componentes from '../Componentes/Indice';
 export default (props) => {
   // PRUEBA
   const test_props = {
-    currentUser: 'example@handshaker.com',
-    profileUser: 'example@handshaker.com',
     imagenFondo : require('../../public/Images/test.jpg'),
     avatar : require('../../public/Profile/user.png'),
     valoracion : 2.5,
     nombre : 'María José Arellano',
     titulo : 'Lic. Diseño Gráfico',
-    descripcion : 'Me dedico a crear páginas y aplicaciones',
+    descripcion : 'Me dedico a crear páginas y aplicacionesa',
     isPremium : true,
     publicaciones : [
                       { 
