@@ -113,10 +113,10 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Contratar'
-                component={Vistas.Contratacion}
                 options={{ swipeEnabled: false,
-                    unmountOnBlur: true }}
-            />
+                    unmountOnBlur: true }}>
+                { ()=><Vistas.Contratacion user={props.user}/> }
+            </Drawer.Screen>
         </Drawer.Navigator>
     );
 }

@@ -57,6 +57,7 @@ export default PerfilTrabajador = (props) => {
             resenas={resenas}
             acercade={acercade}
             user = {props.user}
+            setUser = {props.setUser}
             />
         <Componentes.Navegacion />
       </SafeAreaProvider>
