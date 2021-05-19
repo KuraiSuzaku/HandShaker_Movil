@@ -10,8 +10,6 @@ import * as Componentes from '../Indice';
 
 export default ListaPublicacion = (props) => {
     const navigation = useNavigation();
-    const route = useRoute();
-    console.log('Perfil: ', props.user.Email);
     return(
         <View>
             <Button
@@ -32,10 +30,13 @@ export default ListaPublicacion = (props) => {
                 }}
                 title='Perfil Premium (usuario)'
             />
-            {props.owner ?
-            <View>
-                <Componentes.PerfilPremium.NewPublication />
-            </View> : <></>}
+            {
+                props.owner ?
+                <View>
+                    <Componentes.PerfilPremium.NewPublication />
+                </View> :
+                null
+            }
             {
                 props.publicaciones.map((p, i) => (
                     <Componentes.PerfilPremium.Publicacion

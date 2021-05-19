@@ -12,30 +12,26 @@ import { ActivityIndicator } from 'react-native';
 
 export default Contenedor = (props) => {
     const [profileUser, setProfileUser] = useState(null);
+    const [owner, setOwner] = useState(false);
     const [load, setLoad] = useState(false);
     const navigation = useNavigation();
     const route = useRoute();
-    let owner = false;
 
     useEffect(() => {
-        console.log('Parametro: ', route.params);
         if(!profileUser || route.params.updateProfile) {
-            console.log('Entra a Update');
             if(!route.params.profileUser) {
-                console.log('Entra a Owner');
-                owner = true;
+                setOwner(true);
                 setProfileUser(props.user);
             } else {
-                userObject = { userType: 'Worker' }; // Lee info del usuario de la bd para conseguir tipo de usuario
-                if(userObject.userType) {
-                    console.log('Entra a Get Premium');
+                setOwner(false);
+                userObject = { userType: 'PremiumWorker' }; // Lee info del usuario de la bd para conseguir tipo de usuario
+                if(userObject.userType == 'PremiumWorker') {
                     let PremiumWorkerObject = new PremiumWorker(route.params.profileUser);
                     PremiumWorkerObject.GetPremiumWorkerInformation(PremiumWorkerObject).then((res) => {
                         const PremiumWorkerObject=res;
                         setProfileUser({...PremiumWorkerObject});
                     });
                 } else {
-                    console.log('Entra a Get Worker');
                     let WorkerObject = new Worker(route.params.profileUser);
                     WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
                         const WorkerObject=res;

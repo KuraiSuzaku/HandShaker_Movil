@@ -13,6 +13,7 @@ import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer'
 import * as Vistas from './Indice';
 import * as Componentes from '../Componentes/Indice';
 import Colores from '../Estilos/Colores';
+import { TouchableOpacity } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -49,9 +50,8 @@ export default props => {
                         />
                 }}
                 >
-                { ({nav})=><Validar_perfil
+                { ()=><Validar_perfil
                     {...props}
-                    navigation={nav}
                 /> }
             </Drawer.Screen>
             <Drawer.Screen
@@ -157,14 +157,21 @@ const CustomDrawerContent = (props) => {
     };
     return (
         <View style={Estilos.MenuContainer}>
-            <View style={Estilos.MenuHeader}>
-                <Avatar
-                    source={require('../../public/Profile/user.png')}
-                    rounded
-                    size='large'
-                    />
-                <Text style={Estilos.UserName}>{props.user.Name}</Text>
-            </View>
+            <TouchableOpacity onPress={() => 
+                    props.navigation.navigate('Perfil', {
+                        profileUser: null,
+                        updateProfile: true
+                })} 
+            >
+                <View style={Estilos.MenuHeader}>
+                    <Avatar
+                        source={require('../../public/Profile/user.png')}
+                        rounded
+                        size='large'
+                        />
+                    <Text style={Estilos.UserName}>{props.user.Name}</Text>
+                </View>
+            </TouchableOpacity>
             <DrawerItemList {...filteredProps} />
         </View>
     );
