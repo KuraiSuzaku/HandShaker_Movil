@@ -8,25 +8,26 @@ import * as Componentes from '../Componentes/Indice';
 export default PerfilTrabajador = (props) => {
   
   // PRUEBA
-    const imagenFondo = require('../../public/Images/test.jpg');
-    const avatar = require('../../public/Profile/user.png');
-    const valoracion = 3.5;
-    const nombre = 'Armando Paredes de la Colina';
-    const titulo = 'Ing. Arquitectura';
-    const descripcion = 'Pues yo hago construyo cosas bien chidoris';
-    const isPremium = false;
-    const acercade = {
+    const test_props = {
+    imagenFondo : require('../../public/Images/test.jpg'),
+    avatar : require('../../public/Profile/user.png'),
+    valoracion : 3.5,
+    nombre : 'Armando Paredes de la Colina',
+    titulo : 'Ing. Arquitectura',
+    descripcion : 'Pues yo hago construyo cosas bien chidoris',
+    isPremium : false,
+    acercade : {
                         nombre: nombre,
                         informacion: 'Aquí estoy poniendo mi información :D MUCHOS CARACTERESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
                         imagen: require('../../public/Images/acercade_placeholder.png'),
-                      }
-    const contacto = {
+                      },
+    contacto : {
                         correo: 'tengo_un_correo@hotmail.com',
                         telefono: '36-52-01-45',
                         celular: '+52 33-69-42-34-63',
                         domicilio: 'Háblame para contactarme! :D'
-                      }
-    const resenas = [
+                      },
+    resenas : [
                       {
                         nombre: 'Brenda bien SAD',
                         valoracion: 2,
@@ -42,22 +43,14 @@ export default PerfilTrabajador = (props) => {
                         avatar: require('../../public/Profile/user.png'),
                       }
                     ]
+                  }
     return(
       <SafeAreaProvider style={Estilos.ContenedorApp}>
         <Componentes.EncabezadoApp/>
         <Componentes.PerfilTrabajador.Contenedor
-            imagenFondo={imagenFondo}
-            avatar={avatar}
-            valoracion={valoracion}
-            nombre={nombre}
-            titulo={titulo}
-            descripcion={descripcion}
-            isPremium={isPremium}
-            contacto={contacto}
-            resenas={resenas}
-            acercade={acercade}
-            user = {props.user}
-            />
+          {...props}
+          {...test_props}
+        />
         <Componentes.Navegacion />
       </SafeAreaProvider>
     );

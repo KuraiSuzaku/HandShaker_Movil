@@ -30,7 +30,7 @@ export default class Login extends Component {
                     this.setState({
                         user: {...storedUser}
                     });
-                    this.props.navigation.navigate('Perfil');
+                    this.props.navigation.navigate('Home');
                 } else {
                     this.setState({
                         load: true
@@ -86,7 +86,7 @@ export default class Login extends Component {
                 user: {...WorkerObject}
             });
             ToastAndroid.show(("Worker User"), ToastAndroid.SHORT);
-            this.props.navigation.navigate('Perfil')
+            this.props.navigation.navigate('Home')
           });
         }
         if(userObject.UserType.includes("PremiumWorker")){
@@ -100,7 +100,7 @@ export default class Login extends Component {
                 user: {...PremiumWorkerObject}
             });
             ToastAndroid.show(("Premium Worker User"), ToastAndroid.SHORT);
-            this.props.navigation.navigate('Perfil')
+            this.props.navigation.navigate('Home')
           });
         }
         if(userObject.UserType.includes("Client")){
@@ -114,7 +114,7 @@ export default class Login extends Component {
                 user: {...ClientObject}
             });
             ToastAndroid.show(("Client User"), ToastAndroid.SHORT);
-            this.props.navigation.navigate('Perfil')
+            this.props.navigation.navigate('Home')
           });
         }
         

@@ -1,27 +1,46 @@
-import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/core';
+import React, { useState } from 'react';
 import {
     Text,
     View,
 } from 'react-native';
+import { Button } from 'react-native-elements';
+import { TabRouter } from 'react-navigation';
 import * as Componentes from '../Indice';
 
-export default ListaPublicacion = ({owner,
-                                    avatar,
-                                    nombre,
-                                    valoracion,
-                                    publicaciones}) => {
+export default ListaPublicacion = (props) => {
+    const navigation = useNavigation();
     return(
         <View>
-            {owner ?
-            <View>
-                <Componentes.PerfilPremium.NewPublication />
-            </View> : <></>}
+            <Button
+                onPress={() => {
+                    navigation.navigate('Perfil', {
+                        profileUser: 'Worker@gmail.com',
+                        updateProfile: true
+                    });
+                }}
+                title='Perfil Worker'
+            />
+            <Button
+                onPress={() => {
+                    navigation.navigate('Perfil', {
+                        profileUser: null,
+                        updateProfile: true
+                    });
+                }}
+                title='Perfil Premium (usuario)'
+            />
             {
-                publicaciones.map((p, i) => (
+                props.owner ?
+                <View>
+                    <Componentes.PerfilPremium.NewPublication />
+                </View> :
+                null
+            }
+            {
+                props.publicaciones.map((p, i) => (
                     <Componentes.PerfilPremium.Publicacion
-                        avatar={avatar}
-                        nombre={nombre}
-                        valoracion={valoracion}
+                        {...props}
                         {...p}
                         />
                 ))
