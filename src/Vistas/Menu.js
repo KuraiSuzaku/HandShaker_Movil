@@ -136,8 +136,7 @@ export default props => {
 
 const CustomDrawerContent = (props) => {
     const check = (val) => {
-        if( val === 'Perfil'
-            || val === 'Contrataciones'
+        if( val === 'Contrataciones'
             || val === 'Nosotros'
             || val === 'Cerrar Sesión')
             return true;
