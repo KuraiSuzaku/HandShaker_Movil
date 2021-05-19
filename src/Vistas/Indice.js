@@ -5,6 +5,7 @@ import Construccion from './Construccion';
 import PerfilTrabajador from './PerfilTrabajador';
 import Contratacion from './Contratacion';
 import PagoAPremium from './PagoAPremium';
+import ListaChats from './ListaChats';
 
 export {
     Menu,
@@ -14,4 +15,5 @@ export {
     PerfilTrabajador,
     Contratacion,
     PagoAPremium,
+    ListaChats,
 }

@@ -130,6 +130,21 @@ export default props => {
                 component={Componentes.Home}
                 options={{ unmountOnBlur: true }}
             />
+
+            <Drawer.Screen
+                name='ListaChats' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                }}
+                >
+                { ()=><Vistas.ListaChats
+                    {...props}
+                /> }
+            </Drawer.Screen>
         </Drawer.Navigator>
     );
 }
