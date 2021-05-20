@@ -16,6 +16,7 @@ export default Navegacion = (props) => {
     }
     //////
     return(
+        <View>
         <View style={Estilos.Navegacion}>
             <Icon
                 name='home'
@@ -39,7 +40,7 @@ export default Navegacion = (props) => {
                 color={Colores.simbolos}
                 size={25}
                 containerStyle={Estilos.ContenedorIcono}
-                onPress={() => Navegar('Chats')}
+                onPress={() => Navegar('ListaChats')}
                 />
             <Icon
                 name='bell'
@@ -58,12 +59,12 @@ export default Navegacion = (props) => {
                 onPress={() => Navegar('Ayuda')}
                 />
         </View>
+        </View>
     );
 };
 // ESTILOS
 const Estilos = StyleSheet.create({
     Navegacion: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
