@@ -1,16 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, ScrollView, FlatList, StatusBar, TouchableOpacity} from 'react-native';
-import {Input, Button, Image, Avatar, Card} from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {Avatar, Card} from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import MonthPicker from 'react-native-month-year-picker';
-import moment from "moment"; 
-import { Icon } from 'react-native-elements';
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 
 export default PagoAPremium = (props) => {
-    const [email, setEmail] = useState(null);
     const avatar = require('../../public/Profile/user.png');
 
     const mensajes_chat = [
@@ -162,11 +157,6 @@ const Estilos = StyleSheet.create({
         width: '100%',
         height: '75%',
     },
-    Icono: {
-        flex: 1,
-        width: 32,
-        height: 32,
-    },
     Titulo: {    
         fontSize: 20,
         fontWeight: 'bold',
@@ -185,55 +175,7 @@ const Estilos = StyleSheet.create({
         textAlign: 'left',
         fontWeight: 'normal',
     },
-    Input:{
-        flex: 1,
-        borderRadius: 10,
-        backgroundColor: '#FFFFFF',
-        textAlignVertical: 'top',
-    },
-    InputSecundario:{
-        borderRadius: 10,
-        backgroundColor: '#FFFFFF',
-        textAlignVertical: 'top',
-    },
     Tarjeta: {
         borderRadius: 20,
-    },
-    Imagen: {
-        padding: 5,
-        width: 80,
-        height: 50,
-    },
-    BotonFechaVencimiento: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
-        padding: 0,
-        height: 50,
-        width: 160,
-    },
-    BotonHazmePremium: {
-        backgroundColor: Colores.fondoBotonOscuro,
-        borderRadius: 20,
-        height: 60,
-        width: 200,
-        padding: 0,
-    },
-    BotonCancelar: {
-        backgroundColor: Colores.fondoBotonOscuro,
-        borderRadius: 20,
-        height: 35,
-        width: 120,
-        padding: 0,
-    },
-    EtiquetaBoton: {
-        marginHorizontal: 15,
-        marginVertical: 3,
-        padding: 0,
-        color: Colores.letrasSobreNegro,
-        fontSize: 18,
-    },
-    Separador: {
-        height: 2,
-        color: Colores.separador,
     },
 });
