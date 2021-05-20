@@ -220,6 +220,7 @@ const Estilos = StyleSheet.create({
         paddingBottom: 20,
         borderBottomColor: Colores.etiquetas,
         borderBottomWidth: 2,
+        alignItems: 'center'
     },
     UserName: {
         paddingTop: 5,
