@@ -1,10 +1,12 @@
 import React from 'react';
 import {
+    ScrollView,
     StyleSheet,
     Text,
     View
 } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
+import { TabRouter } from 'react-navigation';
 import Colors from '../../Estilos/Colores';
 
 export default class Chat extends React.Component {
@@ -23,8 +25,12 @@ export default class Chat extends React.Component {
     render() {
         return(
             <View style={{ flex: 10 }} >
-                <View style={Estilos.MessagesContainer} >
-
+            <View style={Estilos.MessagesContainer} >
+                    <ScrollView>
+                        <Text>De: {this.props.route.params.fromUser}</Text>
+                        <Text>Para: {this.props.route.params.toUser}</Text>
+                        {/* Aqui se agregan los mensajes */}
+                    </ScrollView>
                 </View>
                 <View style={Estilos.InputContainer}>
                     <Input 
@@ -52,7 +58,8 @@ const Estilos = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.etiquetas,
         borderRadius: 20,
-        margin: 10
+        margin: 10,
+        padding: 10
     },
     InputContainer: {
         flex: 1,
