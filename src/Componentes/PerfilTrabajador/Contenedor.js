@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import {
+    ActivityIndicator,
     ScrollView,
     StyleSheet,
+    TouchableOpacity,
     View,
 } from 'react-native';
 import * as Componentes from '../Indice';
 import Worker from '../../Classes/Worker';
 import PremiumWorker from '../../Classes/PremiumWorker';
-import { ActivityIndicator } from 'react-native';
+import { Icon } from 'react-native-elements';
+import Colors from '../../Estilos/Colores';
 
 export default Contenedor = (props) => {
     const [profileUser, setProfileUser] = useState(null);
     const [owner, setOwner] = useState(false);
-    const [load, setLoad] = useState(false);
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -57,7 +59,7 @@ export default Contenedor = (props) => {
     return(
         <>
         {
-            profileUser ?
+            !route.params.updateProfile && profileUser ?
             <View style={Estilos.Contenido}>
                 <ScrollView>
                     <Componentes.PerfilTrabajador.EncabezadoPerfil 
@@ -65,6 +67,26 @@ export default Contenedor = (props) => {
                         user={profileUser}
                     />
                     {checkPremium()}
+                    {
+                        !owner ?
+                        <View style={Estilos.ChatView} >
+                            <TouchableOpacity onPress={() => {
+                                navigation.navigate('Chat', {
+                                    toUser: profileUser.Email,
+                                    fromUser: props.user.Email
+                                })
+                            }} >
+                                <Icon
+                                    name='wechat'
+                                    type='font-awesome'
+                                    size={50}
+                                    color={Colors.simbolos}
+                                    containerStyle={Estilos.ChatIconContainer}
+                                />
+                            </TouchableOpacity>
+                        </View> :
+                        null
+                    }
                 </ScrollView>
             </View> :
             <ActivityIndicator style={Estilos.Contenido} size='large' />
@@ -78,4 +100,16 @@ const Estilos = StyleSheet.create({
     Contenido: {
         flex: 10,
     },
+    ChatView: {
+        height: '100%',
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        paddingTop: 15,
+        paddingRight: 15
+    },
+    ChatIconContainer: {
+        padding: 10,
+        borderRadius: 100,
+        backgroundColor: Colors.fondoOscuro
+    }
 });
