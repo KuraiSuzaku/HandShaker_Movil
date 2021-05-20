@@ -13,6 +13,7 @@ import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer'
 import * as Vistas from './Indice';
 import * as Componentes from '../Componentes/Indice';
 import Colores from '../Estilos/Colores';
+import { TouchableOpacity } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,7 +21,7 @@ export default props => {
     return(
         <Drawer.Navigator 
             drawerContent={(auxprops) => <CustomDrawerContent {...auxprops}
-                                        user = {props.user}
+                                        {...props}
                                         />}//(props) => {customDrawerContent(props)}}
             initialRouteName='Login'
             drawerContentOptions={{
@@ -34,7 +35,10 @@ export default props => {
             >
             <Drawer.Screen 
                 name='Perfil' 
-
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
                 options={{
                     unmountOnBlur: true,
                     drawerIcon: ({ focused, size }) => 
@@ -46,7 +50,9 @@ export default props => {
                         />
                 }}
                 >
-                { ()=><Validar_perfil user={props.user}/> }
+                { ()=><Validar_perfil
+                    {...props}
+                /> }
             </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
@@ -119,14 +125,23 @@ export default props => {
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
             />
+            <Drawer.Screen
+                name='Home'
+                component={Componentes.Home}
+                options={{ unmountOnBlur: true }}
+            />
+            <Drawer.Screen
+                name='Chat'
+                component={Vistas.Chat}
+                options={{ unmountOnBlur: true }}
+            />
         </Drawer.Navigator>
     );
 }
 
 const CustomDrawerContent = (props) => {
     const check = (val) => {
-        if( val === 'Perfil'
-            || val === 'Contrataciones'
+        if( val === 'Contrataciones'
             || val === 'Nosotros'
             || val === 'Cerrar Sesión')
             return true;
@@ -146,14 +161,21 @@ const CustomDrawerContent = (props) => {
     };
     return (
         <View style={Estilos.MenuContainer}>
-            <View style={Estilos.MenuHeader}>
-                <Avatar
-                    source={require('../../public/Profile/user.png')}
-                    rounded
-                    size='large'
-                    />
-                <Text style={Estilos.UserName}>Usuario</Text>
-            </View>
+            <TouchableOpacity onPress={() => 
+                    props.navigation.navigate('Perfil', {
+                        profileUser: null,
+                        updateProfile: true
+                })} 
+            >
+                <View style={Estilos.MenuHeader}>
+                    <Avatar
+                        source={require('../../public/Profile/user.png')}
+                        rounded
+                        size='large'
+                        />
+                    <Text style={Estilos.UserName}>{props.user.Name}</Text>
+                </View>
+            </TouchableOpacity>
             <DrawerItemList {...filteredProps} />
         </View>
     );
@@ -164,21 +186,21 @@ const Validar_perfil = (props) => {
     if(props.user.UserType == "PremiumWorker"){
         return (
             <Vistas.PerfilPremium 
-                user={props.user}
+                {...props}
             />
         );
     }
     else if(props.user.UserType == "Worker"){
         return (
             <Vistas.PerfilTrabajador
-                user={props.user}
+                {...props}
             />
         );
     }
     else if(props.user.UserType == "Client"){
         return (
             <Vistas.PerfilCliente
-                user={props.user}
+                {...props}
             />
         );
     }

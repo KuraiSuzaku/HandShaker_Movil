@@ -19,9 +19,10 @@ import ImgToBase64 from 'react-native-image-base64';
 import Colores from '../../Estilos/Colores';
 
 export default class NewMultimedia extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
+            uploaded: this.props.uploaded,
             image: {
                 description: null,
                 name: null,
@@ -40,9 +41,7 @@ export default class NewMultimedia extends Component {
             maxWidth: 500,
             maxHeight: 500
         };
-        ImagePicker.showImagePicker(options, (response) => {
-            //console.log('Response = ', response);
-            
+        ImagePicker.showImagePicker(options, (response) => {            
             if(response.didCancel) {
               console.log('User cancelled image picker');
             } else {
@@ -51,6 +50,7 @@ export default class NewMultimedia extends Component {
                         .then(base64String => {
                             const base64 = 'data:image/jpg;base64,' + base64String;
                             this.setState({ image: { 
+                                description: this.state.image.description,
                                 name: response.fileName,
                                 uri: response.uri,
                                 base64: base64 
@@ -61,7 +61,7 @@ export default class NewMultimedia extends Component {
                     console.log(e);
                 }
             }
-          });
+        });
     }
 
     publish() {
@@ -73,6 +73,14 @@ export default class NewMultimedia extends Component {
             MultimediaObject=new Multimedia(this.props.user.Email, MultimediaItemObject);
             MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
                 if  (res.status==200){
+                    this.setState(
+                        { image: {
+                            description: null,
+                            name: null,
+                            uri: null,
+                            base64: null
+                        }});
+                    this.props.setUploaded(true);
                     Alert.alert('Se Agrego correctamente');
                     }
             })
@@ -81,7 +89,7 @@ export default class NewMultimedia extends Component {
             Alert.alert('Necesita seleccionar una imagen antes de poder publicar');
     };
 
-    render() {   
+    render() {
         return(
             <Card containerStyle={Estilos.Tarjeta}>
                 <View>
@@ -104,7 +112,13 @@ export default class NewMultimedia extends Component {
                 <TextInput
                     placeholder='¿Desea agregar una descripción?'
                     style={Estilos.Input}
-                    onChangeText={newDescr => this.setState({ image: { description: newDescr }})}
+                    value={this.state.image.description}
+                    onChangeText={newDescr => this.setState({ image: {
+                        description: newDescr,
+                        name: this.state.image.name,
+                        uri: this.state.image.uri,
+                        base64: this.state.image.base64
+                    }})}
                 />
                 </View>
                 {this.state.image.uri ?

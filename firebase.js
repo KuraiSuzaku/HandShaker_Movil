@@ -1,7 +1,5 @@
 import firebase from '@react-native-firebase/app';
 
-console.log('+++++++++ firebase app config +++++++++');
-
 const config = {
     apiKey: "AIzaSyBIIxDRwdoU46RVwEJyw_OJJ50_tNIUFvY",
     projectId: "handshaker-cb383",

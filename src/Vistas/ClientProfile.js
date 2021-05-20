@@ -12,7 +12,7 @@ export default props => {
       <SafeAreaProvider style={Estilos.ContenedorApp}>
           <Componentes.EncabezadoApp />
           <View style={{flex: 10}}>
-            <Componentes.PerfilCliente.Navegacion />
+            <Componentes.PerfilCliente.Navegacion {...props} />
           </View>
           <Componentes.Navegacion />
       </SafeAreaProvider>
