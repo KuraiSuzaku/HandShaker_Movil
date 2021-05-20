@@ -41,10 +41,6 @@ export default Encabezado = ({route, navigation}) => {
             <Avatar
                 source={require('../../../public/Profile/user.png')}
                 rounded
-                onPress={() => navigation.navigate('Perfil', {
-                    profileUser: route.params.toUser,
-                    updateProfile: true
-                })}
                 />
         </Header>
     );

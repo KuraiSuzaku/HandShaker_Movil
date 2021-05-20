@@ -1,18 +1,24 @@
 import React from 'react';
-import {
-    Text,
-    View
-} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Components from '../Componentes/Indice';
+import Colores from '../Estilos/Colores';
 
 export default class Chat extends React.Component {
     render() {
         return(
-            <View style={{ flex: 1 }}>
+            <SafeAreaProvider style={Estilos.ContenedorApp}>
                 <Components.Chat.EncabezadoApp {...this.props} />
                 <Components.Chat.Chat {...this.props} />
                 <Components.Navegacion />
-            </View>
+            </SafeAreaProvider>
         );
     }
 }
+// ESTILOS
+const Estilos = StyleSheet.create({
+  ContenedorApp: {
+      flex: 1,
+      backgroundColor: Colores.fondo,
+  },
+});

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FlatList } from 'react-native';
 import {
     StyleSheet,
     Text,
@@ -7,24 +8,113 @@ import {
 import { Icon, Input } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
 
+const messages = [
+    {
+        _id: "msg01",
+        EmailUserFrom: "WorkerPremium@gmail.com",
+        EmailUserTo: "Worker@gmail.com",
+        MessageText: "Buenas tardes",
+        MessageDate: "01/11/2020"
+    },
+    {
+        _id: "msg02",
+        EmailUserFrom: "WorkerPremium@gmail.com",
+        EmailUserTo: "Worker@gmail.com",
+        MessageText: "¡Haga lo que le digo! >:v",
+        MessageDate: "02/11/2020"
+    },
+    {
+        _id: "msg03",
+        EmailUserFrom: "Worker@gmail.com",
+        EmailUserTo: "WorkerPremium@gmail.com",
+        MessageText: "Esta bien no se enoje O~O",
+        MessageDate: "03/11/2020"
+    },
+    {
+        _id: "msg04",
+        EmailUserFrom: "Worker@gmail.com",
+        EmailUserTo: "WorkerPremium@gmail.com",
+        MessageText: "Ya voy a ofrecerle mis servicios...",
+        MessageDate: "04/11/2020"
+    },
+    {
+        _id: "msg05",
+        EmailUserFrom: "WorkerPremium@gmail.com",
+        EmailUserTo: "Worker@gmail.com",
+        MessageText: "Excelente ^-^",
+        MessageDate: "05/11/2020"
+    },
+];
+
 export default class Chat extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            newMessage: null
+            newMessage: null,
+            messages: null,
+            load: false
         };
+        this.renderMessage = this.renderMessage.bind(this);
+    }
+
+    componentDidMount() {
+        if(!this.state.load) {
+            /* Carga los mensajes */
+            this.setState({
+                messages: messages, // Cambiar por res de la bd
+                load: true
+            });
+        }
     }
 
     sendMessage() {
         console.log('Send', this.state.newMessage);
     }
 
+    renderMessage({ item }) {
+        let ownMessage = false;
+        if(item.EmailUserFrom == this.props.route.params.fromUser)
+            ownMessage = true;
+        return(
+            <View style={[Estilos.MessageView, {
+                justifyContent: ownMessage ?
+                    'flex-end' :
+                    'flex-start',
+            }]}>
+                <View style={{
+                    alignItems: ownMessage ?
+                        'flex-end' :
+                        'flex-start'
+                }}>
+                    <View style={Estilos.MessageText}>
+                        <Text>
+                            {item.MessageText}
+                        </Text>
+                    </View>
+                    <Text style={Estilos.DateText}>
+                        {item.MessageDate}
+                    </Text>
+                </View>
+            </View>
+        );
+    }
+
     render() {
         return(
             <View style={{ flex: 10 }} >
-                <View style={Estilos.MessagesContainer} >
-
+            <View style={Estilos.MessagesContainer} >
+                    <Text>De: {this.props.route.params.fromUser}</Text>
+                    <Text>Para: {this.props.route.params.toUser}</Text>
+                    {/* Aqui se agregan los mensajes */
+                        this.state.load ?
+                        <FlatList
+                            data={this.state.messages}
+                            renderItem={this.renderMessage}
+                            contentContainerStyle={{flexGrow: 1}}
+                        /> :
+                        <Text>No Carga</Text>
+                    }
                 </View>
                 <View style={Estilos.InputContainer}>
                     <Input 
@@ -52,7 +142,22 @@ const Estilos = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.etiquetas,
         borderRadius: 20,
-        margin: 10
+        margin: 10,
+        padding: 10
+    },
+    MessageView: {
+        flexDirection: 'row',
+        paddingVertical: 3
+    },
+    MessageText: {
+        borderRadius: 20,
+        padding: 10,
+        backgroundColor: Colors.separador
+    },
+    DateText: {
+        color: Colors.etiquetas,
+        fontSize: 10,
+        marginHorizontal: 10
     },
     InputContainer: {
         flex: 1,
