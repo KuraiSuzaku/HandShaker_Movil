@@ -10,7 +10,7 @@ import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 
 export default PagoAPremium = (props) => {
-    const [selectedId, setSelectedId] = useState(null);
+    const [email, setEmail] = useState(null);
     const avatar = require('../../public/Profile/user.png');
 
     const mensajes_chat = [
@@ -18,7 +18,7 @@ export default PagoAPremium = (props) => {
             _id: "msg01",
             EmailUserFrom: "Origen1@email.com",
             EmailUserTo: "Destino1@email.com",
-            MessageText: "SOY EL MENSAJE 1! :D",
+            MessageText: "SOY EL MENSAJE 1! PRIMER MENSAJE :D",
             MessageDate: "01/11/2020"
         },
         {
@@ -46,7 +46,7 @@ export default PagoAPremium = (props) => {
             _id: "msg05",
             EmailUserFrom: "Origen5@email.com",
             EmailUserTo: "Destino5@email.com",
-            MessageText: "SOY EL MENSAJE 5! :D",
+            MessageText: "SOY EL MENSAJE 5! ÚLTIMO MENSAJE :D",
             MessageDate: "05/11/2020"
         },
     ]
@@ -57,77 +57,88 @@ export default PagoAPremium = (props) => {
             EmailChatWith: "email1@gmail.com",
             avatar: "bell",
             nombre: "SoyNombre1",
-            //ListaDeMensajes: mensajes_chat,
+            ListaDeMensajes: mensajes_chat,
         },
         {
             _id: "02",
             EmailChatWith: "email2@gmail.com",
             avatar: "bell",
             nombre: "SoyNombre2",
-            //ListaDeMensajes: mensajes_chat,
+            ListaDeMensajes: mensajes_chat,
         },
         {
             _id: "03",
             EmailChatWith: "email3@gmail.com",
             avatar: "bell",
             nombre: "SoyNombre3",
-            //ListaDeMensajes: mensajes_chat,
+            ListaDeMensajes: mensajes_chat,
         },
     ];
       
-    const chats = [
+    const chats = (
         {
             _id: "iddelusuario",
-            Email: "emaildelusuario",
+            Email: "emaildelusuario@email.com",
             ListaDeChats: lista_chats,
         }
-    ]
-
-    console.log("Chats: ", chats.ListaDeChats);
-
-    const CambiarAChat = (email) =>{
-        console.log("Debo irme al chat con: ", email);
-    }
-
-    const Item = ({ item, onPress }) => (
-    <TouchableOpacity onPress={() => {onPress}}>
-        <Card containerStyle={Estilos.Tarjeta}>
-            <View style={{flexDirection: 'row', paddingLeft: 10}}>
-                <Avatar
-                    rounded
-                    icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={avatar}
-                    size={50}
-                    containerStyle={Estilos.ContenedorAvatar}
-                />
-                <View style={{marginLeft: 15}}>
-                    <Text style={Estilos.Texto}>{item.nombre}</Text>
-                    <Text style={Estilos.TextoSecundario}>{"ASD"}</Text>
-                </View>
-            </View>
-        </Card>
-    </TouchableOpacity>
     );
+    
+
+    const CambiarAChat = (auxemail) => {
+        console.log("Debo irme al chat con: ", auxemail);
+    };
+
+    
+    const Item = ({ item, onpress }) => {
+    lastElement = Object.keys(mensajes_chat).length - 1;
+
+    return(
+        <TouchableOpacity onPress={onpress}>
+            <Card containerStyle={Estilos.Tarjeta}>
+                <View style={{flexDirection: 'row', paddingLeft: 10}}>
+                    <Avatar
+                        rounded
+                        icon={{name:'user', type:'font-awesome', color:'black'}}
+                        source={avatar}
+                        size={50}
+                        containerStyle={Estilos.ContenedorAvatar}
+                    />
+                    <View style={{marginLeft: 15}}>
+                        <Text style={Estilos.Texto}>{item.nombre}</Text>
+                        <Text style={Estilos.TextoSecundario}>{item.ListaDeMensajes[lastElement].MessageText}</Text>
+                    </View>
+                </View>
+            </Card>
+        </TouchableOpacity>
+        );
+    };
 
     const renderItem = ({ item }) => {
         return (
             <Item
             item={item}
-            onPress={() => CambiarAChat.bind(item.EmailChatWith)}
+            onpress={() => CambiarAChat(item.EmailChatWith)}
             cardStyle={Estilos.Tarjeta}
             textStyle={Estilos.Texto}
             />
         );
     };
 
+    const Encabezado = () => {
+        return(
+            <>
+            <Componentes.EncabezadoApp/> 
+            <Text style={Estilos.Titulo}>MENSAJES</Text>   
+            </>
+        );
+    };
+
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
             <FlatList
-            ListHeaderComponent={<Componentes.EncabezadoApp/>}
-                data={lista_chats}
+            ListHeaderComponent={<Encabezado/>}
+                data={chats.ListaDeChats}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                extraData={selectedId}
                 containerStyle={Estilos.ScrollView}
                 contentContainerStyle={{flexGrow: 1}}
             ListFooterComponent={<Componentes.Navegacion/>}
@@ -157,16 +168,16 @@ const Estilos = StyleSheet.create({
         height: 32,
     },
     Titulo: {    
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
+        marginTop: 15,
     },
     Texto: {
         color: Colores.etiquetas,
         fontSize: 16,   
         textAlign: 'left',
         fontWeight: 'bold',
-        textAlign: 'center',
     },
     TextoSecundario: {
         color: Colores.etiquetas,
