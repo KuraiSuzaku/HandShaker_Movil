@@ -1,4 +1,18 @@
 rootProject.name = 'App_Movil'
+include ':react-native-image-base64'
+project(':react-native-image-base64').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-base64/android')
+include ':@react-native-firebase_storage'
+project(':@react-native-firebase_storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-firebase/storage/android')
+include ':@react-native-firebase_app'
+project(':@react-native-firebase_app').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-firebase/app/android')
+include ':@react-native-async-storage_async-storage'
+project(':@react-native-async-storage_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-async-storage/async-storage/android')
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
 include ':@react-native-masked-view_masked-view'
 project(':@react-native-masked-view_masked-view').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-masked-view/masked-view/android')
 include ':react-native-gesture-handler'
