@@ -7,6 +7,7 @@ import * as PerfilCliente from './PerfilCliente/Indice';
 import * as PerfilPremium from './PerfilPremium/Indice';
 import * as PerfilTrabajador from './PerfilTrabajador/Indice';
 import Home from './Home/Home';
+import * as Chat from './Chat/Indice';
 
 export {
     EncabezadoApp,
@@ -17,5 +18,6 @@ export {
     PerfilCliente,
     PerfilPremium,
     PerfilTrabajador,
-    Home
+    Home,
+    Chat
 };

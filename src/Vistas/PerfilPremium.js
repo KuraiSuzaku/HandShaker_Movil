@@ -15,6 +15,11 @@ export default (props) => {
     titulo : 'Lic. Diseño Gráfico',
     descripcion : 'Me dedico a crear páginas y aplicacionesa',
     isPremium : true,
+    acercade : {
+                  nombre: 'María José Arellano',
+                  informacion: 'Aquí estoy poniendo mi información :D MUCHOS CARACTERESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+                  imagen: require('../../public/Images/acercade_placeholder.png'),
+                },
     publicaciones : [
                       { 
                         key: '1',

@@ -130,6 +130,11 @@ export default props => {
                 component={Componentes.Home}
                 options={{ unmountOnBlur: true }}
             />
+            <Drawer.Screen
+                name='Chat'
+                component={Vistas.Chat}
+                options={{ unmountOnBlur: true }}
+            />
         </Drawer.Navigator>
     );
 }
