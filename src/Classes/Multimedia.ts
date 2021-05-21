@@ -19,7 +19,11 @@ export class Multimedia {
     
         try {
           const response = await axios.post(rooturl+"Multimedia/Add",{ MultimediaObject });//the object to send must be *PostObject*
-          return response;
+
+          console.log("respuestaaa")
+
+          return response.status;
+
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

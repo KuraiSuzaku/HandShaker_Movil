@@ -52,9 +52,9 @@ export default class Registro extends Component {
             this.setErrorTxt( 'fecha de nacimiento' )
         }
         else{
-            ToastAndroid.show((this.state.email+' - '+this.state.password+' - '+this.state.names+' - '+this.state.lastNames+' - '+this.state.phone+' - '+this.state.birthDate), ToastAndroid.SHORT);
-           // this.setState({ nameError: '' })
-            //ToastAndroid.show(('Registro'), ToastAndroid.SHORT);
+          //  ToastAndroid.show((this.state.email+' - '+this.state.password+' - '+this.state.names+' - '+this.state.lastNames+' - '+this.state.phone+' - '+this.state.birthDate), ToastAndroid.SHORT);
+        
+          
                 
             let userObject= new User(this.state.email,this.state.password)//Login
             userObject.Name=this.state.names
@@ -70,7 +70,15 @@ export default class Registro extends Component {
                 client.LastName=userObject.LastName
                 client.Phones=userObject.Phones
                 client.Birthday=userObject.Birthday
-                client.Register(client)
+                client.Register(client).then( (res) => {
+                    console.log("Resultado "+ res)
+                   if (res=="0"){
+                    ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
+                   }
+                   else{ 
+                    ToastAndroid.show(("Registro correcto "), ToastAndroid.SHORT);
+                   }
+                });
             }else{
                
                 WorkerUser= new Worker(userObject.Email,userObject.Password)
@@ -79,7 +87,16 @@ export default class Registro extends Component {
                 WorkerUser.LastName=userObject.LastName
                 WorkerUser.Phones=userObject.Phones              
                 WorkerUser.Birthday=userObject.Birthday       
-                WorkerUser.Register(WorkerUser);
+                WorkerUser.Register(WorkerUser).then( (res) => {
+                    console.log("Resultado "+ res)
+                   if (res=="0"){
+                    ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
+                   }
+                   else{ 
+                    ToastAndroid.show(("Registro correcto "), ToastAndroid.SHORT);
+                   }
+                });
+        
             }
            
 

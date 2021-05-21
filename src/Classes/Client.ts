@@ -40,12 +40,20 @@ export  class Client extends User {
       
           const response = await axios.post(rooturl+"Client/Register",{ ClientObject });//the object to send must be *WorkerObject*  
         
-          return 1;
+          console.log(" Respuesta "+response)
+          if (response.status==409){
+            console.log("mal")
+          return "0";
+        }else
+          {
+            console.log("BIEN")
+            return "1"
+          }
         } catch (error) {
           console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
-          let response = error.response.status;
-          return response;
+        console.log("error del tipo" + error.response.status);
+   
+        return "0";
         }
       }
    
