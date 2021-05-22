@@ -33,13 +33,21 @@ export  class Worker extends User {
       try {
 
         const response = await axios.post(rooturl+"Worker/Register",{ WorkerObject });//the object to send must be *WorkerObject*  
-      
-        return 1;
+       console.log(" Respuesta "+response)
+        if (response.status==409){
+          console.log("mal")
+        return "0";
+      }else
+        {
+          console.log("BIEN")
+          return "1"
+        }
+
       } catch (error) {
         console.log("error del tipo" + error);
         console.log("error del tipo" + error.response.status);
-        this.Response = error.response.status;
-        return this;
+   
+        return "0";
       }
     }
 
@@ -148,10 +156,11 @@ export  class Worker extends User {
       }
 
       async GetWorkersWithCategory(Category: string) {// Get All workers, even the premium workers
-       
+        let ArrWorker : Worker[];
         try {
           const response = await axios.post(rooturl+"Worker/GetWorkersCategory",{ Category });//the object to send must be *WorkerObject*
-          return response; //returns an array of premiumWorker
+          ArrWorker=response.data
+          return ArrWorker; //returns an array of premiumWorker
 
         } catch (error) {
           console.log("error del tipo" + error);
@@ -164,10 +173,11 @@ export  class Worker extends User {
 
       
       async GetWorkersWithProfession(Profession: string) {// Get 
-       
+        let ArrWorker : Worker[];
         try {
           const response = await axios.post(rooturl+"Worker/GetWorkersProfession",{ Profession });//the object to send must be *WorkerObject*
-          return response; //returns an array of premiumWorker
+          ArrWorker=response.data
+          return ArrWorker; //returns an array of premiumWorker
 
         } catch (error) {
           console.log("error del tipo" + error);

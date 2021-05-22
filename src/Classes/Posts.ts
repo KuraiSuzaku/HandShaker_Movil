@@ -33,11 +33,12 @@ export class Posts {
 
       async GetPosts(EmailPremiumWorker: String) {// fill ClientObject with all information of the client
         var num = 0;
-    
+        let PostOfPW : Posts;
         try {
           console.log("Get POST")
           const response = await axios.post(rooturl+"Posts/GetPosts",{ EmailPremiumWorker });//the object to send must be *PostObject*
-          return this;
+          PostOfPW=response.data
+          return PostOfPW;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
