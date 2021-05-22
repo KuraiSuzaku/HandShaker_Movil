@@ -121,10 +121,12 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Contratar'
-                component={Vistas.Contratacion}
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
-            />
+            >
+
+                { ()=><Vistas.Contratacion user={props.user}/> }
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Home'
                 component={Componentes.Home}
@@ -135,6 +137,7 @@ export default props => {
                 component={Vistas.Chat}
                 options={{ unmountOnBlur: true }}
             />
+                    
         </Drawer.Navigator>
     );
 }
