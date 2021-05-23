@@ -10,6 +10,9 @@ import User from '../Classes/User';
 
 export default PagoAPremium = (props) => {
     const avatar = require('../../public/Profile/user.png');
+    const [auxRender, setAuxrender] = useState(false);
+    const [chats, setChats] = useState({});
+    const [flgName, setFlgName] = useState(false);
 
     let mensajes_chat = [
         {
@@ -73,13 +76,7 @@ export default PagoAPremium = (props) => {
         },
     ];
       
-    let chats = (
-        {
-            _id: "iddelusuario",
-            Email: "emaildelusuario@email.com",
-            ListOfChats: lista_chats,
-        }
-    );
+  
     
 
     const CambiarAChat = (auxemail) => {
@@ -92,58 +89,81 @@ export default PagoAPremium = (props) => {
         let ArrChats= new Array();
 
         let allChat= new AllChats()//Login
-     /*   allChat.GetChats(email).then(res=>{       
-           // chats.push[res]
-              chats.push(res)
-              console.log("***********************")
-            console.log(JSON.stringify(chats));
-            console.log("cada chat " );
-            console.log(res.Email)
-            ArrChats.push(res);
-           //Look at Worker Class, it returns an array of all workers
-         /*  res.ListOfChats.forEach(element => {
-          
-            console.log("Chats**" +element.EmailChatWith)
-            let UserChatWith= new User()//Login
-            UserChatWith.GetUserInformation(element.EmailChatWith).then(resUser=>{ 
+        const ret = await  allChat.GetChats(email)
+     
+     
+      let ArrNames=new Array();
 
-                    console.log("nombre del usuario"+resUser.Name);
-             });      
-        
+         let count=0;
+         console.log("contador "+ret.ListOfChats.length);
 
-        });
-        */
-        
-      /*  });*/
-
-      const ret = await  allChat.GetChats(email)
-      console.log(JSON.stringify(chats));
-      console.log("********************************") 
-      chats=ret;
-       
-       console.log(" **"+JSON.stringify(chats));
-       ArrChats=new Array();
-      ArrNames=new Array();
-
-      const x =  await ret.ListOfChats.forEach( async (element) => {
+     const x =  await ret.ListOfChats.forEach( async (element) => {
        // console.log(JSON.stringify(element));
       //    console.log(element.EmailChatWith);
-        
+          
+      let ArrInfoChatWith=new Array();
           console.log("Chats**" +element.EmailChatWith)
           ArrNames.push(element.EmailChatWith)
+          ArrInfoChatWith
           let UserChatWith= new User()
           const userInfoofChat = await  UserChatWith.GetUserInformation(element.EmailChatWith)
-          console.log(" "+userInfoofChat._id+ "  Su nombre es------  " +userInfoofChat.Name+" su email"+element.EmailChatWith+element.ListOfMessages)
-         let Chataux=new Chat(userInfoofChat._id,userInfoofChat.Name,element.EmailChatWith,element.ListOfMessages);
-         ArrChats.push(new Chat(userInfoofChat._id,userInfoofChat.Name,element.EmailChatWith,element.ListOfMessages))
+          
+         
+          ArrInfoChatWith.push(element.EmailChatWith);
+          ArrInfoChatWith.push(userInfoofChat.Name);
+          ArrInfoChatWith.push(userInfoofChat.ProfilePicture);
+          ArrInfoChatWith.push(element.ListOfMessages);
+          ArrInfoChatWith.push("element._id");
+          ArrChats.push(ArrInfoChatWith);
+        
+        console.log("contador "+count);
+         if((ret.ListOfChats.length-1)==count){
+            console.log("TERMINOOOO");
+            SetChatWithNameAndAvatar(ArrChats,ret);
+        }
+        
+         count++;
       });
 
-      console.log("todos los chats del user "+email)
-      console.log(JSON.stringify(ArrChats));
-
-    
-
+      console.log("fin ");
     };
+
+    function SetChatWithNameAndAvatar(ArrInfo,AllChats){
+        ChatNewArr=new  Array();
+      
+
+            console.log("for each");
+        ArrInfo.forEach(userInfo => {
+            console.log("id"+userInfo[4]);   
+            console.log("Nombre "+userInfo[1]);  
+            console.log("avatar "+userInfo[2].Path);     
+            console.log("avatar2 "+userInfo[2]);     
+            console.log("email "+userInfo[0]);    
+            console.log("mensajes "+userInfo[3]);   
+         //  let chataux=(new Chat(+userInfo[4].Path,userInfo[1],userInfo[2].Path,userInfo[0],userInfo[3].Path));
+          //  console.log("chat aux "+JSON.stringify(chataux));
+          let auxC=  new Chat();            
+          auxC._id=userInfo[4];            
+          auxC.Name=userInfo[1]; 
+          auxC.Picture=userInfo[2].Path;
+          auxC.EmailChatWith=userInfo[0]; 
+          auxC.ListOfMessages=userInfo[3];
+          console.log("chat  "+ auxC.Name);
+          console.log("chat  "+JSON.stringify(auxC));
+          ChatNewArr.push(auxC);
+        });
+        console.log("chat completo "+JSON.stringify(ChatNewArr));
+        AllChats.ListOfChats=ChatNewArr;
+       console.log("RET BIEN "+JSON.stringify(AllChats));
+       console.log("********************************") 
+       setChats(AllChats);
+       console.log("var antes "+auxRender);
+       setAuxrender(true);           
+       console.log("var"+auxRender);  
+       console.log("ahora debe renderizar");
+          
+    }
+
 
     async function GetName(email){
         console.log("checar user "+email)
@@ -179,7 +199,7 @@ await Array.forEach( async element => {
 
     
     const Item = ({ item, onpress }) => {
-    lastElement = Object.keys(mensajes_chat).length - 1;
+    lastElement = Object.keys(item.ListOfMessages).length - 1;
 
     return(
        
@@ -189,12 +209,12 @@ await Array.forEach( async element => {
                     <Avatar
                         rounded
                         icon={{name:'user', type:'font-awesome', color:'black'}}
-                        source={avatar}
+                        source={item.Picture}
                         size={50}
                         containerStyle={Estilos.ContenedorAvatar}
                     />
                     <View style={{marginLeft: 15}}>
-                        <Text style={Estilos.Texto}>{item.nombre}</Text>
+                        <Text style={Estilos.Texto}>{item.Name}</Text>
                         <Text style={Estilos.TextoSecundario}>{item.ListOfMessages[lastElement].MessageText}</Text>
                     </View>
                 </View>
@@ -223,10 +243,15 @@ await Array.forEach( async element => {
         );
     };
 
-    
+    if(auxRender==false){
     Getchat(props.user.Email)
-    return(
+    }
+
+    console.log(" **VAR CHAR",JSON.stringify(chats));
+   return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
+            
+            {auxRender &&
             <FlatList
             ListHeaderComponent={<Encabezado/>}
                 data={chats.ListOfChats}
@@ -236,6 +261,7 @@ await Array.forEach( async element => {
             ListFooterComponent={<Componentes.Navegacion/>}
             ListFooterComponentStyle={{flex: 1, justifyContent: 'flex-end'}}
             />
+            }
         </SafeAreaProvider>
     )
 }

@@ -55,4 +55,16 @@ export class AllChats {
         }
       }
 
+      async GetNumberMessages(Email: string,EmailWith: string) {// fill ClientObject with all information of the client
+        let Chat = new AllChats();
+        try {
+          const response = await axios.post(rooturl+"Chat/GetNumberMessages",{Email,EmailWith});//the object to send must be *PostObject*
+          return response; //ERROR means no Messages
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);          
+          return this;
+        }
+      }
+
 }
