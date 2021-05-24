@@ -173,7 +173,7 @@ const CustomDrawerContent = (props) => {
                         rounded
                         size='large'
                         />
-                    <Text style={Estilos.UserName}>{props.user.Name}</Text>
+                    <Text style={Estilos.UserName}>{props.user.Name} {props.user.LastName}</Text>
                 </View>
             </TouchableOpacity>
             <DrawerItemList {...filteredProps} />
@@ -220,6 +220,7 @@ const Estilos = StyleSheet.create({
         paddingBottom: 20,
         borderBottomColor: Colores.etiquetas,
         borderBottomWidth: 2,
+        alignItems: 'center'
     },
     UserName: {
         paddingTop: 5,
