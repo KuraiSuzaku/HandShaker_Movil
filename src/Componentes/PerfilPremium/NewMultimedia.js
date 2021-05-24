@@ -45,21 +45,17 @@ export default class NewMultimedia extends Component {
             if(response.didCancel) {
               console.log('User cancelled image picker');
             } else {
-                try {
-                    ImgToBase64.getBase64String(response.uri)
-                        .then(base64String => {
-                            const base64 = 'data:image/jpg;base64,' + base64String;
-                            this.setState({ image: { 
-                                description: this.state.image.description,
-                                name: response.fileName,
-                                uri: response.uri,
-                                base64: base64 
-                            } });
-                        })
-                        .catch(err => console.error(err));
-                } catch (e) {
-                    console.log(e);
-                }
+                ImgToBase64.getBase64String(response.uri)
+                    .then(base64String => {
+                        const base64 = 'data:image/jpg;base64,' + base64String;
+                        this.setState({ image: { 
+                            description: this.state.image.description,
+                            name: response.fileName,
+                            uri: response.uri,
+                            base64: base64 
+                        } });
+                    })
+                    .catch(err => console.error(err));
             }
         });
     }

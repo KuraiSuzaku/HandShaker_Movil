@@ -15,7 +15,6 @@ export default ListaPublicacion = (props) => {
     const navigation = useNavigation();
 
     getPosts = () => {
-        console.log('Getting ' + props.user.Email + ' posts');
         const postsObject = new Posts(props.user.Email);
         postsObject.GetPosts(props.user.Email).then( res => {
             setPostList(res.ListOfPosts);
