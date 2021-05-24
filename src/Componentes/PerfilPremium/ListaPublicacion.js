@@ -9,7 +9,8 @@ import * as Componentes from '../Indice';
 import { Posts } from '../../Classes/Posts';
 
 export default ListaPublicacion = (props) => {
-    const [firstLoad, setFirstLoad] = useState(false);
+    const [postList, setPostList] = useState(null);
+    const [firstLoad, setFirstLoad] = useState(true);
     const [uploaded, setUploaded] = useState(false);
     const navigation = useNavigation();
 
@@ -17,9 +18,8 @@ export default ListaPublicacion = (props) => {
         console.log('Getting ' + props.user.Email + ' posts');
         const postsObject = new Posts(props.user.Email);
         postsObject.GetPosts(props.user.Email).then( res => {
-            console.log('Response: ', res);
+            setPostList(res.ListOfPosts);
         });
-        setFirstLoad(true);
     }
 
     if(uploaded || firstLoad) {
@@ -31,7 +31,7 @@ export default ListaPublicacion = (props) => {
     return(
         <>
         {
-            firstLoad ?
+            !firstLoad ?
             <View>
                 <Button
                     onPress={() => {
@@ -63,12 +63,14 @@ export default ListaPublicacion = (props) => {
                     null
                 }
                 {
-                    props.publicaciones.map((p, i) => (
+                    postList ?
+                    postList.slice(0).reverse().map((p, i) => (
                         <Componentes.PerfilPremium.Publicacion
                             {...props}
                             {...p}
                             />
-                    ))
+                    )) :
+                    null
                 }
                 <Componentes.PerfilTrabajador.FinSeccion />
             </View> :

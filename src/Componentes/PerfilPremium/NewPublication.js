@@ -87,8 +87,17 @@ export default class NewPublication extends Component {
              PostsObject.AddPost(PostsObject).then(res=>{            
                 if  (res.status==200){
                    Alert.alert('Se Agrego correctamente');
+                   this.setState({
+                       publication: null,
+                       image: {
+                           uri: null,
+                           name: null,
+                           base64: null
+                       }
+                   });
+                   this.props.setUploaded(true);
                  }
-            }) 
+            });
         } else {
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');
         }
