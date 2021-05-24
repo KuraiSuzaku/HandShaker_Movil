@@ -24,7 +24,7 @@ export class Prices {
           console.log(PriceObject)
           const response = await axios.post(rooturl+"Prices/Add",{ PriceObject });//the object to send must be *PostObject*
 
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -35,11 +35,12 @@ export class Prices {
 
       async GetPrice(EmailPremiumWorker: String) {// fill ClientObject with all information of the client
         var num = 0;
-    
+        let EmailPrice : Prices;
         try {
           console.log("Get Price")
           const response = await axios.post(rooturl+"Prices/Get",{ EmailPremiumWorker });//the object to send must be *PostObject*
-          return this;
+          EmailPrice=response.data
+          return EmailPrice;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

@@ -5,7 +5,7 @@ import {Profession} from './Profession'
 export class Category {
     constructor(
         Name?:String,
-        Categories?:Profession// RETURNS LIST OF PROFESSION CORRESPONDING TO THE CATEGORY
+        Categories?:Profession
         ){}
     
 
@@ -19,7 +19,7 @@ export class Category {
           const response = await axios.post(rooturl+"Category/Add",{ Category });//the object to send must be *PostObject*
           console.log("respuestaaa")
 
-          return response;
+          return response.status;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -28,17 +28,15 @@ export class Category {
       }
 
 
-      async GetAll() {// fill ClientObject with all information of the client
-        var num = 0;
-    
+      async GetAll() {//  
+      
+        let ArrCategory : Category[];
         try {
           let ArrCategories: Category[];
           const response = await axios.post(rooturl+"Category/Get",{});//the object to send must be *PostObject*
-          console.log("res***   "+response.data);
-        
-          ArrCategories=response.data
-          console.log("res   "+ArrCategories);
-          return ArrCategories;
+          ArrCategory=response.data
+          console.log(response)
+          return ArrCategory;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -48,11 +46,12 @@ export class Category {
 
       async GetProfessionsFromCategory(NameProfession: string) {// fill ClientObject with all information of the client
         var num = 0;
-    
+        let Category : Category;
         try {
           const response = await axios.post(rooturl+"Category/GetProfession",{NameProfession});//the object to send must be *PostObject*
+          Category= response.data
           console.log(response)
-          return response;
+          return Category;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

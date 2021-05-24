@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import { Chat } from './Chat';
 import {
     StyleSheet,
     Text,
@@ -46,7 +47,7 @@ const messages = [
     },
 ];
 
-export default class Chat extends React.Component {
+export default class ChatC extends React.Component {
 
     constructor(props) {
         super(props);
@@ -101,6 +102,8 @@ export default class Chat extends React.Component {
     }
 
     render() {
+        
+    NChats();
         return(
             <View style={{ flex: 10 }} >
             <View style={Estilos.MessagesContainer} >
@@ -134,6 +137,10 @@ export default class Chat extends React.Component {
             </View>
         );
     }
+
+
+
+    
 }
 
 const Estilos = StyleSheet.create({
@@ -174,3 +181,29 @@ const Estilos = StyleSheet.create({
         maxWidth: '80%'
     }
 });
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  async function NChats() {
+    while(true){
+
+    let allChat= new AllChats()//Login
+    const ret = await  allChat.GetNumberMessages(this.props.route.params.fromUser,this.props.route.params.toUser)
+ console.log("numero de mensajes"+ ret)
+ await sleep(100);
+ 
+}}
+
+     /* while(true){
+    console.log('Taking a break...');
+    await sleep(10000);
+    console.log('Two seconds later, showing sleep in a loop...');
+  
+  }*/
+
+
+
+//demo();

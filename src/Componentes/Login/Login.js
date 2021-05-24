@@ -87,7 +87,7 @@ export default class Login extends Component {
                 user: {...WorkerObject}
             });
             ToastAndroid.show(("Worker User"), ToastAndroid.SHORT);
-            this.props.navigation.navigate('Home')
+            this.props.navigation.navigate('ListaChats')
           });
         }
         if(userObject.UserType.includes("PremiumWorker")){

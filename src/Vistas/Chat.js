@@ -15,6 +15,7 @@ export default class Chat extends React.Component {
         );
     }
 }
+
 // ESTILOS
 const Estilos = StyleSheet.create({
   ContenedorApp: {
