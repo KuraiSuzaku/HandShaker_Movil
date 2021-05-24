@@ -110,6 +110,7 @@ export default class NewPublication extends Component {
                 <TextInput
                     placeholder='¿Desea publicar algo nuevo?'
                     style={Estilos.Input}
+                    value={ this.state.publication }
                     onChangeText={ pubContent => this.setPublication(pubContent) }
                 />
                 </View>
@@ -122,11 +123,7 @@ export default class NewPublication extends Component {
                         </View>
                     </TouchableOpacity>
                     <Text style={{fontSize: 11, maxWidth: 200}}>
-                        {
-                            this.state.image.name ?
-                            this.state.image.name :
-                            null
-                        }
+                        { this.state.image.name }
                     </Text>
                     <TouchableOpacity onPress={ () => this.publicar() }>
                         <View style={[Estilos.Boton, { backgroundColor: Colores.simbolos }]}>
