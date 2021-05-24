@@ -54,7 +54,11 @@ export default ListaPublicacion = (props) => {
                 {
                     props.owner ?
                     <View>
-                        <Componentes.PerfilPremium.NewPublication {...props} />
+                        <Componentes.PerfilPremium.NewPublication 
+                            uploaded={ uploaded }
+                            setUploaded={ val => setUploaded(val) }
+                            { ...props }
+                        />
                     </View> :
                     null
                 }

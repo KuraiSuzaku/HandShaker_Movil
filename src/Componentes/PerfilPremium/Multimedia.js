@@ -43,6 +43,8 @@ const Estilos = StyleSheet.create({
     Text: {
         color: Colors.etiquetas,
         fontSize: 10,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        marginTop: 5,
+        textAlign: 'center'
     }
 })
