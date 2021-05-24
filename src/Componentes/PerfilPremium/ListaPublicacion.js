@@ -6,20 +6,32 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as Componentes from '../Indice';
+import { Posts } from '../../Classes/Posts';
 
 export default ListaPublicacion = (props) => {
-    const [loadView, setLoadView] = useState(false);
+    const [firstLoad, setFirstLoad] = useState(false);
+    const [uploaded, setUploaded] = useState(false);
     const navigation = useNavigation();
 
-    useEffect(() => {
-        
-        setLoadView(true);
-    }, []);
+    getPosts = () => {
+        console.log('Getting ' + props.user.Email + ' posts');
+        const postsObject = new Posts(props.user.Email);
+        postsObject.GetPosts(props.user.Email).then( res => {
+            console.log('Response: ', res);
+        });
+        setFirstLoad(true);
+    }
+
+    if(uploaded || firstLoad) {
+        getPosts();
+        setUploaded(false);
+        setFirstLoad(false);
+    }
 
     return(
         <>
         {
-            loadView ?
+            firstLoad ?
             <View>
                 <Button
                     onPress={() => {
@@ -42,7 +54,7 @@ export default ListaPublicacion = (props) => {
                 {
                     props.owner ?
                     <View>
-                        <Componentes.PerfilPremium.NewPublication />
+                        <Componentes.PerfilPremium.NewPublication {...props} />
                     </View> :
                     null
                 }

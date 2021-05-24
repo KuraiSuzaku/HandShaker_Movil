@@ -26,7 +26,11 @@ export default ListaMultimedia = (props) => {
 
     return(
         <View>
-            {props.owner ? <Componentes.PerfilPremium.NewMultimedia uploaded={uploaded} setUploaded={ val => setUploaded(val) } {...props} /> : <></>}
+            {props.owner ? <Componentes.PerfilPremium.NewMultimedia
+                uploaded={ uploaded }
+                setUploaded={ val => setUploaded(val) }
+                { ...props }
+            /> : <></>}
             {
                 mediaList ?
                 mediaList.map((m, i) => (

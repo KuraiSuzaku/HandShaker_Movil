@@ -72,7 +72,7 @@ export default class NewMultimedia extends Component {
             MultimediaItemObject=new MultimediaItems(date, description, img);
             MultimediaObject=new Multimedia(this.props.user.Email, MultimediaItemObject);
             MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
-                if  (res.status==200){
+                if  (res==200){
                     this.setState(
                         { image: {
                             description: null,
