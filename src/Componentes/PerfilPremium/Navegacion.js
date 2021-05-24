@@ -11,7 +11,7 @@ const Pestañas = createMaterialTopTabNavigator();
 export default Navegacion = (props) => {
     return(
         <Pestañas.Navigator
-            initialRouteName='Publicaciones'
+            initialRouteName='AcercaDe'
             lazy={true}
             tabBarOptions={{
                 style: Estilos.BarraPestañas,
