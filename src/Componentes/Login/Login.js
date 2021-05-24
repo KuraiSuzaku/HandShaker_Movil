@@ -48,7 +48,8 @@ export default class Login extends Component {
                 console.error(e);
             }
         };
-        storeUser(this.state.user);
+        if(this.state.user)
+            storeUser(this.state.user);
     }
 
     handleEmail (text){
