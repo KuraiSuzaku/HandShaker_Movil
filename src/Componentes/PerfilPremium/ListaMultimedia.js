@@ -11,7 +11,6 @@ export default ListaMultimedia = (props) => {
     const [firstLoad, setFirstLoad] = useState(true);
 
     const getMultimedia = (user) => {
-        console.log('GET MULTIMEDIA');
         MultimediaObject = new Multimedia(user);
         MultimediaObject.GetMultimedia(user)
             .then( (res) => {
