@@ -31,7 +31,7 @@ export default ListaMultimedia = (props) => {
                 mediaList ?
                 mediaList.map((m, i) => (
                     <Componentes.PerfilPremium.Multimedia
-                        {...m.MultimediaImage}
+                        {...m}
                         />
                 )) :
                 null
