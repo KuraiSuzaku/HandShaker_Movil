@@ -33,7 +33,7 @@ export class AllChats {
           const response = await axios.post(rooturl+"Chat/Get",{Email});//the object to send must be *PostObject*
           
           ArrChat= response.data
-          console.log("res"+ArrChat);
+         // console.log("res"+ArrChat);
           return ArrChat;
         } catch (error) {
           console.log("error del tipo" + error);
@@ -45,21 +45,14 @@ export class AllChats {
       async GetChatWith(Email: string,EmailWith: string) {// fill ClientObject with all information of the client
         let Chat = new AllChats();
         try {
-          const response = await axios.post(rooturl+"Chat/Get",{Email,EmailWith});//the object to send must be *PostObject*
-          Chat=response.data
-          return Chat;
-        } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
-          return this;
-        }
-      }
-
-      async GetNumberMessages(Email: string,EmailWith: string) {// fill ClientObject with all information of the client
-        let Chat = new AllChats();
-        try {
-          const response = await axios.post(rooturl+"Chat/GetNumberMessages",{Email,EmailWith});//the object to send must be *PostObject*
-          return response; //ERROR means no Messages
+          console.log("email "+Email+ "  email2"+EmailWith)
+          const response = await axios.post(rooturl+"Chat/GetChatWith",{Email,EmailWith});//the object to send must be *PostObject*
+          
+          Chat=response.data[0]
+         // console.log("respuesta desde All"+JSON.stringify(Chat));
+      
+         Chat as Chat;
+         return Chat;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          

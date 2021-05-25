@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -8,14 +8,35 @@ import {
     Header,
     Icon,
 } from 'react-native-elements';
+import { set } from 'react-native-reanimated';
 import Colores from '../../Estilos/Colores';
+import User from '../../Classes/User';
 
 export default Encabezado = ({route, navigation}) => {
+const [Name, setName] = useState("Prubea");
+const [Picture, setPicture] = useState(route.params.Avatar);
     // METODOS
     const AbrirMenu = () => {
         navigation.toggleDrawer();
     };
+
+
+
+
+
+    async function getInfo(){
+        console.log("aqui");
+        console.log("email tooo "+route.params.toUser)
+        let UserChatWith= new User()
+        const userInfoofChat = await  UserChatWith.GetUserInformation(route.params.toUser)
+        console.log("email tooo "+userInfoofChat.Name) 
+
+       
+        setName(userInfoofChat.Name+" "+userInfoofChat.LastName)
+         setPicture(userInfoofChat.ProfilePicture.Path)
+    }
     //////
+    getInfo();
     return(
         <Header
             backgroundColor={Colores.fondoOscuro}
@@ -36,11 +57,11 @@ export default Encabezado = ({route, navigation}) => {
             <Text
                 style={Estilos.Nombre}
                 >
-                    {route.params.toUser}
+                    {Name}
             </Text>
             <Avatar
-                source={require('../../../public/Profile/user.png')}
-                rounded
+            source={{ uri: Picture }}
+            rounded
                 />
         </Header>
     );
