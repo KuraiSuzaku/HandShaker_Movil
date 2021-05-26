@@ -177,8 +177,7 @@ const CustomDrawerContent = (props) => {
     const check = (val) => {
         if( val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Cerrar Sesión'
-            || val == 'ListaChats')
+            || val === 'Cerrar Sesión')
             return true;
             if(props.user.UserType === "Worker")
                 if(val === 'Premium')
