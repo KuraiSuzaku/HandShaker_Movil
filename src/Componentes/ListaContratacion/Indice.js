@@ -1,5 +1,7 @@
-import ListaClient from './ListaClient';
+import ListaCliente from './ListaCliente';
+import ListaTrabajador from './ListaTrabajador';
 
 export {
-    ListaClient
+    ListaCliente,
+    ListaTrabajador
 }

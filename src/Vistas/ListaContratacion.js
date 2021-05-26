@@ -31,7 +31,11 @@ export default class ListaContratacion extends React.Component {
         return(
             <SafeAreaProvider style={Estilos.ContenedorApp}>
                 <Componentes.EncabezadoApp />
-                <Componentes.ListaContratacion.ListaClient />
+                {
+                    this.props.user.userType == 'Client' ?
+                    <Componentes.ListaContratacion.ListaCliente {...this.props} /> :
+                    <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
+                }
                 <Componentes.Navegacion />
             </SafeAreaProvider>
         );

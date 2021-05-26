@@ -7,6 +7,7 @@ import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native'
+import * as Components from '../Indice';
 
 export default class Login extends Component {
     constructor(props) {
@@ -214,7 +215,7 @@ handleGetPremiumWorkers( event ){
                         </View>
                     </ScrollView>
                 </View> :
-                <ActivityIndicator size='large' />
+                <Components.Loading />
             }
             </>
         )
