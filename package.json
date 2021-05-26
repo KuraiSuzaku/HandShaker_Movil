@@ -11,6 +11,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.4",
     "@react-native-firebase/app": "^11.4.1",
     "@react-native-firebase/database": "^11.4.1",
     "@react-native-firebase/storage": "^11.4.1",
@@ -39,7 +40,8 @@
     "react-native-vector-icons": "^8.1.0",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
-    "react-timer-mixin": "^0.13.4"
+    "react-timer-mixin": "^0.13.4",
+    "socket.io-client": "^4.1.2"
   },
   "devDependencies": {
     "@babel/core": "7.13.10",

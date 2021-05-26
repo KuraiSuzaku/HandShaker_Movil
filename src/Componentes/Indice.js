@@ -8,6 +8,7 @@ import * as PerfilPremium from './PerfilPremium/Indice';
 import * as PerfilTrabajador from './PerfilTrabajador/Indice';
 import FilterByCategory from './Home/FilterByCategory';
 import Home from './Home/Home';
+import * as Chat from './Chat/Indice';
 
 export {
     EncabezadoApp,
@@ -19,5 +20,6 @@ export {
     PerfilPremium,
     PerfilTrabajador,
     FilterByCategory,
-    Home
+    Home,
+    Chat
 };

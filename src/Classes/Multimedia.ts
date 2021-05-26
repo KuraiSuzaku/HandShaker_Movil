@@ -18,13 +18,12 @@ export class Multimedia {
         var num = 0;
     
         try {
-          console.log("add Multimedia")
-
-          console.log(MultimediaObject)
           const response = await axios.post(rooturl+"Multimedia/Add",{ MultimediaObject });//the object to send must be *PostObject*
+
           console.log("respuestaaa")
 
-          return response;
+          return response.status;
+
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);          
@@ -36,7 +35,7 @@ export class Multimedia {
       async GetMultimedia(EmailPremiumWorker: string) {// fill ClientObject with all information of the client
         var num = 0;
         let multimediaObj = new Multimedia(EmailPremiumWorker);
-        console.log(EmailPremiumWorker);
+        
         try {
           const response = await axios.post(rooturl+"Multimedia/Get",{EmailPremiumWorker});//the object to send must be *PostObject*
           multimediaObj = response.data;

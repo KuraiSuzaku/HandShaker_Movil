@@ -2,23 +2,43 @@ import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Vistas from './src/Vistas/Indice';
-import * as firebase from './firebase';
-import storage from '@react-native-firebase/storage';
-import Home from './src/Componentes/Home/Home';
-
-//const reference = storage().ref('imagenes/xd');
-/*
-listFilesAndDirectories(reference).then(() => {
-  console.log('Finished listing');
-});*/
+import socketClient  from "socket.io-client";
+const SERVER = "http://192.168.1.72:3001";
 
 
 export default App = () => {
+  console.log("conexion se supone")
+  var socket = socketClient (SERVER);
+  socket.on('connection', () => {
+  /*  if (this.state.channel) {
+      this.handleChannelSelect(this.state.channel.id);
+    }*/
+  
+
+  
+
+    console.log(`I'm connected with the back-end`);
+  });
+
+ 
+ /* 
+  socket.on("ChatChange", data => {
+    console.log("aqui Chat cambio"+data);
+    
+  });
+
+  socket.on('publicaciones', () => {
+    /*  if (this.state.channel) {
+        this.handleChannelSelect(this.state.channel.id);
+      }*/
+     /*
+  
+      console.log(`Cambio las`);
+    });
+  */
   const [user, setUser] = useState({
     UserType: null,
   });
-  console.log("=============================================================");
-  console.log(user);
   return (
     <NavigationContainer>
       <Vistas.Menu 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ActivityIndicator,
     StyleSheet,
     Text,
     View
@@ -12,6 +13,7 @@ import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer'
 import * as Vistas from './Indice';
 import * as Componentes from '../Componentes/Indice';
 import Colores from '../Estilos/Colores';
+import { TouchableOpacity } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,7 +21,7 @@ export default props => {
     return(
         <Drawer.Navigator 
             drawerContent={(auxprops) => <CustomDrawerContent {...auxprops}
-                                        user = {props.user}
+                                        {...props}
                                         />}//(props) => {customDrawerContent(props)}}
             initialRouteName='Login'
             drawerContentOptions={{
@@ -33,30 +35,37 @@ export default props => {
             >
             <Drawer.Screen 
                 name='Perfil' 
-
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
                 options={{
+                    unmountOnBlur: true,
                     drawerIcon: ({ focused, size }) => 
-                                        <Icon
-                                            name='user'
-                                            type='font-awesome'
-                                            size={25}
-                                            color={focused ? Colores.simbolos : Colores.blanco}
-                                        />
+                        <Icon
+                            name='user'
+                            type='font-awesome'
+                            size={25}
+                            color={focused ? Colores.simbolos : Colores.blanco}
+                        />
                 }}
                 >
-                { ()=><Validar_perfil user={props.user}/> }
+                { ()=><Validar_perfil
+                    {...props}
+                /> }
             </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
                 component={Vistas.Construccion}
                 options={{ title: 'Ver Contrataciones',
+                            unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
-                                            <Icon
-                                                name='book'
-                                                type='font-awesome'
-                                                size={25}
-                                                color={focused ? Colores.simbolos : Colores.blanco}
-                                            />}}
+                                <Icon
+                                    name='book'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                />}}
                 />
             <Drawer.Screen
                 name='Nosotros'
@@ -64,12 +73,12 @@ export default props => {
                 options={{  title: 'Sobre Nosotros',
                             unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
-                                            <Icon
-                                                name='info'
-                                                type='font-awesome'
-                                                size={25}
-                                                color={focused ? Colores.simbolos : Colores.blanco}
-                                            /> }}
+                                <Icon
+                                    name='info'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                /> }}
                 />
             <Drawer.Screen
                 name='Premium'
@@ -80,19 +89,21 @@ export default props => {
                 </Drawer.Screen>
             <Drawer.Screen
                 name='Cerrar Sesión'
-                component={Componentes.LogOut}
                 options={{  unmountOnBlur: true, 
                             drawerIcon: ({ focused, size }) => 
-                                            <Icon
-                                                name='sign-out'
-                                                type='font-awesome'
-                                                size={25}
-                                                color={focused ? Colores.simbolos : Colores.blanco}
-                                            /> }}
-                />
+                                <Icon
+                                    name='sign-out'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                /> }}
+            >
+                {
+                    ({ navigation }) => <Componentes.LogOut {...props} navigation={navigation} />
+                }
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Login'
-                // component={Componentes.Login}
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
                 >
@@ -128,16 +139,36 @@ export default props => {
                             unmountOnBlur: true }}
                 >
                 </Drawer.Screen>
+            <Drawer.Screen
+                name='Chat'
+                component={Vistas.Chat}
+                options={{ unmountOnBlur: true }}
+            />
+
+            <Drawer.Screen
+                name='ListaChats' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                }}
+                >
+                { ()=><Vistas.ListaChats
+                    {...props}
+                /> }
+            </Drawer.Screen>
         </Drawer.Navigator>
     );
 }
 
 const CustomDrawerContent = (props) => {
     const check = (val) => {
-        if( val === 'Perfil'
-            || val === 'Contrataciones'
+        if( val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Cerrar Sesión')
+            || val === 'Cerrar Sesión'
+            || val == 'ListaChats')
             return true;
             if(props.user.UserType === "Worker")
                 if(val === 'Premium')
@@ -155,14 +186,21 @@ const CustomDrawerContent = (props) => {
     };
     return (
         <View style={Estilos.MenuContainer}>
-            <View style={Estilos.MenuHeader}>
-                <Avatar
-                    source={require('../../public/Profile/user.png')}
-                    rounded
-                    size='large'
-                    />
-                <Text style={Estilos.UserName}>Usuario</Text>
-            </View>
+            <TouchableOpacity onPress={() => 
+                    props.navigation.navigate('Perfil', {
+                        profileUser: null,
+                        updateProfile: true
+                })} 
+            >
+                <View style={Estilos.MenuHeader}>
+                    <Avatar
+                        source={require('../../public/Profile/user.png')}
+                        rounded
+                        size='large'
+                        />
+                    <Text style={Estilos.UserName}>{props.user.Name} {props.user.LastName}</Text>
+                </View>
+            </TouchableOpacity>
             <DrawerItemList {...filteredProps} />
         </View>
     );
@@ -173,27 +211,27 @@ const Validar_perfil = (props) => {
     if(props.user.UserType == "PremiumWorker"){
         return (
             <Vistas.PerfilPremium 
-                user={props.user}
+                {...props}
             />
         );
     }
     else if(props.user.UserType == "Worker"){
         return (
             <Vistas.PerfilTrabajador
-                user={props.user}
+                {...props}
             />
         );
     }
     else if(props.user.UserType == "Client"){
         return (
             <Vistas.PerfilCliente
-                user={props.user}
+                {...props}
             />
         );
     }
 
     return(
-        <Text>ESTO ES UN ERROR, SI ESTÁS VIENDO ESTA PÁGINA POR FAVOR CONTACTA A brendasamantha@gmail.com y dile que fue en el login :C</Text>
+        <ActivityIndicator size='large' />
     );
 };
 
@@ -207,6 +245,7 @@ const Estilos = StyleSheet.create({
         paddingBottom: 20,
         borderBottomColor: Colores.etiquetas,
         borderBottomWidth: 2,
+        alignItems: 'center'
     },
     UserName: {
         paddingTop: 5,

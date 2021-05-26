@@ -15,22 +15,22 @@ import {
 } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import Colors from '../../Estilos/Colores';
+import ImgToBase64 from 'react-native-image-base64';
 
 export default class NewProduct extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            visible: null,
+            visible: false,
             name: null,
             price: null,
             image: {
                 name: null,
-                uri: null
+                uri: null,
+                base64: null
             },
             description: null
         }
-        this.addImage = this.addImage.bind(this);
-        this.uploadProduct = this.uploadProduct.bind(this);
     }
 
     addImage() {
@@ -39,17 +39,20 @@ export default class NewProduct extends Component {
             quality: 1,
         };
         ImagePicker.showImagePicker(options, (response) => {
-            //console.log('Response = ', response);
-            
             if(response.didCancel) {
               console.log('User cancelled image picker');
             } else {
-                this.setState({
-                    image: {
-                        name: null,
-                        uri: null
-                    }
-                });
+                ImgToBase64.getBase64String(response.uri)
+                .then(base64String => {
+                    const base64 = 'data:image/jpg;base64,' + base64String;
+                    this.setState({ image: { 
+                        description: this.state.image.description,
+                        name: response.fileName,
+                        uri: response.uri,
+                        base64: base64 
+                    } });
+                })
+                .catch(err => console.error(err));
             }
           });
     }
@@ -59,32 +62,35 @@ export default class NewProduct extends Component {
             || !this.state.price
             || !this.state.description) {
             Alert.alert('Todos los campos deben ser llenados para publicar un nuevo producto.');
+            return;
+        }
             //please add date and hour to the image so there can;t be duplicates
             var date = new Date(); 
-            if(typeof this.state.fileURL === 'undefined'){
                 console.log(this.state.name+" * "+this.state.price+" * "+this.state.description);
-                img=new Image("","");
+                if(this.state.image.name)
+                    img=new Image(this.state.image.name, this.state.image.base64);
+                else
+                    img=new Image("","");
                 ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
-                PriceObject=new Prices("605fac174791ea436cc76741",ItemPriceObject);
+                PriceObject=new Prices(this.props.user.Email,ItemPriceObject);
                 PriceObject.AddPrice(PriceObject).then(res=>{                     
                     if  (res.status==200){
                        Alert.alert('Se Agrego correctamente');
+                       this.setState({
+                            visible: false,
+                            name: null,
+                            price: null,
+                            image: {
+                                name: null,
+                                uri: null,
+                                base64: null
+                            },
+                            description: null
+                       });
+                       this.props.setUploaded(true);
                      }
-                })  
-             }
-            else{            
-            console.log(this.state.name+this.state.price+this.state.description+"foto"+this.state.fileURL+this.state.imageName);
-            img=new Image("NamePicture","ruta/r");
-            ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
-            PriceObject=new Prices("605fac174791ea436cc76741",ItemPriceObject);
-            PriceObject.AddPrice(PriceObject).then(res=>{                     
-                if  (res.status==200){
-                   Alert.alert('Se Agrego correctamente');
-                 }
-            })         
-            }             
-            return;
-    }}
+                }).catch( e => console.error(e) );
+    }
 
     render() {
         return(
@@ -101,10 +107,11 @@ export default class NewProduct extends Component {
                     Nuevo Producto o Servicio
                 </Text>
                 <View style={{flexDirection: 'row'}}>
-                    <View style={{}}>
+                    <View style={{ maxWidth: '35%' }}>
                         <TextInput
                             placeholder='Nombre del producto'
                             style={[Estilos.Text, Estilos.Input]}
+                            value={ this.state.name }
                             onChangeText={ newName => this.setState({ name: newName })}
                             />
                         <Button
@@ -114,24 +121,22 @@ export default class NewProduct extends Component {
                             onPress={() => this.addImage()}
                             />
                         <Text>
-                            {
-                                this.state.image.name ?
-                                this.state.image.name :
-                                null
-                            }
+                            { this.state.image.name }
                         </Text>
                     </View>
-                    <View style={{}}>
+                    <View style={{ maxWidth: '65%' }}>
                         <TextInput
                             placeholder='$ Precio'
                             keyboardType='number-pad'
                             style={[Estilos.Text, Estilos.Input]}
+                            value={ this.state.price }
                             onChangeText={ newPrice => this.setState({ price: newPrice })}
                             />
                         <TextInput
                             placeholder='Agregue una descripción de su producto o servicio'
                             multiline={true}
                             style={[Estilos.Text, Estilos.Input]}
+                            value={ this.state.description }
                             onChangeText={ newDescr => this.setState({ description: newDescr })}
                             />
                     </View>
