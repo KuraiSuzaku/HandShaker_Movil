@@ -26,10 +26,10 @@ export default Contenedor = (props) => {
                 setOwner(true);
                 setProfileUser(props.user);
             } else {
-                setOwner(false);/*
+                setOwner(false);
                 const userObject = new User(route.params.profileUser); // Lee info del usuario de la bd para conseguir tipo de usuario
                 userObject.GetUserInformation(route.params.profileUser).then( res => {
-                    if(userObject.isPremium) {
+                    if(res.isPremium) {
                         let PremiumWorkerObject = new PremiumWorker(route.params.profileUser);
                         PremiumWorkerObject.GetPremiumWorkerInformation(PremiumWorkerObject).then((res) => {
                             const PremiumWorkerObject=res;
@@ -42,21 +42,7 @@ export default Contenedor = (props) => {
                             setProfileUser({...WorkerObject});
                         });
                     }
-                }).catch( err => console.error(err));*/
-                userObject = { isPremium: true };
-                if(userObject.isPremium) {
-                    let PremiumWorkerObject = new PremiumWorker(route.params.profileUser);
-                    PremiumWorkerObject.GetPremiumWorkerInformation(PremiumWorkerObject).then((res) => {
-                        const PremiumWorkerObject=res;
-                        setProfileUser({...PremiumWorkerObject});
-                    });
-                } else {
-                    let WorkerObject = new Worker(route.params.profileUser);
-                    WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
-                        const WorkerObject=res;
-                        setProfileUser({...WorkerObject});
-                    });
-                }
+                }).catch( err => console.error(err));
             }
         }
         navigation.setParams({
