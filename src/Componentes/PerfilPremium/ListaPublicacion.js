@@ -32,24 +32,6 @@ export default ListaPublicacion = (props) => {
         {
             !firstLoad ?
             <View>
-                <Button
-                    onPress={() => {
-                        navigation.navigate('Perfil', {
-                            profileUser: 'Worker@gmail.com',
-                            updateProfile: true
-                        });
-                    }}
-                    title='Perfil Worker'
-                />
-                <Button
-                    onPress={() => {
-                        navigation.navigate('Perfil', {
-                            profileUser: null,
-                            updateProfile: true
-                        });
-                    }}
-                    title='Perfil Premium (usuario)'
-                />
                 {
                     props.owner ?
                     <View>
