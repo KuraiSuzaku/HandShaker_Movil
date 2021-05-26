@@ -47,7 +47,7 @@ export default class ListaContratacion extends React.Component {
                     }
                     {
                         this.props.user.userType == 'Client' ?
-                        <Componentes.ListaContratacion.ListaContrataciones {...this.props} /> :
+                        <Componentes.ListaContratacion.ListaContrataciones userEmail={this.props.user.Email} /> :
                         <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
                     }
                     </ScrollView>
@@ -64,19 +64,19 @@ const Estilos = StyleSheet.create({
         backgroundColor: Colors.fondo
     },
     ClientListHeader: {
-        height: 100
+        height: 80
     },
     Divisor: {
         backgroundColor: Colors.fondoOscuro,
         height: '50%'
     },
     TitleContainer: {
-        marginTop: '7%',
+        marginTop: 22,
         position: 'absolute',
         alignSelf: 'center',
         alignItems: 'center',
         width: '80%',
-        padding: 10,
+        padding: 8,
         backgroundColor: Colors.blanco,
         borderRadius: 50,
         borderColor: Colors.etiquetas,
