@@ -8,43 +8,7 @@ import {
 import { Icon, Input } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
 
-const messages = [
-    {
-        _id: "msg01",
-        EmailUserFrom: "WorkerPremium@gmail.com",
-        EmailUserTo: "Worker@gmail.com",
-        MessageText: "Buenas tardes",
-        MessageDate: "01/11/2020"
-    },
-    {
-        _id: "msg02",
-        EmailUserFrom: "WorkerPremium@gmail.com",
-        EmailUserTo: "Worker@gmail.com",
-        MessageText: "¡Haga lo que le digo! >:v",
-        MessageDate: "02/11/2020"
-    },
-    {
-        _id: "msg03",
-        EmailUserFrom: "Worker@gmail.com",
-        EmailUserTo: "WorkerPremium@gmail.com",
-        MessageText: "Esta bien no se enoje O~O",
-        MessageDate: "03/11/2020"
-    },
-    {
-        _id: "msg04",
-        EmailUserFrom: "Worker@gmail.com",
-        EmailUserTo: "WorkerPremium@gmail.com",
-        MessageText: "Ya voy a ofrecerle mis servicios...",
-        MessageDate: "04/11/2020"
-    },
-    {
-        _id: "msg05",
-        EmailUserFrom: "WorkerPremium@gmail.com",
-        EmailUserTo: "Worker@gmail.com",
-        MessageText: "Excelente ^-^",
-        MessageDate: "05/11/2020"
-    },
-];
+const messages = [];
 
 export default class Chat extends React.Component {
 
@@ -104,8 +68,6 @@ export default class Chat extends React.Component {
         return(
             <View style={{ flex: 10 }} >
             <View style={Estilos.MessagesContainer} >
-                    <Text>De: {this.props.route.params.fromUser}</Text>
-                    <Text>Para: {this.props.route.params.toUser}</Text>
                     {/* Aqui se agregan los mensajes */
                         this.state.load ?
                         <FlatList
