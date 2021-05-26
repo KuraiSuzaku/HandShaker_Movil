@@ -8,9 +8,9 @@ import {
     View,
 } from 'react-native';
 import * as Componentes from '../Indice';
-import User from '../../Classes/User';
-import Worker from '../../Classes/Worker';
-import PremiumWorker from '../../Classes/PremiumWorker';
+import {User} from '../../Classes/User';
+import {Worker} from '../../Classes/Worker';
+import {PremiumWorker} from '../../Classes/PremiumWorker';
 import { Icon } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
 
@@ -22,20 +22,25 @@ export default Contenedor = (props) => {
 
     useEffect(() => {
         if(!profileUser || route.params.updateProfile) {
-            if(!route.params.profileUser) {
+            if(!route.params.profileUser || route.params.profileUser == props.user.Email) {
                 setOwner(true);
                 setProfileUser(props.user);
+                navigation.setParams({ updateProfile: false });
             } else {
                 setOwner(false);/*
                 const userObject = new User(route.params.profileUser); // Lee info del usuario de la bd para conseguir tipo de usuario
                 userObject.GetUserInformation(route.params.profileUser).then( res => {
                     if(userObject.isPremium) {
+                        console.log('ESTA ENTRANDO PREMIUM');
                         let PremiumWorkerObject = new PremiumWorker(route.params.profileUser);
                         PremiumWorkerObject.GetPremiumWorkerInformation(PremiumWorkerObject).then((res) => {
                             const PremiumWorkerObject=res;
                             setProfileUser({...PremiumWorkerObject});
+                            console.log('PERFIL DE: ', profileUser);
                         });
                     } else {
+                        console.log('FLAG: ', userObject)
+                        console.log('ESTA ENTRANDO WORKER');
                         let WorkerObject = new Worker(route.params.profileUser);
                         WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
                             const WorkerObject=res;
@@ -49,26 +54,26 @@ export default Contenedor = (props) => {
                     PremiumWorkerObject.GetPremiumWorkerInformation(PremiumWorkerObject).then((res) => {
                         const PremiumWorkerObject=res;
                         setProfileUser({...PremiumWorkerObject});
+                        navigation.setParams({ updateProfile: false });
                     });
                 } else {
                     let WorkerObject = new Worker(route.params.profileUser);
                     WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
                         const WorkerObject=res;
                         setProfileUser({...WorkerObject});
+                        navigation.setParams({ updateProfile: false });
                     });
                 }
             }
         }
-        navigation.setParams({
-            profileUser: null,
-            updateProfile: false
-        });
     }, [route.params.updateProfile]);
 
     const checkPremium = () => {
         if(profileUser.isPremium) {
+            console.log('ESTA ENTRANDO NAVEGACION PREMIUM');
             return(<Componentes.PerfilPremium.Navegacion {...props} user={profileUser} owner={owner} />);
         } else {
+            console.log('ESTA ENTRANDO NAVEGACION WORKER');
             return(<Componentes.PerfilTrabajador.Navegacion {...props} />); // <<< Navegación del perfil trabajador normal
         }
     }
