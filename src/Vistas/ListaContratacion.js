@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-    StyleSheet
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Componentes from '../Componentes/Indice';
@@ -28,11 +31,27 @@ export default class ListaContratacion extends React.Component {
         return(
             <SafeAreaProvider style={Estilos.ContenedorApp}>
                 <Componentes.EncabezadoApp />
-                {
-                    this.props.user.userType == 'Client' ?
-                    <Componentes.ListaContratacion.ListaContrataciones {...this.props} /> :
-                    <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
-                }
+                <View style={{ flex: 10 }}>
+                    <ScrollView>
+                    {
+                        this.props.user.userType == 'Client' ?
+                        <View style={Estilos.ClientListHeader}>
+                            <View style={Estilos.Divisor} />
+                            <View style={Estilos.TitleContainer}>
+                                <Text style={Estilos.TitleText}>
+                                    Contrataciones
+                                </Text>
+                            </View>
+                        </View> :
+                        null
+                    }
+                    {
+                        this.props.user.userType == 'Client' ?
+                        <Componentes.ListaContratacion.ListaContrataciones {...this.props} /> :
+                        <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
+                    }
+                    </ScrollView>
+                </View>
                 <Componentes.Navegacion />
             </SafeAreaProvider>
         );
@@ -43,5 +62,29 @@ const Estilos = StyleSheet.create({
     ContenedorApp: {
         flex: 1,
         backgroundColor: Colors.fondo
+    },
+    ClientListHeader: {
+        height: 100
+    },
+    Divisor: {
+        backgroundColor: Colors.fondoOscuro,
+        height: '50%'
+    },
+    TitleContainer: {
+        marginTop: '7%',
+        position: 'absolute',
+        alignSelf: 'center',
+        alignItems: 'center',
+        width: '80%',
+        padding: 10,
+        backgroundColor: Colors.blanco,
+        borderRadius: 50,
+        borderColor: Colors.etiquetas,
+        borderWidth: 1,
+        borderTopWidth: 0
+    },
+    TitleText: {
+        fontWeight: 'bold',
+        fontSize: 14
     }
 });
