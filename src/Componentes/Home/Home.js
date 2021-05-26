@@ -7,6 +7,8 @@ import IndividualCategory from './IndividualCategory'
 import { PremiumWorker } from "./../../Classes/PremiumWorker"
 import { Category } from "./../../Classes/Category"
 import FilterByCategory from './FilterByCategory'
+import EncabezadoApp from './../EncabezadoApp'
+import Navegacion from './../Navegacion'
 
 export default class Home extends Component {
     constructor(props){
@@ -112,22 +114,27 @@ export default class Home extends Component {
         // //                  : this.category()
         // //                 this.state.category = 0
         return (
-            // <FilterByCategory/>
-            <ScrollView style={ styles.bg }>
-                {
-                    this.state.premiumWorker ?
-                    <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/> :
-                        this.RandomWorker()     
-                }
+            <View>
+                <EncabezadoApp/>
+                <View style={ styles.flex }>
+                    <ScrollView style={ styles.bg }>
+                        {
+                            this.state.premiumWorker ?
+                            <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/> :
+                                this.RandomWorker()     
+                        }
 
-                <Text style={ styles.subtitle }>Categorías</Text>
-                <Categories categories={ this.state.categories } handleCategorySelected={ this.handleCategorySelected }/>
-                <Text style={ styles.subtitle }>Trabajos: { this.state.category }</Text>
-                {
-                    this.state.profesiones.map(item => 
-                        <Job jobTitle={ item.Name } profesiones={ item } navigation={ this.props.navigation } key={ item.Name } uri={ 'https://reactnative.dev/img/tiny_logo.png'/*item.ImageProfession.Path*/ } /*workers={ item.workers.slice(0, 3) }*/ />)
-                }
-            </ScrollView>
+                        <Text style={ styles.subtitle }>Categorías</Text>
+                        <Categories categories={ this.state.categories } handleCategorySelected={ this.handleCategorySelected }/>
+                        <Text style={ styles.subtitle }>Trabajos: { this.state.category }</Text>
+                        {
+                            this.state.profesiones.map(item => 
+                                <Job jobTitle={ item.Name } profesiones={ item } navigation={ this.props.navigation } key={ item.Name } uri={ 'https://reactnative.dev/img/tiny_logo.png'/*item.ImageProfession.Path*/ } /*workers={ item.workers.slice(0, 3) }*/ />)
+                        }
+                    </ScrollView>
+                </View>
+                <Navegacion/>
+            </View>
         )
     }
 }
@@ -143,6 +150,9 @@ function Categories(props){
 }
 
 const styles = StyleSheet.create({
+    flex: {
+        height: "77.5%"
+    },
     bg: {
         flex: 1,
         backgroundColor: Colores.fondo,

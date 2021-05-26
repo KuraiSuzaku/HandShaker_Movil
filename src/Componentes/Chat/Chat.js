@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
-const SERVER = "http://192.168.1.72:3001";
+const SERVER = "http://192.168.1.75:3001";
 import socketClient  from "socket.io-client";
 import { AllChats } from '../../Classes/AllChats';
 import { Chat } from '../../Classes/Chat';
