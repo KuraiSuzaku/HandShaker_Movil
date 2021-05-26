@@ -50,6 +50,7 @@ export default class Login extends Component {
                 const jsonValue = JSON.stringify(value);
                 await AsyncStorage.setItem('@user_Key', jsonValue);
                 this.props.setUser(value);
+                this.props.setLogged(true);
             } catch (e) {
                 console.error(e);
             }

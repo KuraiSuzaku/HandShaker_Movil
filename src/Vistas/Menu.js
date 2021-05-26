@@ -18,10 +18,12 @@ import { TouchableOpacity } from 'react-native';
 const Drawer = createDrawerNavigator();
 
 export default props => {
+    const [logged, setLogged] = useState(false);
     return(
         <Drawer.Navigator 
             drawerContent={(auxprops) => <CustomDrawerContent {...auxprops}
                                         {...props}
+                                        logged={ logged }
                                         />}//(props) => {customDrawerContent(props)}}
             initialRouteName='Login'
             drawerContentOptions={{
@@ -117,6 +119,7 @@ export default props => {
                     <Componentes.Login 
                         setUser={ (userLogged)=>props.setUser(userLogged)}
                         navigation={navigation}
+                        setLogged={ val => setLogged(val) }
                     /> }
                 </Drawer.Screen>
             <Drawer.Screen
@@ -170,7 +173,6 @@ export default props => {
 }
 
 const CustomDrawerContent = (props) => {
-    const [logged, setLogged] = useState(false);
 
     const check = (val) => {
         if( val === 'Contrataciones'
@@ -193,9 +195,6 @@ const CustomDrawerContent = (props) => {
       },
     };
 
-    if(!logged && props.user.userType)
-        setLogged(true);
-
     return (
         <View style={Estilos.MenuContainer}>
             <TouchableOpacity onPress={() => 
@@ -208,9 +207,9 @@ const CustomDrawerContent = (props) => {
                     {
                     <Avatar
                         source={
-                            props.user.userType ?
+                            props.logged ?
                             { uri: props.user.ProfilePicture.Path } :
-                            null
+                            require('../../public/Profile/user.png')
                         }
                         rounded
                         size='large'
