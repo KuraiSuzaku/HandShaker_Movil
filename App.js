@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Vistas from './src/Vistas/Indice';
 import socketClient  from "socket.io-client";
-const SERVER = "http://192.168.1.72:3001";
+const SERVER = "http://192.168.1.75:3001";
 
 
 export default App = () => {
