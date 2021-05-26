@@ -20,7 +20,7 @@ export default class ListaTrabajos extends React.Component {
     componentDidMount() {
         if(this.state.firstLoad) {
             /** Cargar trabajos */
-            console.log('Usuario: ', this.props.route.params.userEmail);
+            console.log('Usuario: ', this.props.user.Email);
             this.setState({
                 firstLoad: false
             });

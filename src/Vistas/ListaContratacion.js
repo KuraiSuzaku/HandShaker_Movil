@@ -47,7 +47,7 @@ export default class ListaContratacion extends React.Component {
                     }
                     {
                         this.props.user.userType == 'Client' ?
-                        <Componentes.ListaContratacion.ListaContrataciones userEmail={this.props.user.Email} /> :
+                        <Componentes.ListaContratacion.ListaContrataciones {...this.props} /> :
                         <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
                     }
                     </ScrollView>

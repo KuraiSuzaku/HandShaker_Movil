@@ -42,20 +42,24 @@ export default class ListaTrabajador extends React.Component {
                 >
                     <TabsNav.Screen
                         name='Trabajos'
-                        component={ Components.ListaContratacion.ListaTrabajos }
                         options={{ title: 'Mis Trabajos' }}
-                        initialParams={{
-                            userEmail: this.props.user.Email
-                        }} 
-                    />
+                    >
+                        {
+                            () => <Components.ListaContratacion.ListaTrabajos
+                                    {...this.props}
+                                />
+                        }
+                    </TabsNav.Screen>
                     <TabsNav.Screen
                         name='Contrataciones'
-                        component={ Components.ListaContratacion.ListaContrataciones }
-                        options={{ title: 'Mis Contrataciones' }} 
-                        initialParams={{
-                            userEmail: this.props.user.Email
-                        }}
-                    />
+                        options={{ title: 'Mis Contrataciones' }}
+                    >
+                    {
+                        () => <Components.ListaContratacion.ListaContrataciones
+                                {...this.props}
+                            />
+                    }
+                </TabsNav.Screen>
                 </TabsNav.Navigator>
             </View>
         );

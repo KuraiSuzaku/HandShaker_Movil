@@ -22,7 +22,8 @@ export default class ListaContrataciones extends React.Component {
 
     componentDidMount() {
         if(this.state.firstLoad) {
-            
+            /** Cargar Contrataciones */
+            console.log('Usuario: ', this.props.user.Email);
             this.setState({
                 firstLoad: false
             });
