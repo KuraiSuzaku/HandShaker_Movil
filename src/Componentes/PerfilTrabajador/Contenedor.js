@@ -46,6 +46,7 @@ export default Contenedor = (props) => {
                 }).catch( err => console.error(err));
             }
         }
+        navigation.setParams({ updateProfile: false });
     }, [route.params.updateProfile]);
 
     const checkPremium = () => {
