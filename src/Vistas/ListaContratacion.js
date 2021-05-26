@@ -1,6 +1,9 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
-import { StyleSheet } from 'react-native';
+import {
+    ActivityIndicator,
+    StyleSheet,
+    View
+} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Componentes from '../Componentes/Indice';
 import Colors from '../Estilos/Colores';
@@ -9,25 +12,26 @@ export default class ListaContratacion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firsLoad: true
+            firstLoad: true
         }
     }
 
     componentDidMount() {
-        if(this.state.firsLoad) {
+        if(this.state.firstLoad) {
             /** Aquí obtiene la lista de las contrataciones */
+            this.setState({
+                firstLoad: false
+            });
         }
     }
 
     render() {
-        if(this.state.firsLoad)
-            return( <ActivityIndicator size='large' /> );
+        if(this.state.firstLoad)
+            return( <Componentes.Loading /> );
         return(
             <SafeAreaProvider style={Estilos.ContenedorApp}>
                 <Componentes.EncabezadoApp />
-                <Componentes.ListaContratacion.Lista
-                    {...props}
-                    />
+                <Componentes.ListaContratacion.ListaClient />
                 <Componentes.Navegacion />
             </SafeAreaProvider>
         );

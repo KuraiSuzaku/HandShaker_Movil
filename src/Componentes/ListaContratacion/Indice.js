@@ -1,5 +1,5 @@
-import Lista from './Lista';
+import ListaClient from './ListaClient';
 
 export {
-    Lista
+    ListaClient
 }

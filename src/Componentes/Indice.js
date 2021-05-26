@@ -9,7 +9,8 @@ import * as PerfilTrabajador from './PerfilTrabajador/Indice';
 import FilterByCategory from './Home/FilterByCategory';
 import Home from './Home/Home';
 import * as Chat from './Chat/Indice';
-import ListaContratacion from './ListaContratacion/Indice';
+import * as ListaContratacion from './ListaContratacion/Indice';
+import Loading from './Loading';
 
 export {
     EncabezadoApp,
@@ -23,5 +24,6 @@ export {
     FilterByCategory,
     Home,
     Chat,
-    ListaContratacion
+    ListaContratacion,
+    Loading
 };
