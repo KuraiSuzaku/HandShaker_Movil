@@ -8,9 +8,9 @@ import {
     View,
 } from 'react-native';
 import * as Componentes from '../Indice';
-import User from '../../Classes/User';
-import Worker from '../../Classes/Worker';
-import PremiumWorker from '../../Classes/PremiumWorker';
+import {User} from '../../Classes/User';
+import {Worker} from '../../Classes/Worker';
+import {PremiumWorker} from '../../Classes/PremiumWorker';
 import { Icon } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
 
@@ -22,9 +22,10 @@ export default Contenedor = (props) => {
 
     useEffect(() => {
         if(!profileUser || route.params.updateProfile) {
-            if(!route.params.profileUser) {
+            if(!route.params.profileUser || route.params.profileUser == props.user.Email) {
                 setOwner(true);
                 setProfileUser(props.user);
+                navigation.setParams({ updateProfile: false });
             } else {
                 setOwner(false);
                 const userObject = new User(route.params.profileUser); // Lee info del usuario de la bd para conseguir tipo de usuario
@@ -45,10 +46,6 @@ export default Contenedor = (props) => {
                 }).catch( err => console.error(err));
             }
         }
-        navigation.setParams({
-            profileUser: null,
-            updateProfile: false
-        });
     }, [route.params.updateProfile]);
 
     const checkPremium = () => {
