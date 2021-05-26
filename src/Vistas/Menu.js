@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     ActivityIndicator,
     StyleSheet,
@@ -33,30 +33,8 @@ export default props => {
                 backgroundColor: Colores.fondoOscuro
             }}
             >
-            <Drawer.Screen 
-                name='Perfil' 
-                initialParams={{
-                    profileUser: null,
-                    updateProfile: true
-                }}
-                options={{
-                    unmountOnBlur: true,
-                    drawerIcon: ({ focused, size }) => 
-                        <Icon
-                            name='user'
-                            type='font-awesome'
-                            size={25}
-                            color={focused ? Colores.simbolos : Colores.blanco}
-                        />
-                }}
-                >
-                { ()=><Validar_perfil
-                    {...props}
-                /> }
-            </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
-                component={Vistas.Construccion}
                 options={{ title: 'Ver Contrataciones',
                             unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
@@ -66,7 +44,14 @@ export default props => {
                                     size={25}
                                     color={focused ? Colores.simbolos : Colores.blanco}
                                 />}}
-                />
+                >
+                    {
+                        ({ navigation }) => <Vistas.ListaContratacion
+                                {...props}
+                                navigation={ navigation }
+                            />
+                    }
+                </Drawer.Screen>
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
@@ -101,6 +86,27 @@ export default props => {
                 {
                     ({ navigation }) => <Componentes.LogOut {...props} navigation={navigation} />
                 }
+            </Drawer.Screen>
+            <Drawer.Screen 
+                name='Perfil' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                    drawerIcon: ({ focused, size }) => 
+                        <Icon
+                            name='user'
+                            type='font-awesome'
+                            size={25}
+                            color={focused ? Colores.simbolos : Colores.blanco}
+                        />
+                }}
+                >
+                { ()=><Validar_perfil
+                    {...props}
+                /> }
             </Drawer.Screen>
             <Drawer.Screen
                 name='Login'
@@ -164,6 +170,8 @@ export default props => {
 }
 
 const CustomDrawerContent = (props) => {
+    const [logged, setLogged] = useState(false);
+
     const check = (val) => {
         if( val === 'Contrataciones'
             || val === 'Nosotros'
@@ -184,6 +192,10 @@ const CustomDrawerContent = (props) => {
         routes: props.state.routes.filter((route) => check(route.name)),
       },
     };
+
+    if(!logged && props.user.userType)
+        setLogged(true);
+
     return (
         <View style={Estilos.MenuContainer}>
             <TouchableOpacity onPress={() => 
@@ -193,11 +205,17 @@ const CustomDrawerContent = (props) => {
                 })} 
             >
                 <View style={Estilos.MenuHeader}>
+                    {
                     <Avatar
-                        source={require('../../public/Profile/user.png')}
+                        source={
+                            props.user.userType ?
+                            { uri: props.user.ProfilePicture.Path } :
+                            null
+                        }
                         rounded
                         size='large'
-                        />
+                    /> 
+                    }
                     <Text style={Estilos.UserName}>{props.user.Name} {props.user.LastName}</Text>
                 </View>
             </TouchableOpacity>

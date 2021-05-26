@@ -58,7 +58,7 @@ export default EncabezadoPerfil = (props) => {
                 <Avatar
                     rounded
                     icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={props.avatar}
+                    source={{ uri: props.user.ProfilePicture.Path }}
                     size={100}
                     containerStyle={Estilos.ContenedorAvatar}
                     />

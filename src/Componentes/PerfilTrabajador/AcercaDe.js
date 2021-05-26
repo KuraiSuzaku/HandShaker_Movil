@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Card, Text, Image, Button} from 'react-native-elements';
+import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 import Colores from '../../Estilos/Colores';
 import EditarAcercaDe from './EditarAcercaDe';
 
-export default AcercaDe = ({acercade}) => {
+export default AcercaDe = (props) => {
     const [propietario, setPropietario] = useState('si');
     const [editando, setEditando] = useState('no');
     const [edittexto, setTexto] = useState();
@@ -25,7 +26,7 @@ export default AcercaDe = ({acercade}) => {
             <View  style={{flexDirection:'row', justifyContent:'space-between', paddingTop: 10, paddingRight: 10}}>
                 <View style={{flex:4}}>
                 <Text style={Estilos.Titulo}>
-                    Acerca De {acercade.nombre}
+                    Acerca De {props.user.Name} {props.user.LastName}
                 </Text>
                 </View>
                 <View style={{flex:1, paddingTop: 10}}>
@@ -51,14 +52,14 @@ export default AcercaDe = ({acercade}) => {
             {propietario === 'si' && editando === 'si' && 
                 <EditarAcercaDe 
                     setTexto = {setTexto}
-                    auxTexto = {acercade.informacion}
+                    auxTexto = {props.acercade.informacion}
                 />
             }
             {propietario == 'no' || editando == 'no' &&
             <Card containerStyle={Estilos.Tarjeta}>
-                <Text>{acercade.informacion}</Text>
+                <Text>{props.acercade.informacion}</Text>
                     <Image
-                        source={acercade.imagen}
+                        source={props.acercade.imagen}
                         style={Estilos.Imagen}
                     />
             </Card>
