@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 export default class IndividualCategory extends Component {
     constructor(props){
@@ -9,12 +9,14 @@ export default class IndividualCategory extends Component {
     render() {
         return (
             <View style={ styles.category }>
-                <Image 
-                    style={ styles.categoryImg }
-                    resizeMode="contain"
-                    source={{uri: this.props.uri}}
-                />
-                <Text style={ styles.categoryTxt }>{ this.props.name }</Text>
+                <TouchableOpacity onPress={ () => this.props.handleCategory(this.props.name) }>
+                    <Image 
+                        style={ styles.categoryImg }
+                        resizeMode="contain"
+                        source={{uri: this.props.uri}}
+                    />
+                    <Text style={ styles.categoryTxt }>{ this.props.name }</Text>
+                </TouchableOpacity>
             </View>
         )
     }

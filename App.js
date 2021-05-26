@@ -20,12 +20,11 @@ export default App = () => {
   console.log("=============================================================");
   console.log(user);
   return (
-    // <NavigationContainer>
-    //   <Vistas.Menu 
-    //     setUser={ (userLogged)=>setUser(userLogged) }
-    //     user = {user}
-    //     />
-    // </NavigationContainer>
-    <Home/>
+    <NavigationContainer>
+      <Vistas.Menu 
+        setUser={ (userLogged)=>setUser(userLogged) }
+        user = {user}
+        />
+    </NavigationContainer>
   );
 };

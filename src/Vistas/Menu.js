@@ -114,6 +114,20 @@ export default props => {
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
             />
+            <Drawer.Screen
+                name='Home'
+                component={Componentes.Home}
+                options={{  
+                            unmountOnBlur: true }}
+                >
+                </Drawer.Screen>
+            <Drawer.Screen
+                name='FilterByCategory'
+                component={Componentes.FilterByCategory}
+                options={{  
+                            unmountOnBlur: true }}
+                >
+                </Drawer.Screen>
         </Drawer.Navigator>
     );
 }
