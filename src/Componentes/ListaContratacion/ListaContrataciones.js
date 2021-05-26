@@ -14,7 +14,9 @@ export default class ListaContrataciones extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstLoad: true
+            firstLoad: true,
+            processCount: 0,
+            endedCount: 0
         }
     }
 
@@ -42,13 +44,13 @@ export default class ListaContrataciones extends React.Component {
             >
                 <TabNav.Screen
                     name='Proceso'
-                    component={() => <View/>}
-                    options={{ title: 'x\nEn proceso' }}
+                    component={Components.ListaContratacion.Lista}
+                    options={{ title: this.state.processCount + '\nEn proceso' }}
                 />
                 <TabNav.Screen
                     name='Finalizadas'
-                    component={() => <View/>}
-                    options={{ title: 'x\nFinalizadas' }}
+                    component={Components.ListaContratacion.Lista}
+                    options={{ title: this.state.endedCount + '\nFinalizadas' }}
                 />
             </TabNav.Navigator>
         );
