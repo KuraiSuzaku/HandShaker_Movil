@@ -1,7 +1,9 @@
-import ListaCliente from './ListaCliente';
+import ListaContrataciones from './ListaContrataciones';
 import ListaTrabajador from './ListaTrabajador';
+import ListaTrabajos from './ListaTrabajos';
 
 export {
-    ListaCliente,
-    ListaTrabajador
+    ListaContrataciones,
+    ListaTrabajador,
+    ListaTrabajos
 }

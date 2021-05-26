@@ -47,7 +47,7 @@ export default EncabezadoPerfil = (props) => {
             <View style={Estilos.Fila}>
                 <Rating 
                     imageSize={20} 
-                    readonly 
+                    readonly
                     startingValue={props.valoracion} 
                     ratingColor={Colores.simbolos}
                     ratingBackgroundColor={Colores.fondoOscuro}

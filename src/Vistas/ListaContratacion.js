@@ -1,8 +1,6 @@
 import React from 'react';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    View
+    StyleSheet
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Componentes from '../Componentes/Indice';
@@ -32,7 +30,7 @@ export default class ListaContratacion extends React.Component {
                 <Componentes.EncabezadoApp />
                 {
                     this.props.user.userType == 'Client' ?
-                    <Componentes.ListaContratacion.ListaCliente {...this.props} /> :
+                    <Componentes.ListaContratacion.ListaContrataciones {...this.props} /> :
                     <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
                 }
                 <Componentes.Navegacion />

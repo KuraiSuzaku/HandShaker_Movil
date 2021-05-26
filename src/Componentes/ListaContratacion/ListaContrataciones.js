@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import * as Components from '../Indice';
 
-export default class ListaCliente extends React.Component {
+export default class ListaContrataciones extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,7 +27,7 @@ export default class ListaCliente extends React.Component {
             return( <Components.Loading /> );
         return(
             <View style={{ flex: 10 }}>
-                <Text>Lista</Text>
+                <Text>Lista Contrataciones</Text>
             </View>
         );
 
