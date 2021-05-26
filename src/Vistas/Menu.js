@@ -86,7 +86,12 @@ export default props => {
                                 /> }}
             >
                 {
-                    ({ navigation }) => <Componentes.LogOut {...props} navigation={navigation} />
+                    ({ navigation }) => 
+                        <Componentes.LogOut
+                            {...props}
+                            navigation={ navigation }
+                            setLogged={ val => setLogged(val) }
+                        />
                 }
             </Drawer.Screen>
             <Drawer.Screen 

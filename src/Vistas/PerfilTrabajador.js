@@ -17,7 +17,7 @@ export default PerfilTrabajador = (props) => {
     descripcion : 'Pues yo hago construyo cosas bien chidoris',
     isPremium : false,
     acercade : {
-                        nombre: nombre,
+                        nombre: 'Armando Paredes de la Colina',
                         informacion: 'Aquí estoy poniendo mi información :D MUCHOS CARACTERESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
                         imagen: require('../../public/Images/acercade_placeholder.png'),
                       },

@@ -18,7 +18,6 @@ export default class ListaContratacion extends React.Component {
 
     componentDidMount() {
         if(this.state.firstLoad) {
-            /** Aquí obtiene la lista de las contrataciones */
             this.setState({
                 firstLoad: false
             });
