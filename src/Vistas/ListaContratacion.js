@@ -33,19 +33,12 @@ export default class ListaContratacion extends React.Component {
                 <Componentes.EncabezadoApp />
                 <View style={{ flex: 10 }}>
                     {
-                        this.props.user.userType == 'Client' ?
-                        <View style={Estilos.ClientListHeader}>
-                            <View style={Estilos.Divisor} />
-                            <View style={Estilos.TitleContainer}>
-                                <Text style={Estilos.TitleText}>
-                                    Contrataciones
-                                </Text>
-                            </View>
-                        </View> :
+                        this.props.user.UserType == 'Client' ?
+                        <EncabezadoLista /> :
                         null
                     }
                     {
-                        this.props.user.userType == 'Client' ?
+                        this.props.user.UserType == 'Client' ?
                         <Componentes.ListaContratacion.ListaContrataciones {...this.props} /> :
                         <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
                     }
@@ -54,6 +47,19 @@ export default class ListaContratacion extends React.Component {
             </SafeAreaProvider>
         );
     }
+}
+
+EncabezadoLista = () => {
+    return(
+        <View style={Estilos.ClientListHeader}>
+            <View style={Estilos.Divisor} />
+            <View style={Estilos.TitleContainer}>
+                <Text style={Estilos.TitleText}>
+                    Contrataciones
+                </Text>
+            </View>
+        </View>
+    );
 }
 
 const Estilos = StyleSheet.create({
