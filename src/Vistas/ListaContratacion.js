@@ -32,7 +32,6 @@ export default class ListaContratacion extends React.Component {
             <SafeAreaProvider style={Estilos.ContenedorApp}>
                 <Componentes.EncabezadoApp />
                 <View style={{ flex: 10 }}>
-                    <ScrollView>
                     {
                         this.props.user.userType == 'Client' ?
                         <View style={Estilos.ClientListHeader}>
@@ -50,7 +49,6 @@ export default class ListaContratacion extends React.Component {
                         <Componentes.ListaContratacion.ListaContrataciones {...this.props} /> :
                         <Componentes.ListaContratacion.ListaTrabajador {...this.props} />
                     }
-                    </ScrollView>
                 </View>
                 <Componentes.Navegacion />
             </SafeAreaProvider>
