@@ -35,7 +35,9 @@ export default class Lista extends React.Component {
                     <Avatar
                         rounded
                         size='medium'
-                        source={require('../../../public/Profile/user.png')}
+                        source={
+                            require('../../../public/Profile/user.png')
+                        }
                     />
                 </View>
                 <View style={{ flex: 1, paddingLeft: 10 }}>
