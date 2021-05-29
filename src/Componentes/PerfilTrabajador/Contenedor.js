@@ -53,7 +53,7 @@ export default Contenedor = (props) => {
         if(profileUser.isPremium) {
             return(<Componentes.PerfilPremium.Navegacion {...props} user={profileUser} owner={owner} />);
         } else {
-            return(<Componentes.PerfilTrabajador.Navegacion {...props} />); // <<< Navegación del perfil trabajador normal
+            return(<Componentes.PerfilTrabajador.Navegacion {...props} user={profileUser} owner={owner}  />); // <<< Navegación del perfil trabajador normal
         }
     }
 
@@ -65,7 +65,9 @@ export default Contenedor = (props) => {
                 <ScrollView>
                     <Componentes.PerfilTrabajador.EncabezadoPerfil 
                         {...props}
-                        user={profileUser}
+                        user={profileUser} // El que se esta viendo
+                        loggedUser={props.user.Email} // el usuario logueado
+                        owner={owner}
                     />
                     {checkPremium()}
                     {

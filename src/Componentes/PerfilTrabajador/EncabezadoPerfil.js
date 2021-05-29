@@ -8,30 +8,53 @@ import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
 
 export default EncabezadoPerfil = (props) => {
-    const [propietario, setPropietario] = useState('si');
-    const [editando, setEditando] = useState('no');
+    
+    const [propietario, setPropietario] = useState(props.owner);
+    const [editando, setEditando] = useState(false);
     const [editcategoria, setCategoria] = useState(props.user.Category);
     const [editprofesion, setProfesion] = useState(props.user.Profession);
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
     
+    console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
-        setEditando('si');
+        setEditando(true);
         console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
-    const GuardarCambios = () => {
-        setEditando('no'); 
+    async function GuardarCambios () {
+        setEditando(false); 
+        //ImprimirDatos();
+        let WorkerObject = new Worker(props.user.Email);
+        WorkerObject.Category = editcategoria;
+        WorkerObject.Profession = editprofesion;
+        WorkerObject.JobDescription = editdescripcion;
+        const x =  await WorkerObject.UpdateWorkers(WorkerObject);
+
+        /*
+        WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
+            WorkerObject=res; 
+            props.setUser(WorkerObject);
+            setCategoria(props.user.Category);
+            setProfesion(props.user.Profession);
+            setDescripcion(props.user.JobDescription);
+            console.log("Props.user después de la actualización de WorkerObject: ", props.user);
+        });*/
+
+        //ActualizarUsuario(WorkerObject);
+    }
+
+    const ActualizarUsuario = (Trabajador) => {
+        Trabajador.GetWorkerInformation(Trabajador).then((res) => {
+            props.setUser(res)
+        });
+    }
+
+    const ImprimirDatos = () =>{
         console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
         console.log("IDUser (email): " + props.user.Email);
         console.log("categoria: " + editcategoria);
         console.log("profesion: " + editprofesion);
         console.log("descripcion: " + editdescripcion);
-
-        let WorkerObject = new Worker(props.user.Email);
-        WorkerObject.Category = editcategoria;
-        WorkerObject.Profession = editprofesion;
-        WorkerObject.JobDescription = editdescripcion;
-        WorkerObject.UpdateWorkers(WorkerObject);
     }
 
     const navigation = useNavigation();
@@ -66,16 +89,16 @@ export default EncabezadoPerfil = (props) => {
                     size={100}
                     containerStyle={Estilos.ContenedorAvatar}
                     />
-                {propietario === 'no' &&
+                {(!propietario) &&
                 <Button
                     title='Contratar'
                     containerStyle={Estilos.ContenedorComponente}
                     buttonStyle={Estilos.BotonContratar}
                     titleStyle={Estilos.EtiquetaBoton}
-                    onPress={() => navigation.navigate('Contratar')}
+                    onPress={() => navigation.navigate('Contratar',{user: props.user})}
                     />
                 }
-                {propietario === 'si' && editando === 'no' &&
+                {propietario && (!editando) &&
                 <Button
                     title='Editar'
                     containerStyle={Estilos.ContenedorComponente}
@@ -84,7 +107,7 @@ export default EncabezadoPerfil = (props) => {
                     onPress={CambiarDatos}
                 />
                 }
-                {propietario === 'si' && editando === 'si' &&
+                {propietario && editando &&
                     <Button
                         title='Guardar'
                         containerStyle={Estilos.ContenedorComponente}
@@ -94,7 +117,7 @@ export default EncabezadoPerfil = (props) => {
                     />
                 }
             </View>
-            {editando === 'no' &&
+            {(!editando) &&
                 <View style={Estilos.Datos}>
                     <Text style={Estilos.Informacion}>
                         {props.user.Name} {props.user.LastName}
@@ -107,7 +130,7 @@ export default EncabezadoPerfil = (props) => {
                     </Text>
                 </View>
             }
-            {propietario === 'si' && editando === 'si' &&
+            {propietario && editando &&
             <View style = {{padding: 40}}>
                 <EditarPerfil
                     setCategoria = {setCategoria}

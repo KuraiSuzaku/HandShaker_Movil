@@ -46,6 +46,13 @@ export default props => {
                                     size={25}
                                     color={focused ? Colores.simbolos : Colores.blanco}
                                 />}}
+
+             >   
+              { ()=><Vistas.Contrataciones//aceptar cambio de dani 
+                {...props}
+            /> }
+              </Drawer.Screen>
+
                 >
                     {
                         ({ navigation }) => <Vistas.ListaContratacion
@@ -54,6 +61,7 @@ export default props => {
                             />
                     }
                 </Drawer.Screen>
+
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
@@ -135,10 +143,15 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Contratar'
-                component={Vistas.Contratacion}
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
-            />
+            >
+
+                { ({route})=><Vistas.Contratacion {...props}  route={route}/> 
+                
+                
+                }
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Home'
                 component={Componentes.Home}

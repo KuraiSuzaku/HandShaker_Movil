@@ -3,7 +3,7 @@ import axios from 'axios'
 import {rooturl} from './ip'
 export class WorkersHiring {
     constructor(
-        EmailPremiumWorker?:String,
+        Email?:String,
         ListOfHirings?:Hiring[]    
         ){}
     
@@ -27,11 +27,11 @@ export class WorkersHiring {
       }
 
 
-      async GetHiring(EmailPremiumWorker: string) {// fill ClientObject with all information of the client
+      async GetHiring(Email: string) {// fill ClientObject with all information of the client
      
         let HiringWorker = new WorkersHiring();
         try {
-          const response = await axios.post(rooturl+"Hiring/GetHiring",{EmailPremiumWorker});//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Hiring/GetHiring",{Email});//the object to send must be *PostObject*
           HiringWorker=response.data
           console.log(HiringWorker)
           return HiringWorker;
@@ -43,9 +43,9 @@ export class WorkersHiring {
       }
 
 
-      async DeleteHiring(EmailPremiumWorker: string,IdHiring: string) {// fill ClientObject with all information of the client
+      async DeleteHiring(Email: string,IdHiring: string) {// fill ClientObject with all information of the client
           try {
-          const response = await axios.post(rooturl+"Hiring/Delete",{EmailPremiumWorker,IdHiring});//the object to send must be *PostObject*
+          const response = await axios.post(rooturl+"Hiring/Delete",{Email,IdHiring});//the object to send must be *PostObject*
           console.log(response)
           return response.status;
         } catch (error) {
