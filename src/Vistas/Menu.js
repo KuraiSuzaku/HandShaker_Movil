@@ -48,14 +48,7 @@ export default props => {
                                 />}}
 
              >   
-              { ()=><Vistas.Contrataciones//aceptar cambio de dani 
-                {...props}
-            /> }
-              </Drawer.Screen>
-
-                >
-                    {
-                        ({ navigation }) => <Vistas.ListaContratacion
+              { ({ navigation }) => <Vistas.ListaContratacion
                                 {...props}
                                 navigation={ navigation }
                             />
