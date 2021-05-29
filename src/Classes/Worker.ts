@@ -80,14 +80,10 @@ export  class Worker extends User {
         try {
           const response = await axios.post(rooturl+"Worker/GetWorkerInformation",{ WorkerObject });//the object to send must be *WorkerObject*  
           WorkerObject=response.data;
-          console.log("aqui...")
-          console.log(JSON.stringify(WorkerObject));
-          console.log("profesion   "+WorkerObject.Profession);
-          console.log("ID...   "+WorkerObject._id);
+        
           return WorkerObject;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+       
           this.Response = error.response.status;
           return this;
         }
@@ -98,18 +94,13 @@ export  class Worker extends User {
     
         try {
           const response = await axios.post(rooturl+"/Worker/GetAllWorkers",{ });//the object to send must be *WorkerObject* 
-          console.log("All Worker")
-          console.log(JSON.stringify(response.data)); 
+       
           let AllWorkerArray:Worker[]
 
           AllWorkerArray= response.data;
-          console.log("Aquiiii");
-           console.log(JSON.stringify(AllWorkerArray)); 
-           console.log("element");
-           AllWorkerArray.forEach(element => {
-            console.log(element.Name);
-          });
-        
+       
+         
+    
           return AllWorkerArray; //returns an array of premiumWorker
         } catch (error) {
           console.log("error del tipo" + error);
@@ -125,17 +116,12 @@ export  class Worker extends User {
     
         try {
           const response = await axios.post(rooturl+"Worker/GetOnlyWorkers",{ });//the object to send must be *WorkerObject*           
-          console.log("Only Worker")
-          console.log(JSON.stringify(response.data)); 
+       
           let OnlyWorkerArray:Worker[]
 
           OnlyWorkerArray= response.data;
-          console.log("Aquiiii");
-           console.log(JSON.stringify(OnlyWorkerArray)); 
-           console.log("element");
-           OnlyWorkerArray.forEach(element => {
-            console.log(element.Name);
-          });
+      
+        
         
           return OnlyWorkerArray; //returns an array of premiumWorker
         } catch (error) {
@@ -147,8 +133,7 @@ export  class Worker extends User {
       }
 
       async UpdateWorkers(WorkerObject: Worker) {// Get All workers, even the premium workers
-       
-        console.log(JSON.stringify(WorkerObject)); 
+     
         try {
           const response = await axios.post(rooturl+"Worker/UpdateWorker",{ WorkerObject });//the object to send must be *WorkerObject*
           return response; //returns an array of premiumWorker
