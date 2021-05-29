@@ -43,6 +43,23 @@ export class WorkersHiring {
       }
 
 
+
+      async GetJobs(Email: string) {// fill ClientObject with all information of the client
+     
+        let HiringWorker = new WorkersHiring();
+        try {
+          const response = await axios.post(rooturl+"Hiring/GetJobs",{Email});//the object to send must be *PostObject*
+          HiringWorker=response.data
+          console.log("respuesta",HiringWorker)
+          return HiringWorker;
+        } catch (error) {
+          console.log("error del tipo" + error);
+          console.log("error del tipo" + error.response.status);          
+          return this;
+        }
+      }
+
+
       async DeleteHiring(Email: string,IdHiring: string) {// fill ClientObject with all information of the client
           try {
           const response = await axios.post(rooturl+"Hiring/Delete",{Email,IdHiring});//the object to send must be *PostObject*
