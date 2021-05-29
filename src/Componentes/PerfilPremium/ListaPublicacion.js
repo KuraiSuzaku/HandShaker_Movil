@@ -6,20 +6,31 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as Componentes from '../Indice';
+import { Posts } from '../../Classes/Posts';
 
 export default ListaPublicacion = (props) => {
-    const [loadView, setLoadView] = useState(false);
+    const [postList, setPostList] = useState(null);
+    const [firstLoad, setFirstLoad] = useState(true);
+    const [uploaded, setUploaded] = useState(false);
     const navigation = useNavigation();
 
-    useEffect(() => {
-        
-        setLoadView(true);
-    }, []);
+    getPosts = () => {
+        const postsObject = new Posts(props.user.Email);
+        postsObject.GetPosts(props.user.Email).then( res => {
+            setPostList(res.ListOfPosts);
+        });
+    }
+
+    if(uploaded || firstLoad) {
+        getPosts();
+        setUploaded(false);
+        setFirstLoad(false);
+    }
 
     return(
         <>
         {
-            loadView ?
+            !firstLoad ?
             <View>
                 <Button
                     onPress={() => {
@@ -42,17 +53,23 @@ export default ListaPublicacion = (props) => {
                 {
                     props.owner ?
                     <View>
-                        <Componentes.PerfilPremium.NewPublication />
+                        <Componentes.PerfilPremium.NewPublication 
+                            uploaded={ uploaded }
+                            setUploaded={ val => setUploaded(val) }
+                            { ...props }
+                        />
                     </View> :
                     null
                 }
                 {
-                    props.publicaciones.map((p, i) => (
+                    postList ?
+                    postList.slice(0).reverse().map((p, i) => (
                         <Componentes.PerfilPremium.Publicacion
                             {...props}
                             {...p}
                             />
-                    ))
+                    )) :
+                    null
                 }
                 <Componentes.PerfilTrabajador.FinSeccion />
             </View> :

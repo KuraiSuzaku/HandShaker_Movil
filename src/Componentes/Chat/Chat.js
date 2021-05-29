@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { FlatList } from 'react-native';
+
 import {
     StyleSheet,
     Text,
@@ -7,8 +8,19 @@ import {
 } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
+const SERVER = "http://192.168.1.72:3001";
+import socketClient  from "socket.io-client";
+import { AllChats } from '../../Classes/AllChats';
+import { Chat } from '../../Classes/Chat';
+import { Message } from '../../Classes/Message';
 
-const messages = [
+//const [auxRender, setAuxrender] = useState(false);
+//const [chatSingle, setChats] = useState({});
+/*import { Thread } from 'react-native-threads';
+const thread = new Thread('./../../ThreadWorkers/thread.js');
+*/
+
+let messages = [
     {
         _id: "msg01",
         EmailUserFrom: "WorkerPremium@gmail.com",
@@ -46,9 +58,10 @@ const messages = [
     },
 ];
 
-export default class Chat extends React.Component {
-
+export default class ChatC extends React.Component {
+    
     constructor(props) {
+       var  socket = socketClient (SERVER);
         super(props);
         this.state = {
             newMessage: null,
@@ -56,26 +69,65 @@ export default class Chat extends React.Component {
             load: false
         };
         this.renderMessage = this.renderMessage.bind(this);
+    
+        socket.on("ChatChange", data => {
+            console.log("aqui Chat cambio desde Clase********"+data);
+            this.UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
+            
+          });
     }
 
-    componentDidMount() {
+    componentDidMount() {//cUANDO SE RENDERIZA 
         if(!this.state.load) {
             /* Carga los mensajes */
             this.setState({
                 messages: messages, // Cambiar por res de la bd
                 load: true
             });
+            //aquii NOMBRE Y FOTO
+            
         }
     }
+    
+ 
 
     sendMessage() {
         console.log('Send', this.state.newMessage);
+        //ESCRIBE EL MENSAJE WOOO
+       console.log("email to "+this.props.route.params.toUser)
+       console.log("email of "+this.props.route.params.fromUser)
+       
+       let ArrChats= new Array();
+       let ArrMess= new Array();
+    
+        let Mess=new Message();
+        Mess.EmailUserFrom=this.props.route.params.fromUser;
+        Mess.EmailUserTo=this.props.route.params.toUser;
+        Mess.MessageText=this.state.newMessage;
+        Mess.MessageDate=new Date();
+        ArrMess.push(Mess)
+
+        let listOf=new Chat();
+        listOf.EmailChatWith=this.props.route.params.toUser;
+        listOf.ListOfMessages=ArrMess;
+        ArrChats.push(listOf)
+
+        let ChatSend= new AllChats()//Login
+        ChatSend.Email=this.props.route.params.fromUser;
+        ChatSend.ListOfChats=ArrChats;
+    
+        ChatSend.AddChat(ChatSend);
+        this.setState({ newMessage: null})
     }
+
+
 
     renderMessage({ item }) {
         let ownMessage = false;
         if(item.EmailUserFrom == this.props.route.params.fromUser)
             ownMessage = true;
+
+
         return(
             <View style={[Estilos.MessageView, {
                 justifyContent: ownMessage ?
@@ -96,11 +148,28 @@ export default class Chat extends React.Component {
                         {item.MessageDate}
                     </Text>
                 </View>
+               
+
             </View>
+            
         );
     }
 
+    
+
     render() {
+     // send a message, strings only
+
+// listen for messages
+      //  thread.onmessage = (message) => console.log(message);
+   
+    /*if(auxRender==false){
+        UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
+        }*/
+        if(!this.state.load){
+
+            this.UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
+        }
         return(
             <View style={{ flex: 10 }} >
             <View style={Estilos.MessagesContainer} >
@@ -109,6 +178,8 @@ export default class Chat extends React.Component {
                     {/* Aqui se agregan los mensajes */
                         this.state.load ?
                         <FlatList
+                            inverted
+                            style={{ flex:1}}
                             data={this.state.messages}
                             renderItem={this.renderMessage}
                             contentContainerStyle={{flexGrow: 1}}
@@ -134,6 +205,35 @@ export default class Chat extends React.Component {
             </View>
         );
     }
+
+
+         UpdateChat=(email,emailchatwith)=>{
+         //console.log("se actualizara el chat");
+         this.Getchat(email,emailchatwith)
+        }
+        
+        Getchat = async(email,emailchatwith)=>{
+            console.log("AQUIIIEmail actual ", email );
+           
+        
+            let SingleChat= new AllChats()//Login
+        
+          const ret = await  SingleChat.GetChatWith(email,emailchatwith)
+        
+        /*  console.log("Respuestas ret"+JSON.stringify(ret));
+          console.log("chat with" + ret.EmailChatWith)
+          console.log("Respuestas"+JSON.stringify(ret.ListOfMessages));*/
+          //messages=ret.ListOfMessages;
+
+          this.setState({messages:ret.ListOfMessages.reverse()  })
+        //setChats(ret.ListOfMessages);
+        //setAuxrender(true);        
+        
+        };       
+        
+  
+
+    
 }
 
 const Estilos = StyleSheet.create({
@@ -174,3 +274,4 @@ const Estilos = StyleSheet.create({
         maxWidth: '80%'
     }
 });
+

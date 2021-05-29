@@ -114,7 +114,7 @@ export default EncabezadoPerfil = (props) => {
             {(!editando) &&
                 <View style={Estilos.Datos}>
                     <Text style={Estilos.Informacion}>
-                        {props.user.Name}
+                        {props.user.Name} {props.user.LastName}
                     </Text>
                     <Text style={Estilos.Informacion}>
                         {props.user.Profession}

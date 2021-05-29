@@ -56,7 +56,6 @@ export default props => {
             </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
-                component={Vistas.Construccion}
                 options={{ title: 'Ver Contrataciones',
                             unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
@@ -66,7 +65,11 @@ export default props => {
                                     size={25}
                                     color={focused ? Colores.simbolos : Colores.blanco}
                                 />}}
-                />
+             >   
+              { ()=><Vistas.Contrataciones//aceptar cambio de dani 
+                {...props}
+            /> }
+              </Drawer.Screen>
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
@@ -125,7 +128,10 @@ export default props => {
                     unmountOnBlur: true }}
             >
 
-                { ()=><Vistas.Contratacion user={props.user}/> }
+                { ({route})=><Vistas.Contratacion {...props}  route={route}/> 
+                
+                
+                }
             </Drawer.Screen>
             <Drawer.Screen
                 name='Home'
@@ -137,7 +143,21 @@ export default props => {
                 component={Vistas.Chat}
                 options={{ unmountOnBlur: true }}
             />
-                    
+
+            <Drawer.Screen
+                name='ListaChats' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                }}
+                >
+                { ()=><Vistas.ListaChats
+                    {...props}
+                /> }
+            </Drawer.Screen>
         </Drawer.Navigator>
     );
 }
@@ -146,7 +166,8 @@ const CustomDrawerContent = (props) => {
     const check = (val) => {
         if( val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Cerrar Sesión')
+            || val === 'Cerrar Sesión'
+            || val == 'ListaChats')
             return true;
             if(props.user.UserType === "Worker")
                 if(val === 'Premium')
@@ -176,7 +197,7 @@ const CustomDrawerContent = (props) => {
                         rounded
                         size='large'
                         />
-                    <Text style={Estilos.UserName}>{props.user.Name}</Text>
+                    <Text style={Estilos.UserName}>{props.user.Name} {props.user.LastName}</Text>
                 </View>
             </TouchableOpacity>
             <DrawerItemList {...filteredProps} />
@@ -223,6 +244,7 @@ const Estilos = StyleSheet.create({
         paddingBottom: 20,
         borderBottomColor: Colores.etiquetas,
         borderBottomWidth: 2,
+        alignItems: 'center'
     },
     UserName: {
         paddingTop: 5,

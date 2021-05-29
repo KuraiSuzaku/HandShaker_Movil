@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import {
     ActivityIndicator,
     StyleSheet,
+    Text
 } from 'react-native';
 import { Card } from 'react-native-elements';
+import Colors from '../../Estilos/Colores';
 
 export default Multimedia = (props) => {
     const [image, setImage] = useState(null);
     const setImageSource = () => {
         setImage({
-            name: props.Name,
-            uri: props.Path
+            name: props.MultimediaImage.Name,
+            uri: props.MultimediaImage.Path
         });
     }
     if(!image)
@@ -23,6 +25,9 @@ export default Multimedia = (props) => {
                 style={Estilos.Imagen}
                 PlaceholderContent={<ActivityIndicator />}
                 />
+            <Text style={Estilos.Text}>
+                {props.MultimediaText}
+            </Text>
         </Card>
     );
 }
@@ -34,5 +39,12 @@ const Estilos = StyleSheet.create({
     },
     Imagen: {
         borderRadius: 15
+    },
+    Text: {
+        color: Colors.etiquetas,
+        fontSize: 10,
+        paddingHorizontal: 15,
+        marginTop: 5,
+        textAlign: 'center'
     }
 })
