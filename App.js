@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Vistas from './src/Vistas/Indice';
 import socketClient  from "socket.io-client";
-import {rooturl} from './ip'
+import {rooturl} from './src/Classes/ip'
 
 export default App = () => {
   console.log("conexion se supone")

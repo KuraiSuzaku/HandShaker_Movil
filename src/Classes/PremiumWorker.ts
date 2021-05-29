@@ -66,13 +66,12 @@ export  class PremiumWorker extends User {
         var num = 0;    
         try {
           const response = await axios.post(rooturl+"PremiumWorker/GetAllPremiumWorkers",{ });//the object to send must be *WorkerObject*           
-          console.log("Premium Worker")
-          console.log(JSON.stringify(response.data)); 
+        
+      
           let PremiumWorkerArray:PremiumWorker[]
 
           PremiumWorkerArray= response.data;
-          console.log("Aquiiii");
-           console.log(JSON.stringify(PremiumWorkerArray)); 
+    
       
          
         
@@ -117,12 +116,12 @@ export  class PremiumWorker extends User {
 
       
       async GetPremiumWorkersWithProfession(Profession: string) {// Get 
-       console.log("profession  ************"+Profession)
+    
         try {
           let ArrPremiumWorkers: PremiumWorker[];
           const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkersProfession",{ Profession });//the object to send must be *WorkerObject*
           ArrPremiumWorkers=response.data
-          console.log("respuesta ´de "+Profession +"  "+ArrPremiumWorkers)
+ 
           return ArrPremiumWorkers; //returns an array of premiumWorker
 
         } catch (error) {

@@ -21,7 +21,7 @@ export class Prices {
     
         try {
           console.log("add POST")
-          console.log(PriceObject)
+      
           const response = await axios.post(rooturl+"Prices/Add",{ PriceObject });//the object to send must be *PostObject*
 
           return response.status;

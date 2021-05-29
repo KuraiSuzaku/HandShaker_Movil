@@ -5,7 +5,7 @@ import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/
 import Colores from '../../Estilos/Colores';
 import EditarAcercaDe from './EditarAcercaDe';
 
-export default AcercaDe = ({acercade}) => {
+export default AcercaDe = (props) => {
     const [propietario, setPropietario] = useState(true);
     const [editando, setEditando] = useState(false);
 
