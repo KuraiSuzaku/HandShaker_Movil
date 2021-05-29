@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
-const SERVER = "http://192.168.1.72:3001";
+import {rooturl} from './ip'
 import socketClient  from "socket.io-client";
 import { AllChats } from '../../Classes/AllChats';
 import { Chat } from '../../Classes/Chat';
@@ -61,7 +61,7 @@ let messages = [
 export default class ChatC extends React.Component {
     
     constructor(props) {
-       var  socket = socketClient (SERVER);
+       var  socket = socketClient (rooturl);
         super(props);
         this.state = {
             newMessage: null,

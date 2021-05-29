@@ -5,14 +5,19 @@ import Colores from '../Estilos/Colores';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import DatePicker from 'react-native-datepicker'
+import { Hiring } from '../Classes/Hiring';
+import { AddressClass } from '../Classes/AddressClass';
+import { WorkersHiring } from '../Classes/WorkersHiring';
+import { AllNotifications } from '../Classes/AllNotifications';
+import { Notification } from '../Classes/Notification';
 
 export default Contratacion = (props) => {
-
-    console.log("Props en contratación: ", props);
-
+ 
+    console.log("Props en contratación: Email del usuario", props.user.Email );
+    console.log("Props Perfil WORKER: Email del usuario", props.route.params.user.Email );
     const [nombre_trabajador, setNombreTrabajador] = useState("Nombre Trabajador PlaceHolder");
     const [asunto, setAsunto] = useState("");
-    const [fecharealizacion, setFechaRealizacion] = useState("");
+    const [fecharealizacion, setFechaRealizacion] = useState(new Date());
     const [indicaciones, setIndicaciones] = useState("");
     const [calleprincipal, setCallePrincipal] = useState("");
     const [numcasa, setNumCasa] = useState("");
@@ -35,7 +40,7 @@ export default Contratacion = (props) => {
                     style: "cancel"
                     },
                     { text: "Contratar", onPress: () => {
-                        console.log("Enviada la contratación con los datos!")
+                       /* console.log("Enviada la contratación con los datos!")
                         console.log("ID: " + "aqui debe haber un id pero no lo tengo :C");
                         console.log("Asunto: " + asunto);
                         console.log("Fecha realizacion: " + fecharealizacion);
@@ -47,7 +52,7 @@ export default Contratacion = (props) => {
                         console.log("Calle2: " + calle2);console.log("Referencia: " + referencia);
                         console.log("Link Maps: " + linkmaps);
                         console.log('Conexión a la base de datos con la info para contratar, estoy en PerfilTrabajador/Contratacion.js');    
-                         
+                         */
                         EnviarDatos();
                         alert('¡Contratado con éxito!');
                         Cancelar(); //Quizá añadir validación de que fue un éxito la contratación
@@ -60,7 +65,7 @@ export default Contratacion = (props) => {
 
        };
 
-    const EnviarDatos = () =>{
+    async function EnviarDatos () {
         console.log("(enviar a BD) Adress: Calle " + calleprincipal + ", Colonia " + colonia + " #" + numcasa);
         auxreferencia = calle1 + calle2 + referencia;
         if (!auxreferencia.trim()){
@@ -80,6 +85,69 @@ export default Contratacion = (props) => {
             console.log("(enviar a BD) Referencia: " + auxreferencia);
         }
         console.log("(enviar a BD) LinkMaps: " + linkmaps);
+
+        console.log("Enviada la contratación con los datos!")
+        console.log("ID: " + "aqui debe haber un id pero no lo tengo :C");
+        console.log("Asunto: " + asunto);
+        console.log("Fecha realizacion: " + fecharealizacion);
+        console.log("Indicaciones: " + indicaciones);
+        console.log("Calle principal: " + calleprincipal);
+        console.log("Numero casa: " + numcasa);
+        console.log("Colonia: " + colonia);
+        console.log("Calle1: " + calle1);
+        console.log("Calle2: " + calle2);console.log("Referencia: " + referencia);
+        console.log("Link Maps: " + linkmaps);
+        console.log('Conexión a la base de datos con la info para contratar, estoy en PerfilTrabajador/Contratacion.js');    
+         
+
+
+        let arrHir= new Array()
+        let workH = new WorkersHiring() 
+        let h=new Hiring();
+        h.EmailWorker= props.route.params.user.Email 
+        h.Email= props.user.Email 
+        h.Subject= asunto
+        let today=new Date()
+        h.Date=today
+        var mydate = new Date(fecharealizacion);
+        console.log(mydate.toDateString());
+        h.HiringDate = mydate
+        h.indications=indicaciones
+        
+        let AddressHiring=new Array();
+        let add=new AddressClass();
+        add.Address=calleprincipal
+        add.BAddress1=calle1
+        add.BAddress2=calle2
+        add.neighborhood=colonia
+        add.Number=numcasa
+        add.Reference=referencia
+        add.LinkMaps=linkmaps
+
+        AddressHiring.push(add)
+        h.Addresses = AddressHiring
+        h.Status= "Inicio"
+
+        let id=today.getDate().toString()+today.getMonth().toString()+today.getFullYear().toString()+today.getHours().toString()+today.getMinutes().toString()+today.getSeconds().toString()
+        console.log("id generado",id);
+        h.IDcreated=id;
+        arrHir.push(h)
+        workH.Email=props.route.params.user.Email 
+        workH.ListOfHirings=arrHir
+       const first=  await  workH.AddHiring(workH);
+      
+
+        let newNotification= new AllNotifications
+        newNotification.Email=props.route.params.user.Email 
+        let arrayListNot=new Array();
+        let notificationSingle= new Notification
+        notificationSingle.EmailFrom=props.user.Email 
+        notificationSingle.Description="Contratacion"
+        notificationSingle.Date=today
+        notificationSingle.Subject=asunto
+        arrayListNot.push(notificationSingle)
+        newNotification.ListOfNotifications=arrayListNot
+        const second=  await  newNotification.AddNotification(newNotification)
     }
 
     const navigation = useNavigation();
