@@ -8,6 +8,7 @@ import {
 import * as Components from '../Indice';
 import Colors from '../../Estilos/Colores';
 import { Avatar, Icon } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 
 export default class Lista extends React.Component {
     constructor(props) {
@@ -26,10 +27,17 @@ export default class Lista extends React.Component {
         }
     }
 
+    navigate() {
+        this.props.navigation.navigate('Home', {
+
+        });
+    }
+
     renderItem({ item }) {
         if(item.Status != this.props.type)
             return null;
         return(
+            <TouchableOpacity onPress={() => this.navigate()}>
             <View style={Estilos.ItemContainer}>
                 <View style={Estilos.AvatarContainer}>
                     <Avatar
@@ -54,7 +62,11 @@ export default class Lista extends React.Component {
                         fontSize: 18,
                         fontWeight: 'bold'
                     }}>{item.Subject}</Text>
-                    <Text>{item.Email}</Text>
+                    <Text>{
+                        this.props.jobs ?
+                        item.userClient.Name :
+                        item.userWorker.Name
+                    }</Text>
                     <Text style={{
                         fontSize: 11,
                         color: Colors.etiquetas,
@@ -62,6 +74,7 @@ export default class Lista extends React.Component {
                     }}>ver más</Text>
                 </View>
             </View>
+            </TouchableOpacity>
         );
     }
 

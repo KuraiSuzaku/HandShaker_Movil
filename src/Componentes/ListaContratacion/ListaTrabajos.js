@@ -23,7 +23,13 @@ const data = [
                 Reference: "cerca del bosque Colomos",
                 LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
             }
-        ]
+        ],
+        userClient: {
+            Name: 'Cliente 1',
+            ProfilePicture: {
+                Path: ''
+            }
+        }
     },
     {
         _id: "60aed1d866c7da22388ffc29",
@@ -41,7 +47,13 @@ const data = [
                 Reference: "cerca del bosque Colomos",
                 LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
             }
-        ]
+        ],
+        userClient: {
+            Name: 'Cliente 2',
+            ProfilePicture: {
+                Path: ''
+            }
+        }
     },
     {
         _id: "60aed31166c7da22388ffc2e",
@@ -59,7 +71,13 @@ const data = [
                 Reference: "cerca del bosque Colomos",
                 LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
             }
-        ]
+        ],
+        userClient: {
+            Name: 'Cliente 3',
+            ProfilePicture: {
+                Path: ''
+            }
+        }
     }
 ]
 
@@ -126,6 +144,7 @@ export default class ListaTrabajos extends React.Component {
                                 navigation= { navigation }
                                 data={ this.state.data }
                                 type={ StatusTypes[0] }
+                                jobs={ true }
                             />
                     }
                 </TabNav.Screen>
@@ -138,6 +157,7 @@ export default class ListaTrabajos extends React.Component {
                                 navigation= { navigation }
                                 data={ this.state.data }
                                 type={ StatusTypes[1] }
+                                jobs={ true }
                             />
                     }
                 </TabNav.Screen>
@@ -150,6 +170,7 @@ export default class ListaTrabajos extends React.Component {
                                 navigation= { navigation }
                                 data={ this.state.data }
                                 type={ StatusTypes[2] }
+                                jobs={ true }
                             />
                     }
                 </TabNav.Screen>
