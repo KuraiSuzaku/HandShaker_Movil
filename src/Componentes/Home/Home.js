@@ -5,20 +5,40 @@ import Job from './Job'
 import PremiumWorkerC from './PremiumWorkerC'
 import IndividualCategory from './IndividualCategory'
 import { PremiumWorker } from "./../../Classes/PremiumWorker"
-import Works from "./Works.json"
 import { Category } from "./../../Classes/Category"
+import FilterByCategory from './FilterByCategory'
 
 export default class Home extends Component {
     constructor(props){
         super(props);
+        this.handleCategorySelected = this.handleCategorySelected.bind(this)
+        this.handleCategories = this.handleCategories.bind(this)
+        this.handleProfesiones = this.handleProfesiones.bind(this)
         this.state={
             premiumWorker: null,
-            category: null
+            categories: [],
+            profesiones: [],
+            categorySelected: 'Todas'
         }
+        // Esta es la peor practica posible y se debería evitar a toda costa
+        this.category();
+        
+        
     }
 
     setPremiumWorker(pw){
         this.setState({premiumWorker:pw});
+    }
+
+    handleCategorySelected (text){
+        this.setState({ categorySelected: text })
+        console.log(text)
+        this.profesiones()
+    }
+
+    handleProfesiones(profesiones){
+        this.setState({ profesiones: profesiones })
+        //console.log(profesiones)
     }
 
     RandomWorker(){
@@ -31,143 +51,95 @@ export default class Home extends Component {
         })
     }
 
-    category(){
-        cat = new Category();
-        console.log("Categorias")
-        cat.GetAll()
-            .then( (res) => {
-                
-                res.forEach(element => {
-                    console.log("CATEGORIA Nombre "+element.Name);
-                        element.Categories.forEach(profesiones => {
-                            Trabajador=  new PremiumWorker();
-                            Trabajador.GetPremiumWorkersWithProfession(profesiones.Name).then( (trabajadoresWithProfession) => {
-                                trabajadoresWithProfession.forEach(premiumWorker => {
-                                   console.log("trabajador de "+premiumWorker.Name+" nombre profesion " + profesiones.Name+ " foto " + premiumWorker.ProfilePicture.Path )
-                               });
-                                
-                            });                   
- 
-                            console.log("       profesion "+profesiones.Name )
-                            console.log("       imagen "+profesiones.ImageProfession.Path )
-                        });
+    handleCategories(categories){
+        this.setState({ categories: categories })
+    }
 
-                });                   
-            }); 
+    category(){
+        //console.log("===== Categorias =====")
+        Cat = new Category();
+        Cat.GetAll().then((categorias) => {
+            //console.log(categorias)
+            this.handleCategories(categorias)        
+        }); 
+    }
+
+    inicioProfesiones(){
+        Cat = new Category();
+        Cat.GetAll().then((categorias) => {
+            categorias.forEach(categoria => {
+                //console.log("-----> CATEGORIA: " + categoria.Name + " <-----");
+                
+                    // console.log("Aqui")
+                    // console.log(categoria.Categories)
+                    this.handleProfesiones(categoria.Categories)
+                
+            })
+        })
     }
       
+    profesiones(){
+        Cat = new Category();
+        Cat.GetAll().then((categorias) => {
+            categorias.forEach(categoria => {
+                //console.log("-----> CATEGORIA: " + categoria.Name + " <-----");
+                if(categoria.Name == this.state.categorySelected){
+                    // console.log("Aqui")
+                    // console.log(categoria.Categories)
+                    this.handleProfesiones(categoria.Categories)
+                    categoria.Categories.forEach(profesiones => {
+                        // Trabajador =  new PremiumWorker();
+
+                        // Trabajador.GetPremiumWorkersWithProfession(profesiones.Name).then((trabajadoresWithProfession) => {
+                        //     trabajadoresWithProfession.forEach(trabajador => {
+                        //         //console.log("trabajador de "+trabajador.Name+" nombre profesion " + profesiones.Name+ " foto " + trabajador.ProfilePicture.Path )
+                        //     });  
+                        // }); 
+                        // console.log("Profesion "+profesiones.Name )
+                        //console.log("Imagen "+profesiones.ImageProfession.Path )
+
+                    });
+                }
+            });            
+        }); 
+    }
 
     render() {
-       // this.RandomWorker();
-        this.state.category ?
-        this.category()
-                         : this.category()
-                        this.state.category = 0
+        // this.category()
+        // this.RandomWorker();
+        // this.state.category ?
+        // // this.category()
+        // //                  : this.category()
+        // //                 this.state.category = 0
         return (
+            // <FilterByCategory/>
             <ScrollView style={ styles.bg }>
                 {
-                    // this.state.premiumWorker ?
-                    // <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/> :
-                    //     this.RandomWorker() 
-                    
-                    
+                    this.state.premiumWorker ?
+                    <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/> :
+                        this.RandomWorker()     
                 }
-                {
-                    
 
-
-                }
                 <Text style={ styles.subtitle }>Categorías</Text>
-                <Categories/>
-                <Text style={ styles.subtitle }>Trabajos</Text>
-                {/* <Job jobTitle="Consultores"/>
-                <Job jobTitle="Técnicos"/>
-                <Job jobTitle="Jardineros"/> */}
+                <Categories categories={ this.state.categories } handleCategorySelected={ this.handleCategorySelected }/>
+                <Text style={ styles.subtitle }>Trabajos: { this.state.category }</Text>
                 {
-                    data.categories[3].works.map(item =>
-                        <Job jobTitle={ item.name } key={ item.name } uri={ item.uri } workers={ item.workers.slice(0, 3) }/>)
+                    this.state.profesiones.map(item => 
+                        <Job jobTitle={ item.Name } profesiones={ item } navigation={ this.props.navigation } key={ item.Name } uri={ 'https://reactnative.dev/img/tiny_logo.png'/*item.ImageProfession.Path*/ } /*workers={ item.workers.slice(0, 3) }*/ />)
                 }
-                
             </ScrollView>
         )
     }
 }
 
-function Categories(){
+function Categories(props){
     return(
         <ScrollView horizontal={true} style={ styles.categories }>
-            { data.categories.map(item => 
-                <IndividualCategory name={ item.name } key={ item.name } uri={ item.uri }/>) 
+            { props.categories.map(item => 
+                <IndividualCategory name={ item.Name } key={ item.Name } handleCategory={ props.handleCategorySelected } uri='https://reactnative.dev/img/tiny_logo.png'/>) 
             }
         </ScrollView>
     )
-}
-
-const data = {
-    categories: [
-        {
-            name: "Postres",
-            uri: "https://blog.rappi.com/wp-content/uploads/2018/11/recetas-postres-caseros.jpg",
-            workers: [
-                {
-                    name: "Juan"
-                }
-            ]
-        },
-        {
-            name: "Moda",
-            uri: "https://audaces.com/wp-content/uploads/2020/08/Estilos-de-moda-Cu%C3%A1l-es-el-tuyo.jpg",
-            workers: [
-                {
-                    name: "Carlos"
-                }
-            ]
-        },
-        {
-            name: "Comida",
-            uri: "https://cdn.kiwilimon.com/articuloimagen/30434/28870.jpg",
-            workers: [
-                {
-                    name: "Eduardo"
-                }
-            ]
-        },
-        {
-            name: "Hogar",
-            uri:"http://econanosolutions.com/nanonews/wp-content/uploads/2016/08/hogar1-825x510.jpg",
-            works: [
-                {
-                    name: "Fontanería",
-                    workers: [
-                        {
-                            name: "Diego",
-                            uri: "https://lamenteesmaravillosa.com/wp-content/uploads/2018/09/hombre-creido-pensando-que-sabe.jpg"
-                        }
-                    ],
-                    uri: "https://www.fontaneria.mx/item/?file=20200115123141Fontanero_en_Guadalajara.jpg&width=800&l=20190604122326logo.png"
-                },
-                {
-                    name: "Jardinería",
-                    workers: [
-                        {
-                            name: "Juan",
-                            uri: "https://concepto.de/wp-content/uploads/2018/08/persona-e1533759204552.jpg"
-                        }
-                    ],
-                    uri: "https://conceptodefinicion.de/wp-content/uploads/2015/05/jardineria-.jpg"
-                }
-            ],
-        },
-        {
-            name: "Otros",
-            uri: "https://www.vippng.com/png/detail/396-3969462_menu-button-png-icono-de-tres-puntos.png",
-            workers: [
-                {
-                    name: "Marian"
-                }
-            ]
-        }
-    ],
 }
 
 const styles = StyleSheet.create({
@@ -185,6 +157,4 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginBottom: 10
     },
-    
-
 })

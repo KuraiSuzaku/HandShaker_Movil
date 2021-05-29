@@ -7,6 +7,7 @@ import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native'
+import * as Components from '../Indice';
 
 export default class Login extends Component {
     constructor(props) {
@@ -50,6 +51,7 @@ export default class Login extends Component {
                 const jsonValue = JSON.stringify(value);
                 await AsyncStorage.setItem('@user_Key', jsonValue);
                 this.props.setUser(value);
+                this.props.setLogged(true);
             } catch (e) {
                 console.error(e);
             }
@@ -213,7 +215,7 @@ handleGetPremiumWorkers( event ){
                         </View>
                     </ScrollView>
                 </View> :
-                <ActivityIndicator size='large' />
+                <Components.Loading />
             }
             </>
         )

@@ -8,9 +8,9 @@ import {
     View,
 } from 'react-native';
 import * as Componentes from '../Indice';
-import User from '../../Classes/User';
-import Worker from '../../Classes/Worker';
-import PremiumWorker from '../../Classes/PremiumWorker';
+import {User} from '../../Classes/User';
+import {Worker} from '../../Classes/Worker';
+import {PremiumWorker} from '../../Classes/PremiumWorker';
 import { Icon } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
 
@@ -22,14 +22,15 @@ export default Contenedor = (props) => {
 
     useEffect(() => {
         if(!profileUser || route.params.updateProfile) {
-            if(!route.params.profileUser) {
+            if(!route.params.profileUser || route.params.profileUser == props.user.Email) {
                 setOwner(true);
                 setProfileUser(props.user);
+                navigation.setParams({ updateProfile: false });
             } else {
-                setOwner(false);/*
+                setOwner(false);
                 const userObject = new User(route.params.profileUser); // Lee info del usuario de la bd para conseguir tipo de usuario
                 userObject.GetUserInformation(route.params.profileUser).then( res => {
-                    if(userObject.isPremium) {
+                    if(res.isPremium) {
                         let PremiumWorkerObject = new PremiumWorker(route.params.profileUser);
                         PremiumWorkerObject.GetPremiumWorkerInformation(PremiumWorkerObject).then((res) => {
                             const PremiumWorkerObject=res;
@@ -42,27 +43,10 @@ export default Contenedor = (props) => {
                             setProfileUser({...WorkerObject});
                         });
                     }
-                }).catch( err => console.error(err));*/
-                userObject = { isPremium: true };
-                if(userObject.isPremium) {
-                    let PremiumWorkerObject = new PremiumWorker(route.params.profileUser);
-                    PremiumWorkerObject.GetPremiumWorkerInformation(PremiumWorkerObject).then((res) => {
-                        const PremiumWorkerObject=res;
-                        setProfileUser({...PremiumWorkerObject});
-                    });
-                } else {
-                    let WorkerObject = new Worker(route.params.profileUser);
-                    WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
-                        const WorkerObject=res;
-                        setProfileUser({...WorkerObject});
-                    });
-                }
+                }).catch( err => console.error(err));
             }
         }
-        navigation.setParams({
-            profileUser: null,
-            updateProfile: false
-        });
+        navigation.setParams({ updateProfile: false });
     }, [route.params.updateProfile]);
 
     const checkPremium = () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     ActivityIndicator,
     StyleSheet,
@@ -18,10 +18,12 @@ import { TouchableOpacity } from 'react-native';
 const Drawer = createDrawerNavigator();
 
 export default props => {
+    const [logged, setLogged] = useState(false);
     return(
         <Drawer.Navigator 
             drawerContent={(auxprops) => <CustomDrawerContent {...auxprops}
                                         {...props}
+                                        logged={ logged }
                                         />}//(props) => {customDrawerContent(props)}}
             initialRouteName='Login'
             drawerContentOptions={{
@@ -33,27 +35,6 @@ export default props => {
                 backgroundColor: Colores.fondoOscuro
             }}
             >
-            <Drawer.Screen 
-                name='Perfil' 
-                initialParams={{
-                    profileUser: null,
-                    updateProfile: true
-                }}
-                options={{
-                    unmountOnBlur: true,
-                    drawerIcon: ({ focused, size }) => 
-                        <Icon
-                            name='user'
-                            type='font-awesome'
-                            size={25}
-                            color={focused ? Colores.simbolos : Colores.blanco}
-                        />
-                }}
-                >
-                { ()=><Validar_perfil
-                    {...props}
-                /> }
-            </Drawer.Screen>
             <Drawer.Screen
                 name='Contrataciones'
                 options={{ title: 'Ver Contrataciones',
@@ -65,11 +46,22 @@ export default props => {
                                     size={25}
                                     color={focused ? Colores.simbolos : Colores.blanco}
                                 />}}
+
              >   
               { ()=><Vistas.Contrataciones//aceptar cambio de dani 
                 {...props}
             /> }
               </Drawer.Screen>
+
+                >
+                    {
+                        ({ navigation }) => <Vistas.ListaContratacion
+                                {...props}
+                                navigation={ navigation }
+                            />
+                    }
+                </Drawer.Screen>
+
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
@@ -102,8 +94,34 @@ export default props => {
                                 /> }}
             >
                 {
-                    ({ navigation }) => <Componentes.LogOut {...props} navigation={navigation} />
+                    ({ navigation }) => 
+                        <Componentes.LogOut
+                            {...props}
+                            navigation={ navigation }
+                            setLogged={ val => setLogged(val) }
+                        />
                 }
+            </Drawer.Screen>
+            <Drawer.Screen 
+                name='Perfil' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                    drawerIcon: ({ focused, size }) => 
+                        <Icon
+                            name='user'
+                            type='font-awesome'
+                            size={25}
+                            color={focused ? Colores.simbolos : Colores.blanco}
+                        />
+                }}
+                >
+                { ()=><Validar_perfil
+                    {...props}
+                /> }
             </Drawer.Screen>
             <Drawer.Screen
                 name='Login'
@@ -114,6 +132,7 @@ export default props => {
                     <Componentes.Login 
                         setUser={ (userLogged)=>props.setUser(userLogged)}
                         navigation={navigation}
+                        setLogged={ val => setLogged(val) }
                     /> }
                 </Drawer.Screen>
             <Drawer.Screen
@@ -136,8 +155,17 @@ export default props => {
             <Drawer.Screen
                 name='Home'
                 component={Componentes.Home}
-                options={{ unmountOnBlur: true }}
-            />
+                options={{  
+                            unmountOnBlur: true }}
+                >
+                </Drawer.Screen>
+            <Drawer.Screen
+                name='FilterByCategory'
+                component={Componentes.FilterByCategory}
+                options={{  
+                            unmountOnBlur: true }}
+                >
+                </Drawer.Screen>
             <Drawer.Screen
                 name='Chat'
                 component={Vistas.Chat}
@@ -163,11 +191,11 @@ export default props => {
 }
 
 const CustomDrawerContent = (props) => {
+
     const check = (val) => {
         if( val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Cerrar Sesión'
-            || val == 'ListaChats')
+            || val === 'Cerrar Sesión')
             return true;
             if(props.user.UserType === "Worker")
                 if(val === 'Premium')
@@ -183,6 +211,7 @@ const CustomDrawerContent = (props) => {
         routes: props.state.routes.filter((route) => check(route.name)),
       },
     };
+
     return (
         <View style={Estilos.MenuContainer}>
             <TouchableOpacity onPress={() => 
@@ -192,11 +221,17 @@ const CustomDrawerContent = (props) => {
                 })} 
             >
                 <View style={Estilos.MenuHeader}>
+                    {
                     <Avatar
-                        source={require('../../public/Profile/user.png')}
+                        source={
+                            props.logged ?
+                            { uri: props.user.ProfilePicture.Path } :
+                            require('../../public/Profile/user.png')
+                        }
                         rounded
                         size='large'
-                        />
+                    /> 
+                    }
                     <Text style={Estilos.UserName}>{props.user.Name} {props.user.LastName}</Text>
                 </View>
             </TouchableOpacity>

@@ -6,8 +6,11 @@ import Registro from './Registro/Registro';
 import * as PerfilCliente from './PerfilCliente/Indice';
 import * as PerfilPremium from './PerfilPremium/Indice';
 import * as PerfilTrabajador from './PerfilTrabajador/Indice';
+import FilterByCategory from './Home/FilterByCategory';
 import Home from './Home/Home';
 import * as Chat from './Chat/Indice';
+import * as ListaContratacion from './ListaContratacion/Indice';
+import Loading from './Loading';
 
 export {
     EncabezadoApp,
@@ -18,6 +21,9 @@ export {
     PerfilCliente,
     PerfilPremium,
     PerfilTrabajador,
+    FilterByCategory,
     Home,
-    Chat
+    Chat,
+    ListaContratacion,
+    Loading
 };

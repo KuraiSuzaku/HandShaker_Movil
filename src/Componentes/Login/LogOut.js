@@ -11,6 +11,7 @@ export default class LogOut extends React.Component {
     componentWillUnmount() {
         const clearStoredUser = async () => {
             try {
+                this.props.setLogged(false);
                 await AsyncStorage.removeItem('@user_Key');
                 this.props.setUser({
                     userType: null
