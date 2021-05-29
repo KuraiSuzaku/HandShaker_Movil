@@ -2,6 +2,7 @@ import {AddressClass } from './AddressClass'
 import User  from './User'
 import {rooturl} from './ip'
 import axios from 'axios'
+import PremiumWorker from './PremiumWorker'
 
 export  class Worker extends User {
     _id?:string
@@ -33,7 +34,9 @@ export  class Worker extends User {
       try {
 
         const response = await axios.post(rooturl+"Worker/Register",{ WorkerObject });//the object to send must be *WorkerObject*  
-       console.log(" Respuesta "+response)
+     
+     
+        console.log(" Respuesta "+response)
         if (response.status==409){
           console.log("mal")
         return "0";
@@ -49,16 +52,20 @@ export  class Worker extends User {
    
         return "0";
       }
+
+
     }
 
-    async ChangeToPremium(WorkerObject: Worker) {// Needs Password, Needs Email, needs SuscriptionDate,
+    async ChangeToPremium(WorkerObject: PremiumWorker) {// Needs Password, Needs Email, needs SuscriptionDate,
       var num = 0;
-  
+      console.log("change to premium...");
       try {
 
         const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ WorkerObject });//the object to send must be *WorkerObject*  
-      
-        return 1;
+        console.log(response);
+        WorkerObject=response.data;
+        console.log(WorkerObject);
+        return WorkerObject;
       } catch (error) {
         console.log("error del tipo" + error);
         console.log("error del tipo" + error.response.status);

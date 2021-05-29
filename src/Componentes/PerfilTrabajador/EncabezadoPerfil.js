@@ -9,8 +9,10 @@ import Clases from '../../Classes/Indice';
 
 export default EncabezadoPerfil = (props) => {
     
+
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
+
     const [editcategoria, setCategoria] = useState(props.user.Category);
     const [editprofesion, setProfesion] = useState(props.user.Profession);
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
@@ -21,13 +23,16 @@ export default EncabezadoPerfil = (props) => {
         console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
+
     async function GuardarCambios () {
         setEditando(false); 
         //ImprimirDatos();
+
         let WorkerObject = new Worker(props.user.Email);
         WorkerObject.Category = editcategoria;
         WorkerObject.Profession = editprofesion;
         WorkerObject.JobDescription = editdescripcion;
+
         const x =  await WorkerObject.UpdateWorkers(WorkerObject);
 
         /*
@@ -41,12 +46,15 @@ export default EncabezadoPerfil = (props) => {
         });*/
 
         //ActualizarUsuario(WorkerObject);
+
     }
 
     const ActualizarUsuario = (Trabajador) => {
         Trabajador.GetWorkerInformation(Trabajador).then((res) => {
             props.setUser(res)
         });
+
+
     }
 
     const ImprimirDatos = () =>{
