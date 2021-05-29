@@ -46,8 +46,6 @@ export  class User {
    try {
         console.log("login")
       const response = await axios.post(rooturl+"user/Login",{ userObject });
-      console.log(response.status)
-      console.log(response.data)
       this.Email = response.data.Email;
       this.UserType = response.data.UserType;
       this.Response = "1";
@@ -60,8 +58,28 @@ export  class User {
       this.Response = error.response.status;
       return this;}
     }
-
+  }
     
+    async GetUserInformation(Email: String) {// fill workerObject with all information of the worker
+      var num = 0;
+      let UserObject : User; 
+      try {
+        console.log("email   "+Email)
+        const response = await axios.post(rooturl+"user/GetInfo",{ Email });//the object to send must be *WorkerObject*  
+        UserObject=response.data;
+        console.log("respuesta   "+UserObject)
+     //   console.log("aqui...")
+     //   console.log(JSON.stringify(UserObject));
+    
+        return UserObject;
+      } catch (error) {
+        console.log("error del tipo" + error);
+        console.log("error del tipo" + error.response.status);
+        this.Response = error.response.status;
+        return this;
+      }
+    }
+
   
 /*
    await axios.post("http://192.168.1.72:3001/api/user/Login", {userObject})
@@ -88,7 +106,7 @@ axios.post("http://192.168.1.72:3001/api/user/Login",{ userObject })
     })
     .catch();
 */
-}
+
 
   AddPhone(PhoneDescription: String = "", Phone: String = ""): void {
     this.Phones?.push(new PhoneNumber(PhoneDescription, Phone));

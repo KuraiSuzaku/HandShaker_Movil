@@ -32,6 +32,7 @@ export class Category {
       
         let ArrCategory : Category[];
         try {
+          let ArrCategories: Category[];
           const response = await axios.post(rooturl+"Category/Get",{});//the object to send must be *PostObject*
           ArrCategory=response.data
           console.log(response)

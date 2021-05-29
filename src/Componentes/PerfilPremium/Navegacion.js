@@ -11,7 +11,7 @@ const Pestañas = createMaterialTopTabNavigator();
 export default Navegacion = (props) => {
     return(
         <Pestañas.Navigator
-            initialRouteName='Publicaciones'
+            initialRouteName='AcercaDe'
             lazy={true}
             tabBarOptions={{
                 style: Estilos.BarraPestañas,
@@ -22,6 +22,11 @@ export default Navegacion = (props) => {
                 indicatorStyle: { backgroundColor: Colores.simbolos }
             }}
             >
+            <Pestañas.Screen name='AcercaDe'>
+                {() => <Componentes.PerfilTrabajador.AcercaDe
+                        {...props}
+                        />}
+            </Pestañas.Screen>
             <Pestañas.Screen name='Publicaciones'>
                 {() => <Componentes.PerfilPremium.ListaPublicacion
                         {...props}

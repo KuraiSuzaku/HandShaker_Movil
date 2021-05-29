@@ -11,7 +11,6 @@ export default ListaMultimedia = (props) => {
     const [firstLoad, setFirstLoad] = useState(true);
 
     const getMultimedia = (user) => {
-        console.log('GET MULTIMEDIA');
         MultimediaObject = new Multimedia(user);
         MultimediaObject.GetMultimedia(user)
             .then( (res) => {
@@ -27,12 +26,16 @@ export default ListaMultimedia = (props) => {
 
     return(
         <View>
-            {props.owner ? <Componentes.PerfilPremium.NewMultimedia uploaded={uploaded} setUploaded={ val => setUploaded(val) } {...props} /> : <></>}
+            {props.owner ? <Componentes.PerfilPremium.NewMultimedia
+                uploaded={ uploaded }
+                setUploaded={ val => setUploaded(val) }
+                { ...props }
+            /> : <></>}
             {
                 mediaList ?
-                mediaList.map((m, i) => (
+                mediaList.slice(0).reverse().map((m, i) => (
                     <Componentes.PerfilPremium.Multimedia
-                        {...m.MultimediaImage}
+                        {...m}
                         />
                 )) :
                 null

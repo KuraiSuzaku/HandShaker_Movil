@@ -6,20 +6,20 @@ import EditarContacto from './EditarContacto';
 
 export default Contacto = ({contacto}) => {
     
-    const [propietario, setPropietario] = useState('si');
-    const [editando, setEditando] = useState('no');
+    const [propietario, setPropietario] = useState(true);
+    const [editando, setEditando] = useState(false);
     const [editcorreo, setCorreo] = useState();
     const [edittelefono, setTelefono] = useState();
     const [editcelular, setCelular] = useState();
     const [editdomicilio, setDomicilio] = useState();
 
     const CambiarDatos = () =>{
-        setEditando('si');
+        setEditando(true);
         console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
     const GuardarCambios = () => {
-        setEditando('no'); 
+        setEditando(false); 
         console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
         console.log("correo: " + editcorreo);
         console.log("telefono: " + edittelefono);
@@ -36,7 +36,7 @@ export default Contacto = ({contacto}) => {
                 </Text>
                 </View>
                 <View style={{flex:1, paddingTop: 10}}>
-                    {propietario === 'si' && editando === 'no' &&
+                    {propietario && (!editando) &&
                     <Button
                         title='Editar'
                         buttonStyle={Estilos.Boton}
@@ -44,7 +44,7 @@ export default Contacto = ({contacto}) => {
                         onPress={CambiarDatos}
                     />
                     }
-                    {propietario === 'si' && editando === 'si' &&
+                    {propietario && editando &&
                     <Button
                         title='Guardar'
                         buttonStyle={Estilos.Boton}
@@ -54,7 +54,7 @@ export default Contacto = ({contacto}) => {
                     }
                 </View>
             </View>
-            {propietario === 'si' && editando === 'si' &&
+            {propietario && editando &&
                 <EditarContacto 
                     setCorreo = {setCorreo}
                     setTelefono = {setTelefono}
@@ -66,7 +66,7 @@ export default Contacto = ({contacto}) => {
                     auxDomicilio = {contacto.domicilio}
                 />
             }
-            {propietario === 'no' || editando === 'no' &&
+            {(!propietario) || (!editando) &&
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text style={Estilos.Dato}>
                     Correo: <Text>{contacto.correo}</Text>

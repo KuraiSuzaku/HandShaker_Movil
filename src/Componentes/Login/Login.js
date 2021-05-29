@@ -5,7 +5,9 @@ import {User} from "./../../Classes/User"
 import {Worker} from "./../../Classes/Worker"
 import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator } from 'react-native'
+import * as Components from '../Indice';
 
 export default class Login extends Component {
     constructor(props) {
@@ -14,9 +16,48 @@ export default class Login extends Component {
         this.handlePassword = this.handlePassword.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.state = {
+            load: false,
             email: '',
             password: '',
         };
+    }
+
+    componentDidMount() {
+        const getUser = async () => {
+            try {
+                const jsonValue = await AsyncStorage.getItem('@user_Key');
+                if(jsonValue !== null) {
+                    const storedUser = JSON.parse(jsonValue);
+                    this.setState({
+                        user: {...storedUser}
+                    });
+                    this.props.navigation.navigate('Home');
+                } else {
+                    this.setState({
+                        load: true
+                    });
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        };
+        getUser();
+    }
+
+    componentWillUnmount() {
+        const storeUser = async (value) => {
+            try {
+                await AsyncStorage.removeItem('@user_key');
+                const jsonValue = JSON.stringify(value);
+                await AsyncStorage.setItem('@user_Key', jsonValue);
+                this.props.setUser(value);
+                this.props.setLogged(true);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        if(this.state.user)
+            storeUser(this.state.user);
     }
 
     handleEmail (text){
@@ -27,7 +68,6 @@ export default class Login extends Component {
      }
 
     handleLogin( event ){
-        console.log("Estoy en handlelogin wuuu");
         //Login code with front end
         let Email=this.state.email;
         let Password=this.state.password;      
@@ -45,9 +85,11 @@ export default class Login extends Component {
             //on here WorkerObject has all the information of the user.
             //here you can send it to its corresponding component
             WorkerObject=res;
-            this.props.setUser(WorkerObject);
+            this.setState({
+                user: {...WorkerObject}
+            });
             ToastAndroid.show(("Worker User"), ToastAndroid.SHORT);
-            this.props.navigation.navigate('Perfil')
+            this.props.navigation.navigate('ListaChats')
           });
         }
         if(userObject.UserType.includes("PremiumWorker")){
@@ -57,11 +99,11 @@ export default class Login extends Component {
             //on here PremiumWorkerObject has all the information of the user.
             //here you can send it to its corresponding component
             PremiumWorkerObject=res;
-            console.log("**IMPRESION EN LOGIN (PW)**");
-            console.log(PremiumWorkerObject);
-            this.props.setUser(PremiumWorkerObject);
+            this.setState({
+                user: {...PremiumWorkerObject}
+            });
             ToastAndroid.show(("Premium Worker User"), ToastAndroid.SHORT);
-            this.props.navigation.navigate('Perfil')
+            this.props.navigation.navigate('Home')
           });
         }
         if(userObject.UserType.includes("Client")){
@@ -70,10 +112,12 @@ export default class Login extends Component {
           ClientObject.GetClientInformation(ClientObject).then((res) => {
             //on here ClientObject has all the information of the user.
             //here you can send it to its corresponding component
-            ClientObject=res;        
-            this.props.setUser(ClientObject);
+            ClientObject=res;
+            this.setState({
+                user: {...ClientObject}
+            });
             ToastAndroid.show(("Client User"), ToastAndroid.SHORT);
-            this.props.navigation.navigate('Perfil')
+            this.props.navigation.navigate('Home')
           });
         }
         
@@ -132,42 +176,48 @@ handleGetPremiumWorkers( event ){
 
     render() {
         return (
-            <View style={ styles.container }>
-                <Image 
-                    style={ styles.img }
-                    source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                />
+            <>
+            {
+                this.state.load ?
+                <View style={ styles.container }>
+                    <Image 
+                        style={ styles.img }
+                        source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    />
 
-                <ScrollView>
-                    <View>
-                        <FormInput 
-                            label="Correo electrónico" 
-                            value={ this.state.email }
-                            onChangeText={ this.handleEmail } 
-                        />
-                        <FormInput 
-                            label="Contraseña" 
-                            password={ true }
-                            value={ this.state.password }
-                            onChangeText={ this.handlePassword } 
-                        />
-                    </View>
+                    <ScrollView>
+                        <View>
+                            <FormInput 
+                                label="Correo electrónico" 
+                                value={ this.state.email }
+                                onChangeText={ this.handleEmail } 
+                            />
+                            <FormInput 
+                                label="Contraseña" 
+                                password={ true }
+                                value={ this.state.password }
+                                onChangeText={ this.handlePassword } 
+                            />
+                        </View>
 
-                    <Text style={ styles.txt }>
-                        ¿Olvidaste tu contraseña?
-                    </Text>
+                        <Text style={ styles.txt }>
+                            ¿Olvidaste tu contraseña?
+                        </Text>
 
-                    <View style={ styles.btnsView }>
-                        <FormButton txt="Registrarse"
-                            handleLogin={ () => this.props.navigation.navigate('Registro') }
-                        />
-                        <FormButton 
-                            txt="Iniciar sesión" 
-                            handleLogin={ this.handleLogin }
-                        />
-                    </View>
-                </ScrollView>
-            </View>
+                        <View style={ styles.btnsView }>
+                            <FormButton txt="Registrarse"
+                                handleLogin={ () => this.props.navigation.navigate('Registro') }
+                            />
+                            <FormButton 
+                                txt="Iniciar sesión" 
+                                handleLogin={ this.handleLogin }
+                            />
+                        </View>
+                    </ScrollView>
+                </View> :
+                <Components.Loading />
+            }
+            </>
         )
     }
 }

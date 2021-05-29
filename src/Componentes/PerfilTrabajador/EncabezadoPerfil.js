@@ -9,40 +9,52 @@ import Clases from '../../Classes/Indice';
 
 export default EncabezadoPerfil = (props) => {
     
-    const [propietario, setPropietario] = useState('si');
-    const [editando, setEditando] = useState('no');
+
+    const [propietario, setPropietario] = useState(props.owner);
+    const [editando, setEditando] = useState(false);
+
     const [editcategoria, setCategoria] = useState(props.user.Category);
     const [editprofesion, setProfesion] = useState(props.user.Profession);
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
     
+    console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
-        setEditando('si');
+        setEditando(true);
         console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
-    const GuardarCambios = () => {
-        setEditando('no'); 
-        console.log("Impresion 1------------");
-        ImprimirDatos();
+
+    async function GuardarCambios () {
+        setEditando(false); 
+        //ImprimirDatos();
+
         let WorkerObject = new Worker(props.user.Email);
         WorkerObject.Category = editcategoria;
         WorkerObject.Profession = editprofesion;
         WorkerObject.JobDescription = editdescripcion;
-        WorkerObject.UpdateWorkers(WorkerObject);
 
-        // Trabajador.GetWorkerInformation(Trabajador).then((res) => {
-        //     props.setUser(res);
-        // });
+        const x =  await WorkerObject.UpdateWorkers(WorkerObject);
 
-        ActualizarUsuario(WorkerObject);
+        /*
+        WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
+            WorkerObject=res; 
+            props.setUser(WorkerObject);
+            setCategoria(props.user.Category);
+            setProfesion(props.user.Profession);
+            setDescripcion(props.user.JobDescription);
+            console.log("Props.user después de la actualización de WorkerObject: ", props.user);
+        });*/
+
+        //ActualizarUsuario(WorkerObject);
+
     }
 
     const ActualizarUsuario = (Trabajador) => {
         Trabajador.GetWorkerInformation(Trabajador).then((res) => {
             props.setUser(res)
         });
-        console.log("Impresion 2 de props------------");
-        console.log(props.user);
+
+
     }
 
     const ImprimirDatos = () =>{
@@ -66,7 +78,7 @@ export default EncabezadoPerfil = (props) => {
             <View style={Estilos.Fila}>
                 <Rating 
                     imageSize={20} 
-                    readonly 
+                    readonly
                     startingValue={props.valoracion} 
                     ratingColor={Colores.simbolos}
                     ratingBackgroundColor={Colores.fondoOscuro}
@@ -77,20 +89,24 @@ export default EncabezadoPerfil = (props) => {
                 <Avatar
                     rounded
                     icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={props.avatar}
+                    source={
+                        props.user.ProfilePicture ?
+                        { uri: props.user.ProfilePicture.Path } :
+                        require('../../../public/Profile/user.png')
+                    }
                     size={100}
                     containerStyle={Estilos.ContenedorAvatar}
                     />
-                {propietario === 'no' &&
+                {(!propietario) &&
                 <Button
                     title='Contratar'
                     containerStyle={Estilos.ContenedorComponente}
                     buttonStyle={Estilos.BotonContratar}
                     titleStyle={Estilos.EtiquetaBoton}
-                    onPress={() => navigation.navigate('Contratar')}
+                    onPress={() => navigation.navigate('Contratar',{user: props.user})}
                     />
                 }
-                {propietario === 'si' && editando === 'no' &&
+                {propietario && (!editando) &&
                 <Button
                     title='Editar'
                     containerStyle={Estilos.ContenedorComponente}
@@ -99,7 +115,7 @@ export default EncabezadoPerfil = (props) => {
                     onPress={CambiarDatos}
                 />
                 }
-                {propietario === 'si' && editando === 'si' &&
+                {propietario && editando &&
                     <Button
                         title='Guardar'
                         containerStyle={Estilos.ContenedorComponente}
@@ -109,10 +125,10 @@ export default EncabezadoPerfil = (props) => {
                     />
                 }
             </View>
-            {editando === 'no' &&
+            {(!editando) &&
                 <View style={Estilos.Datos}>
                     <Text style={Estilos.Informacion}>
-                        {props.user.Name}
+                        {props.user.Name} {props.user.LastName}
                     </Text>
                     <Text style={Estilos.Informacion}>
                         {props.user.Profession}
@@ -122,7 +138,7 @@ export default EncabezadoPerfil = (props) => {
                     </Text>
                 </View>
             }
-            {propietario === 'si' && editando === 'si' &&
+            {propietario && editando &&
             <View style = {{padding: 40}}>
                 <EditarPerfil
                     setCategoria = {setCategoria}

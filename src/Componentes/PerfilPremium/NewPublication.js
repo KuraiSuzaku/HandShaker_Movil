@@ -18,8 +18,8 @@ import { Image } from './../../Classes/Image';
 import { Posts } from './../../Classes/Posts';
 
 export default class NewPublication extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             publication: null,
             image: {
@@ -47,95 +47,57 @@ export default class NewPublication extends Component {
             maxHeight: 500,
             includeBase64: true
         };
-        ImagePicker.showImagePicker(options, (response) => {
-            //console.log('Response = ', response);
-      
+        ImagePicker.showImagePicker(options, (response) => {      
             if(response.didCancel){
               console.log('User cancelled image picker');
             }
             else{
-             this.setState({
-                image: {
-                    uri: response.uri,
-                    name: response.fileName
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then(base64String => {
+                            const base64 = 'data:image/jpg;base64,' + base64String;
+                            this.setState({
+                                image: {
+                                    uri: response.uri,
+                                    name: response.fileName,
+                                    base64: base64
+                                }
+                             });
+                        })
+                        .catch(err => console.error(err));
+                } catch (e) {
+                    console.log(e);
                 }
-             });
             }
           });        
-    }
-
-    async uploadImage() {
-        const { uri, name } = this.state.image;
-
-        try {
-            //const reference = firebase.storage().ref('test/testImage.jpg');
-            //const task = reference.putFile(uri);
-            ImgToBase64.getBase64String(uri)
-                .then(base64String => {
-                    const base64 = 'data:image/jpg;base64,' + base64String
-                    this.setState({ image: { base64: base64 } });
-                    console.log(this.state.image);
-                })
-                .catch(err => console.error(err));
-        } catch (e) {
-            console.log(e);
-        }
-
-        /*
-        try{
-            const { uri, fileName } = this.state.image;
-            const response = await fetch(uri);
-            const blob = await response.blob();
-            console.log('Name: ' , this.state.image);
-            console.log('Blob: ' , blob);
-            console.log('========== ready to upload ===========')
-            console.log('FIREBASE ::::::::::::');
-            console.log(firebase.storage());
-            await firebase.app().storage().ref('testImage.jpg').putFile(blob);
-            //var ref = firebase.storage().ref().child('image.jpg');
-            //await ref.put(blob);
-        } catch (e) {
-            console.log(e);
-        }*/
-
-        //await task;
-
-        Alert.alert(
-            'Se ha creado la publicación'
-          );
     }
 
     publicar() {
         if(this.state.publication) {
              /*Add a new Post*/
-             if(typeof this.state.fileURL !== 'undefined'){
-             publication=this.state.publication
+             const { publication, image } = this.state;
              var date = new Date(); 
              console.log('Publicate ' + publication);
-             img=new Image("NamePicture","ruta/r");
+             if(image.uri != null)
+                img=new Image(image.name, image.base64);
+            else
+                img=new Image("", "");
              PostObbject=new Post(date,publication,img);
-             PostsObject=new Posts("605fac174791ea436cc76741",PostObbject);
+             PostsObject=new Posts(this.props.user.Email, PostObbject);
              PostsObject.AddPost(PostsObject).then(res=>{            
                 if  (res.status==200){
                    Alert.alert('Se Agrego correctamente');
+                   this.setState({
+                       publication: null,
+                       image: {
+                           uri: null,
+                           name: null,
+                           base64: null
+                       }
+                   });
+                   this.props.setUploaded(true);
                  }
-            })              
-            }
-            else{
-                publication=this.state.publication
-                var date = new Date(); 
-                console.log('Publicate ' + publication);
-                img=new Image("","");
-                PostObbject=new Post(date,publication,img);
-                PostsObject=new Posts("605fac174791ea436cc76741",PostObbject);
-                PostsObject.AddPost(PostsObject).then(res=>{                     
-                    if  (res.status==200){
-                       Alert.alert('Se Agrego correctamente');
-                     }
-                })  
-    
-    
-            }
+            });
         } else {
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');
         }
@@ -148,6 +110,7 @@ export default class NewPublication extends Component {
                 <TextInput
                     placeholder='¿Desea publicar algo nuevo?'
                     style={Estilos.Input}
+                    value={ this.state.publication }
                     onChangeText={ pubContent => this.setPublication(pubContent) }
                 />
                 </View>
@@ -160,11 +123,7 @@ export default class NewPublication extends Component {
                         </View>
                     </TouchableOpacity>
                     <Text style={{fontSize: 11, maxWidth: 200}}>
-                        {
-                            this.state.image.name ?
-                            this.state.image.name :
-                            null
-                        }
+                        { this.state.image.name }
                     </Text>
                     <TouchableOpacity onPress={ () => this.publicar() }>
                         <View style={[Estilos.Boton, { backgroundColor: Colores.simbolos }]}>

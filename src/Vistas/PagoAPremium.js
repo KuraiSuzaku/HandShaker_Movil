@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
+
 import {StyleSheet, View, Text, ScrollView,ToastAndroid} from 'react-native';
+
 import {Input, Button, Image} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -48,8 +50,13 @@ export default PagoAPremium = (props) => {
         if(ValidarCampos()){
             let WorkerObject = new Worker(props.user.Email);
             WorkerObject.isPremium = true;
+
     
             console.log("Email : ", props.user.Email);
+
+            WorkerObject.UpdateWorkers(WorkerObject);
+            
+
             console.log("IDUser: ", props.user.IdUser);
             console.log("_id: ", props.user._id);
             console.log("Nombre del usuario: ", props.user.Name);
