@@ -36,25 +36,6 @@ export default props => {
             }}
             >
 
-            <Drawer.Screen 
-                name='Perfil' 
-
-                options={{
-                    drawerIcon: ({ focused, size }) => 
-                                        <Icon
-                                            name='user'
-                                            type='font-awesome'
-                                            size={25}
-                                            color={focused ? Colores.simbolos : Colores.blanco}
-                                        />
-                }}
-                >
-                { ()=><Validar_perfil 
-                        setUser={props.setUser}
-                        user={props.user}
-                    /> }
-            </Drawer.Screen>
-
             <Drawer.Screen
                 name='Contrataciones'
                 options={{ title: 'Ver Contrataciones',
