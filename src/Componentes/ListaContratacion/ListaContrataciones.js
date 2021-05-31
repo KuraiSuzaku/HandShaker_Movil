@@ -6,8 +6,6 @@ import Colors from '../../Estilos/Colores';
 import { WorkersHiring } from '../../Classes/WorkersHiring';
 const TabNav = createMaterialTopTabNavigator();
 
-const data = [];
-
 const StatusTypes = ['Proceso', 'Finalizada'];
 
 export default class ListaContrataciones extends React.Component {
@@ -26,32 +24,25 @@ export default class ListaContrataciones extends React.Component {
                /** Cargar trabajos
              *      Usuario: this.props.user.Email
              */
-                console.log("pre workershiring")
                 let AllJobs= new WorkersHiring()
                AllJobs.GetHiring(this.props.user.Email).then(  data=> { 
                    
-                console.log("--",data);
                 if(data=="0"){
                     console.log("no tienes trabajo")
                     
                     this.setState({
                         firstLoad: false,
-                        startCount: 0,
                         processCount: 0,
                         endedCount: 0,
-                        data: null // <<<<< Cambiar segundo data por la respuesta de la bd
+                        data: null
                     });
     
                 }  else{
     
-                console.log("responde"+ data.Email)
+                let { processCount, endedCount } = this.state;
     
-                let { startCount, processCount, endedCount } = this.state;
-    
-                data.map((d, i) => { // <<<<<< Cambiar data por la respuesta de la bd
+                data.map((d, i) => {
                     if(d.Status == StatusTypes[0])
-                        startCount++;
-                    else if(d.Status == StatusTypes[1])
                         processCount++;
                     else
                         endedCount++;
@@ -59,10 +50,9 @@ export default class ListaContrataciones extends React.Component {
                 
                 this.setState({
                     firstLoad: false,
-                    startCount: startCount,
                     processCount: processCount,
                     endedCount: endedCount,
-                    data: data // <<<<< Cambiar segundo data por la respuesta de la bd
+                    data: data 
                 });
                 }
     

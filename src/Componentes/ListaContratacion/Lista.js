@@ -64,8 +64,8 @@ export default class Lista extends React.Component {
                     }}>{item.Subject}</Text>
                     <Text>{
                         this.props.jobs ?
-                        item.userClient.Name :
-                        item.userWorker.Name
+                        'item.userClient[0].Name' :
+                        'item.userWorker[0].Name'
                     }</Text>
                     <Text style={{
                         fontSize: 11,
@@ -86,7 +86,11 @@ export default class Lista extends React.Component {
             {
                 this.props.data ?
                 <FlatList
-                    data={this.props.data}
+                    data={ 
+                        this.props.type.includes('Finalizada') ?
+                        this.props.data.reverse() :
+                        this.props.data
+                    }
                     renderItem={this.renderItem}
                 /> :
                 null

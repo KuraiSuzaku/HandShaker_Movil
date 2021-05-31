@@ -8,8 +8,6 @@ import { WorkersHiring } from '../../Classes/WorkersHiring';
 
 const TabNav = createMaterialTopTabNavigator();
 
-const data = [];
-
 const StatusTypes = ['Inicio', 'Proceso', 'Finalizada'];
 
 export default class ListaTrabajos extends React.Component {
@@ -29,7 +27,6 @@ export default class ListaTrabajos extends React.Component {
             /** Cargar trabajos
              *      Usuario: this.props.user.Email
              */
-            console.log("pre workershiring")
             let AllJobs= new WorkersHiring()
            AllJobs.GetJobs(this.props.user.Email).then(  data=> { 
                
@@ -42,7 +39,7 @@ export default class ListaTrabajos extends React.Component {
                     startCount: 0,
                     processCount: 0,
                     endedCount: 0,
-                    data: null // <<<<< Cambiar segundo data por la respuesta de la bd
+                    data: null 
                 });
 
             }  else{
@@ -51,7 +48,7 @@ export default class ListaTrabajos extends React.Component {
 
             let { startCount, processCount, endedCount } = this.state;
 
-            data.map((d, i) => { // <<<<<< Cambiar data por la respuesta de la bd
+            data.map((d, i) => {
                 if(d.Status == StatusTypes[0])
                     startCount++;
                 else if(d.Status == StatusTypes[1])
@@ -65,7 +62,7 @@ export default class ListaTrabajos extends React.Component {
                 startCount: startCount,
                 processCount: processCount,
                 endedCount: endedCount,
-                data: data // <<<<< Cambiar segundo data por la respuesta de la bd
+                data: data
             });
             }
 
