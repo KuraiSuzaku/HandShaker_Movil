@@ -91,19 +91,23 @@ export default PagoAPremium = (props) => {
     };
 
      async function Getchat(email){
+         console.log("aqui 1")
        // console.log("AQUIIIEmail actual ", email );
         let ArrChats= new Array();
 
         let allChat= new AllChats()//Login
         const ret = await  allChat.GetChats(email)
-     
-     
+       // console.log("status "+ret)
+       
+      //  console.log("status "+ret.status)
+     //console.log("status "+ret.response.status)
+       
       let ArrNames=new Array();
 
          let count=0;
-        // console.log("contador "+ret.ListOfChats.length);
-
-     const x =  await ret.ListOfChats.forEach( async (element) => {
+        console.log("tamanio "+ret.length) 
+        if(ret.length>0){
+      const x =  await ret.ListOfChats.forEach( async (element) => {
        // console.log(JSON.stringify(element));
       //    console.log(element.EmailChatWith);
           
@@ -130,7 +134,9 @@ export default PagoAPremium = (props) => {
         
          count++;
       });
-
+    
+    }
+      console.log("FIIIN aqui 1")
      
     };
 

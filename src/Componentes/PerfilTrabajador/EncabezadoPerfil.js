@@ -62,7 +62,16 @@ export default EncabezadoPerfil = (props) => {
     return(
         <View>
             <Image
-                source={props.imagenFondo}
+                source={ 
+                     props.user.HeaderPicture ?
+                    { uri: props.user.HeaderPicture.Path } :
+                    require('../../../public/Profile/user.png')
+                }
+             /*  source={
+                props.user.ProfilePicture ?
+                { uri: props.user.HeaderPicture.Path } :
+                require('../../../public/Profile/user.png')
+            }*/
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'
                 PlaceholderContent={<ActivityIndicator />}

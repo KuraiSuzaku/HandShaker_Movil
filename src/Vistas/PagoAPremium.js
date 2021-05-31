@@ -3,6 +3,8 @@ import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import {Input, Button, Image} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {Worker} from './../Classes/Worker'
+
 import MonthPicker from 'react-native-month-year-picker';
 import moment from "moment"; 
 /////////

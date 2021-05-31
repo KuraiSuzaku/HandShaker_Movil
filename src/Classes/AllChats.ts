@@ -31,7 +31,7 @@ export class AllChats {
         let ArrChat : AllChats[];
         try {
           const response = await axios.post(rooturl+"Chat/Get",{Email});//the object to send must be *PostObject*
-          
+          console.log("respuesta"+response)
           ArrChat= response.data
          // console.log("res"+ArrChat);
           return ArrChat;

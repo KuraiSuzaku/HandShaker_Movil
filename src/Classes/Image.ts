@@ -1,9 +1,9 @@
 
-export class Image {
+export default class Image {
     
-    Name: String
-    Path:String
-     constructor(Name:String,Path:String){
+    Name?: String
+    Path?:String
+     constructor(Name?:String,Path?:String){
      this.Name=Name;
      this.Path=Path;
     }

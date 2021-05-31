@@ -64,6 +64,7 @@ export default class Home extends Component {
     }
 
     inicioProfesiones(){
+        console.log("aqui 5")
         Cat = new Category();
         Cat.GetAll().then((categorias) => {
             categorias.forEach(categoria => {
@@ -78,6 +79,7 @@ export default class Home extends Component {
     }
       
     profesiones(){
+        console.log("aqui 2")
         Cat = new Category();
         Cat.GetAll().then((categorias) => {
             categorias.forEach(categoria => {
