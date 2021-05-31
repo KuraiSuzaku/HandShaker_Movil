@@ -10,10 +10,10 @@ import {
 import { Avatar } from 'react-native-elements';
 
 export default props => {
-    const [name, setName] = useState(props.name);
-    const [lastName, setLastName] = useState(props.lastName);
+    const [name, setName] = useState(props.user.Name);
+    const [lastName, setLastName] = useState(props.user.LastName);
     const [phone, setPhone] = useState(props.phone);
-    const [mail, setMail] = useState(props.mail);
+    const [mail, setMail] = useState(props.user.Email);
 
     const saveProfile = () => {
         alert("Perfil guardado");
@@ -24,11 +24,15 @@ export default props => {
         <View style={Styles.Content}>
             <ScrollView>
                 <View style={{flexDirection: 'row'}}>
-                    <Avatar
-                        rounded
-                        source={require('../../../public/Profile/user.png')}
-                        size='large'
-                    />
+                    <TouchableOpacity onPress={ () => changeAvatar() } >
+                        <Avatar
+                            rounded
+                            source={{ uri: props.user.ProfilePicture.Path }}
+                            size='large'
+                        >
+                            <Avatar.Accessory size={30} />
+                        </Avatar>
+                    </TouchableOpacity>
                     <View style={{flex:3, paddingLeft: 10, alignContent: 'center'}}>
                         <Text style={Styles.Label}>
                             Nombre(s)*
