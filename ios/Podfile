@@ -18,6 +18,16 @@ target 'App_Movil' do
 
   pod 'RNCMaskedView', :path => '../node_modules/@react-native-masked-view/masked-view'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBStorage', :path => '../node_modules/@react-native-firebase/storage'
+
+  pod 'react-native-image-base64', :path => '../node_modules/react-native-image-base64'
+  
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+
   target 'App_MovilTests' do
     inherit! :complete
     # Pods for testing

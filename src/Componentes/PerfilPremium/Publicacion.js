@@ -13,40 +13,18 @@ import {
 //////
 import Colores from '../../Estilos/Colores';
 //////
-export default Publicacion = ({ nombre,
-                                valoracion,
-                                fecha,
-                                avatar,
-                                contenido,
-                                imagen}) => {
-    // METODOS
-    const VerificarImagen = () => {
-        if(imagen)
-            return( <>
-                    <Card.Divider style={{ marginTop: 5 }}/>
-                    <Card.Image
-                        source={imagen}
-                        resizeMode='contain'
-                        style={{borderRadius: 15}}
-                        PlaceholderContent={<ActivityIndicator />}
-                        />
-                    </>);
-        else
-            return null;
-    }
-    //////
+export default Publicacion = (props, { avatar, valoracion }) => {
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <View style={Estilos.Encabezado}>
                 <Avatar
                     rounded
-                    icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={avatar}
+                    source={{ uri: props.user.ProfilePicture.Path }}
                     size='medium'
                     />
                 <View style={Estilos.ContenedorDatos}>
-                    <Text style={Estilos.Datos}>{nombre}</Text>
-                    <Rating 
+                    <Text style={Estilos.Datos}>{props.user.Name} {props.user.LastName}</Text>
+                    <Rating
                         imageSize={15} 
                         readonly 
                         startingValue={valoracion} 
@@ -55,11 +33,23 @@ export default Publicacion = ({ nombre,
                         tintColor={Colores.blanco}
                         type='custom'
                         />
-                    <Text style={Estilos.Datos}>{fecha}</Text>
+                    <Text style={Estilos.Datos}>{props.DateOfPost.substring(0,10)}</Text>
                 </View>
             </View>
-            <Text style={Estilos.Contenido}>{contenido}</Text>
-            {VerificarImagen()}
+            <Text style={Estilos.Contenido}>{props.TextOfPost}</Text>
+            {
+                props.PicturesOfPost[0].Path ?
+                <>
+                <Card.Divider style={{ marginTop: 5 }}/>
+                <Card.Image
+                    source={{ uri: props.PicturesOfPost[0].Path }}
+                    resizeMode='contain'
+                    style={{borderRadius: 15}}
+                    PlaceholderContent={<ActivityIndicator />}
+                />
+                </> :
+                null
+            }
         </Card>
     );
 }
