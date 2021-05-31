@@ -6,6 +6,7 @@ import socketClient  from "socket.io-client";
 import {rooturl} from './src/Classes/ip'
 
 export default App = () => {
+  console.disableYellowBox = true;
   console.log("conexion se supone")
   var socket = socketClient (rooturl);
   socket.on('connection', () => {
