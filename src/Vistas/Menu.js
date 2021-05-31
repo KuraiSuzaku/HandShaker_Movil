@@ -35,6 +35,26 @@ export default props => {
                 backgroundColor: Colores.fondoOscuro
             }}
             >
+
+            <Drawer.Screen 
+                name='Perfil' 
+
+                options={{
+                    drawerIcon: ({ focused, size }) => 
+                                        <Icon
+                                            name='user'
+                                            type='font-awesome'
+                                            size={25}
+                                            color={focused ? Colores.simbolos : Colores.blanco}
+                                        />
+                }}
+                >
+                { ()=><Validar_perfil 
+                        setUser={props.setUser}
+                        user={props.user}
+                    /> }
+            </Drawer.Screen>
+
             <Drawer.Screen
                 name='Contrataciones'
                 options={{ title: 'Ver Contrataciones',
@@ -46,14 +66,15 @@ export default props => {
                                     size={25}
                                     color={focused ? Colores.simbolos : Colores.blanco}
                                 />}}
-                >
-                    {
-                        ({ navigation }) => <Vistas.ListaContratacion
+
+             >   
+              { ({ navigation }) => <Vistas.ListaContratacion
                                 {...props}
                                 navigation={ navigation }
                             />
                     }
                 </Drawer.Screen>
+
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
@@ -135,10 +156,15 @@ export default props => {
                 />
             <Drawer.Screen
                 name='Contratar'
-                component={Vistas.Contratacion}
                 options={{ swipeEnabled: false,
                     unmountOnBlur: true }}
-            />
+            >
+
+                { ({route})=><Vistas.Contratacion {...props}  route={route}/> 
+                
+                
+                }
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Home'
                 component={Componentes.Home}
@@ -239,7 +265,12 @@ const Validar_perfil = (props) => {
     else if(props.user.UserType == "Worker"){
         return (
             <Vistas.PerfilTrabajador
+
+                setUser={props.setUser} //AGREGAR ESTA LINEA A LOS DEMÁS
+                user={props.user}
+
                 {...props}
+
             />
         );
     }

@@ -18,7 +18,6 @@ export default EditarAcercaDe = (props) => {
                 inputContainerStyle={{borderBottomWidth:0}}
                 maxLength={200}
             />
-            <Text>Aquí debo subir imag</Text>
         </Card>
     );
 }

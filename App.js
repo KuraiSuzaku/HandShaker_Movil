@@ -3,12 +3,11 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Vistas from './src/Vistas/Indice';
 import socketClient  from "socket.io-client";
-const SERVER = "http://192.168.1.72:3001";
-
+import {rooturl} from './src/Classes/ip'
 
 export default App = () => {
   console.log("conexion se supone")
-  var socket = socketClient (SERVER);
+  var socket = socketClient (rooturl);
   socket.on('connection', () => {
   /*  if (this.state.channel) {
       this.handleChannelSelect(this.state.channel.id);

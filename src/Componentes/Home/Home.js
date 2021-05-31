@@ -32,7 +32,6 @@ export default class Home extends Component {
 
     handleCategorySelected (text){
         this.setState({ categorySelected: text })
-        console.log(text)
         this.profesiones()
     }
 

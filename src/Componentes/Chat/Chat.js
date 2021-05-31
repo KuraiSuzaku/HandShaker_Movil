@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
-const SERVER = "http://192.168.1.72:3001";
+import {SERVER} from './../../Classes/ip'
 import socketClient  from "socket.io-client";
 import { AllChats } from '../../Classes/AllChats';
 import { Chat } from '../../Classes/Chat';
 import { Message } from '../../Classes/Message';
-
+//const SERVER = "http://192.168.1.72:3001";
 //const [auxRender, setAuxrender] = useState(false);
 //const [chatSingle, setChats] = useState({});
 /*import { Thread } from 'react-native-threads';
@@ -25,6 +25,7 @@ const messages = [];
 export default class ChatC extends React.Component {
     
     constructor(props) {
+        console.log("IP SERVER"+SERVER)
        var  socket = socketClient (SERVER);
         super(props);
         this.state = {
@@ -35,7 +36,7 @@ export default class ChatC extends React.Component {
         this.renderMessage = this.renderMessage.bind(this);
     
         socket.on("ChatChange", data => {
-            console.log("aqui Chat cambio desde Clase********"+data);
+            console.log("aqui Chat cambio desde Clase*******************************"+data);
             this.UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
             
           });
