@@ -1,16 +1,16 @@
 import React, {useState, Component} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Avatar, Button, Icon, Image, Rating, Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import Colores from '../../Estilos/Colores';
 import EditarPerfil from './EditarPerfil';
 import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
-import { TouchableOpacity } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
 
 export default EncabezadoPerfil = (props) => {
     
-
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
 
@@ -67,6 +67,36 @@ export default EncabezadoPerfil = (props) => {
     }
 
     const navigation = useNavigation();
+
+    const changeAvatar = () => {
+        const options = {
+            mediaType: 'photo',
+            quality: 1,
+            maxWidth: 500,
+            maxHeight: 500
+        };
+        ImagePicker.showImagePicker(options, (response) => {      
+            if(!response.didCancel){
+                let base64 = null;
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then( base64String => {
+                            base64 = 'data:image/jpg;base64,' + base64String;
+
+                        /**
+                         * Sube la nueva imagen a bd
+                         *  usuario: props.user.Email
+                         *  nombre: response.name
+                         *  path: base64
+                         */
+                            
+                        }).catch( err => console.error(err) );
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+    }
     
     return(
         <View>
