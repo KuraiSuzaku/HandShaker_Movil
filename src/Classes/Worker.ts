@@ -2,6 +2,7 @@ import {AddressClass } from './AddressClass'
 import User  from './User'
 import {rooturl} from './ip'
 import axios from 'axios'
+import PremiumWorker from './PremiumWorker'
 
 export  class Worker extends User {
     _id?:string
@@ -51,12 +52,12 @@ export  class Worker extends User {
       }
     }
 
-    async ChangeToPremium(WorkerObject: Worker) {// Needs Password, Needs Email, needs SuscriptionDate,
+    async ChangeToPremium(PremiumWorkerObject: PremiumWorker) {// Needs Password, Needs Email, needs SuscriptionDate,
       var num = 0;
   
       try {
 
-        const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ WorkerObject });//the object to send must be *WorkerObject*  
+        const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ PremiumWorkerObject });//the object to send must be *WorkerObject*  
       
         return 1;
       } catch (error) {
