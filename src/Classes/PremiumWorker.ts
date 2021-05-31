@@ -31,12 +31,12 @@ export  class PremiumWorker extends User {
 
     async GetPremiumWorkerInformation(PremiumWorkerObject: PremiumWorker) {// fill PremiumWorkerObject with all information of the premium worker
         var num = 0;
-    
+        console.log("premium  ...")
         try {
           const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkerInformation",{ PremiumWorkerObject });//the object to send must be *PremiumWorkerObject*
           PremiumWorkerObject=response.data;
-          console.log("ID...   "+PremiumWorkerObject._id);
-          this.Response = "1";
+          console.log("****** "+PremiumWorkerObject._id);
+        
           return PremiumWorkerObject;
         } catch (error) {
           console.log("error del tipo" + error);
@@ -48,12 +48,12 @@ export  class PremiumWorker extends User {
 
       async ChangeToPremium(WorkerObject: Worker) {// Needs Password, Needs Email, needs SuscriptionDate,
         var num = 0;
-    
+         let PremiumWorkerObject:PremiumWorker
         try {
-  
+          console.log("New Premium "+ WorkerObject);
           const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ WorkerObject });//the object to send must be *WorkerObject*  
-        
-          return 1;
+          PremiumWorkerObject=response.data;
+          return PremiumWorkerObject;
         } catch (error) {
           console.log("error del tipo" + error);
           console.log("error del tipo" + error.response.status);

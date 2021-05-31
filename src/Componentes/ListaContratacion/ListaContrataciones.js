@@ -6,153 +6,6 @@ import Colors from '../../Estilos/Colores';
 import { WorkersHiring } from '../../Classes/WorkersHiring';
 const TabNav = createMaterialTopTabNavigator();
 
-const data = [
-    {
-        _id: "60aed1c866c7da22388ffc27",
-        Email: "brendasamant@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Finalizada",
-        Addresses: [
-            {
-                _id: "60aed1c866c7da22388ffc28",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    },
-    {
-        _id: "60aed1d866c7da22388ffc29",
-        Email: "brendasamant2@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Finalizada",
-        Addresses: [
-            {
-                _id: "60aed1d866c7da22388ffc2a",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    },
-    {
-        _id: "60aed31166c7da22388ffc2e",
-        Email: "WorkerPremium@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Proceso",
-        Addresses: [
-            {
-                _id: "60aed31166c7da22388ffc2f",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    },
-    {
-        _id: "60aed31166c7da22388ffc2e",
-        Email: "WorkerPremium@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Proceso",
-        Addresses: [
-            {
-                _id: "60aed31166c7da22388ffc2f",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    },
-    {
-        _id: "60aed31166c7da22388ffc2e",
-        Email: "WorkerPremium@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Proceso",
-        Addresses: [
-            {
-                _id: "60aed31166c7da22388ffc2f",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    },
-    {
-        _id: "60aed31166c7da22388ffc2e",
-        Email: "WorkerPremium@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Proceso",
-        Addresses: [
-            {
-                _id: "60aed31166c7da22388ffc2f",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    },
-    {
-        _id: "60aed31166c7da22388ffc2e",
-        Email: "WorkerPremium@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Proceso",
-        Addresses: [
-            {
-                _id: "60aed31166c7da22388ffc2f",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    },
-    {
-        _id: "60aed31166c7da22388ffc2e",
-        Email: "WorkerPremium@gmail.com",
-        Subject: "Contratacion fontaneria",
-        Date: "2021-10-04T00:00:00.000Z",
-        HiringDate: "2021-10-04T00:00:00.000Z",
-        indications: "Qkldsjklsad",
-        Status: "Proceso",
-        Addresses: [
-            {
-                _id: "60aed31166c7da22388ffc2f",
-                Address: "Calle Nueva Escocia",
-                Number: "1885",
-                Reference: "cerca del bosque Colomos",
-                LinkMaps: "https://www.google.com/maps/place/CETI+Plantel+Colomos/@20.7022442,-103.3884804,15z/data=!4m5!3m4!1s0x0:0xc4fdd3929a2ecbd1!8m2!3d20.7022442!4d-103.3884804?pli=1&source=sign_in_save_to_list"
-            }
-        ]
-    }
-]
-
 const StatusTypes = ['Proceso', 'Finalizada'];
 
 export default class ListaContrataciones extends React.Component {
@@ -171,32 +24,25 @@ export default class ListaContrataciones extends React.Component {
                /** Cargar trabajos
              *      Usuario: this.props.user.Email
              */
-                console.log("pre workershiring")
                 let AllJobs= new WorkersHiring()
                AllJobs.GetHiring(this.props.user.Email).then(  data=> { 
                    
-                console.log("--",data);
                 if(data=="0"){
                     console.log("no tienes trabajo")
                     
                     this.setState({
                         firstLoad: false,
-                        startCount: 0,
                         processCount: 0,
                         endedCount: 0,
-                        data: null // <<<<< Cambiar segundo data por la respuesta de la bd
+                        data: null
                     });
     
                 }  else{
     
-                console.log("responde"+ data.Email)
+                let { processCount, endedCount } = this.state;
     
-                let { startCount, processCount, endedCount } = this.state;
-    
-                data.map((d, i) => { // <<<<<< Cambiar data por la respuesta de la bd
+                data.map((d, i) => {
                     if(d.Status == StatusTypes[0])
-                        startCount++;
-                    else if(d.Status == StatusTypes[1])
                         processCount++;
                     else
                         endedCount++;
@@ -204,10 +50,9 @@ export default class ListaContrataciones extends React.Component {
                 
                 this.setState({
                     firstLoad: false,
-                    startCount: startCount,
                     processCount: processCount,
                     endedCount: endedCount,
-                    data: data // <<<<< Cambiar segundo data por la respuesta de la bd
+                    data: data 
                 });
                 }
     
@@ -238,6 +83,7 @@ export default class ListaContrataciones extends React.Component {
                                 navigation= { navigation }
                                 data={ this.state.data }
                                 type={ StatusTypes[0] }
+                                jobs={ false }
                             />
                     }
                 </TabNav.Screen>
@@ -250,6 +96,7 @@ export default class ListaContrataciones extends React.Component {
                                 navigation= { navigation }
                                 data={ this.state.data }
                                 type={ StatusTypes[1] }
+                                jobs={ false }
                             />
                     }
                 </TabNav.Screen>

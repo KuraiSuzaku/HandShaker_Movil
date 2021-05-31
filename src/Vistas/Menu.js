@@ -35,6 +35,7 @@ export default props => {
                 backgroundColor: Colores.fondoOscuro
             }}
             >
+
             <Drawer.Screen
                 name='Contrataciones'
                 options={{ title: 'Ver Contrataciones',
@@ -245,7 +246,12 @@ const Validar_perfil = (props) => {
     else if(props.user.UserType == "Worker"){
         return (
             <Vistas.PerfilTrabajador
+
+                setUser={props.setUser} //AGREGAR ESTA LINEA A LOS DEMÁS
+                user={props.user}
+
                 {...props}
+
             />
         );
     }

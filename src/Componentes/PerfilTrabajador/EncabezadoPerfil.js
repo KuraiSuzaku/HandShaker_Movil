@@ -1,16 +1,19 @@
 import React, {useState, Component} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {Avatar, Button, Image, Rating, Text} from 'react-native-elements';
+import {ActivityIndicator, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Avatar, Button, Icon, Image, Rating, Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import Colores from '../../Estilos/Colores';
 import EditarPerfil from './EditarPerfil';
 import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
+import ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
 
 export default EncabezadoPerfil = (props) => {
     
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
+
     const [editcategoria, setCategoria] = useState(props.user.Category);
     const [editprofesion, setProfesion] = useState(props.user.Profession);
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
@@ -21,13 +24,16 @@ export default EncabezadoPerfil = (props) => {
         console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
+
     async function GuardarCambios () {
         setEditando(false); 
         //ImprimirDatos();
+
         let WorkerObject = new Worker(props.user.Email);
         WorkerObject.Category = editcategoria;
         WorkerObject.Profession = editprofesion;
         WorkerObject.JobDescription = editdescripcion;
+
         const x =  await WorkerObject.UpdateWorkers(WorkerObject);
 
         /*
@@ -41,12 +47,15 @@ export default EncabezadoPerfil = (props) => {
         });*/
 
         //ActualizarUsuario(WorkerObject);
+
     }
 
     const ActualizarUsuario = (Trabajador) => {
         Trabajador.GetWorkerInformation(Trabajador).then((res) => {
             props.setUser(res)
         });
+
+
     }
 
     const ImprimirDatos = () =>{
@@ -58,6 +67,36 @@ export default EncabezadoPerfil = (props) => {
     }
 
     const navigation = useNavigation();
+
+    const changeAvatar = () => {
+        const options = {
+            mediaType: 'photo',
+            quality: 1,
+            maxWidth: 500,
+            maxHeight: 500
+        };
+        ImagePicker.showImagePicker(options, (response) => {      
+            if(!response.didCancel){
+                let base64 = null;
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then( base64String => {
+                            base64 = 'data:image/jpg;base64,' + base64String;
+
+                        /**
+                         * Sube la nueva imagen a bd
+                         *  usuario: props.user.Email
+                         *  nombre: response.name
+                         *  path: base64
+                         */
+                            
+                        }).catch( err => console.error(err) );
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+    }
     
     return(
         <View>
@@ -87,17 +126,14 @@ export default EncabezadoPerfil = (props) => {
                     type='custom'
                     style={Estilos.ContenedorComponente} 
                     />
-                <Avatar
-                    rounded
-                    icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={
-                        props.user.ProfilePicture ?
-                        { uri: props.user.ProfilePicture.Path } :
-                        require('../../../public/Profile/user.png')
-                    }
-                    size={100}
-                    containerStyle={Estilos.ContenedorAvatar}
-                    />
+                {
+                    propietario ?
+                    <TouchableOpacity onPress={ () => changeAvatar() } >
+                        <CustomAvatar {...props} />
+                    </TouchableOpacity>
+                     :
+                    <CustomAvatar {...props} />
+                }
                 {(!propietario) &&
                 <Button
                     title='Contratar'
@@ -152,6 +188,29 @@ export default EncabezadoPerfil = (props) => {
             </View>
             }
         </View>
+    );
+}
+
+const CustomAvatar = (props) => {
+    return(
+        <Avatar
+            rounded
+            source={
+                props.user.ProfilePicture ?
+                { uri: props.user.ProfilePicture.Path } :
+                require('../../../public/Profile/user.png')
+            }
+            size={100}
+            containerStyle={Estilos.ContenedorAvatar}
+        >
+                {
+                    props.owner ?
+                    <TouchableOpacity onPress={() => console.log('Change Avatar')} >
+                        <Avatar.Accessory size={30} /> 
+                    </TouchableOpacity> : 
+                    null
+                }
+        </Avatar>
     );
 }
 // ESTILOS

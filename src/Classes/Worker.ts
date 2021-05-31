@@ -34,7 +34,9 @@ export  class Worker extends User {
       try {
 
         const response = await axios.post(rooturl+"Worker/Register",{ WorkerObject });//the object to send must be *WorkerObject*  
-       console.log(" Respuesta "+response)
+     
+     
+        console.log(" Respuesta "+response)
         if (response.status==409){
           console.log("mal")
         return "0";
@@ -50,11 +52,13 @@ export  class Worker extends User {
    
         return "0";
       }
+
+
     }
 
     async ChangeToPremium(PremiumWorkerObject: PremiumWorker) {// Needs Password, Needs Email, needs SuscriptionDate,
       var num = 0;
-  
+      console.log("change to premium...");
       try {
 
         const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ PremiumWorkerObject });//the object to send must be *WorkerObject*  

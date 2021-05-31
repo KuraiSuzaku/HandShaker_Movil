@@ -20,6 +20,7 @@ export default App = () => {
     UserType: null,
   });
 
+  console.disableYellowBox = true;
   console.log("conexion se supone")
   var socket = socketClient (SERVER);
   socket.on('connection', () => {

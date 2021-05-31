@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+
+import {StyleSheet, View, Text, ScrollView,ToastAndroid} from 'react-native';
+
 import {Input, Button, Image} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -81,6 +83,7 @@ export default PagoAPremium = (props) => {
             }
         }
     };
+    
 
     const ValidarTarjeta = (inputtexto) => {
         let visa = new RegExp("^4[0-9]{12}(?:[0-9]{3})?$");
@@ -198,7 +201,7 @@ export default PagoAPremium = (props) => {
                 <View style={{flex: 1, width: "50%", marginLeft: 15}}>
                     <Text style={Estilos.TextoSecundario}>Fecha Vencimiento</Text>
                     <Button
-                        title={moment(fecha_vencimiento).format("MM/YYYY")}
+                        title={moment(fecha_vencimiento).format("YYYY-MM")}
                         buttonStyle={Estilos.BotonFechaVencimiento}
                         padding= '100'
                         titleStyle={Estilos.TextoSecundario}

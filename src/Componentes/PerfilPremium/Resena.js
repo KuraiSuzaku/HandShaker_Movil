@@ -19,7 +19,6 @@ export default Resena = ({  nombre,
                 <View style={Estilos.ContenedorAvatar}>
                     <Avatar
                         rounded
-                        icon={{name:'user', type:'font-awesome', color:'black'}}
                         source={avatar}
                         size='medium'
                         />
