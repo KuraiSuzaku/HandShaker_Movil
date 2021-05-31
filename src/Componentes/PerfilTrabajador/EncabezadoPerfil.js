@@ -1,11 +1,12 @@
 import React, {useState, Component} from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {Avatar, Button, Image, Rating, Text} from 'react-native-elements';
+import {Avatar, Button, Icon, Image, Rating, Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import Colores from '../../Estilos/Colores';
 import EditarPerfil from './EditarPerfil';
 import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
+import { TouchableOpacity } from 'react-native';
 
 export default EncabezadoPerfil = (props) => {
     
@@ -86,17 +87,14 @@ export default EncabezadoPerfil = (props) => {
                     type='custom'
                     style={Estilos.ContenedorComponente} 
                     />
-                <Avatar
-                    rounded
-                    icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={
-                        props.user.ProfilePicture ?
-                        { uri: props.user.ProfilePicture.Path } :
-                        require('../../../public/Profile/user.png')
-                    }
-                    size={100}
-                    containerStyle={Estilos.ContenedorAvatar}
-                    />
+                {
+                    propietario ?
+                    <TouchableOpacity onPress={ () => changeAvatar() } >
+                        <CustomAvatar {...props} />
+                    </TouchableOpacity>
+                     :
+                    <CustomAvatar {...props} />
+                }
                 {(!propietario) &&
                 <Button
                     title='Contratar'
@@ -151,6 +149,29 @@ export default EncabezadoPerfil = (props) => {
             </View>
             }
         </View>
+    );
+}
+
+const CustomAvatar = (props) => {
+    return(
+        <Avatar
+            rounded
+            source={
+                props.user.ProfilePicture ?
+                { uri: props.user.ProfilePicture.Path } :
+                require('../../../public/Profile/user.png')
+            }
+            size={100}
+            containerStyle={Estilos.ContenedorAvatar}
+        >
+                {
+                    props.owner ?
+                    <TouchableOpacity onPress={() => console.log('Change Avatar')} >
+                        <Avatar.Accessory size={30} /> 
+                    </TouchableOpacity> : 
+                    null
+                }
+        </Avatar>
     );
 }
 // ESTILOS

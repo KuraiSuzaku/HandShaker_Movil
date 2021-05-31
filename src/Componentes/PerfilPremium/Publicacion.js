@@ -19,7 +19,6 @@ export default Publicacion = (props, { avatar, valoracion }) => {
             <View style={Estilos.Encabezado}>
                 <Avatar
                     rounded
-                    icon={{name:'user', type:'font-awesome', color:'black'}}
                     source={{ uri: props.user.ProfilePicture.Path }}
                     size='medium'
                     />
