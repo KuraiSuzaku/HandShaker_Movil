@@ -1,5 +1,5 @@
 import {PhoneNumber} from './PhoneNumber';
-import {Image} from './Image';
+import Image from './Image';
 import {rooturl} from './ip'
 import axios from 'axios'
 export  class User {
@@ -9,6 +9,7 @@ export  class User {
   Name?: string;
   LastName?: string;
   ProfilePicture?: Image;
+  HeaderPicture?:Image;
   Phones?: PhoneNumber[];
   UserType?: String;
   Birthday?: Date;
@@ -25,7 +26,8 @@ export  class User {
     Phones?: PhoneNumber[],
     UserType?: String,
     Birthday?: Date,
-    Response?: String
+    Response?: String,
+    HeaderPicture?:Image
   ) {
     this.Email = Email;
     this.Password = Password;
@@ -38,6 +40,7 @@ export  class User {
     this.UserType = UserType;
     this.Birthday = Birthday;
     this.Response = Response;
+    this.HeaderPicture = HeaderPicture;
   }
 
   async Login(userObject: User) {

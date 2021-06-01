@@ -221,7 +221,7 @@ const CustomDrawerContent = (props) => {
                             props.logged ?
                             { uri: props.user.ProfilePicture.Path } :
                             require('../../public/Profile/user.png')
-                        }
+                         }
                         rounded
                         size='large'
                     /> 

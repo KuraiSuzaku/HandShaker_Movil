@@ -1,4 +1,4 @@
-import { Image } from './Image';
+import  Image  from './Image';
 import { Message } from './Message';
 export class Profession {
 

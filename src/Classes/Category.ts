@@ -1,11 +1,13 @@
 
 import axios from 'axios'
 import {rooturl} from './ip'
+import  Image  from './Image';
 import {Profession} from './Profession'
 export class Category {
     constructor(
         Name?:String,
-        Categories?:Profession
+        Categories?:Profession,
+        ImageCategory?:Image
         ){}
     
 

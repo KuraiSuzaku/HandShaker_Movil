@@ -5,14 +5,15 @@ import {StyleSheet, View, Text, ScrollView,ToastAndroid} from 'react-native';
 import {Input, Button, Image} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {Worker} from '../Classes/Worker'
-import {User} from '../Classes/User'
+import {Worker} from './../Classes/Worker'
+
 import MonthPicker from 'react-native-month-year-picker';
 import moment from "moment"; 
 /////////
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 import PremiumWorker from '../Classes/PremiumWorker';
+import User from '../Classes/User';
 /////////
 
 export default PagoAPremium = (props) => {
@@ -40,23 +41,31 @@ export default PagoAPremium = (props) => {
     };
 
     onValueChange = (event, fecha) => {
-        console.log(fecha);
+         
         const nuevafecha = fecha || fecha_vencimiento;
+        console.log("feecga "+fecha_vencimiento);
         ocultar_picker();
         setFechaVencimiento(nuevafecha);
     };
 
-    const HacerPremium = () =>{
+    const HacerPremium = async () =>{
         if(ValidarCampos()){
             let WorkerObject = new Worker(props.user.Email);
-            WorkerObject.isPremium = true;
-
-    
-            console.log("Email : ", props.user.Email);
-
-            WorkerObject.UpdateWorkers(WorkerObject);
             
+            let userObject= new User()
+            userObject.Email=props.user.Email;
+            userObject.Password=contrasenia;
+            let res= await userObject.Login(userObject)
+            
+            if(res.Response.includes("1")){
 
+            let PremiumWorkerObject = new PremiumWorker(props.user.Email);
+            
+            PremiumWorkerObject.isPremium = true;
+            PremiumWorkerObject.Email=props.user.Email
+            PremiumWorkerObject.SuscriptionDate=fecha_vencimiento
+            PremiumWorkerObject.Password=contrasenia
+            console.log("Fecha Vencimiento:**** ", PremiumWorkerObject.SuscriptionDate);
             console.log("IDUser: ", props.user.IdUser);
             console.log("_id: ", props.user._id);
             console.log("Nombre del usuario: ", props.user.Name);
@@ -67,36 +76,11 @@ export default PagoAPremium = (props) => {
             console.log("Codigo: ", codigo);
             console.log("Contrasenia: ", contrasenia);
             console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
-    
-            
-           let userObject= new User(props.user.Email,contrasenia)//Login
-           userObject.Login(userObject).then(res=>{
-               console.log("RESULTADO "+res.Response);
-               if ( res.Response==="1"){
-                console.log("aqui")
-                NewPremiumWorkerUser= new PremiumWorker(userObject.Email,userObject.Password)
-                NewPremiumWorkerUser.SuscriptionDate=moment(fecha_vencimiento).format("YYYY-MM");
-                WorkerUser= new Worker();
-                WorkerUser.ChangeToPremium(NewPremiumWorkerUser).then(resChange=>{
-                    console.log("se cambio a premium listo "+resChange.Email);
-                    
-                    console.log("se cambio a premium listo "+resChange.Category);
-                    //si se llama luego luego, toda la info pierde 
-                    NewPremiumWorkerUser.GetPremiumWorkerInformation(NewPremiumWorkerUser).then(resInfo=>{
-                        console.log("info PREMIUM "+resInfo.Category);
-                        //resInfo tiene toda la informacion del trabajador por si se necesita cambiar algo, 
-                        // como el actualizar que ya es premium
+            let Change= await  WorkerObject.ChangeToPremium(PremiumWorkerObject);
+            }else{
 
-                    });                        
-                });
-               }
-                else{ //there was an error on the login
-                    if(res.Response=="401")
-                    {
-                        ToastAndroid.show(("Password incorrecto"), ToastAndroid.SHORT);      
-                    }
-                }
-               });
+                console.log("No ingreso su password bien")
+            }
         }
     };
     

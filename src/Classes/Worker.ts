@@ -56,16 +56,14 @@ export  class Worker extends User {
 
     }
 
-    async ChangeToPremium(WorkerObject: PremiumWorker) {// Needs Password, Needs Email, needs SuscriptionDate,
+    async ChangeToPremium(PremiumWorkerObject: PremiumWorker) {// Needs Password, Needs Email, needs SuscriptionDate,
       var num = 0;
       console.log("change to premium...");
       try {
 
-        const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ WorkerObject });//the object to send must be *WorkerObject*  
-        console.log(response);
-        WorkerObject=response.data;
-        console.log(WorkerObject);
-        return WorkerObject;
+        const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ PremiumWorkerObject });//the object to send must be *WorkerObject*  
+      
+        return 1;
       } catch (error) {
         console.log("error del tipo" + error);
         console.log("error del tipo" + error.response.status);

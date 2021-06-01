@@ -15,6 +15,7 @@ import User from '../../Classes/User';
 export default Encabezado = ({route, navigation}) => {
 const [Name, setName] = useState("Prubea");
 const [Picture, setPicture] = useState(route.params.Avatar);
+
     // METODOS
     const AbrirMenu = () => {
         navigation.toggleDrawer();
@@ -34,6 +35,7 @@ const [Picture, setPicture] = useState(route.params.Avatar);
        
         setName(userInfoofChat.Name+" "+userInfoofChat.LastName)
          setPicture(userInfoofChat.ProfilePicture.Path)
+     
     }
     //////
     getInfo();

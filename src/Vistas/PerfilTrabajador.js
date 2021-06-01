@@ -50,9 +50,10 @@ export default PerfilTrabajador = (props) => {
       <SafeAreaProvider style={Estilos.ContenedorApp}>
         <Componentes.EncabezadoApp/>
         <Componentes.PerfilTrabajador.Contenedor
-            {...test_props}
-            {...props}
-            />
+        {...props}
+        {...test_props}
+      />
+        
         <Componentes.Navegacion />
       </SafeAreaProvider>
     );
