@@ -46,7 +46,9 @@ export default class Lista extends React.Component {
                         rounded
                         size='medium'
                         source={
-                            require('../../../public/Profile/user.png')
+                            this.props.jobs ?
+                            { uri: item.userClient[0].ProfilePricture.Path } :
+                            { uri: item.userWorker[0].ProfilePricture.Path }
                         }
                     />
                 </View>
@@ -66,8 +68,8 @@ export default class Lista extends React.Component {
                     }}>{item.Subject}</Text>
                     <Text>{
                         this.props.jobs ?
-                        'item.userClient[0].Name' :
-                        'item.userWorker[0].Name'
+                        item.userClient[0].Name + ' ' + item.userClient[0].LastName  :
+                        item.userWorker[0].Name + ' ' + item.userWorker[0].LastName
                     }</Text>
                     <Text style={{
                         fontSize: 11,
