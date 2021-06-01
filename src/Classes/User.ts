@@ -81,6 +81,23 @@ export  class User {
     }
 
   
+
+    async UpdateUser(UserObject: User) {// Get All workers, even the premium workers
+     
+      try {
+        const response = await axios.post(rooturl+"user/UpdateUser",{ UserObject });//the object to send must be *WorkerObject*
+        return response; //returns an array of premiumWorker
+
+      } catch (error) {
+        console.log("error del tipo" + error);
+        console.log("error del tipo" + error.response.status);
+        this.Response = error.response.status;
+        return this;
+      }
+
+    }
+
+
 /*
    await axios.post("http://192.168.1.72:3001/api/user/Login", {userObject})
     .then(function (response) {

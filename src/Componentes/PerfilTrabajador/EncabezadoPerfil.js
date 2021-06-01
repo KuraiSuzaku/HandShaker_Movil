@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import Colores from '../../Estilos/Colores';
 import EditarPerfil from './EditarPerfil';
 import {Worker} from '../../Classes/Worker';
+import  {User} from '../../Classes/User';
 import Clases from '../../Classes/Indice';
 import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
@@ -17,7 +18,11 @@ export default EncabezadoPerfil = (props) => {
     const [editcategoria, setCategoria] = useState(props.user.Category);
     const [editprofesion, setProfesion] = useState(props.user.Profession);
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
+
+    const [editImage, setImage] = useState(props.user.ProfilePicture.Path);
     
+    const [editImageHeader, setImageHeader] = useState(props.user.HeaderPicture.Path);
+
     console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
         setEditando(true);
@@ -82,14 +87,12 @@ export default EncabezadoPerfil = (props) => {
                     ImgToBase64.getBase64String(response.uri)
                         .then( base64String => {
                             base64 = 'data:image/jpg;base64,' + base64String;
-
-                        /**
-                         * Sube la nueva imagen a bd
-                         *  usuario: props.user.Email
-                         *  nombre: response.name
-                         *  path: base64
-                         */
-                            
+                        
+                           
+                             props.user.ProfilePicture.Path=base64
+                       setImage(base64)
+                     
+                        
                         }).catch( err => console.error(err) );
                 } catch (e) {
                     console.log(e);
@@ -98,7 +101,34 @@ export default EncabezadoPerfil = (props) => {
         });
     }
     
+    const changeHeader = () => {
+        const options = {
+            mediaType: 'photo',
+            quality: 1,
+            maxWidth: 500,
+            maxHeight: 500
+        };
+        ImagePicker.showImagePicker(options, (response) => {      
+            if(!response.didCancel){
+                let base64 = null;
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then( base64String => {
+                            base64 = 'data:image/jpg;base64,' + base64String;
+                             
+                            props.user.HeaderPicture.Path=base64
+                            setImageHeader(base64)
+                        
+                        }).catch( err => console.error(err) );
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+    }
+   
     return(
+<<<<<<< Updated upstream
         <View>
             <Image
                 source={props.imagenFondo}
@@ -106,6 +136,19 @@ export default EncabezadoPerfil = (props) => {
                 resizeMode='cover'
                 PlaceholderContent={<ActivityIndicator />}
                 />
+=======
+                <View>            
+
+                {
+                    propietario ?
+                    <TouchableOpacity onPress={ () => changeHeader() } >
+                        <CustomHeader {...props} />
+                    </TouchableOpacity>
+                     :
+                    <CustomHeader {...props} />
+                }
+
+>>>>>>> Stashed changes
             <View style={Estilos.Fila}>
                 <Rating 
                     imageSize={20} 
@@ -182,6 +225,8 @@ export default EncabezadoPerfil = (props) => {
     );
 }
 
+
+
 const CustomAvatar = (props) => {
     return(
         <Avatar
@@ -204,6 +249,29 @@ const CustomAvatar = (props) => {
         </Avatar>
     );
 }
+
+
+const CustomHeader = (props) => {
+    return(
+        <Image
+        source={ 
+            props.user.HeaderPicture  ?
+            { uri:  props.user.HeaderPicture.Path   } :
+            require('../../../public/Profile/user.png')
+        }
+     /*  source={
+        props.user.ProfilePicture ?
+        { uri: props.user.HeaderPicture.Path } :
+        require('../../../public/Profile/user.png')
+    }*/
+        style={Estilos.ImagenFondo}
+        resizeMode='cover'
+        PlaceholderContent={<ActivityIndicator />}
+        />
+    );
+}
+
+
 // ESTILOS
 const Estilos = StyleSheet.create({
     ImagenFondo: {
