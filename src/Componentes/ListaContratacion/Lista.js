@@ -37,7 +37,9 @@ export default class Lista extends React.Component {
         if(item.Status != this.props.type)
             return null;
         return(
-            <TouchableOpacity onPress={() => this.navigate()}>
+            <TouchableOpacity onPress={() => this.navigate('TarjetaContratacion', {
+                data: item
+            })}>
             <View style={Estilos.ItemContainer}>
                 <View style={Estilos.AvatarContainer}>
                     <Avatar
