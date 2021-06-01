@@ -50,18 +50,8 @@ export default PerfilTrabajador = (props) => {
       <SafeAreaProvider style={Estilos.ContenedorApp}>
         <Componentes.EncabezadoApp/>
         <Componentes.PerfilTrabajador.Contenedor
-            imagenFondo={imagenFondo}
-            avatar={avatar}
-            valoracion={valoracion}
-            nombre={nombre}
-            titulo={titulo}
-            descripcion={descripcion}
-            isPremium={isPremium}
-            contacto={contacto}
-            resenas={resenas}
-            acercade={acercade}
-            user = {props.user}
-            setUser = {props.setUser}
+            {...test_props}
+            {...props}
             />
         <Componentes.Navegacion />
       </SafeAreaProvider>

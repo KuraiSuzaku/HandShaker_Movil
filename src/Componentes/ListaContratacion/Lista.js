@@ -64,8 +64,8 @@ export default class Lista extends React.Component {
                     }}>{item.Subject}</Text>
                     <Text>{
                         this.props.jobs ?
-                        'item.userClient[0].Name' :
-                        'item.userWorker[0].Name'
+                        item.userClient[0].Name :
+                        item.userWorker[0].Name
                     }</Text>
                     <Text style={{
                         fontSize: 11,

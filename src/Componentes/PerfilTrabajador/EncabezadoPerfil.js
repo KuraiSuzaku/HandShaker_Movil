@@ -128,15 +128,6 @@ export default EncabezadoPerfil = (props) => {
     }
    
     return(
-<<<<<<< Updated upstream
-        <View>
-            <Image
-                source={props.imagenFondo}
-                style={Estilos.ImagenFondo}
-                resizeMode='cover'
-                PlaceholderContent={<ActivityIndicator />}
-                />
-=======
                 <View>            
 
                 {
@@ -148,7 +139,6 @@ export default EncabezadoPerfil = (props) => {
                     <CustomHeader {...props} />
                 }
 
->>>>>>> Stashed changes
             <View style={Estilos.Fila}>
                 <Rating 
                     imageSize={20} 
