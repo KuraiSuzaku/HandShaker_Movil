@@ -115,7 +115,7 @@ export default EncabezadoPerfil = (props) => {
          *  nombre: avatarCache.name
          *  path: avatarCache.base64
          */
-        console.log('upload avatar');
+        
         setAvatarCache(null);
         } else {
         /**
@@ -124,7 +124,7 @@ export default EncabezadoPerfil = (props) => {
          *  nombre: backImage.name
          *  path: backImage.base64
          */
-            console.log('upload background image');
+        
         }
         cancelUpload();
     }
