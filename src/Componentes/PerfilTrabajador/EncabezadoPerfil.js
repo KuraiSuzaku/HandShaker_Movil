@@ -17,6 +17,8 @@ export default EncabezadoPerfil = (props) => {
     const [editcategoria, setCategoria] = useState(props.user.Category);
     const [editprofesion, setProfesion] = useState(props.user.Profession);
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
+    const [confirm, setConfirm] = useState(false);
+    const [avatarCache, setAvatarCache] = useState(null);
     
     console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
@@ -82,14 +84,12 @@ export default EncabezadoPerfil = (props) => {
                     ImgToBase64.getBase64String(response.uri)
                         .then( base64String => {
                             base64 = 'data:image/jpg;base64,' + base64String;
+                            setAvatarCache({
+                                name: response.name,
+                                path: base64
+                            });
+                            setConfirm(true);
 
-                        /**
-                         * Sube la nueva imagen a bd
-                         *  usuario: props.user.Email
-                         *  nombre: response.name
-                         *  path: base64
-                         */
-                            
                         }).catch( err => console.error(err) );
                 } catch (e) {
                     console.log(e);
@@ -98,6 +98,19 @@ export default EncabezadoPerfil = (props) => {
         });
     }
     
+    updateAvatar = () => {
+
+        /**
+         * Sube la nueva imagen a bd
+         *  usuario: props.user.Email
+         *  nombre: avatarCache.name
+         *  path: avatarCache.base64
+         */
+        console.log('Cache: ', avatarCache.path);
+        setAvatarCache(null);
+        setConfirm(false);
+    }
+
     return(
         <View>
             <Image
@@ -120,10 +133,9 @@ export default EncabezadoPerfil = (props) => {
                 {
                     propietario ?
                     <TouchableOpacity onPress={ () => changeAvatar() } >
-                        <CustomAvatar {...props} />
-                    </TouchableOpacity>
-                     :
-                    <CustomAvatar {...props} />
+                        <CustomAvatar {...props} avatarCache={ avatarCache } />
+                    </TouchableOpacity> :
+                    <CustomAvatar {...props} avatarCache={ null } />
                 }
                 {(!propietario) &&
                 <Button
@@ -151,6 +163,29 @@ export default EncabezadoPerfil = (props) => {
                         titleStyle={Estilos.EtiquetaBoton}
                         onPress={GuardarCambios}
                     />
+                }
+                {
+                    confirm ?
+                    <View style={Estilos.ButtonForm} >
+                        <Button
+                            title='Cancelar'
+                            containerStyle={[Estilos.ConfirmButtonContainer, Estilos.CancelButtonContainer]}
+                            buttonStyle={[Estilos.ConfirmButton, Estilos.CancelButton]}
+                            titleStyle={Estilos.ButtonFormTitle}
+                            onPress={ () => {
+                                setAvatarCache(null);
+                                setConfirm(false);
+                            } }
+                        />
+                        <Button
+                            title='Confirmar'
+                            containerStyle={Estilos.ConfirmButtonContainer}
+                            buttonStyle={Estilos.ConfirmButton}
+                            titleStyle={Estilos.ButtonFormTitle}
+                            onPress={ () => updateAvatar() }
+                        />
+                    </View> :
+                    null
                 }
             </View>
             {(!editando) &&
@@ -187,9 +222,9 @@ const CustomAvatar = (props) => {
         <Avatar
             rounded
             source={
-                props.user.ProfilePicture ?
-                { uri: props.user.ProfilePicture.Path } :
-                require('../../../public/Profile/user.png')
+                props.avatarCache ?
+                { uri: props.avatarCache.path } :
+                { uri: props.user.ProfilePicture.Path }
             }
             size={100}
             containerStyle={Estilos.ContenedorAvatar}
@@ -213,12 +248,29 @@ const Estilos = StyleSheet.create({
         backgroundColor: 'gray',
     },
     Fila: {
-        alignSelf: 'center',
         position: 'absolute',
         width: '100%',
         marginTop: 50,
         flexDirection:'row',
         justifyContent: 'space-evenly',
+    },
+    ButtonForm: {
+        position: 'absolute',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        width: '85%'
+    },
+    ConfirmButton: {
+        paddingVertical: 2,
+        borderRadius: 25,
+        backgroundColor: '#282'
+    }, 
+    CancelButton: {
+        backgroundColor: '#822'
+    },
+    ButtonFormTitle: {
+        margin: 0,
+        fontSize: 14
     },
     ContenedorComponente: {
         justifyContent: 'flex-end',
