@@ -19,6 +19,7 @@ export default EncabezadoPerfil = (props) => {
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
     const [confirm, setConfirm] = useState(false);
     const [avatarCache, setAvatarCache] = useState(null);
+    const [backImage, setBackImage] = useState(null);
     
     console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
@@ -70,7 +71,8 @@ export default EncabezadoPerfil = (props) => {
 
     const navigation = useNavigation();
 
-    const changeAvatar = () => {
+    const changeCache = (avatar) => {
+        cancelUpload();
         const options = {
             mediaType: 'photo',
             quality: 1,
@@ -84,10 +86,16 @@ export default EncabezadoPerfil = (props) => {
                     ImgToBase64.getBase64String(response.uri)
                         .then( base64String => {
                             base64 = 'data:image/jpg;base64,' + base64String;
-                            setAvatarCache({
-                                name: response.name,
-                                path: base64
-                            });
+                            if(avatar)
+                                setAvatarCache({
+                                    name: response.name,
+                                    path: base64
+                                });
+                            else
+                                setBackImage({
+                                    name: response.name,
+                                    path: base64
+                                });
                             setConfirm(true);
 
                         }).catch( err => console.error(err) );
@@ -100,25 +108,57 @@ export default EncabezadoPerfil = (props) => {
     
     updateAvatar = () => {
 
+        if(avatarCache) {
         /**
-         * Sube la nueva imagen a bd
+         * Sube el nuevo AVATAR a bd
          *  usuario: props.user.Email
          *  nombre: avatarCache.name
          *  path: avatarCache.base64
          */
-        console.log('Cache: ', avatarCache.path);
+        console.log('upload avatar');
         setAvatarCache(null);
+        } else {
+        /**
+         * Sube la nueva IMAGEN DE FONDO a bd
+         *  usuario: props.user.Email
+         *  nombre: backImage.name
+         *  path: backImage.base64
+         */
+            console.log('upload background image');
+        }
+        cancelUpload();
+    }
+
+    cancelUpload = () => {
+        setAvatarCache(null);
+        setBackImage(null);
         setConfirm(false);
     }
 
     return(
         <View>
             <Image
-                source={props.imagenFondo}
+                source={
+                    backImage ?
+                    { uri: backImage.path } :
+                    props.imagenFondo
+                }
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'
                 PlaceholderContent={<ActivityIndicator />}
                 />
+            <View style={{ position: 'absolute', padding: 5 }}>
+                <Icon
+                    name='edit'
+                    type='font-awesome'
+                    color={Colores.etiquetas}
+                    size={25}
+                    containerStyle={{
+                        padding: 5
+                    }}
+                    onPress={ () => changeCache(false) }
+                />
+            </View>
             <View style={Estilos.Fila}>
                 <Rating 
                     imageSize={20} 
@@ -132,7 +172,7 @@ export default EncabezadoPerfil = (props) => {
                     />
                 {
                     propietario ?
-                    <TouchableOpacity onPress={ () => changeAvatar() } >
+                    <TouchableOpacity onPress={ () => changeCache(true) } >
                         <CustomAvatar {...props} avatarCache={ avatarCache } />
                     </TouchableOpacity> :
                     <CustomAvatar {...props} avatarCache={ null } />
@@ -172,10 +212,7 @@ export default EncabezadoPerfil = (props) => {
                             containerStyle={[Estilos.ConfirmButtonContainer, Estilos.CancelButtonContainer]}
                             buttonStyle={[Estilos.ConfirmButton, Estilos.CancelButton]}
                             titleStyle={Estilos.ButtonFormTitle}
-                            onPress={ () => {
-                                setAvatarCache(null);
-                                setConfirm(false);
-                            } }
+                            onPress={ () => cancelUpload() }
                         />
                         <Button
                             title='Confirmar'
