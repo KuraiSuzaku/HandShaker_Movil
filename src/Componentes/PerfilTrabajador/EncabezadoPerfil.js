@@ -10,7 +10,6 @@ import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
 
 export default EncabezadoPerfil = (props) => {
-    
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
 
@@ -109,24 +108,43 @@ export default EncabezadoPerfil = (props) => {
     updateAvatar = () => {
 
         if(avatarCache) {
-        /**
-         * Sube el nuevo AVATAR a bd
-         *  usuario: props.user.Email
-         *  nombre: avatarCache.name
-         *  path: avatarCache.base64
-         */
-        
-        setAvatarCache(null);
+            /**
+             * Sube el nuevo AVATAR a bd
+             *  usuario: props.user.Email
+             *  nombre: avatarCache.name
+             *  path: avatarCache.base64
+             */
+            props.setUser(
+                {
+                    ...props.user,
+                    ProfilePicture: {
+                        Name: avatarCache.name,
+                        Path: avatarCache.path
+                    }
+                }
+            );
         } else {
-        /**
-         * Sube la nueva IMAGEN DE FONDO a bd
-         *  usuario: props.user.Email
-         *  nombre: backImage.name
-         *  path: backImage.base64
-         */
-        
+            /**
+             * Sube la nueva IMAGEN DE FONDO a bd
+             *  usuario: props.user.Email
+             *  nombre: backImage.name
+             *  path: backImage.base64
+             */
+             props.setUser(
+                {
+                    ...props.user,
+                    HeaderPicture: {
+                        Name: backImage.name,
+                        Path: backImage.path
+                    }
+                }
+            );
         }
         cancelUpload();
+        navigation.navigate('Perfil', {
+            profileUser: null,
+            updateProfile: true
+        });
     }
 
     cancelUpload = () => {
@@ -141,7 +159,7 @@ export default EncabezadoPerfil = (props) => {
                 source={
                     backImage ?
                     { uri: backImage.path } :
-                    props.imagenFondo
+                    props.user.HeaderPicture.Path
                 }
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'
