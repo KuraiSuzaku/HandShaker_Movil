@@ -19,6 +19,10 @@ export default Contenedor = (props) => {
     const route = useRoute();
     const [profileUser, setProfileUser] = useState(null);
     const [owner, setOwner] = useState(false);
+    const [refresh, setRefresh] = useState(false);
+
+    if(refresh)
+        setRefresh(false);
 
     useEffect(() => {
         if(!profileUser || route.params.updateProfile) {
@@ -65,6 +69,7 @@ export default Contenedor = (props) => {
                 <ScrollView>
                     <Componentes.PerfilTrabajador.EncabezadoPerfil 
                         {...props}
+                        setRefresh={ () => setRefresh(true) }
                         user={profileUser} // El que se esta viendo
                         loggedUser={props.user.Email} // el usuario logueado
                         owner={owner}
