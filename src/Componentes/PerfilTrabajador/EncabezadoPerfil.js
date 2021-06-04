@@ -153,8 +153,6 @@ export default EncabezadoPerfil = (props) => {
         setConfirm(false);
     }
 
-    console.log('Imagen: ', props.user.HeaderPicture);
-
     return(
         <View>
             <Image

@@ -84,8 +84,7 @@ export default class NewPublication extends Component {
                 img=new Image("", "");
              PostObbject=new Post(date,publication,img);
              PostsObject=new Posts(this.props.user.Email, PostObbject);
-             PostsObject.AddPost(PostsObject).then(res=>{            
-                if  (res.status==200){
+             PostsObject.AddPost(PostsObject).then(res=>{ 
                    Alert.alert('Se Agrego correctamente');
                    this.setState({
                        publication: null,
@@ -96,7 +95,6 @@ export default class NewPublication extends Component {
                        }
                    });
                    this.props.setUploaded(true);
-                 }
             });
         } else {
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');

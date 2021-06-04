@@ -46,7 +46,6 @@ export default class NewProduct extends Component {
                 .then(base64String => {
                     const base64 = 'data:image/jpg;base64,' + base64String;
                     this.setState({ image: { 
-                        description: this.state.image.description,
                         name: response.fileName,
                         uri: response.uri,
                         base64: base64 
@@ -73,8 +72,7 @@ export default class NewProduct extends Component {
                     img=new Image("","");
                 ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
                 PriceObject=new Prices(this.props.user.Email,ItemPriceObject);
-                PriceObject.AddPrice(PriceObject).then(res=>{                     
-                    if  (res.status==200){
+                PriceObject.AddPrice(PriceObject).then(res=>{ 
                        Alert.alert('Se Agrego correctamente');
                        this.setState({
                             visible: false,
@@ -88,7 +86,6 @@ export default class NewProduct extends Component {
                             description: null
                        });
                        this.props.setUploaded(true);
-                     }
                 }).catch( e => console.error(e) );
     }
 
