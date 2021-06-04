@@ -37,15 +37,15 @@ export default class Home extends Component {
 
     handleProfesiones(profesiones){
         this.setState({ profesiones: profesiones })
-        //console.log(profesiones)
+        ////console.log(profesiones)
     }
 
     RandomWorker(){
         let PremiumWorkers = new PremiumWorker();  
         PremiumWorkers.GetPremiumWorkers().then(res=>{
-            // console.log(res[0]);
-            // console.log("==============================");
-            // console.log(res[0].Name);
+            // //console.log(res[0]);
+            // //console.log("==============================");
+            // //console.log(res[0].Name);
             this.setPremiumWorker(res[1]);
         })
     }
@@ -55,23 +55,23 @@ export default class Home extends Component {
     }
 
     category(){
-        //console.log("===== Categorias =====")
+        ////console.log("===== Categorias =====")
         Cat = new Category();
         Cat.GetAll().then((categorias) => {
-            //console.log(categorias)
+            ////console.log(categorias)
             this.handleCategories(categorias)        
         }); 
     }
 
     inicioProfesiones(){
-        console.log("aqui 5")
+        //console.log("aqui 5")
         Cat = new Category();
         Cat.GetAll().then((categorias) => {
             categorias.forEach(categoria => {
-                //console.log("-----> CATEGORIA: " + categoria.Name + " <-----");
+                ////console.log("-----> CATEGORIA: " + categoria.Name + " <-----");
                 
-                    // console.log("Aqui")
-                    // console.log(categoria.Categories)
+                    // //console.log("Aqui")
+                    // //console.log(categoria.Categories)
                     this.handleProfesiones(categoria.Categories)
                 
             })
@@ -79,25 +79,25 @@ export default class Home extends Component {
     }
       
     profesiones(){
-        console.log("aqui 2")
+        //console.log("aqui 2")
         Cat = new Category();
         Cat.GetAll().then((categorias) => {
             categorias.forEach(categoria => {
-                //console.log("-----> CATEGORIA: " + categoria.Name + " <-----");
+                ////console.log("-----> CATEGORIA: " + categoria.Name + " <-----");
                 if(categoria.Name == this.state.categorySelected){
-                    // console.log("Aqui")
-                    // console.log(categoria.Categories)
+                    // //console.log("Aqui")
+                    // //console.log(categoria.Categories)
                     this.handleProfesiones(categoria.Categories)
                     categoria.Categories.forEach(profesiones => {
                         // Trabajador =  new PremiumWorker();
 
                         // Trabajador.GetPremiumWorkersWithProfession(profesiones.Name).then((trabajadoresWithProfession) => {
                         //     trabajadoresWithProfession.forEach(trabajador => {
-                        //         //console.log("trabajador de "+trabajador.Name+" nombre profesion " + profesiones.Name+ " foto " + trabajador.ProfilePicture.Path )
+                        //         ////console.log("trabajador de "+trabajador.Name+" nombre profesion " + profesiones.Name+ " foto " + trabajador.ProfilePicture.Path )
                         //     });  
                         // }); 
-                        // console.log("Profesion "+profesiones.Name )
-                        //console.log("Imagen "+profesiones.ImageProfession.Path )
+                        // //console.log("Profesion "+profesiones.Name )
+                        ////console.log("Imagen "+profesiones.ImageProfession.Path )
 
                     });
                 }

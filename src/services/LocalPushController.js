@@ -5,7 +5,7 @@ import User from '../Classes/User';
 PushNotification.configure({
     // (required) Called when a remote or local notification is opened or received
     onNotification: function(notification) {
-      console.log('LOCAL NOTIFICATION ==>', notification)
+      //console.log('LOCAL NOTIFICATION ==>', notification)
     },
  // popInitialNotification: true,
  //requestPermissions: Platform.OS === 'android'
@@ -72,20 +72,20 @@ PushNotification.configure({
   export const MessageNotification =async  (user,json) => {
 
 
-console.log("not"+user.Email)
+//console.log("not"+user.Email)
         if(typeof(user.Email) != "undefined" && typeof(json.Email1) != "undefined"){
-        console.log("mostrar notificacion")
-        console.log("1"+json.Email1)
-        console.log("2"+json.Email2)
-        console.log("3"+json.EmailEmiter)
-        console.log("4"+json.Mtext)
-        console.log("5"+json.dateMessage)
+        //console.log("mostrar notificacion")
+        //console.log("1"+json.Email1)
+        //console.log("2"+json.Email2)
+        //console.log("3"+json.EmailEmiter)
+        //console.log("4"+json.Mtext)
+        //console.log("5"+json.dateMessage)
         let textSmall=json.Mtext.substring(0,10)
         let UserChat= new User
        const response= await UserChat.GetUserInformation(json.EmailEmiter);
 
 if( !user.Email.includes(json.EmailEmiter) ){
-    console.log("si mandar notificacion")
+    //console.log("si mandar notificacion")
     PushNotification.localNotification({
         /* Android Only Properties */
         channelId: "your-channel-id", // (required) channelId, if the channel doesn't exist, notification will not trigger.
@@ -148,8 +148,8 @@ if( !user.Email.includes(json.EmailEmiter) ){
   export const NewHiringNotification = (user,json) => {
 
 
-    console.log("ACTUAL not***"+user.Email)
-    console.log("ACTUAL sender not***"+json)
+    //console.log("ACTUAL not***"+user.Email)
+    //console.log("ACTUAL sender not***"+json)
 
     if(typeof(user.Email) != "undefined" && typeof(json) != "undefined"){
 

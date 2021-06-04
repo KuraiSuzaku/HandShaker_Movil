@@ -43,7 +43,7 @@ export default class NewMultimedia extends Component {
         };
         ImagePicker.showImagePicker(options, (response) => {            
             if(response.didCancel) {
-              console.log('User cancelled image picker');
+              //console.log('User cancelled image picker');
             } else {
                 ImgToBase64.getBase64String(response.uri)
                     .then(base64String => {

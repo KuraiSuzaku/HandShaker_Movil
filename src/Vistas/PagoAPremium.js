@@ -43,7 +43,7 @@ export default PagoAPremium = (props) => {
     onValueChange = (event, fecha) => {
          
         const nuevafecha = fecha || fecha_vencimiento;
-        console.log("feecga "+fecha_vencimiento);
+        //console.log("feecga "+fecha_vencimiento);
         ocultar_picker();
         setFechaVencimiento(nuevafecha);
     };
@@ -65,21 +65,21 @@ export default PagoAPremium = (props) => {
             PremiumWorkerObject.Email=props.user.Email
             PremiumWorkerObject.SuscriptionDate=fecha_vencimiento
             PremiumWorkerObject.Password=contrasenia
-            console.log("Fecha Vencimiento:**** ", PremiumWorkerObject.SuscriptionDate);
-            console.log("IDUser: ", props.user.IdUser);
-            console.log("_id: ", props.user._id);
-            console.log("Nombre del usuario: ", props.user.Name);
-            console.log("Numero Tarjeta: ", numero);
-            console.log("Nombre del propietario: ", nombre);
-            console.log("Apellidos del propietario: ", apellidos);
-            console.log("Fecha Vencimiento: ", moment(fecha_vencimiento).format("MM/YYYY"));
-            console.log("Codigo: ", codigo);
-            console.log("Contrasenia: ", contrasenia);
-            console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
+            //console.log("Fecha Vencimiento:**** ", PremiumWorkerObject.SuscriptionDate);
+            //console.log("IDUser: ", props.user.IdUser);
+            //console.log("_id: ", props.user._id);
+            //console.log("Nombre del usuario: ", props.user.Name);
+            //console.log("Numero Tarjeta: ", numero);
+            //console.log("Nombre del propietario: ", nombre);
+            //console.log("Apellidos del propietario: ", apellidos);
+            //console.log("Fecha Vencimiento: ", moment(fecha_vencimiento).format("MM/YYYY"));
+            //console.log("Codigo: ", codigo);
+            //console.log("Contrasenia: ", contrasenia);
+            //console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
             let Change= await  WorkerObject.ChangeToPremium(PremiumWorkerObject);
             }else{
 
-                console.log("No ingreso su password bien")
+                //console.log("No ingreso su password bien")
             }
         }
     };
@@ -90,16 +90,16 @@ export default PagoAPremium = (props) => {
         let mastercard = new RegExp("^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$");
         if(visa.test(inputtexto)){
             setImageTarjeta("visa");
-            console.log("Soy Visa wuuuuuuu");
+            //console.log("Soy Visa wuuuuuuu");
         }
         else if(mastercard.test(inputtexto)){
             setImageTarjeta("mastercard");
-            console.log("Soy MasterCard wuuuuu");
+            //console.log("Soy MasterCard wuuuuu");
         }
         else{
             setImageTarjeta("otra");
         }
-        console.log("Numero Tarjeta actual: ", numero);
+        //console.log("Numero Tarjeta actual: ", numero);
         setNumero(inputtexto);
     };
 

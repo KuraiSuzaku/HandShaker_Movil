@@ -91,25 +91,25 @@ export default PagoAPremium = (props) => {
     };
 
      async function Getchat(email){
-         console.log("aqui 1")
-       // console.log("AQUIIIEmail actual ", email );
+         //console.log("aqui 1")
+       // //console.log("AQUIIIEmail actual ", email );
         let ArrChats= new Array();
 
         let allChat= new AllChats()//Login
         const ret = await  allChat.GetChats(email)
-       // console.log("status "+ret)
+       // //console.log("status "+ret)
        
-      //  console.log("status "+ret.status)
-     //console.log("status "+ret.response.status)
+      //  //console.log("status "+ret.status)
+     ////console.log("status "+ret.response.status)
        
       let ArrNames=new Array();
 
          let count=0;
-        console.log("tamanio "+ret.length) 
+        //console.log("tamanio "+ret.length) 
         if(ret.length>0){
       const x =  await ret.ListOfChats.forEach( async (element) => {
-       // console.log(JSON.stringify(element));
-      //    console.log(element.EmailChatWith);
+       // //console.log(JSON.stringify(element));
+      //    //console.log(element.EmailChatWith);
           
       let ArrInfoChatWith=new Array();
        
@@ -136,7 +136,7 @@ export default PagoAPremium = (props) => {
       });
     
     }
-      console.log("FIIIN aqui 1")
+      //console.log("FIIIN aqui 1")
      
     };
 
@@ -144,11 +144,11 @@ export default PagoAPremium = (props) => {
         ChatNewArr=new  Array();
       
 
-          //  console.log("for each");
+          //  //console.log("for each");
         ArrInfo.forEach(userInfo => {
             
          //  let chataux=(new Chat(+userInfo[4].Path,userInfo[1],userInfo[2].Path,userInfo[0],userInfo[3].Path));
-          //  console.log("chat aux "+JSON.stringify(chataux));
+          //  //console.log("chat aux "+JSON.stringify(chataux));
           let auxC=  new Chat();            
           auxC._id=userInfo[4];            
           auxC.Name=userInfo[1]; 
@@ -180,10 +180,10 @@ export default PagoAPremium = (props) => {
     async function GetNames(Array){
 
        /* Array.forEach(element => {
-            console.log("email"+element)
+            //console.log("email"+element)
             let UserChatWith= new User()//Login    
             const userInfoofChat = await  UserChatWith.GetUserInformation(email)
-            console.log("Su nombre es**************" +userInfoofChat.Name)
+            //console.log("Su nombre es**************" +userInfoofChat.Name)
         });
 */
 await Array.forEach( async element => {
@@ -194,10 +194,10 @@ await Array.forEach( async element => {
 });
 
 
-      /*  console.log("checar user "+email)
+      /*  //console.log("checar user "+email)
         let UserChatWith= new User()//Login    
         const userInfoofChat = await  UserChatWith.GetUserInformation(email)
-        console.log("Su nombre es**************" +userInfoofChat.Name)
+        //console.log("Su nombre es**************" +userInfoofChat.Name)
         return userInfoofChat.Name;*/
     }
 
@@ -252,7 +252,7 @@ await Array.forEach( async element => {
     Getchat(props.user.Email)
     }
 
-    //console.log(" **VAR CHAR",JSON.stringify(chats));
+    ////console.log(" **VAR CHAR",JSON.stringify(chats));
    return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
             

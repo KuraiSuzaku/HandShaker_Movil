@@ -27,17 +27,22 @@ export default class Lista extends React.Component {
         }
     }
 
-    navigate() {
+    /*navigate() {
         this.props.navigation.navigate('Home', {
 
         });
-    }
+    }*/
 
     renderItem({ item }) {
         if(item.Status != this.props.type)
             return null;
-        return(
-            <TouchableOpacity onPress={() => this.navigate('TarjetaContratacion', {
+
+        
+
+
+            return(
+            <TouchableOpacity onPress={() =>  this.props.navigation.navigate('TarjetaContratacion', {
+                
                 data: item
             })}>
             <View style={Estilos.ItemContainer}>
@@ -46,9 +51,11 @@ export default class Lista extends React.Component {
                         rounded
                         size='medium'
                         source={
+
                             this.props.jobs ?
-                            { uri: item.userClient[0].ProfilePricture.Path } :
-                            { uri: item.userWorker[0].ProfilePricture.Path }
+
+                            { uri: item.userClient[0].ProfilePicture.Path } :
+                            { uri: item.userWorker[0].ProfilePicture.Path }
                         }
                     />
                 </View>

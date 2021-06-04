@@ -12,7 +12,7 @@ export default ListaCostos = ( { user, owner } ) => {
         const pricesObj = new Prices(user.Email);
         pricesObj.GetPrice(user.Email)
         .then( res => {
-            console.log('Prices Response: ', res);
+            //console.log('Prices Response: ', res);
         }).catch( e => console.error(e) );
     }
 

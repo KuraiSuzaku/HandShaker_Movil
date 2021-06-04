@@ -14,14 +14,14 @@ export default App = () => {
 
 
 
-  console.log("inicio");
+  //console.log("inicio");
 
   const [user, setUser] = useState({
     UserType: null,
   });
 
   console.disableYellowBox = true;
-  console.log("conexion se supone")
+  //console.log("conexion se supone")
   var socket = socketClient (SERVER);
   socket.on('connection', () => {
   /*  if (this.state.channel) {
@@ -31,19 +31,19 @@ export default App = () => {
 
   
     LocalNotification()
-    console.log(`I'm connected with the back-end`);
+    //console.log(`I'm connected with the back-end`);
   });
 
 
   socket.on("ChatChange", data => {
-    console.log("aqui Chat cambio * "+data+" nombre  "+user.Email);
+    //console.log("aqui Chat cambio * "+data+" nombre  "+user.Email);
     
     MessageNotification(user,data)
   });
 
 
   socket.on("HiringChange", data => {
-    console.log("Tienes nueva contratacion ");
+    //console.log("Tienes nueva contratacion ");
     
     NewHiringNotification(user,data)
   });
@@ -52,7 +52,7 @@ export default App = () => {
  
  /* 
   socket.on("ChatChange", data => {
-    console.log("aqui Chat cambio"+data);
+    //console.log("aqui Chat cambio"+data);
     
   });
 
@@ -62,7 +62,7 @@ export default App = () => {
       }*/
      /*
   
-      console.log(`Cambio las`);
+      //console.log(`Cambio las`);
     });
   */
     

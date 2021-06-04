@@ -30,25 +30,25 @@ export  class Worker extends User {
     
     async Register(WorkerObject: Worker) {// Needs Password, Needs Email, needs SuscriptionDate,
       var num = 0;
-      console.log("trabajador Add");
+      //console.log("trabajador Add");
       try {
 
         const response = await axios.post(rooturl+"Worker/Register",{ WorkerObject });//the object to send must be *WorkerObject*  
      
      
-        console.log(" Respuesta "+response)
+        //console.log(" Respuesta "+response)
         if (response.status==409){
-          console.log("mal")
+          //console.log("mal")
         return "0";
       }else
         {
-          console.log("BIEN")
+          //console.log("BIEN")
           return "1"
         }
 
       } catch (error) {
-        console.log("error del tipo" + error);
-        console.log("error del tipo" + error.response.status);
+        //console.log("error del tipo" + error);
+        //console.log("error del tipo" + error.response.status);
    
         return "0";
       }
@@ -58,15 +58,15 @@ export  class Worker extends User {
 
     async ChangeToPremium(PremiumWorkerObject: PremiumWorker) {// Needs Password, Needs Email, needs SuscriptionDate,
       var num = 0;
-      console.log("change to premium...");
+      //console.log("change to premium...");
       try {
 
         const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ PremiumWorkerObject });//the object to send must be *WorkerObject*  
       
         return 1;
       } catch (error) {
-        console.log("error del tipo" + error);
-        console.log("error del tipo" + error.response.status);
+        //console.log("error del tipo" + error);
+        //console.log("error del tipo" + error.response.status);
         this.Response = error.response.status;
         return this;
       }
@@ -101,8 +101,8 @@ export  class Worker extends User {
     
           return AllWorkerArray; //returns an array of premiumWorker
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -123,8 +123,8 @@ export  class Worker extends User {
         
           return OnlyWorkerArray; //returns an array of premiumWorker
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -137,8 +137,8 @@ export  class Worker extends User {
           return response; //returns an array of premiumWorker
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -153,8 +153,8 @@ export  class Worker extends User {
           return ArrWorker; //returns an array of premiumWorker
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -170,8 +170,8 @@ export  class Worker extends User {
           return ArrWorker; //returns an array of premiumWorker
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }

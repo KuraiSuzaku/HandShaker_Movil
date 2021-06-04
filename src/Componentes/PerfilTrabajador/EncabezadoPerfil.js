@@ -23,10 +23,10 @@ export default EncabezadoPerfil = (props) => {
     
     const [editImageHeader, setImageHeader] = useState(props.user.HeaderPicture.Path);
 
-    console.log("OWNER ",props.owner);
+    //console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
         setEditando(true);
-        console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
+        //console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
 
@@ -48,7 +48,7 @@ export default EncabezadoPerfil = (props) => {
             setCategoria(props.user.Category);
             setProfesion(props.user.Profession);
             setDescripcion(props.user.JobDescription);
-            console.log("Props.user después de la actualización de WorkerObject: ", props.user);
+            //console.log("Props.user después de la actualización de WorkerObject: ", props.user);
         });*/
 
         //ActualizarUsuario(WorkerObject);
@@ -64,11 +64,11 @@ export default EncabezadoPerfil = (props) => {
     }
 
     const ImprimirDatos = () =>{
-        console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
-        console.log("IDUser (email): " + props.user.Email);
-        console.log("categoria: " + editcategoria);
-        console.log("profesion: " + editprofesion);
-        console.log("descripcion: " + editdescripcion);
+        //console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        //console.log("IDUser (email): " + props.user.Email);
+        //console.log("categoria: " + editcategoria);
+        //console.log("profesion: " + editprofesion);
+        //console.log("descripcion: " + editdescripcion);
     }
 
     const navigation = useNavigation();
@@ -95,7 +95,7 @@ export default EncabezadoPerfil = (props) => {
                         
                         }).catch( err => console.error(err) );
                 } catch (e) {
-                    console.log(e);
+                    //console.log(e);
                 }
             }
         });
@@ -121,7 +121,7 @@ export default EncabezadoPerfil = (props) => {
                         
                         }).catch( err => console.error(err) );
                 } catch (e) {
-                    console.log(e);
+                    //console.log(e);
                 }
             }
         });

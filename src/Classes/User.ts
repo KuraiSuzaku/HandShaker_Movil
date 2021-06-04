@@ -45,9 +45,9 @@ export  class User {
 
   async Login(userObject: User) {
     var num = 0;
-    console.log("start")
+    //console.log("start")
    try {
-        console.log("login")
+        //console.log("login")
       const response = await axios.post(rooturl+"user/Login",{ userObject });
       this.Email = response.data.Email;
       this.UserType = response.data.UserType;
@@ -55,9 +55,9 @@ export  class User {
       return this;
     } catch (error) {
       if( error.response.status==404||error.response.status==401){
-        console.log("aqui tipo error" );
-        console.log("error del tipo" + error);
-      console.log("error del tipo" + error.response.status);
+        //console.log("aqui tipo error" );
+        //console.log("error del tipo" + error);
+      //console.log("error del tipo" + error.response.status);
       this.Response = error.response.status;
       return this;}
     }
@@ -67,17 +67,17 @@ export  class User {
       var num = 0;
       let UserObject : User; 
       try {
-        console.log("email   "+Email)
+        //console.log("email   "+Email)
         const response = await axios.post(rooturl+"user/GetInfo",{ Email });//the object to send must be *WorkerObject*  
         UserObject=response.data;
-        console.log("respuesta   "+UserObject)
-     //   console.log("aqui...")
-     //   console.log(JSON.stringify(UserObject));
+        //console.log("respuesta   "+UserObject)
+     //   //console.log("aqui...")
+     //   //console.log(JSON.stringify(UserObject));
     
         return UserObject;
       } catch (error) {
-        console.log("error del tipo" + error);
-        console.log("error del tipo" + error.response.status);
+        //console.log("error del tipo" + error);
+        //console.log("error del tipo" + error.response.status);
         this.Response = error.response.status;
         return this;
       }
@@ -92,8 +92,8 @@ export  class User {
         return response; //returns an array of premiumWorker
 
       } catch (error) {
-        console.log("error del tipo" + error);
-        console.log("error del tipo" + error.response.status);
+        //console.log("error del tipo" + error);
+        //console.log("error del tipo" + error.response.status);
         this.Response = error.response.status;
         return this;
       }
@@ -105,20 +105,20 @@ export  class User {
    await axios.post("http://192.168.1.72:3001/api/user/Login", {userObject})
     .then(function (response) {
       try{ // your own try...catch block to catch the error before axios ..catch
-      console.log(response);
+      //console.log(response);
     
       }
       catch(e) {} // your catch block
     })
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
     });*/
 
-/*console.log("email "+userObject.Email);
+/*//console.log("email "+userObject.Email);
 axios.post("http://192.168.1.72:3001/api/user/Login",{ userObject })
     .then(res => {
-      console.log(res.status)
-        console.log(res.data)
+      //console.log(res.status)
+        //console.log(res.data)
         this.Email = res.data.Email;
         this.UserType = res.data.UserType;
         this.Response = "1";

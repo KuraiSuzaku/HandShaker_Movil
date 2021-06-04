@@ -26,11 +26,11 @@ const [Picture, setPicture] = useState(route.params.Avatar);
 
 
     async function getInfo(){
-        console.log("aqui");
-        console.log("email tooo "+route.params.toUser)
+        //console.log("aqui");
+        //console.log("email tooo "+route.params.toUser)
         let UserChatWith= new User()
         const userInfoofChat = await  UserChatWith.GetUserInformation(route.params.toUser)
-        console.log("email tooo "+userInfoofChat.Name) 
+        //console.log("email tooo "+userInfoofChat.Name) 
 
        
         setName(userInfoofChat.Name+" "+userInfoofChat.LastName)

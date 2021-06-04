@@ -13,13 +13,13 @@ export default AcercaDe = (props) => {
 
     const CambiarDatos = () =>{
         setEditando(true);
-        console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
+        //console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
     const GuardarCambios = () => {
         setEditando(false); 
-        console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
-        console.log("acerca de: " + edittexto);
+        //console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        //console.log("acerca de: " + edittexto);
     }
 
     return(

@@ -2,48 +2,116 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, ScrollView, Alert} from 'react-native';
 import {Avatar, Card, Button} from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Hiring } from '../../Classes/Hiring';
+import { WorkersHiring } from '../../Classes/WorkersHiring';
 
 export default Contratacion = (props) => {
     const avatar = require('../../../public/Profile/user.png');    
+    const route= useRoute();
+
+    console.log("data C"+route.params.data.userClient)
+
+    console.log("data C"+route.params.data.userClient[0].Email)
+    console.log("data C"+route.params.data.userClient[0].LastName)
 
     const data = {
-        EmailWorker: "usuariotrabajador", //props.user.EmailWorker,
-        Email: "usuario",  //props.user.Email,
-        Subject: "Contratacion wuuu", //props.user.Subject,
-        Date: "02/02/2021", //props.user.Date,
-        HiringDate: "20/02/2021", //props.user.HiringDate,
-        indications: "PUES OCUPO UN TRABAJO ASÍ BIEN PERRÓN PARA DENTRO DE 15 DÍAS XD",//props.user.indications,
-        Address: "calleprincipal",//props.user.Address,
-        BAddress1: "",//props.user.BAddress1,
-        BAddress2: "calle2",//props.user.BAddress2,
-        neighborhood: "colonia",//props.user.neighborhood,
-        Number: "6942",//props.user.Number,
-        Reference: "referencia",//props.user.Reference,
-        LinkMaps: "linkmaps",//props.user.LinkMaps,
+        EmailWorker: route.params.data.EmailWorker,
+        Email:route.params.data.Email,
+        Subject: route.params.data.Subject,
+        Date: route.params.data.Date,
+        HiringDate: route.params.data.HiringDate,
+        indications:route.params.data.indications,
 
-        Name: "Perro Javier Gonzales Gonzalo",//props.user.Name,
-        Linkclient: "Soy el link del cliente.com",//props.user.Linkclient,
+        ProfilePicture:route.params.data.userClient[0].Name,
+        ID:route.params.data.IDcreated,
 
-        Addresses: "No se que va aquí",//props.user.Addresses,
-        Status: "Aceptado",//props.user.Status,
-        IDcreated: "Tampoco sé que va aquí",//props.user.IDcreated,
-        _id:":T",//props.user._id,
-        userWorker:"D:",//props.user,
-        userClient:"D:",//props.loggedUser,
+        Address: route.params.data.Addresses[0].Address,
+        BAddress1: route.params.data.Addresses[0].BAddress1,
+        BAddress2: route.params.data.Addresses[0].BAddress2,
+        neighborhood: route.params.data.Addresses[0].neighborhood,
+        Number: route.params.data.Addresses[0].Number,
+        Reference: route.params.data.Addresses[0].Reference,
+        LinkMaps: route.params.data.Addresses[0].LinkMaps,
+
+        Name: route.params.data.userClient[0].Name,
+        Linkclient: route.params.data.Linkclient,
+
+       // Addresses: route.params.data.Addresses,
+        Status: route.params.data.Status,
+        IDcreated: route.params.data.IDcreated,
+       // _id:":T",//route.params.data._id,
+     //   userWorker:route.params.data,
+     //   userClient:props.loggedUser,
     }
+   /* console.log("EmailWorker "+data.EmailWorker)
+    console.log("Email "+data.Email)
+    console.log("Subject"+data.Subject)
+    console.log("Date"+data.Date)
+    console.log("HiringDate"+data.HiringDate)
+    console.log("indications"+data.indications)
+    console.log("Address"+data.Address)
+    console.log("BAddress1"+data.BAddress1)
+    console.log("BAddress2"+data.BAddress2)
+    console.log("neighborhood"+data.neighborhood)
+    console.log("Number"+data.Number)
+    console.log("Reference"+data.Reference)
+    console.log("LinkMaps"+data.LinkMaps)
+    console.log("Name"+data.Name)
+    console.log("Linkclient"+data.Linkclient)
+  */
+    let date = new Date( data.HiringDate)
+
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+    
+    if(month < 10){
+      console.log(`${day}-0${month}-${year}`)
+      data.HiringDate=`${day}-0${month}-${year}`
+    }else{
+      console.log(`${day}-${month}-${year}`)
+      data.HiringDate=`${day}-${month}-${year}`
+    }
+    
+
+ let date2 = new Date( data.Date)
+
+ let day2 = date2.getDate()
+ let month2 = date2.getMonth() + 1
+ let year2 = date2.getFullYear()
+ 
+ if(month2 < 10){
+   console.log(`${day2}-0${month2}-${year2}`)
+   data.Date=`${day2}-0${month2}-${year2}`
+ }else{
+   console.log(`${day2}-${month2}-${year2}`)
+   data.Date=`${day2}-${month2}-${year2}`
+ }
+
+    console.log("ID****"+data.ID)
 
     const [estadoContrato, setEstadoContrato] = useState(data.Status);
-    let Address = data.Address + " #" + data.Number + ", " + data.neighborhood;
-    
+  
+    if(typeof(data.BAddress1) != "undefined" && typeof(data.BAddress2) != "undefined"){
     if(data.BAddress1.trim() && data.BAddress2.trim()){
-        Address = Address + " Entre " + data.BAddress1 + " y " + data.BAddress2; 
+        data.Address = data.Address + " Entre " + data.BAddress1 + " y " + data.BAddress2; 
+    }   
+    } else if(typeof(data.BAddress1) != "undefined" && typeof(data.BAddress2) == "undefined"){
+
+        data.Address = data.Address + " Entre " + data.BAddress1; 
+    }else if(typeof(data.BAddress1) == "undefined" && typeof(data.BAddress2) != "undefined"){
+
+        data.Address = data.Address + " Entre " + data.BAddress2; 
+    }else{
+        data.Address = data.Address
     }
 
+    if(typeof(data.Reference) != "undefined" ){
     if(data.Reference.trim()){
-        Address = Address + ". " + data.Reference;
-    }
+        data.Address = data.Address + ". " + data.Reference;
+    }}
 
     const navigation = useNavigation();
 
@@ -110,27 +178,31 @@ export default Contratacion = (props) => {
     }
 
     const darResenia = () => {
-        console.log("NAVEGAR a DAR las RESEÑAS asdadsad");
+        //console.log("NAVEGAR a DAR las RESEÑAS asdadsad");
     }
 
     const abrirChat = () => {
-        console.log("Pues abre el chat xdxd");
+        //console.log("Pues abre el chat xdxd");
     }
 
-    const enviarDatos = (actualStatus) => {
-        console.log("Enviada la contratación con los datos!");
-        console.log("EmailWorker: " + data.EmailWorker);
-        console.log("Email: " + data.Email);
-        console.log("Subject: " + data.Subject);
-        console.log("Date: " + data.Date);
-        console.log("HiringDate: " + data.HiringDate);
-        console.log("indications: " + data.indications);
-        console.log("Addresses: " + data.Addresses);
-        console.log("Status: " + actualStatus);
-        console.log("IDcreated: " + data.IDcreated);
-        console.log("_id: " + data._id);
-        console.log('userWorker: ' + data.userWorker);
-        console.log('userClient: ' + data.userClient); 
+     const enviarDatos = async (actualStatus) => {
+        //console.log("Enviada la contratación con los datos!");
+        //console.log("EmailWorker: " + data.EmailWorker);
+        //console.log("Email: " + data.Email);
+        //console.log("Subject: " + data.Subject);
+        //console.log("Date: " + data.Date);
+        //console.log("HiringDate: " + data.HiringDate);
+        //console.log("indications: " + data.indications);
+        //console.log("Addresses: " + data.Addresses);
+        //console.log("Status: " + actualStatus);
+        //console.log("IDcreated: " + data.IDcreated);
+        //console.log("_id: " + data._id);
+        //console.log('userWorker: ' + data.userWorker);
+        //console.log('userClient: ' + data.userClient); 
+
+       let UpdateHiring= new WorkersHiring()
+
+       const up= await UpdateHiring.UpdateHiring( data.EmailWorker, data.Email,data.IDcreated,actualStatus)
     }
 
     const Cancelar = () =>{
@@ -145,7 +217,7 @@ export default Contratacion = (props) => {
                     <Avatar
                         rounded
                         icon={{name:'user', type:'font-awesome', color:'black'}}
-                        source={avatar}
+                        source={data.ProfilePicture}
                         size={75}
                         containerStyle={Estilos.ContenedorAvatar}
                     />
@@ -157,9 +229,9 @@ export default Contratacion = (props) => {
                 </View>
                 <Card.Divider style={{height:2}}/>
                 <View style={{flexDirection: 'row', justifyContent: "space-evenly", margin: 5}}>
-                    <Text style={Estilos.Titulo}>Estado: </Text>
+                    <Text style={Estilos.TituloAux}>Estado: </Text>
                     <Text style={Estilos.Texto}>{estadoContrato}</Text>
-                    <Text style={Estilos.Titulo}>Creado el: </Text>
+                    <Text style={Estilos.TituloAux}>Creado el: </Text>
                     <Text style={Estilos.Texto}>{data.Date} </Text>
                 </View>
 
@@ -248,10 +320,15 @@ export default Contratacion = (props) => {
                 
                 <View style={{width: "100%", margin: 10}}>
                     <Text style={Estilos.Titulo}>Lugar:</Text>
-                    <Text style={Estilos.Texto}>{Address}</Text>
+                    <Text style={Estilos.Texto}>{data.Address}</Text>
                 </View>
                 
-                {(data.LinkMaps.trim()) &&
+                {
+                
+                
+                (typeof(data.Reference)!="undefined"?data.LinkMaps.trim():"")
+                
+                &&
                 <View style={{width: "100%", margin: 10}}>
                     <Text style={Estilos.Titulo}>Maps:</Text>
                     <Text style={Estilos.Texto}>{data.LinkMaps}</Text>
@@ -273,6 +350,11 @@ const Estilos = StyleSheet.create({
     },
     Titulo: {    
         fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'left',
+    },
+    TituloAux: {    
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'left',
     },

@@ -31,16 +31,16 @@ export  class PremiumWorker extends User {
 
     async GetPremiumWorkerInformation(PremiumWorkerObject: PremiumWorker) {// fill PremiumWorkerObject with all information of the premium worker
         var num = 0;
-        console.log("premium  ...")
+        //console.log("premium  ...")
         try {
           const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkerInformation",{ PremiumWorkerObject });//the object to send must be *PremiumWorkerObject*
           PremiumWorkerObject=response.data;
-          console.log("****** "+PremiumWorkerObject._id);
+          //console.log("****** "+PremiumWorkerObject._id);
         
           return PremiumWorkerObject;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -50,13 +50,13 @@ export  class PremiumWorker extends User {
         var num = 0;
          let PremiumWorkerObject:PremiumWorker
         try {
-          console.log("New Premium "+ WorkerObject);
+          //console.log("New Premium "+ WorkerObject);
           const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ WorkerObject });//the object to send must be *WorkerObject*  
           PremiumWorkerObject=response.data;
           return PremiumWorkerObject;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -77,8 +77,8 @@ export  class PremiumWorker extends User {
         
           return PremiumWorkerArray; //returns an array of premiumWorker
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -91,8 +91,8 @@ export  class PremiumWorker extends User {
         
           return 1;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -106,8 +106,8 @@ export  class PremiumWorker extends User {
           return response; //returns an array of premiumWorker
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -125,8 +125,8 @@ export  class PremiumWorker extends User {
           return ArrPremiumWorkers; //returns an array of premiumWorker
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }

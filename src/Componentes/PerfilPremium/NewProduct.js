@@ -40,7 +40,7 @@ export default class NewProduct extends Component {
         };
         ImagePicker.showImagePicker(options, (response) => {
             if(response.didCancel) {
-              console.log('User cancelled image picker');
+              //console.log('User cancelled image picker');
             } else {
                 ImgToBase64.getBase64String(response.uri)
                 .then(base64String => {
@@ -66,7 +66,7 @@ export default class NewProduct extends Component {
         }
             //please add date and hour to the image so there can;t be duplicates
             var date = new Date(); 
-                console.log(this.state.name+" * "+this.state.price+" * "+this.state.description);
+                //console.log(this.state.name+" * "+this.state.price+" * "+this.state.description);
                 if(this.state.image.name)
                     img=new Image(this.state.image.name, this.state.image.base64);
                 else

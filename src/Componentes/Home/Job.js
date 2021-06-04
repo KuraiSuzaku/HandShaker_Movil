@@ -21,18 +21,18 @@ export default class Job extends Component {
     }
 
     trabajadores(job){
-        //console.log( this.state.profesiones )
+        ////console.log( this.state.profesiones )
         //this.props.profesiones.forEach(profesiones => {
         Trabajador =  new PremiumWorker();
 
         Trabajador.GetPremiumWorkersWithProfession(job).then((trabajadoresWithProfession) => {
             this.handleTrabajadores(trabajadoresWithProfession)
             // trabajadoresWithProfession.forEach(trabajador => {
-            //     console.log("trabajador de "+trabajador.Name+" nombre profesion " + job+ " foto " + trabajador.ProfilePicture.Path )
+            //     //console.log("trabajador de "+trabajador.Name+" nombre profesion " + job+ " foto " + trabajador.ProfilePicture.Path )
             // });  
         }); 
-        // console.log("Profesion "+ profesiones.Name )
-        //console.log("Imagen "+profesiones.ImageProfession.Path )
+        // //console.log("Profesion "+ profesiones.Name )
+        ////console.log("Imagen "+profesiones.ImageProfession.Path )
 
         // })
     }
@@ -41,7 +41,7 @@ export default class Job extends Component {
         return (
             <View >
                 <TouchableOpacity onPress={ ()=>this.props.navigation.navigate("FilterByCategory", { jobTitle: this.props.jobTitle }) } style={ styles.individualJob }>
-                {/* ()=>console.log(this.props.jobTitle) */}
+                {/* ()=>//console.log(this.props.jobTitle) */}
                     {/* this.props.navigation.navigate("FilterByCategory", { jobTitle: this.props.jobTitle }) */}
                     <Image 
                         style={ styles.img }
