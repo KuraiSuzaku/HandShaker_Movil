@@ -47,6 +47,7 @@ export default ListaPublicacion = (props) => {
                     postList.slice(0).reverse().map((p, i) => (
                         <Componentes.PerfilPremium.Publicacion
                             {...props}
+                            setUploaded={ setUploaded }
                             {...p}
                             />
                     )) :
