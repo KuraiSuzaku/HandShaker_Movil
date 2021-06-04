@@ -37,6 +37,8 @@ export default ListaCostos = ( { user, owner } ) => {
                 costos ?
                 costos.slice(0).reverse().map((c, i) => (
                     <Componentes.PerfilPremium.Costo
+                        user={ user }
+                        owner={ owner }
                         {...c}
                         />
                 )):
