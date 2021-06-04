@@ -9,10 +9,11 @@ export default ListaCostos = ( { user, owner } ) => {
     const [firstLoad, setFirstLoad] = useState(true);
 
     getPrices = () => {
+        console.log('GET PRICES, FRONT');
         const pricesObj = new Prices(user.Email);
         pricesObj.GetPrice(user.Email)
         .then( res => {
-            console.log('Prices Response: ', res);
+            setCostos(res.ListOfPrices);
         }).catch( e => console.error(e) );
     }
 
@@ -34,14 +35,20 @@ export default ListaCostos = ( { user, owner } ) => {
             }
             {
                 costos ?
-                costos.map((c, i) => (
+                costos.slice(0).reverse().map((c, i) => (
                     <Componentes.PerfilPremium.Costo
+                        user={ user }
+                        owner={ owner }
+                        setUploaded={ setUploaded }
                         {...c}
                         />
-                )) :
+                )):
                 null
             }
             <Componentes.PerfilTrabajador.FinSeccion />
         </View>
     );
 }
+/*
+
+                */

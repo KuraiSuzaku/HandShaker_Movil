@@ -67,8 +67,7 @@ export default class NewMultimedia extends Component {
             img=new Image(name, base64);
             MultimediaItemObject=new MultimediaItems(date, description, img);
             MultimediaObject=new Multimedia(this.props.user.Email, MultimediaItemObject);
-            MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     
-                if  (res==200){
+            MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{
                     this.setState(
                         { image: {
                             description: null,
@@ -78,7 +77,6 @@ export default class NewMultimedia extends Component {
                         }});
                     this.props.setUploaded(true);
                     Alert.alert('Se Agrego correctamente');
-                    }
             })
         }
         else

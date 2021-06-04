@@ -153,15 +153,13 @@ export default EncabezadoPerfil = (props) => {
         setConfirm(false);
     }
 
-    console.log('Imagen: ', props.user.HeaderPicture);
-
     return(
         <View>
             <Image
                 source={
-                    backImage ?
+                    backImage /*?
                     { uri: backImage.path } :
-                    props.user.HeaderPicture.Path
+                    props.user.HeaderPicture.Path*/
                 }
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'
