@@ -157,9 +157,9 @@ export default EncabezadoPerfil = (props) => {
         <View>
             <Image
                 source={
-                    backImage ?
+                    backImage /*?
                     { uri: backImage.path } :
-                    props.user.HeaderPicture.Path
+                    props.user.HeaderPicture.Path*/
                 }
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'

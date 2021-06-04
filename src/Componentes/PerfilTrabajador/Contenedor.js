@@ -60,7 +60,7 @@ export default Contenedor = (props) => {
             return(<Componentes.PerfilTrabajador.Navegacion {...props} user={profileUser} owner={owner}  />); // <<< Navegación del perfil trabajador normal
         }
     }
-
+    
     return(
         <>
         {
@@ -70,9 +70,9 @@ export default Contenedor = (props) => {
                     <Componentes.PerfilTrabajador.EncabezadoPerfil 
                         {...props}
                         setRefresh={ () => setRefresh(true) }
-                        user={profileUser} // El que se esta viendo
-                        loggedUser={props.user.Email} // el usuario logueado
-                        owner={owner}
+                        user={ profileUser } // El que se esta viendo
+                        loggedUser={ props.user.Email } // el usuario logueado
+                        owner={ owner }
                     />
                     {checkPremium()}
                     {
