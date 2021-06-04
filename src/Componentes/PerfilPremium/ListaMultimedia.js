@@ -35,6 +35,8 @@ export default ListaMultimedia = (props) => {
                 mediaList ?
                 mediaList.slice(0).reverse().map((m, i) => (
                     <Componentes.PerfilPremium.Multimedia
+                        {...props}
+                        setUploaded={ setUploaded }
                         {...m}
                         />
                 )) :

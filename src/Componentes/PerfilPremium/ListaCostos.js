@@ -39,6 +39,7 @@ export default ListaCostos = ( { user, owner } ) => {
                     <Componentes.PerfilPremium.Costo
                         user={ user }
                         owner={ owner }
+                        setUploaded={ setUploaded }
                         {...c}
                         />
                 )):

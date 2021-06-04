@@ -11,6 +11,7 @@ export default Costo = (props) => {
          *  Usuario: props.user.Email
          *  id del producto: props._id
          */
+        props.setUploaded(true);
         
     }
 

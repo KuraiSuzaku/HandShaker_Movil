@@ -4,7 +4,6 @@ import {
     ActivityIndicator,
     View,
 } from 'react-native';
-import { Button } from 'react-native-elements';
 import * as Componentes from '../Indice';
 import { Posts } from '../../Classes/Posts';
 
