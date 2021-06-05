@@ -9,6 +9,7 @@ import  {User} from '../../Classes/User';
 import Clases from '../../Classes/Indice';
 import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
+import PremiumWorker from '../../Classes/PremiumWorker';
 
 export default EncabezadoPerfil = (props) => {
     
@@ -31,16 +32,29 @@ export default EncabezadoPerfil = (props) => {
 
 
     async function GuardarCambios () {
-        setEditando(false); 
+        
         //ImprimirDatos();
-
-        let WorkerObject = new Worker(props.user.Email);
+       console.log("cambios"+ props.user.UserType);
+       props.user.Profession=editprofesion
+       props.user.Category=editcategoria
+       props.user.JobDescription=editdescripcion
+if  (!props.user.UserType.includes("PremiumWorker"))
+      {  let WorkerObject = new Worker(props.user.Email);
         WorkerObject.Category = editcategoria;
         WorkerObject.Profession = editprofesion;
         WorkerObject.JobDescription = editdescripcion;
 
         const x =  await WorkerObject.UpdateWorkers(WorkerObject);
+    }else{
+console.log("premium")
+        let WorkerObject = new PremiumWorker(props.user.Email);
+        WorkerObject.Category = editcategoria;
+        WorkerObject.Profession = editprofesion;
+        WorkerObject.JobDescription = editdescripcion;
 
+        const x =  await WorkerObject.UpdatePremiumWorkers(WorkerObject);
+
+    }
         /*
         WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
             WorkerObject=res; 
@@ -52,7 +66,7 @@ export default EncabezadoPerfil = (props) => {
         });*/
 
         //ActualizarUsuario(WorkerObject);
-
+        setEditando(false); 
     }
 
     const ActualizarUsuario = (Trabajador) => {

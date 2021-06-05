@@ -3,8 +3,10 @@ import {StyleSheet, View,} from 'react-native';
 import {Card, Text, Button,} from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
 import EditarContacto from './EditarContacto';
+import PremiumWorker from '../../Classes/PremiumWorker';
+import {Worker} from '../../Classes/Worker';
 
-export default Contacto = ({contacto}) => {
+export default Contacto = (props) => {
     
     const [propietario, setPropietario] = useState(true);
     const [editando, setEditando] = useState(false);
@@ -13,18 +15,50 @@ export default Contacto = ({contacto}) => {
     const [editcelular, setCelular] = useState();
     const [editdomicilio, setDomicilio] = useState();
 
+
+    //console.log("domicilio: " + contacto.correo);
+    console.log("domicilio:** " + props.user.Email);
+    console.log("domicilio: " + props.contacto.correo);
+
+
+    console.log("domicilio: " + props.user.UserType);
+
     const CambiarDatos = () =>{
         setEditando(true);
         //console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
+
+
+
     }
 
-    const GuardarCambios = () => {
+    const GuardarCambios = async () => {
         setEditando(false); 
         //console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
         //console.log("correo: " + editcorreo);
         //console.log("telefono: " + edittelefono);
         //console.log("celular: " + editcelular);
         //console.log("domicilio: " + editdomicilio);
+        console.log("domicilio: " + props.contacto.correo);
+     
+
+        console.log("domicilio: " + props.user.UserType);
+
+        if  (!props.user.UserType.includes("PremiumWorker"))
+        {  let WorkerObject = new Worker(props.user.Email);
+       
+          const x =  await WorkerObject.UpdateWorkers(WorkerObject);
+      }else{
+  console.log("premium")
+          let WorkerObject = new PremiumWorker(props.user.Email);
+        
+          WorkerObject.EmailContact
+  
+          const x =  await WorkerObject.UpdatePremiumWorkers(WorkerObject);
+  
+      }
+
+
+
     }
 
     return(
@@ -60,23 +94,23 @@ export default Contacto = ({contacto}) => {
                     setTelefono = {setTelefono}
                     setCelular = {setCelular}
                     setDomicilio = {setDomicilio}
-                    auxCorreo = {contacto.correo}
-                    auxTelefono = {contacto.telefono}
-                    auxCelular = {contacto.celular}
-                    auxDomicilio = {contacto.domicilio}
+                    auxCorreo = {props.contacto.correo}
+                    auxTelefono = {props.contacto.telefono}
+                    auxCelular = {props.contacto.celular}
+                    auxDomicilio = {props.contacto.domicilio}
                 />
             }
             {(!propietario) || (!editando) &&
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text style={Estilos.Dato}>
-                    Correo: <Text>{contacto.correo}</Text>
+                    Correo: <Text>{props.contacto.correo}</Text>
                 </Text>
                 <Text style={Estilos.Dato}>
-                    Teléfono: <Text style={Estilos.DatoSecundario}>{contacto.telefono}</Text>
+                    Teléfono: <Text style={Estilos.DatoSecundario}>{props.contacto.telefono}</Text>
                 </Text><Text style={Estilos.Dato}>
-                    Celular: <Text>{contacto.celular}</Text>
+                    Celular: <Text>{props.contacto.celular}</Text>
                 </Text><Text style={Estilos.Dato}>
-                    Domicilio: <Text>{contacto.domicilio}</Text>
+                    Domicilio: <Text>{props.contacto.domicilio}</Text>
                 </Text>
             </Card>
             }

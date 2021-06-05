@@ -1,4 +1,4 @@
-import { Image } from './Image';
+
 import { ItemPrice } from './ItemPrice';
 import axios from 'axios'
 import {rooturl} from './ip'

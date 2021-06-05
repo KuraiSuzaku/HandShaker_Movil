@@ -33,7 +33,7 @@ export class AllChats {
           const response = await axios.post(rooturl+"Chat/Get",{Email});//the object to send must be *PostObject*
           //console.log("respuesta"+response)
           ArrChat= response.data
-         // //console.log("res"+ArrChat);
+          console.log("res"+ArrChat);
           return ArrChat;
         } catch (error) {
           //console.log("error del tipo" + error);

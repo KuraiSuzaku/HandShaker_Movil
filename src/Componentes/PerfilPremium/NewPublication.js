@@ -14,7 +14,7 @@ import ImgToBase64 from 'react-native-image-base64';
 //import firebase from '../../../firebase';
 import Colores from '../../Estilos/Colores';
 import { Post } from './../../Classes/Post';
-import { Image } from './../../Classes/Image';
+import  ImageN  from '../../Classes/Image';
 import { Posts } from './../../Classes/Posts';
 
 export default class NewPublication extends Component {
@@ -79,9 +79,9 @@ export default class NewPublication extends Component {
              var date = new Date(); 
              //console.log('Publicate ' + publication);
              if(image.uri != null)
-                img=new Image(image.name, image.base64);
+                img=new ImageN(image.name, image.base64);
             else
-                img=new Image("", "");
+                img=new ImageN("", "");
              PostObbject=new Post(date,publication,img);
              PostsObject=new Posts(this.props.user.Email, PostObbject);
              PostsObject.AddPost(PostsObject).then(res=>{            

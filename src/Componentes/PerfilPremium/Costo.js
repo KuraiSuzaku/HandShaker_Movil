@@ -5,7 +5,7 @@ import { Avatar, Card, Text } from 'react-native-elements';
 export default Costo = ({   Name,
                             Description,
                             Price,
-                            PrictureImage
+                            PictureImage
                         }) => {
     return(
         <Card containerStyle={Estilos.Tarjeta}>
@@ -13,7 +13,7 @@ export default Costo = ({   Name,
                 <View style={Estilos.Presentacion}>
                     <Text style={Estilos.Titulo}>{ Name }</Text>
                     <Avatar
-                        source={{ uri: PrictureImage.Path }}
+                        source={{ uri: PictureImage.Path }}
                         size={70}
                         containerStyle={Estilos.ContenedorIcono}
                         avatarStyle={Estilos.Icono}

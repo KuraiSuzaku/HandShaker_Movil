@@ -18,11 +18,11 @@ export default PerfilTrabajador = (props) => {
     isPremium : false,
     acercade : {
 
-                        nombre: 'Armando Paredes de la Colina',
+                      /*  nombre: 'Armando Paredes de la Colina',
 
                         informacion: 'Aquí estoy poniendo mi información :D MUCHOS CARACTERESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
                         imagen: require('../../public/Images/acercade_placeholder.png'),
-                      },
+    */ },
     contacto : {
                         correo: 'tengo_un_correo@hotmail.com',
                         telefono: '36-52-01-45',

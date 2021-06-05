@@ -14,7 +14,7 @@ import {
 import { MultimediaItems } from '../../Classes/MultimediaItems';
 import { Multimedia } from '../../Classes/Multimedia';
 import ImagePicker from 'react-native-image-picker';
-import { Image } from './../../Classes/Image';
+import  ImageN  from './../../Classes/Image';
 import ImgToBase64 from 'react-native-image-base64';
 import Colores from '../../Estilos/Colores';
 
@@ -64,7 +64,7 @@ export default class NewMultimedia extends Component {
         if(typeof this.state.image.uri !== null){
             const { description, name, base64 } = this.state.image;
             var date = new Date();
-            img=new Image(name, base64);
+            img=new ImageN(name, base64);
             MultimediaItemObject=new MultimediaItems(date, description, img);
             MultimediaObject=new Multimedia(this.props.user.Email, MultimediaItemObject);
             MultimediaObject.AddMultimedia(MultimediaObject).then(res=>{                     

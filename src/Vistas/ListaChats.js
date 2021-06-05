@@ -12,6 +12,7 @@ import User from '../Classes/User';
 export default PagoAPremium = (props) => {
     const avatar = require('../../public/Profile/user.png');
     const [auxRender, setAuxrender] = useState(false);
+    const [Nmensajes, setMensajes] = useState(0);
     const [chats, setChats] = useState({});
     const [flgName, setFlgName] = useState(false);
     const navigation = useNavigation();
@@ -57,26 +58,12 @@ export default PagoAPremium = (props) => {
 
     let lista_chats = [
         {
-            _id: "01",
-            EmailChatWith: "email1@gmail.com",
-            avatar: "bell",
-            Name: "SoyNombre1",
-            ListOfMessages: mensajes_chat,
+            _id: "",
+            EmailChatWith: "",
+            avatar: "",
+            Name: "",
         },
-        {
-            _id: "02",
-            EmailChatWith: "email2@gmail.com",
-            avatar: "bell",
-            Name: "SoyNombre2",
-            ListOfMessages: mensajes_chat,
-        },
-        {
-            _id: "03",
-            EmailChatWith: "email3@gmail.com",
-            avatar: "bell",
-            Name: "SoyNombre3",
-            ListOfMessages: mensajes_chat,
-        },
+       
     ];
       
   
@@ -91,8 +78,8 @@ export default PagoAPremium = (props) => {
     };
 
      async function Getchat(email){
-         //console.log("aqui 1")
-       // //console.log("AQUIIIEmail actual ", email );
+         console.log("aqui 1")
+       console.log("AQUIIIEmail actual ", email );
         let ArrChats= new Array();
 
         let allChat= new AllChats()//Login
@@ -105,11 +92,15 @@ export default PagoAPremium = (props) => {
       let ArrNames=new Array();
 
          let count=0;
-        //console.log("tamanio "+ret.length) 
-        if(ret.length>0){
-      const x =  await ret.ListOfChats.forEach( async (element) => {
+       
+
+
+
+        if(typeof(ret.ListOfChats) != "undefined"){
+        
+            const x =  await ret.ListOfChats.forEach( async (element) => {
        // //console.log(JSON.stringify(element));
-      //    //console.log(element.EmailChatWith);
+        console.log(element.EmailChatWith);
           
       let ArrInfoChatWith=new Array();
        
@@ -128,13 +119,21 @@ export default PagoAPremium = (props) => {
         
         
          if((ret.ListOfChats.length-1)==count){
-           
+           console.log("termino")
             SetChatWithNameAndAvatar(ArrChats,ret);
+            setMensajes(ret.ListOfChats.length)
+           
         }
         
          count++;
       });
     
+    }else{
+
+  console.log("No tiene chats")
+  setChats(lista_chats);
+  setMensajes(0)
+  setAuxrender(true);  
     }
       //console.log("FIIIN aqui 1")
      
@@ -148,14 +147,14 @@ export default PagoAPremium = (props) => {
         ArrInfo.forEach(userInfo => {
             
          //  let chataux=(new Chat(+userInfo[4].Path,userInfo[1],userInfo[2].Path,userInfo[0],userInfo[3].Path));
-          //  //console.log("chat aux "+JSON.stringify(chataux));
+       
           let auxC=  new Chat();            
           auxC._id=userInfo[4];            
           auxC.Name=userInfo[1]; 
           auxC.Picture=userInfo[2].Path;
           auxC.EmailChatWith=userInfo[0]; 
           auxC.ListOfMessages=userInfo[3];
-         
+              
           ChatNewArr.push(auxC);
         });
      
@@ -244,6 +243,8 @@ await Array.forEach( async element => {
             <>
             <Componentes.EncabezadoApp/> 
             <Text style={Estilos.Titulo}>MENSAJES</Text>   
+           {(Nmensajes == 0) && <Text style={Estilos.Titulo}> No tiene Mensajes </Text>   }
+           
             </>
         );
     };

@@ -132,6 +132,22 @@ export  class PremiumWorker extends User {
         }
 
       }
+
+
+      async UpdatePremiumWorkers(PremiumWorkerObject: PremiumWorker) {// Get All workers, even the premium workers
+     
+        try {
+          const response = await axios.post(rooturl+"PremiumWorker/UpdatePremiumWorker",{ PremiumWorkerObject });//the object to send must be *WorkerObject*
+          return response; //returns an array of premiumWorker
+
+        } catch (error) {
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+
+      }
    
 }
 export default PremiumWorker
