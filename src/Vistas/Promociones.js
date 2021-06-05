@@ -9,7 +9,7 @@ export default PagoAPremium = (props) => {
     const avatar = require('../../public/Profile/user.png');
     const imgpromocion = require('../../public/Icons/gift.png');
   
-    const promociones = [
+    const data = [
         {
             _id: '1',
             Email: 'promocion1@promocion.com',
@@ -96,15 +96,18 @@ export default PagoAPremium = (props) => {
 
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
-            <FlatList
-            ListHeaderComponent={<Encabezado/>}
-                data={promociones}
-                renderItem={renderItem}
-                containerStyle={Estilos.ScrollView}
-                contentContainerStyle={{flexGrow: 1}}
-            ListFooterComponent={<Componentes.Navegacion/>}
-            ListFooterComponentStyle={{flex: 1, justifyContent: 'flex-end'}}
-            />
+            <View style={{flex: 1}}>
+                <View style={{flex: 0.175}}><Encabezado/></View>
+                <View style={{flex: 0.75}}>
+                <FlatList
+                        data={data}
+                        renderItem={renderItem}
+                        containerStyle={Estilos.ScrollView}
+                        contentContainerStyle={{flexGrow: 1}}
+                    />
+                </View> 
+                <View style={{flex: 0.075}}><Componentes.Navegacion/></View>
+            </View> 
         </SafeAreaProvider>
     )
 }
