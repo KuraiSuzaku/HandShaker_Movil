@@ -11,6 +11,7 @@ import Home from './Home/Home';
 import * as Chat from './Chat/Indice';
 import * as ListaContratacion from './ListaContratacion/Indice';
 import Loading from './Loading';
+import * as Promociones from './Promociones/Indice';
 
 export {
     EncabezadoApp,
@@ -25,5 +26,6 @@ export {
     Home,
     Chat,
     ListaContratacion,
-    Loading
+    Loading,
+    Promociones,
 };

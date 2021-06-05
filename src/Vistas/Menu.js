@@ -180,6 +180,18 @@ export default props => {
                     {...props}
                 /> }
             </Drawer.Screen>
+
+            <Drawer.Screen
+                name='Promociones'
+                component={Vistas.Promociones}
+                options={{
+                    unmountOnBlur: true
+                }}
+                >
+                { ()=><Vistas.Promociones
+                    {...props}
+                />}
+            </Drawer.Screen>
         </Drawer.Navigator>
     );
 }
