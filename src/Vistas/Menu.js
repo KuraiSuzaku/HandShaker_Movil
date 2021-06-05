@@ -183,7 +183,6 @@ export default props => {
 
             <Drawer.Screen
                 name='Promociones'
-                component={Vistas.Promociones}
                 options={{
                     unmountOnBlur: true
                 }}
