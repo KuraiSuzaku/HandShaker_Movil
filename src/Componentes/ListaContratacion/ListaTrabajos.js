@@ -8,7 +8,7 @@ import { WorkersHiring } from '../../Classes/WorkersHiring';
 
 const TabNav = createMaterialTopTabNavigator();
 
-const StatusTypes = ['Inicio', 'Proceso', 'Finalizada'];
+const StatusTypes = ['Inicio', 'Proceso', 'Finalizado'];
 
 export default class ListaTrabajos extends React.Component {
     constructor(props) {

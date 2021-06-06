@@ -103,14 +103,14 @@ export default Contacto = (props) => {
             {(!propietario) || (!editando) &&
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text style={Estilos.Dato}>
-                    Correo: <Text>{props.contacto.correo}</Text>
+                    Correo: <Text>{props.user.Email}</Text>
                 </Text>
                 <Text style={Estilos.Dato}>
-                    Teléfono: <Text style={Estilos.DatoSecundario}>{props.contacto.telefono}</Text>
+                    Teléfono: <Text style={Estilos.DatoSecundario}>{props.user.telefono}</Text>
                 </Text><Text style={Estilos.Dato}>
-                    Celular: <Text>{props.contacto.celular}</Text>
+                    Celular: <Text>{props.user.celular}</Text>
                 </Text><Text style={Estilos.Dato}>
-                    Domicilio: <Text>{props.contacto.domicilio}</Text>
+                    Domicilio: <Text>{props.user.domicilio}</Text>
                 </Text>
             </Card>
             }

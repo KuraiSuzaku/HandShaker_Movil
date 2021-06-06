@@ -252,7 +252,24 @@ export default Contratacion = (props) => {
                 </View>
                 }
 
-                {(estadoContrato === "Proceso") &&
+                {(estadoContrato === "Proceso") && (route.params.data.Email === props.user.Email) &&
+                <View style={{flexDirection: 'row', width: "100%", justifyContent: 'center'}}>
+                    <Button
+                        title='Finalizar'
+                        buttonStyle={Estilos.BotonFinalizar}
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={finalizarContratacion}
+                    />
+                    <Button
+                        title='Cancelar'
+                        buttonStyle={Estilos.BotonCancelar}
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={cancelarContratacion}
+                    />
+                </View>
+                }
+
+                {(estadoContrato === "Proceso") && (route.params.data.EmailWorker === props.user.Email) &&
                 <View style={{flexDirection: 'row', width: "100%", justifyContent: 'center'}}>
                     <Button
                         title='Cancelar'
