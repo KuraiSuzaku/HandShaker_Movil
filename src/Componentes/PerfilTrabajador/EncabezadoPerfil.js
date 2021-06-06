@@ -12,7 +12,6 @@ import ImgToBase64 from 'react-native-image-base64';
 import PremiumWorker from '../../Classes/PremiumWorker';
 
 export default EncabezadoPerfil = (props) => {
-    
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
 
@@ -87,7 +86,8 @@ console.log("premium")
 
     const navigation = useNavigation();
 
-    const changeAvatar = () => {
+    const changeCache = (avatar) => {
+        cancelUpload();
         const options = {
             mediaType: 'photo',
             quality: 1,
@@ -166,11 +166,10 @@ console.log("premium")
                     />
                 {
                     propietario ?
-                    <TouchableOpacity onPress={ () => changeAvatar() } >
-                        <CustomAvatar {...props} />
-                    </TouchableOpacity>
-                     :
-                    <CustomAvatar {...props} />
+                    <TouchableOpacity onPress={ () => changeCache(true) } >
+                        <CustomAvatar {...props} avatarCache={ avatarCache } />
+                    </TouchableOpacity> :
+                    <CustomAvatar {...props} avatarCache={ null } />
                 }
                 {(!propietario) &&
                 <Button
@@ -198,6 +197,26 @@ console.log("premium")
                         titleStyle={Estilos.EtiquetaBoton}
                         onPress={GuardarCambios}
                     />
+                }
+                {
+                    confirm ?
+                    <View style={Estilos.ButtonForm} >
+                        <Button
+                            title='Cancelar'
+                            containerStyle={[Estilos.ConfirmButtonContainer, Estilos.CancelButtonContainer]}
+                            buttonStyle={[Estilos.ConfirmButton, Estilos.CancelButton]}
+                            titleStyle={Estilos.ButtonFormTitle}
+                            onPress={ () => cancelUpload() }
+                        />
+                        <Button
+                            title='Confirmar'
+                            containerStyle={Estilos.ConfirmButtonContainer}
+                            buttonStyle={Estilos.ConfirmButton}
+                            titleStyle={Estilos.ButtonFormTitle}
+                            onPress={ () => updateAvatar() }
+                        />
+                    </View> :
+                    null
                 }
             </View>
             {(!editando) &&
@@ -236,9 +255,9 @@ const CustomAvatar = (props) => {
         <Avatar
             rounded
             source={
-                props.user.ProfilePicture ?
-                { uri: props.user.ProfilePicture.Path } :
-                require('../../../public/Profile/user.png')
+                props.avatarCache ?
+                { uri: props.avatarCache.path } :
+                { uri: props.user.ProfilePicture.Path }
             }
             size={100}
             containerStyle={Estilos.ContenedorAvatar}
@@ -285,12 +304,29 @@ const Estilos = StyleSheet.create({
         backgroundColor: 'gray',
     },
     Fila: {
-        alignSelf: 'center',
         position: 'absolute',
         width: '100%',
         marginTop: 50,
         flexDirection:'row',
         justifyContent: 'space-evenly',
+    },
+    ButtonForm: {
+        position: 'absolute',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        width: '85%'
+    },
+    ConfirmButton: {
+        paddingVertical: 2,
+        borderRadius: 25,
+        backgroundColor: '#282'
+    }, 
+    CancelButton: {
+        backgroundColor: '#822'
+    },
+    ButtonFormTitle: {
+        margin: 0,
+        fontSize: 14
     },
     ContenedorComponente: {
         justifyContent: 'flex-end',

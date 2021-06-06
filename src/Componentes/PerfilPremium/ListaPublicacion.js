@@ -4,7 +4,6 @@ import {
     ActivityIndicator,
     View,
 } from 'react-native';
-import { Button } from 'react-native-elements';
 import * as Componentes from '../Indice';
 import { Posts } from '../../Classes/Posts';
 
@@ -48,6 +47,7 @@ export default ListaPublicacion = (props) => {
                     postList.slice(0).reverse().map((p, i) => (
                         <Componentes.PerfilPremium.Publicacion
                             {...props}
+                            setUploaded={ setUploaded }
                             {...p}
                             />
                     )) :

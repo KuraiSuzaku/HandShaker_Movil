@@ -12,6 +12,7 @@ import * as Chat from './Chat/Indice';
 import * as ListaContratacion from './ListaContratacion/Indice';
 import Loading from './Loading';
 import * as TarjetaContratacion from './Contratacion/Indice';
+import * as Promociones from './Promociones/Indice';
 
 export {
     EncabezadoApp,
@@ -28,4 +29,5 @@ export {
     ListaContratacion,
     Loading,
     TarjetaContratacion,
+    Promociones,
 };

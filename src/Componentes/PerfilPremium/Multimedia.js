@@ -2,21 +2,35 @@ import React, { useState } from 'react';
 import {
     ActivityIndicator,
     StyleSheet,
-    Text
+    Text,
+    View
 } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, Icon } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
 
 export default Multimedia = (props) => {
     const [image, setImage] = useState(null);
+
     const setImageSource = () => {
         setImage({
             name: props.MultimediaImage.Name,
             uri: props.MultimediaImage.Path
         });
     }
+
+    const deleteMedia = () => {
+        /**
+         * Eliminar multimedia
+         * Usuario: props.user.Email
+         * ID: props.MultimediaImage._id
+         */
+        
+        props.setUploaded(true);
+    }
+
     if(!image)
         setImageSource();
+
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <Card.Image
@@ -25,9 +39,22 @@ export default Multimedia = (props) => {
                 style={Estilos.Imagen}
                 PlaceholderContent={<ActivityIndicator />}
                 />
-            <Text style={Estilos.Text}>
-                {props.MultimediaText}
-            </Text>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={Estilos.Text}>
+                    {props.MultimediaText}
+                </Text>
+                {
+                    props.owner ?
+                    <Icon
+                        name='trash'
+                        type='font-awesome'
+                        color={ Colors.etiquetas }
+                        size={ 20 }
+                        onPress={ deleteMedia }
+                    /> :
+                    null
+                }
+            </View>
         </Card>
     );
 }
@@ -41,6 +68,7 @@ const Estilos = StyleSheet.create({
         borderRadius: 15
     },
     Text: {
+        flex: 1,
         color: Colors.etiquetas,
         fontSize: 10,
         paddingHorizontal: 15,

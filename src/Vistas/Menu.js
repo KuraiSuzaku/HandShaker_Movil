@@ -193,6 +193,17 @@ export default props => {
                 { ()=><Componentes.TarjetaContratacion.TarjetaContratacion
                     {...props}
                 /> }
+                  </Drawer.Screen>
+            <Drawer.Screen
+                name='Promociones'
+                component={Vistas.Promociones}
+                options={{
+                    unmountOnBlur: true
+                }}
+                >
+                { ()=><Vistas.Promociones
+                    {...props}
+                />}
             </Drawer.Screen>
         </Drawer.Navigator>
     );

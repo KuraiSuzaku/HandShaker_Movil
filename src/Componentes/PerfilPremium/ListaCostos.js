@@ -9,13 +9,10 @@ export default ListaCostos = ( { user, owner } ) => {
     const [firstLoad, setFirstLoad] = useState(true);
 
     getPrices = async () => {
-        console.log("holi")
+      
         const pricesObj = new Prices(user.Email);
         const priceObj= await  pricesObj.GetPrice(user.Email)
-        priceObj.ListOfPrices.forEach(element => {
-    console.log(element.Name)
-    console.log(element.Price)
-});
+      
         setCostos( priceObj.ListOfPrices)
         
     }
@@ -38,14 +35,20 @@ export default ListaCostos = ( { user, owner } ) => {
             }
             {
                 costos ?
-                costos.map((c, i) => (
+                costos.slice(0).reverse().map((c, i) => (
                     <Componentes.PerfilPremium.Costo
+                        user={ user }
+                        owner={ owner }
+                        setUploaded={ setUploaded }
                         {...c}
                         />
-                )) :
+                )):
                 null
             }
             <Componentes.PerfilTrabajador.FinSeccion />
         </View>
     );
 }
+/*
+
+                */

@@ -46,7 +46,6 @@ export default class NewProduct extends Component {
                 .then(base64String => {
                     const base64 = 'data:image/jpg;base64,' + base64String;
                     this.setState({ image: { 
-                        description: this.state.image.description,
                         name: response.fileName,
                         uri: response.uri,
                         base64: base64 
