@@ -24,7 +24,7 @@ export default Contratacion = (props) => {
         HiringDate: route.params.data.HiringDate,
         indications:route.params.data.indications,
 
-        ProfilePicture:route.params.data.userClient[0].Name,
+        ProfilePicture:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].ProfilePicture.Path:route.params.data.userWorker[0].ProfilePicture.Path),
         ID:route.params.data.IDcreated,
 
         Address: route.params.data.Addresses[0].Address,
@@ -35,7 +35,7 @@ export default Contratacion = (props) => {
         Reference: route.params.data.Addresses[0].Reference,
         LinkMaps: route.params.data.Addresses[0].LinkMaps,
 
-        Name: route.params.data.userClient[0].Name,
+        Name:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].Name+" "+route.params.data.userClient[0].LastName:route.params.data.userWorker[0].Name+" "+route.params.data.userWorker[0].LastName),
         Linkclient: route.params.data.Linkclient,
 
        // Addresses: route.params.data.Addresses,
@@ -217,11 +217,11 @@ export default Contratacion = (props) => {
                     <Avatar
                         rounded
                         icon={{name:'user', type:'font-awesome', color:'black'}}
-                        source={data.ProfilePicture}
+                        source={{uri: data.ProfilePicture}}
                         size={75}
                         containerStyle={Estilos.ContenedorAvatar}
                     />
-                    <View style={{marginLeft: 15}}>
+                    <View style={{marginLeft: 15, maxWidth: "75%"}}>
                         <Text style={Estilos.Titulo}>{data.Name}</Text>
                         <Text style={Estilos.TextoSecundario}>Realizar para: {data.HiringDate}</Text>
                         <Text style={Estilos.TextoSecundario}>Asunto: {data.Subject}</Text>
@@ -307,7 +307,7 @@ export default Contratacion = (props) => {
                 </View>
                 }
 
-                {((estadoContrato === "Finalizado") || (estadoContrato === "Cancelado")) &&
+                {((estadoContrato === "Finalizado") || (estadoContrato === "Cancelado")) && (route.params.data.Email === props.user.Email) &&
                 <View style={{flexDirection: 'row', width: "100%", justifyContent: 'center'}}>
                     <Button
                         title='Dar Reseña'
@@ -366,7 +366,7 @@ const Estilos = StyleSheet.create({
         backgroundColor: 'gray',
     },
     Titulo: {    
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'left',
     },
