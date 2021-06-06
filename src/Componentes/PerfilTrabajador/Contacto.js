@@ -8,7 +8,7 @@ import {Worker} from '../../Classes/Worker';
 
 export default Contacto = (props) => {
     
-    const [propietario, setPropietario] = useState(true);
+    const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
     const [editcorreo, setCorreo] = useState();
     const [edittelefono, setTelefono] = useState();

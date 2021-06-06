@@ -33,7 +33,7 @@ export default ListaMultimedia = (props) => {
             /> : <></>}
             {
                 mediaList ?
-                mediaList.slice(0).reverse().map((m, i) => (
+                mediaList.map((m, i) => (
                     <Componentes.PerfilPremium.Multimedia
                         {...props}
                         setUploaded={ setUploaded }
