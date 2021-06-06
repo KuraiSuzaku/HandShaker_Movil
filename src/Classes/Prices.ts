@@ -1,4 +1,4 @@
-import { Image } from './Image';
+
 import { ItemPrice } from './ItemPrice';
 import axios from 'axios'
 import {rooturl} from './ip'
@@ -20,14 +20,14 @@ export class Prices {
         var num = 0;
     
         try {
-          console.log("add POST")
+          //console.log("add POST")
       
           const response = await axios.post(rooturl+"Prices/Add",{ PriceObject });//the object to send must be *PostObject*
 
           return response.status;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -37,13 +37,13 @@ export class Prices {
         var num = 0;
         let EmailPrice : Prices;
         try {
-          console.log("Get Price")
+          //console.log("Get Price")
           const response = await axios.post(rooturl+"Prices/Get",{ EmailPremiumWorker });//the object to send must be *PostObject*
           EmailPrice=response.data
           return EmailPrice;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }

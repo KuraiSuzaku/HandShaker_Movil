@@ -12,16 +12,16 @@ export class WorkersHiring {
         var num = 0;
     
         try {
-          console.log("add Notifications")
+          //console.log("add Notifications")
 
-          console.log(HiringObject)
+          //console.log(HiringObject)
           const response = await axios.post(rooturl+"Hiring/Add",{ HiringObject });//the object to send must be *PostObject*
-          console.log("respuestaaa")
+          //console.log("respuestaaa")
 
           return response.status;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return error.response.status;
         }
       }
@@ -33,11 +33,11 @@ export class WorkersHiring {
         try {
           const response = await axios.post(rooturl+"Hiring/GetHiring",{Email});//the object to send must be *PostObject*
           HiringWorker=response.data
-          console.log(HiringWorker)
+          //console.log(HiringWorker)
           return HiringWorker;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -50,11 +50,11 @@ export class WorkersHiring {
         try {
           const response = await axios.post(rooturl+"Hiring/GetJobs",{Email});//the object to send must be *PostObject*
           HiringWorker=response.data
-          console.log("respuesta",HiringWorker)
+          //console.log("respuesta",HiringWorker)
           return HiringWorker;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -63,13 +63,26 @@ export class WorkersHiring {
       async DeleteHiring(Email: string,IdHiring: string) {// fill ClientObject with all information of the client
           try {
           const response = await axios.post(rooturl+"Hiring/Delete",{Email,IdHiring});//the object to send must be *PostObject*
-          console.log(response)
+          //console.log(response)
           return response.status;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
+
+
+      async UpdateHiring(EmailWorker: string,Email: string,ID: string,StatusH: string) {// fill ClientObject with all information of the client
+        try {
+        const response = await axios.post(rooturl+"Hiring/UpdateHiring",{EmailWorker,Email,ID,StatusH});//the object to send must be *PostObject*
+        //console.log(response)
+        return response.status;
+      } catch (error) {
+        //console.log("error del tipo" + error);
+        //console.log("error del tipo" + error.response.status);          
+        return this;
+      }
+    }
 
 }

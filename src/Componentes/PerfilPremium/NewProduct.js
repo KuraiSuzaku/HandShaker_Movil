@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from './../../Classes/Image';
+import ImagenN  from './../../Classes/Image';
 import { Prices } from './../../Classes/Prices';
 import { ItemPrice } from './../../Classes/ItemPrice';
 import {
@@ -40,7 +40,7 @@ export default class NewProduct extends Component {
         };
         ImagePicker.showImagePicker(options, (response) => {
             if(response.didCancel) {
-              console.log('User cancelled image picker');
+              //console.log('User cancelled image picker');
             } else {
                 ImgToBase64.getBase64String(response.uri)
                 .then(base64String => {
@@ -56,7 +56,8 @@ export default class NewProduct extends Component {
           });
     }
 
-    uploadProduct() {
+     async uploadProduct() {
+        console.log("nuevo producto")
         if( !this.state.name
             || !this.state.price
             || !this.state.description) {
@@ -65,28 +66,35 @@ export default class NewProduct extends Component {
         }
             //please add date and hour to the image so there can;t be duplicates
             var date = new Date(); 
-                console.log(this.state.name+" * "+this.state.price+" * "+this.state.description);
+                //console.log(this.state.name+" * "+this.state.price+" * "+this.state.description);
                 if(this.state.image.name)
-                    img=new Image(this.state.image.name, this.state.image.base64);
+                    img=new ImagenN(this.state.image.name, this.state.image.base64);
                 else
-                    img=new Image("","");
+                    img=new ImagenN("","");
                 ItemPriceObject=new ItemPrice(this.state.name,this.state.description,this.state.price,img);
                 PriceObject=new Prices(this.props.user.Email,ItemPriceObject);
-                PriceObject.AddPrice(PriceObject).then(res=>{ 
-                       Alert.alert('Se Agrego correctamente');
-                       this.setState({
-                            visible: false,
-                            name: null,
-                            price: null,
-                            image: {
-                                name: null,
-                                uri: null,
-                                base64: null
-                            },
-                            description: null
-                       });
-                       this.props.setUploaded(true);
-                }).catch( e => console.error(e) );
+
+                const SendPrice= await  PriceObject.AddPrice(PriceObject);
+                Alert.alert('Se Agrego correctamente');
+                this.setState({
+                     visible: false,
+                     name: null,
+                     price: null,
+                     image: {
+                         name: null,
+                         uri: null,
+                         base64: null
+                     },
+                     description: null
+                });
+ 
+                this.props.setUploaded(true);
+  
+
+           /*     PriceObject.AddPrice(PriceObject).then(res=>{                     
+                   console.log(res)
+                              
+                }).catch( e => console.error(e) );*/
     }
 
     render() {

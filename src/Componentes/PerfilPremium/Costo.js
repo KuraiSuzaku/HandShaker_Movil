@@ -14,7 +14,6 @@ export default Costo = (props) => {
         props.setUploaded(true);
         
     }
-
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <View style={Estilos.Contenedor}>

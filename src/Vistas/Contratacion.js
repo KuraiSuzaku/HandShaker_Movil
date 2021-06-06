@@ -13,8 +13,8 @@ import { Notification } from '../Classes/Notification';
 
 export default Contratacion = (props) => {
  
-    console.log("Props en contratación: Email del usuario", props.user.Email );
-    console.log("Props Perfil WORKER: Email del usuario", props.route.params.user.Email );
+    //console.log("Props en contratación: Email del usuario", props.user.Email );
+    //console.log("Props Perfil WORKER: Email del usuario", props.route.params.user.Email );
     const [nombre_trabajador, setNombreTrabajador] = useState("Nombre Trabajador PlaceHolder");
     const [asunto, setAsunto] = useState("");
     const [fecharealizacion, setFechaRealizacion] = useState(new Date());
@@ -40,18 +40,18 @@ export default Contratacion = (props) => {
                     style: "cancel"
                     },
                     { text: "Contratar", onPress: () => {
-                       /* console.log("Enviada la contratación con los datos!")
-                        console.log("ID: " + "aqui debe haber un id pero no lo tengo :C");
-                        console.log("Asunto: " + asunto);
-                        console.log("Fecha realizacion: " + fecharealizacion);
-                        console.log("Indicaciones: " + indicaciones);
-                        console.log("Calle principal: " + calleprincipal);
-                        console.log("Numero casa: " + numcasa);
-                        console.log("Colonia: " + colonia);
-                        console.log("Calle1: " + calle1);
-                        console.log("Calle2: " + calle2);console.log("Referencia: " + referencia);
-                        console.log("Link Maps: " + linkmaps);
-                        console.log('Conexión a la base de datos con la info para contratar, estoy en PerfilTrabajador/Contratacion.js');    
+                       /* //console.log("Enviada la contratación con los datos!")
+                        //console.log("ID: " + "aqui debe haber un id pero no lo tengo :C");
+                        //console.log("Asunto: " + asunto);
+                        //console.log("Fecha realizacion: " + fecharealizacion);
+                        //console.log("Indicaciones: " + indicaciones);
+                        //console.log("Calle principal: " + calleprincipal);
+                        //console.log("Numero casa: " + numcasa);
+                        //console.log("Colonia: " + colonia);
+                        //console.log("Calle1: " + calle1);
+                        //console.log("Calle2: " + calle2);//console.log("Referencia: " + referencia);
+                        //console.log("Link Maps: " + linkmaps);
+                        //console.log('Conexión a la base de datos con la info para contratar, estoy en PerfilTrabajador/Contratacion.js');    
                          */
                         EnviarDatos();
                         alert('¡Contratado con éxito!');
@@ -66,10 +66,10 @@ export default Contratacion = (props) => {
        };
 
     async function EnviarDatos () {
-        console.log("(enviar a BD) Adress: Calle " + calleprincipal + ", Colonia " + colonia + " #" + numcasa);
+        //console.log("(enviar a BD) Adress: Calle " + calleprincipal + ", Colonia " + colonia + " #" + numcasa);
         auxreferencia = calle1 + calle2 + referencia;
         if (!auxreferencia.trim()){
-            console.log("(enviar a BD) Referencia: NO HAY");
+            //console.log("(enviar a BD) Referencia: NO HAY");
         }
         else{
             auxreferencia = "";
@@ -82,22 +82,22 @@ export default Contratacion = (props) => {
             if(referencia.trim()){
                 auxreferencia = auxreferencia + ", " + referencia;
             }
-            console.log("(enviar a BD) Referencia: " + auxreferencia);
+            //console.log("(enviar a BD) Referencia: " + auxreferencia);
         }
-        console.log("(enviar a BD) LinkMaps: " + linkmaps);
+        //console.log("(enviar a BD) LinkMaps: " + linkmaps);
 
-        console.log("Enviada la contratación con los datos!")
-        console.log("ID: " + "aqui debe haber un id pero no lo tengo :C");
-        console.log("Asunto: " + asunto);
-        console.log("Fecha realizacion: " + fecharealizacion);
-        console.log("Indicaciones: " + indicaciones);
-        console.log("Calle principal: " + calleprincipal);
-        console.log("Numero casa: " + numcasa);
-        console.log("Colonia: " + colonia);
-        console.log("Calle1: " + calle1);
-        console.log("Calle2: " + calle2);console.log("Referencia: " + referencia);
-        console.log("Link Maps: " + linkmaps);
-        console.log('Conexión a la base de datos con la info para contratar, estoy en PerfilTrabajador/Contratacion.js');    
+        //console.log("Enviada la contratación con los datos!")
+        //console.log("ID: " + "aqui debe haber un id pero no lo tengo :C");
+        //console.log("Asunto: " + asunto);
+        //console.log("Fecha realizacion: " + fecharealizacion);
+        //console.log("Indicaciones: " + indicaciones);
+        //console.log("Calle principal: " + calleprincipal);
+        //console.log("Numero casa: " + numcasa);
+        //console.log("Colonia: " + colonia);
+        //console.log("Calle1: " + calle1);
+        //console.log("Calle2: " + calle2);//console.log("Referencia: " + referencia);
+        //console.log("Link Maps: " + linkmaps);
+        //console.log('Conexión a la base de datos con la info para contratar, estoy en PerfilTrabajador/Contratacion.js');    
          
 
 
@@ -110,7 +110,7 @@ export default Contratacion = (props) => {
         let today=new Date()
         h.Date=today
         var mydate = new Date(fecharealizacion);
-        console.log(mydate.toDateString());
+        //console.log(mydate.toDateString());
         h.HiringDate = mydate
         h.indications=indicaciones
         
@@ -129,7 +129,7 @@ export default Contratacion = (props) => {
         h.Status= "Inicio"
 
         let id=today.getDate().toString()+today.getMonth().toString()+today.getFullYear().toString()+today.getHours().toString()+today.getMinutes().toString()+today.getSeconds().toString()
-        console.log("id generado",id);
+        //console.log("id generado",id);
         h.IDcreated=id;
         arrHir.push(h)
         workH.Email=props.route.params.user.Email 
@@ -153,7 +153,7 @@ export default Contratacion = (props) => {
     const navigation = useNavigation();
     const Cancelar = () =>{
         navigation.goBack();
-        console.log('Regresando al perfil');
+        //console.log('Regresando al perfil');
     };
 
     const fechaactual = new Date().getDate();

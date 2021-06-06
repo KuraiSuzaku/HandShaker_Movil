@@ -30,9 +30,9 @@ export default class ListaTrabajos extends React.Component {
             let AllJobs= new WorkersHiring()
            AllJobs.GetJobs(this.props.user.Email).then(  data=> { 
                
-            console.log("--",data);
+            //console.log("--",data);
             if(data=="0"){
-                console.log("no tienes trabajo")
+                //console.log("no tienes trabajo")
                 
                 this.setState({
                     firstLoad: false,
@@ -44,7 +44,7 @@ export default class ListaTrabajos extends React.Component {
 
             }  else{
 
-            console.log("responde"+ data.Email)
+            //console.log("responde "+ data[0].Email)
 
             let { startCount, processCount, endedCount } = this.state;
 

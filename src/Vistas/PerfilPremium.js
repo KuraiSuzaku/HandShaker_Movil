@@ -11,8 +11,8 @@ export default (props) => {
     imagenFondo : require('../../public/Images/test.jpg'),
     valoracion : 2.5,
     acercade : {
-                  informacion: 'Aquí estoy poniendo mi información :D MUCHOS CARACTERESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
-                  imagen: require('../../public/Images/acercade_placeholder.png'),
+                /*  informacion: 'Aquí estoy poniendo mi información :D MUCHOS CARACTERESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+                  imagen: require('../../public/Images/acercade_placeholder.png'),*/
                 },
     contacto : {
                   correo: 'a17310020@cet.mx',

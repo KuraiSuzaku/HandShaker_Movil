@@ -12,16 +12,16 @@ export class WorkersAgenda {
         var num = 0;
     
         try {
-          console.log("add Agenda")
+          //console.log("add Agenda")
 
-          console.log(AgendaObject)
+          //console.log(AgendaObject)
           const response = await axios.post(rooturl+"Agenda/Add",{ AgendaObject });//the object to send must be *PostObject*
-          console.log("respuestaaa")
+          //console.log("respuestaaa")
 
           return response;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -32,11 +32,11 @@ export class WorkersAgenda {
     
         try {
           const response = await axios.post(rooturl+"Agenda/GetAgenda",{EmailPremiumWorker});//the object to send must be *PostObject*
-          console.log(response)
+          //console.log(response)
           return response;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -47,11 +47,11 @@ export class WorkersAgenda {
     
         try {
           const response = await axios.post(rooturl+"Agenda/Delete",{EmailPremiumWorker,IdAgenda});//the object to send must be *PostObject*
-          console.log(response)
+          //console.log(response)
           return response;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }

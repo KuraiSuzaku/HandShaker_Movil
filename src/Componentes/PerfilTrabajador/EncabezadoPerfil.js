@@ -8,7 +8,7 @@ import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
 import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
-
+import PremiumWorker from '../../Classes/PremiumWorker';
 export default EncabezadoPerfil = (props) => {
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
@@ -28,28 +28,33 @@ export default EncabezadoPerfil = (props) => {
 
 
     async function GuardarCambios () {
-        setEditando(false); 
-        //ImprimirDatos();
+       
+      
+        console.log("cambios"+ props.user.UserType);
+        props.user.Profession=editprofesion
+        props.user.Category=editcategoria
+        props.user.JobDescription=editdescripcion
+ if  (!props.user.UserType.includes("PremiumWorker"))
+       {  let WorkerObject = new Worker(props.user.Email);
 
-        let WorkerObject = new Worker(props.user.Email);
+
         WorkerObject.Category = editcategoria;
         WorkerObject.Profession = editprofesion;
         WorkerObject.JobDescription = editdescripcion;
 
         const x =  await WorkerObject.UpdateWorkers(WorkerObject);
 
-        /*
-        WorkerObject.GetWorkerInformation(WorkerObject).then((res) => {
-            WorkerObject=res; 
-            props.setUser(WorkerObject);
-            setCategoria(props.user.Category);
-            setProfesion(props.user.Profession);
-            setDescripcion(props.user.JobDescription);
-            console.log("Props.user después de la actualización de WorkerObject: ", props.user);
-        });*/
+       }else{
+console.log("premium")
+        let WorkerObject = new PremiumWorker(props.user.Email);
+        WorkerObject.Category = editcategoria;
+        WorkerObject.Profession = editprofesion;
+        WorkerObject.JobDescription = editdescripcion;
 
-        //ActualizarUsuario(WorkerObject);
-
+        const x =  await WorkerObject.UpdatePremiumWorkers(WorkerObject);
+       
+    }
+ setEditando(false); 
     }
 
     const ActualizarUsuario = (Trabajador) => {
@@ -157,9 +162,9 @@ export default EncabezadoPerfil = (props) => {
         <View>
             <Image
                 source={
-                    backImage /*?
+                    backImage ?
                     { uri: backImage.path } :
-                    props.user.HeaderPicture.Path*/
+                    { uri: props.user.HeaderPicture.Path}
                 }
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'

@@ -19,13 +19,13 @@ export class Posts {
         var num = 0;
     
         try {
-          console.log("add POST")
+          //console.log("add POST")
           const response = await axios.post(rooturl+"Posts/Add",{ PostObject });//the object to send must be *PostObject*
         
           return response;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -35,13 +35,13 @@ export class Posts {
         var num = 0;
         let PostOfPW : Posts;
         try {
-          console.log("Get POST")
+          //console.log("Get POST")
           const response = await axios.post(rooturl+"Posts/GetPosts",{ EmailPremiumWorker });//the object to send must be *PostObject*
           PostOfPW=response.data
           return PostOfPW;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }

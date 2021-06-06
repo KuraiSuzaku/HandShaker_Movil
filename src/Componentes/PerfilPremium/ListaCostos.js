@@ -8,13 +8,13 @@ export default ListaCostos = ( { user, owner } ) => {
     const [uploaded, setUploaded] = useState(false);
     const [firstLoad, setFirstLoad] = useState(true);
 
-    getPrices = () => {
-        console.log('GET PRICES, FRONT');
+    getPrices = async () => {
+      
         const pricesObj = new Prices(user.Email);
-        pricesObj.GetPrice(user.Email)
-        .then( res => {
-            setCostos(res.ListOfPrices);
-        }).catch( e => console.error(e) );
+        const priceObj= await  pricesObj.GetPrice(user.Email)
+      
+        setCostos( priceObj.ListOfPrices)
+        
     }
 
     if(firstLoad || uploaded) {

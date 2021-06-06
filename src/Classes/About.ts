@@ -12,16 +12,16 @@ export class About {
         var num = 0;
     
         try {
-          console.log("add About")
+          //console.log("add About")
 
-          console.log(AboutObject)
+          //console.log(AboutObject)
           const response = await axios.post(rooturl+"About/Add",{ AboutObject });//the object to send must be *PostObject*
-          console.log("respuestaaa")
+          //console.log("respuestaaa")
 
           return response.status;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -32,11 +32,11 @@ export class About {
         try {
           const response = await axios.post(rooturl+"About/Get",{EmailWorker});//the object to send must be *PostObject*
           multimediaObj= response.data
-          console.log(multimediaObj)
+          //console.log(multimediaObj)
           return multimediaObj;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -46,11 +46,11 @@ export class About {
     
         try {
           const response = await axios.post(rooturl+"About/Delete",{EmailWorker});//the object to send must be *PostObject*
-          console.log(response)
+          //console.log(response)
           return response.status;//404 no encontro 202 se elimino
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }

@@ -25,7 +25,7 @@ const messages = [];
 export default class ChatC extends React.Component {
     
     constructor(props) {
-        console.log("IP SERVER"+SERVER)
+        //console.log("IP SERVER"+SERVER)
        var  socket = socketClient (SERVER);
         super(props);
         this.state = {
@@ -36,7 +36,7 @@ export default class ChatC extends React.Component {
         this.renderMessage = this.renderMessage.bind(this);
     
         socket.on("ChatChange", data => {
-            console.log("aqui Chat cambio desde Clase*******************************"+data);
+            //console.log("aqui Chat cambio desde Clase*******************************"+data);
             this.UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
             
           });
@@ -57,10 +57,10 @@ export default class ChatC extends React.Component {
  
 
     sendMessage() {
-        console.log('Send', this.state.newMessage);
+        //console.log('Send', this.state.newMessage);
         //ESCRIBE EL MENSAJE WOOO
-       console.log("email to "+this.props.route.params.toUser)
-       console.log("email of "+this.props.route.params.fromUser)
+       //console.log("email to "+this.props.route.params.toUser)
+       //console.log("email of "+this.props.route.params.fromUser)
        
        let ArrChats= new Array();
        let ArrMess= new Array();
@@ -126,7 +126,7 @@ export default class ChatC extends React.Component {
      // send a message, strings only
 
 // listen for messages
-      //  thread.onmessage = (message) => console.log(message);
+      //  thread.onmessage = (message) => //console.log(message);
    
     /*if(auxRender==false){
         UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
@@ -171,21 +171,21 @@ export default class ChatC extends React.Component {
 
 
          UpdateChat=(email,emailchatwith)=>{
-         //console.log("se actualizara el chat");
+         ////console.log("se actualizara el chat");
          this.Getchat(email,emailchatwith)
         }
         
         Getchat = async(email,emailchatwith)=>{
-            console.log("AQUIIIEmail actual ", email );
+            //console.log("AQUIIIEmail actual ", email );
            
         
             let SingleChat= new AllChats()//Login
         
           const ret = await  SingleChat.GetChatWith(email,emailchatwith)
         
-        /*  console.log("Respuestas ret"+JSON.stringify(ret));
-          console.log("chat with" + ret.EmailChatWith)
-          console.log("Respuestas"+JSON.stringify(ret.ListOfMessages));*/
+        /*  //console.log("Respuestas ret"+JSON.stringify(ret));
+          //console.log("chat with" + ret.EmailChatWith)
+          //console.log("Respuestas"+JSON.stringify(ret.ListOfMessages));*/
           //messages=ret.ListOfMessages;
 
           this.setState({messages:ret.ListOfMessages.reverse()  })

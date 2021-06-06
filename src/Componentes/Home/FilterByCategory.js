@@ -13,7 +13,7 @@ export default class FilterByCategory extends Component {
         this.state={
             trabajadores: []
         }
-        console.log("J Title: " + this.props.route.params.jobTitle)
+        //console.log("J Title: " + this.props.route.params.jobTitle)
         this.trabajadores(this.props.route.params.jobTitle)
     }
 
@@ -22,18 +22,18 @@ export default class FilterByCategory extends Component {
     }
 
     trabajadores(job){
-        //console.log( this.state.profesiones )
+        ////console.log( this.state.profesiones )
         //this.props.profesiones.forEach(profesiones => {
         Trabajador =  new PremiumWorker();
 
         Trabajador.GetPremiumWorkersWithProfession(job).then((trabajadoresWithProfession) => {
             this.handleTrabajadores(trabajadoresWithProfession)
             // trabajadoresWithProfession.forEach(trabajador => {
-            //     console.log("trabajador de "+trabajador.Name+" nombre profesion " + job+ " foto " + trabajador.ProfilePicture.Path )
+            //     //console.log("trabajador de "+trabajador.Name+" nombre profesion " + job+ " foto " + trabajador.ProfilePicture.Path )
             // });  
         }); 
-        // console.log("Profesion "+ profesiones.Name )
-        //console.log("Imagen "+profesiones.ImageProfession.Path )
+        // //console.log("Profesion "+ profesiones.Name )
+        ////console.log("Imagen "+profesiones.ImageProfession.Path )
 
         // })
     }

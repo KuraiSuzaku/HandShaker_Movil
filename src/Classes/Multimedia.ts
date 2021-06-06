@@ -20,13 +20,13 @@ export class Multimedia {
         try {
           const response = await axios.post(rooturl+"Multimedia/Add",{ MultimediaObject });//the object to send must be *PostObject*
 
-          console.log("respuestaaa")
+          //console.log("respuestaaa")
 
           return response.status;
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -41,8 +41,8 @@ export class Multimedia {
           multimediaObj = response.data;
           return multimediaObj;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -55,8 +55,8 @@ export class Multimedia {
           const response = await axios.post(rooturl+"Multimedia/Delete",{ EmailPremiumWorker, IdAgenda});//the object to send must be *PostObject*
           return response;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
