@@ -12,6 +12,7 @@ import User from '../Classes/User';
 export default PagoAPremium = (props) => {
     const avatar = require('../../public/Profile/user.png');
     const [auxRender, setAuxrender] = useState(false);
+    const [Nmensajes, setMensajes] = useState(0);
     const [chats, setChats] = useState({});
     const [flgName, setFlgName] = useState(false);
     const navigation = useNavigation();
@@ -57,26 +58,12 @@ export default PagoAPremium = (props) => {
 
     let lista_chats = [
         {
-            _id: "01",
-            EmailChatWith: "email1@gmail.com",
-            avatar: "bell",
-            Name: "SoyNombre1",
-            ListOfMessages: mensajes_chat,
+            _id: "",
+            EmailChatWith: "",
+            avatar: "",
+            Name: "",
         },
-        {
-            _id: "02",
-            EmailChatWith: "email2@gmail.com",
-            avatar: "bell",
-            Name: "SoyNombre2",
-            ListOfMessages: mensajes_chat,
-        },
-        {
-            _id: "03",
-            EmailChatWith: "email3@gmail.com",
-            avatar: "bell",
-            Name: "SoyNombre3",
-            ListOfMessages: mensajes_chat,
-        },
+       
     ];
       
   
@@ -91,21 +78,29 @@ export default PagoAPremium = (props) => {
     };
 
      async function Getchat(email){
-       // console.log("AQUIIIEmail actual ", email );
+         console.log("aqui 1")
+       console.log("AQUIIIEmail actual ", email );
         let ArrChats= new Array();
 
         let allChat= new AllChats()//Login
         const ret = await  allChat.GetChats(email)
-     
-     
+       // //console.log("status "+ret)
+       
+      //  //console.log("status "+ret.status)
+     ////console.log("status "+ret.response.status)
+       
       let ArrNames=new Array();
 
          let count=0;
-        // console.log("contador "+ret.ListOfChats.length);
+       
 
-     const x =  await ret.ListOfChats.forEach( async (element) => {
-       // console.log(JSON.stringify(element));
-      //    console.log(element.EmailChatWith);
+
+
+        if(typeof(ret.ListOfChats) != "undefined"){
+        
+            const x =  await ret.ListOfChats.forEach( async (element) => {
+       // //console.log(JSON.stringify(element));
+        console.log(element.EmailChatWith);
           
       let ArrInfoChatWith=new Array();
        
@@ -124,13 +119,23 @@ export default PagoAPremium = (props) => {
         
         
          if((ret.ListOfChats.length-1)==count){
-           
+           console.log("termino")
             SetChatWithNameAndAvatar(ArrChats,ret);
+            setMensajes(ret.ListOfChats.length)
+           
         }
         
          count++;
       });
+    
+    }else{
 
+  console.log("No tiene chats")
+  setChats(lista_chats);
+  setMensajes(0)
+  setAuxrender(true);  
+    }
+      //console.log("FIIIN aqui 1")
      
     };
 
@@ -138,18 +143,18 @@ export default PagoAPremium = (props) => {
         ChatNewArr=new  Array();
       
 
-          //  console.log("for each");
+          //  //console.log("for each");
         ArrInfo.forEach(userInfo => {
             
          //  let chataux=(new Chat(+userInfo[4].Path,userInfo[1],userInfo[2].Path,userInfo[0],userInfo[3].Path));
-          //  console.log("chat aux "+JSON.stringify(chataux));
+       
           let auxC=  new Chat();            
           auxC._id=userInfo[4];            
           auxC.Name=userInfo[1]; 
           auxC.Picture=userInfo[2].Path;
           auxC.EmailChatWith=userInfo[0]; 
           auxC.ListOfMessages=userInfo[3];
-         
+              
           ChatNewArr.push(auxC);
         });
      
@@ -174,10 +179,10 @@ export default PagoAPremium = (props) => {
     async function GetNames(Array){
 
        /* Array.forEach(element => {
-            console.log("email"+element)
+            //console.log("email"+element)
             let UserChatWith= new User()//Login    
             const userInfoofChat = await  UserChatWith.GetUserInformation(email)
-            console.log("Su nombre es**************" +userInfoofChat.Name)
+            //console.log("Su nombre es**************" +userInfoofChat.Name)
         });
 */
 await Array.forEach( async element => {
@@ -188,10 +193,10 @@ await Array.forEach( async element => {
 });
 
 
-      /*  console.log("checar user "+email)
+      /*  //console.log("checar user "+email)
         let UserChatWith= new User()//Login    
         const userInfoofChat = await  UserChatWith.GetUserInformation(email)
-        console.log("Su nombre es**************" +userInfoofChat.Name)
+        //console.log("Su nombre es**************" +userInfoofChat.Name)
         return userInfoofChat.Name;*/
     }
 
@@ -238,6 +243,8 @@ await Array.forEach( async element => {
             <>
             <Componentes.EncabezadoApp/> 
             <Text style={Estilos.Titulo}>MENSAJES</Text>   
+           {(Nmensajes == 0) && <Text style={Estilos.Titulo}> No tiene Mensajes </Text>   }
+           
             </>
         );
     };
@@ -246,7 +253,7 @@ await Array.forEach( async element => {
     Getchat(props.user.Email)
     }
 
-    //console.log(" **VAR CHAR",JSON.stringify(chats));
+    ////console.log(" **VAR CHAR",JSON.stringify(chats));
    return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
             

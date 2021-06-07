@@ -11,16 +11,16 @@ export class AllNotifications {
     async AddNotification(NotificationObject: AllNotifications) {// fill ClientObject with all information of the client
      
         try {
-          console.log("add Notifications")
+          //console.log("add Notifications")
 
-          console.log(NotificationObject)
+          //console.log(NotificationObject)
           const response = await axios.post(rooturl+"Notification/Add",{ NotificationObject });//the object to send must be *PostObject*
-          console.log("respuestaaa")
+          //console.log("respuestaaa")
 
           return response.status;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return  error.response.status;
         }
       }
@@ -32,11 +32,11 @@ export class AllNotifications {
         try {
           const response = await axios.post(rooturl+"Chat/GetNotifications",{Email});//the object to send must be *PostObject*
           Notification=response.data
-          console.log(Notification)
+          //console.log(Notification)
           return Notification;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return  error.response.status;
         }
       }

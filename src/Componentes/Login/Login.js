@@ -73,11 +73,11 @@ export default class Login extends Component {
         let Password=this.state.password;      
     	let userObject= new User(Email,Password)//Login
         userObject.Login(userObject).then(res=>{
-            console.log("RESULTADO "+res.Response);
+            //console.log("RESULTADO "+res.Response);
         if ( res.Response=="1"){
             //userObject//este es el usuario
         //the user exist and *userObject has its properties filled.
-        console.log("tipo Usuario\t"+ userObject.UserType)// check the user type 
+        //console.log("tipo Usuario\t"+ userObject.UserType)// check the user type 
         if( userObject.UserType.includes("Worker")&& !userObject.UserType.includes("Premium")){
           // check if the user is a worker
            let WorkerObject = new Worker(userObject.Email);
@@ -125,7 +125,7 @@ export default class Login extends Component {
     else{ //there was an error on the login
       if(res.Response=="404")
         { 
-        console.log("No Existe Usuario")
+        //console.log("No Existe Usuario")
         ToastAndroid.show(("No Existe Usuario"), ToastAndroid.SHORT);
         }
       if(res.Response=="401")
@@ -141,7 +141,7 @@ export default class Login extends Component {
 
 
 handleGetAllWorkers( event ){
-    console.log("All Workers");
+    //console.log("All Workers");
 
     let allWorkers= new Worker()//Login
     allWorkers.GetAllWorkers().then(res=>{       
@@ -151,7 +151,7 @@ handleGetAllWorkers( event ){
 
 
 handleGetOnlyWorkers( event ){
-    console.log("Worker");
+    //console.log("Worker");
 
     let OnlyWorkers= new Worker()//Login
     OnlyWorkers.GetOnlyWorkers().then(res=>{       
@@ -160,16 +160,16 @@ handleGetOnlyWorkers( event ){
 }
 
 handleGetPremiumWorkers( event ){
-    console.log("Premium Worker");
+    //console.log("Premium Worker");
 
     //Code to get all Workers 
     let OnlyPremiumWorkers= new PremiumWorker()//Login
     OnlyPremiumWorkers.GetPremiumWorkers().then(res=>{       
        //Look at Premium Worker Class, it returns an array of PremiumWorkers 
-       console.log("TRABAJADORES PREMIUM");
+       //console.log("TRABAJADORES PREMIUM");
        res.forEach(element => {
-        console.log("trabajador n");
-        console.log(element.Name);
+        //console.log("trabajador n");
+        //console.log(element.Name);
       });
     })  
 }

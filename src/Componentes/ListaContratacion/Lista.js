@@ -27,24 +27,35 @@ export default class Lista extends React.Component {
         }
     }
 
-    navigate() {
+    /*navigate() {
         this.props.navigation.navigate('Home', {
 
         });
-    }
+    }*/
 
     renderItem({ item }) {
         if(item.Status != this.props.type)
             return null;
-        return(
-            <TouchableOpacity onPress={() => this.navigate()}>
+
+        
+
+
+            return(
+            <TouchableOpacity onPress={() =>  this.props.navigation.navigate('TarjetaContratacion', {
+                
+                data: item
+            })}>
             <View style={Estilos.ItemContainer}>
                 <View style={Estilos.AvatarContainer}>
                     <Avatar
                         rounded
                         size='medium'
                         source={
-                            require('../../../public/Profile/user.png')
+
+                            this.props.jobs ?
+
+                            { uri: item.userClient[0].ProfilePicture.Path } :
+                            { uri: item.userWorker[0].ProfilePicture.Path }
                         }
                     />
                 </View>
@@ -64,8 +75,8 @@ export default class Lista extends React.Component {
                     }}>{item.Subject}</Text>
                     <Text>{
                         this.props.jobs ?
-                        'item.userClient[0].Name' :
-                        'item.userWorker[0].Name'
+                        item.userClient[0].Name :
+                        item.userWorker[0].Name
                     }</Text>
                     <Text style={{
                         fontSize: 11,

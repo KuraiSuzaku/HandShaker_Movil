@@ -6,7 +6,7 @@ import Colors from '../../Estilos/Colores';
 import { WorkersHiring } from '../../Classes/WorkersHiring';
 const TabNav = createMaterialTopTabNavigator();
 
-const StatusTypes = ['Proceso', 'Finalizada'];
+const StatusTypes = ['Proceso', 'Finalizado'];
 
 export default class ListaContrataciones extends React.Component {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class ListaContrataciones extends React.Component {
                AllJobs.GetHiring(this.props.user.Email).then(  data=> { 
                    
                 if(data=="0"){
-                    console.log("no tienes trabajo")
+                    console.log("no has contratado")
                     
                     this.setState({
                         firstLoad: false,
@@ -38,7 +38,7 @@ export default class ListaContrataciones extends React.Component {
                     });
     
                 }  else{
-    
+                    console.log(" has contratado")
                 let { processCount, endedCount } = this.state;
     
                 data.map((d, i) => {

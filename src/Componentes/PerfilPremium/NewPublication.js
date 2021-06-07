@@ -14,7 +14,7 @@ import ImgToBase64 from 'react-native-image-base64';
 //import firebase from '../../../firebase';
 import Colores from '../../Estilos/Colores';
 import { Post } from './../../Classes/Post';
-import { Image } from './../../Classes/Image';
+import  ImageN  from '../../Classes/Image';
 import { Posts } from './../../Classes/Posts';
 
 export default class NewPublication extends Component {
@@ -49,7 +49,7 @@ export default class NewPublication extends Component {
         };
         ImagePicker.showImagePicker(options, (response) => {      
             if(response.didCancel){
-              console.log('User cancelled image picker');
+              //console.log('User cancelled image picker');
             }
             else{
                 try {
@@ -66,7 +66,7 @@ export default class NewPublication extends Component {
                         })
                         .catch(err => console.error(err));
                 } catch (e) {
-                    console.log(e);
+                    //console.log(e);
                 }
             }
           });        
@@ -77,15 +77,14 @@ export default class NewPublication extends Component {
              /*Add a new Post*/
              const { publication, image } = this.state;
              var date = new Date(); 
-             console.log('Publicate ' + publication);
+             //console.log('Publicate ' + publication);
              if(image.uri != null)
-                img=new Image(image.name, image.base64);
+                img=new ImageN(image.name, image.base64);
             else
-                img=new Image("", "");
+                img=new ImageN("", "");
              PostObbject=new Post(date,publication,img);
              PostsObject=new Posts(this.props.user.Email, PostObbject);
-             PostsObject.AddPost(PostsObject).then(res=>{            
-                if  (res.status==200){
+             PostsObject.AddPost(PostsObject).then(res=>{ 
                    Alert.alert('Se Agrego correctamente');
                    this.setState({
                        publication: null,
@@ -96,7 +95,6 @@ export default class NewPublication extends Component {
                        }
                    });
                    this.props.setUploaded(true);
-                 }
             });
         } else {
             Alert.alert('Se necesita un contenido para poder crear una nueva publicación');

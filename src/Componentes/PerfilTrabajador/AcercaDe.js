@@ -4,24 +4,55 @@ import {Card, Text, Image, Button} from 'react-native-elements';
 import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 import Colores from '../../Estilos/Colores';
 import EditarAcercaDe from './EditarAcercaDe';
+import {About} from '../../Classes/About'
+
 
 export default AcercaDe = (props) => {
     const [propietario, setPropietario] = useState(true);
+
+    const [Desc, setDesc] = useState("");
     const [editando, setEditando] = useState(false);
 
     const [edittexto, setTexto] = useState();
 
     const CambiarDatos = () =>{
         setEditando(true);
-        console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
+        //console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
+    
+    
     }
+
+    
 
     const GuardarCambios = () => {
         setEditando(false); 
-        console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
-        console.log("acerca de: " + edittexto);
+        //console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
+        //console.log("acerca de: " + edittexto);
+        let about= new About()
+        console.log("email " + props.user.Email);
+        about.EmailWorker=props.user.Email
+        about.Description=edittexto
+        about.AddAbout(about)
     }
 
+    const GetAbout = async () => {
+console.log("aqui")
+        let about= new About()
+       
+        const aboutWait = await about.GetAbout(props.user.Email)
+        console.log(aboutWait,"NO ...")
+            
+
+        if(typeof(aboutWait.Description) != "undefined"){
+            console.log("desc",aboutWait.Description)
+        setDesc(aboutWait.Description)
+        } else{
+            console.log("NO ...")
+            
+        }
+    }
+
+    GetAbout();
     return(
         <View>
             <View  style={{flexDirection:'row', justifyContent:'space-between', paddingTop: 10, paddingRight: 10}}>
@@ -59,12 +90,8 @@ export default AcercaDe = (props) => {
             {(!propietario) || (!editando) &&
             <Card containerStyle={Estilos.Tarjeta}>
 
-                <Text>{props.acercade.informacion}</Text>
-                    <Image
-                        source={props.acercade.imagen}
-                        style={Estilos.Imagen}
-                    />
-
+                <Text>{Desc}</Text>
+                   
             </Card>
             }
         </View>
