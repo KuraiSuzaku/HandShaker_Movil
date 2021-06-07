@@ -10,6 +10,7 @@ import ImageClass   from "./../../Classes/Image"
 
 
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { AddressClass } from '../../Classes/AddressClass'
 
 export default class Registro extends Component {
 
@@ -87,7 +88,23 @@ export default class Registro extends Component {
                 //console.log("email"+userObject.Email)
                 //console.log("pass"+userObject.Password)
                 WorkerUser= new Worker(userObject.Email,userObject.Password);
-                //console.log("new W" )
+               
+                
+                WorkerUser.EmailContact=""
+                let arrayPhones= new Array()
+                let phones=new PhoneNumber()
+                phones.Phone=""
+                let phones2=new PhoneNumber()
+                phones2.Phone=""
+                arrayPhones.push(phones)
+                arrayPhones.push(phones2)     
+                WorkerUser.Phones=arrayPhones
+        
+                let arrayAddress= new Array()
+                let address = new AddressClass() 
+                address.Address=  ""
+                arrayAddress.push(address)
+                WorkerUser.Addresses=arrayAddress
 
                 let PP=new ImageClass("","")
                 
