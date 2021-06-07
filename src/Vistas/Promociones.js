@@ -1,11 +1,27 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
-import {Avatar, Card} from 'react-native-elements';
+import React, { useState } from 'react';
+import {
+    Alert,
+    StyleSheet,
+    View,
+    Text,
+    FlatList,
+    TextInput,
+    TouchableOpacity,
+    Image
+} from 'react-native';
+import {
+    Avatar,
+    Button,
+    Card,
+    Overlay
+} from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 
 export default PagoAPremium = (props) => {
+    const [refresh, setRefresh] = useState(true);
+
     const avatar = require('../../public/Profile/user.png');
     const imgpromocion = require('../../public/Icons/gift.png');
   
@@ -36,6 +52,12 @@ export default PagoAPremium = (props) => {
         }
     ];
     
+    const getAllPromos = () => {
+        /**
+         * Obtiene todas las promociones
+         */
+        setRefresh(false);
+    }
 
     const CambiarAChat = (auxemail) => {
         console.log("Debo mostrar promocion: ", auxemail);
@@ -85,31 +107,145 @@ export default PagoAPremium = (props) => {
         );
     };
 
-    const Encabezado = () => {
+    const Container = () => {
+        if(refresh) {
+            getAllPromos();
+            return(<Componentes.Loading/>);
+        }
         return(
             <>
-            <Componentes.EncabezadoApp/> 
-            <Text style={Estilos.Titulo}>PROMOCIONES</Text>   
+            <View style={{ marginBottom: 10 }}>
+                <Text style={Estilos.Titulo}>PROMOCIONES</Text>
+                <NewButton
+                    {...props}
+                    setRefresh={ setRefresh }
+                />
+            </View>
+            <View style={{flex: 1}}>
+            <FlatList
+                    data={data}
+                    renderItem={renderItem}
+                    containerStyle={Estilos.ScrollView}
+                    contentContainerStyle={{flexGrow: 1}}
+                />
+            </View> 
             </>
         );
-    };
+    }
 
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
             <View style={{flex: 1}}>
-                <View style={{flex: 0.175}}><Encabezado/></View>
-                <View style={{flex: 0.75}}>
-                <FlatList
-                        data={data}
-                        renderItem={renderItem}
-                        containerStyle={Estilos.ScrollView}
-                        contentContainerStyle={{flexGrow: 1}}
-                    />
-                </View> 
-                <View style={{flex: 0.075}}><Componentes.Navegacion/></View>
+                <Componentes.EncabezadoApp/>
+                <Container />
+                <Componentes.Navegacion/>
             </View> 
         </SafeAreaProvider>
     )
+}
+
+class NewButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false,
+            nombre: null,
+            description: null
+        }
+    }
+
+    toggleVisible() {
+        this.setState({
+            visible: !this.state.visible
+        });
+    }
+
+    uploadNewPromo() {
+
+        /**
+         * Sube la nueva promoción
+         * usuario: props.user.Email
+         * titulo: this.state.name
+         * descripcion: this.state.description
+         */
+
+        this.setState({
+            visible: false,
+            name: null,
+            description: null
+        })
+        this.props.setRefresh(true);
+        alert("Su nueva promoción ha sido publicada");
+    }
+
+    confirmUpload() {
+        if(!this.state.name || !this.state.description) {
+            alert("Se requiere de un título y una descripción para poder publicar una nueva promoción.");
+            return;
+        }
+        Alert.alert("Publicar Promoción", "¿Esta seguro(a) de querer publicar una promoción con los datos ingresados?", [
+            {
+                text: "Cancelar"
+            },
+            {
+                text: "Confirmar",
+                onPress: () => this.uploadNewPromo()
+            }
+        ])
+    }
+
+    render() {
+        if(this.props.user.UserType != 'PremiumWorker')
+            return null;       
+        return(
+            <View 
+                style={{
+                    position: 'absolute',
+                    marginTop: 5,
+                    marginLeft: 15
+                }}>
+                <Button
+                    title='Nueva'
+                    buttonStyle={{
+                        backgroundColor: Colores.fondoBotonOscuro,
+                        borderRadius: 25,
+                        paddingVertical: 5,
+                        paddingHorizontal: 15
+                    }}
+                    titleStyle={{
+                        color: Colores.letrasSobreNegro,
+                        fontSize: 12
+                    }}
+                    onPress={ () => this.toggleVisible() }
+                />
+                <Overlay isVisible={ this.state.visible } onBackdropPress={ () => this.toggleVisible() } >
+                    <View style={Estilos.NewPromoView}>
+                        <Text style={{ alignSelf: 'center' }}> Nueva Promoción </Text>
+                        <TextInput
+                            placeholder='Título'
+                            value={ this.state.name }
+                            onChangeText={ (newName) => this.setState({ name: newName }) }
+                            style={Estilos.NewName}
+                        />
+                        <TextInput
+                            multiline={ true }
+                            placeholder='Descripción detallada de la promoción'
+                            value={ this.state.description }
+                            onChangeText={ (text) => this.setState({ description: text }) }
+                            style={Estilos.NewName}
+                        />
+                        <Button
+                            title='Publicar'
+                            onPress={ () => this.confirmUpload() }
+                            containerStyle={Estilos.PostButtonContainer}
+                            buttonStyle={Estilos.PostButton}
+                            titleStyle={Estilos.PostButtonLabel}
+                        />
+                    </View>
+                </Overlay>
+            </View>
+        );
+    }
 }
   
 
@@ -134,7 +270,7 @@ const Estilos = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 15,
+        paddingVertical: 5
     },
     TituloPromocion: {    
         fontSize: 36,
@@ -161,4 +297,29 @@ const Estilos = StyleSheet.create({
     Tarjeta: {
         borderRadius: 20,
     },
+    NewPromoView: {
+        maxWidth: '95%',
+        maxHeight: '80%'
+    },
+    NewName: {
+        borderWidth: 1,
+        borderColor: Colores.separador,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
+        borderRadius: 25,
+        marginVertical: 10,
+    },
+    PostButtonContainer: {
+        alignSelf: 'center'
+    },
+    PostButton: {
+        paddingVertical: 5,
+        paddingHorizontal: 15,
+        borderRadius: 25,
+        backgroundColor: Colores.simbolos
+    },
+    PostButtonLabel: {
+        color: Colores.letrasSobreNegro,
+        fontSize: 14
+    }
 });
