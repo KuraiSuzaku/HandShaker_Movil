@@ -44,7 +44,7 @@ export default class ListaContrataciones extends React.Component {
                 data.map((d, i) => {
                     if(d.Status == StatusTypes[0])
                         processCount++;
-                    else
+                    else if(d.Status == StatusTypes[1])
                         endedCount++;
                 });
                 

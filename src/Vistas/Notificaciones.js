@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Colors from '../Estilos/Colores';
 import * as Components from '../Componentes/Indice';
 
 export default class Notificaciones extends React.Component {
@@ -8,10 +9,12 @@ export default class Notificaciones extends React.Component {
     }
 
     render() {
-        <SafeAreaProvider>
-            <Components.EncabezadoApp />
-            <Components.Notificaciones.Lista {...props} />
-            <Components.Navegacion />
-        </SafeAreaProvider>
+        return(
+            <SafeAreaProvider style={{ flex: 1, backgroundColor: Colors.fondo }}>
+                <Components.EncabezadoApp />
+                <Components.Notificaciones.Lista {...this.props} />
+                <Components.Navegacion />
+            </SafeAreaProvider>
+        );
     }
 }
