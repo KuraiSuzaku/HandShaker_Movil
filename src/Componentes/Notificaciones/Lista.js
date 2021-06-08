@@ -20,39 +20,43 @@ export default class Lista extends React.Component {
 
     componentDidMount() {
         if(this.state.refresh) {
-            const data = [
-                {
-                    Subject: "Notificación 1",
-                    Description: "Description de notificación 1",
-                    Date: "2021-05-29++++",
-                    userFrom: {
-                        Name: "Pedrito",
-                        ProfilePicture: [{
-                            Path: 'null'
-                        }]
-                    }
-                },
-                {
-                    Subject: "Notificación 2",
-                    Description: "Descripton de notificación 2",
-                    Date: "2020-07-17++++",
-                    userFrom: {
-                        Name: "Juanito",
-                        ProfilePicture: [{
-                            Path: 'null'
-                        }]
-                    }
+            this.getAllPromotions();
+        }
+    }
+
+    async getAllPromotions() {
+        const data = [
+            {
+                Subject: "Notificación 1",
+                Description: "Description de notificación 1",
+                Date: "2021-05-29++++",
+                userFrom: {
+                    Name: "Pedrito",
+                    ProfilePicture: [{
+                        Path: 'null'
+                    }]
                 }
-            ]
-            /**
+            },
+            {
+                Subject: "Notificación 2",
+                Description: "Descripton de notificación 2",
+                Date: "2020-07-17++++",
+                userFrom: {
+                    Name: "Juanito",
+                    ProfilePicture: [{
+                        Path: 'null'
+                    }]
+                }
+            }
+        ]
+        /**
              * Carga las notificaciones
              * Usuario: this.props.user.Email
              */
-            this.setState({
-                refresh: false,
-                data: data
-            });
-        }
+         this.setState({
+            refresh: false,
+            data: data
+        });
     }
 
     renderItem({ item }) {
