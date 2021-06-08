@@ -19,7 +19,7 @@ export default class IndividualWorker extends Component {
                         {
                             // this.props
                             // this.state.trabajadores.map(item =>
-                            //     <TouchableOpacity onPress={ () => console.log(item.Email) }>
+                            //     <TouchableOpacity onPress={ () => //console.log(item.Email) }>
                             //         <Image 
                             //             key={ item.Name }
                             //             style={ styles.workerProfilePicture }

@@ -19,13 +19,13 @@ export class WorkerAgenda {
         var num = 0;
     
         try {
-          console.log("add Agenda")
+          //console.log("add Agenda")
           const response = await axios.post(rooturl+"Agenda/Add",{ AgendaObject });//the object to send must be *PostObject*
         
           return response.status;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -35,13 +35,13 @@ export class WorkerAgenda {
        
         let Agenda : WorkerAgenda;
         try {
-          console.log("Get Agenda")
+          //console.log("Get Agenda")
           const response = await axios.post(rooturl+"Agenda/GetAgenda",{ EmailPremiumWorker });//the object to send must be *PostObject*
           Agenda=response.data
           return Agenda;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }
@@ -51,12 +51,12 @@ export class WorkerAgenda {
         var num = 0;
     
         try {
-          console.log("Get POST")
+          //console.log("Get POST")
           const response = await axios.post(rooturl+"Agenda/Delete",{ EmailPremiumWorker, IdAgenda});//the object to send must be *PostObject*
           return response.status;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);          
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
           return this;
         }
       }

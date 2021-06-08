@@ -31,16 +31,16 @@ export  class PremiumWorker extends User {
 
     async GetPremiumWorkerInformation(PremiumWorkerObject: PremiumWorker) {// fill PremiumWorkerObject with all information of the premium worker
         var num = 0;
-    
+        //console.log("premium  ...")
         try {
           const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkerInformation",{ PremiumWorkerObject });//the object to send must be *PremiumWorkerObject*
           PremiumWorkerObject=response.data;
-          console.log("ID...   "+PremiumWorkerObject._id);
-          this.Response = "1";
+          //console.log("****** "+PremiumWorkerObject._id);
+        
           return PremiumWorkerObject;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -48,15 +48,15 @@ export  class PremiumWorker extends User {
 
       async ChangeToPremium(WorkerObject: Worker) {// Needs Password, Needs Email, needs SuscriptionDate,
         var num = 0;
-    
+         let PremiumWorkerObject:PremiumWorker
         try {
-  
+          //console.log("New Premium "+ WorkerObject);
           const response = await axios.post(rooturl+"Worker/ChangeToPremium",{ WorkerObject });//the object to send must be *WorkerObject*  
-        
-          return 1;
+          PremiumWorkerObject=response.data;
+          return PremiumWorkerObject;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -66,20 +66,19 @@ export  class PremiumWorker extends User {
         var num = 0;    
         try {
           const response = await axios.post(rooturl+"PremiumWorker/GetAllPremiumWorkers",{ });//the object to send must be *WorkerObject*           
-          console.log("Premium Worker")
-          console.log(JSON.stringify(response.data)); 
+        
+      
           let PremiumWorkerArray:PremiumWorker[]
 
           PremiumWorkerArray= response.data;
-          console.log("Aquiiii");
-           console.log(JSON.stringify(PremiumWorkerArray)); 
+    
       
          
         
           return PremiumWorkerArray; //returns an array of premiumWorker
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -92,8 +91,8 @@ export  class PremiumWorker extends User {
         
           return 1;
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -107,8 +106,8 @@ export  class PremiumWorker extends User {
           return response; //returns an array of premiumWorker
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }
@@ -117,17 +116,33 @@ export  class PremiumWorker extends User {
 
       
       async GetPremiumWorkersWithProfession(Profession: string) {// Get 
-       console.log("profession  ************"+Profession)
+    
         try {
           let ArrPremiumWorkers: PremiumWorker[];
           const response = await axios.post(rooturl+"PremiumWorker/GetPremiumWorkersProfession",{ Profession });//the object to send must be *WorkerObject*
           ArrPremiumWorkers=response.data
-          console.log("respuesta ´de "+Profession +"  "+ArrPremiumWorkers)
+ 
           return ArrPremiumWorkers; //returns an array of premiumWorker
 
         } catch (error) {
-          console.log("error del tipo" + error);
-          console.log("error del tipo" + error.response.status);
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
+          this.Response = error.response.status;
+          return this;
+        }
+
+      }
+
+
+      async UpdatePremiumWorkers(PremiumWorkerObject: PremiumWorker) {// Get All workers, even the premium workers
+     
+        try {
+          const response = await axios.post(rooturl+"PremiumWorker/UpdatePremiumWorker",{ PremiumWorkerObject });//the object to send must be *WorkerObject*
+          return response; //returns an array of premiumWorker
+
+        } catch (error) {
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);
           this.Response = error.response.status;
           return this;
         }

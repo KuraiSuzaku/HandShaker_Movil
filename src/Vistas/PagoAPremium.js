@@ -1,13 +1,19 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+
+import {StyleSheet, View, Text, ScrollView,ToastAndroid} from 'react-native';
+
 import {Input, Button, Image} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {Worker} from './../Classes/Worker'
+
 import MonthPicker from 'react-native-month-year-picker';
 import moment from "moment"; 
 /////////
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
+import PremiumWorker from '../Classes/PremiumWorker';
+import User from '../Classes/User';
 /////////
 
 export default PagoAPremium = (props) => {
@@ -18,11 +24,13 @@ export default PagoAPremium = (props) => {
     const img_handshaker = require('../../public/Icons/handshaker.png');
     const [fecha_vencimiento, setFechaVencimiento] = useState(new Date());
     const [state, setState] = useState('no');
+    const [img_tarjeta, setImageTarjeta] = useState('otra')
 
     const [numero, setNumero] = useState("");
     const [nombre, setNombre] = useState("");
     const [apellidos, setApellidos] = useState("");
     const [codigo, setCodigo] = useState("");
+    const [contrasenia, setContrasenia] = useState("");
 
     const mostrar_picker = () => {
         setState('si');      
@@ -33,36 +41,65 @@ export default PagoAPremium = (props) => {
     };
 
     onValueChange = (event, fecha) => {
-        console.log(fecha);
+         
         const nuevafecha = fecha || fecha_vencimiento;
+        //console.log("feecga "+fecha_vencimiento);
         ocultar_picker();
         setFechaVencimiento(nuevafecha);
     };
 
-    const HacerPremium = () =>{
+    const HacerPremium = async () =>{
         if(ValidarCampos()){
-            console.log("IDUser: ", props.user.IdUser);
-            console.log("_id: ", props.user._id);
-            console.log("Nombre del usuario: ", props.user.Name);
-            console.log("Numero Tarjeta: ", numero);
-            console.log("Nombre del propietario: ", nombre);
-            console.log("Apellidos del propietario: ", apellidos);
-            console.log("Fecha Vencimiento: ", moment(fecha_vencimiento).format("MM/YYYY"));
-            console.log("Codigo: ", codigo);
-            console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
+            let WorkerObject = new Worker(props.user.Email);
+            
+            let userObject= new User()
+            userObject.Email=props.user.Email;
+            userObject.Password=contrasenia;
+            let res= await userObject.Login(userObject)
+            
+            if(res.Response.includes("1")){
+
+            let PremiumWorkerObject = new PremiumWorker(props.user.Email);
+            
+            PremiumWorkerObject.isPremium = true;
+            PremiumWorkerObject.Email=props.user.Email
+            PremiumWorkerObject.SuscriptionDate=fecha_vencimiento
+            PremiumWorkerObject.Password=contrasenia
+            //console.log("Fecha Vencimiento:**** ", PremiumWorkerObject.SuscriptionDate);
+            //console.log("IDUser: ", props.user.IdUser);
+            //console.log("_id: ", props.user._id);
+            //console.log("Nombre del usuario: ", props.user.Name);
+            //console.log("Numero Tarjeta: ", numero);
+            //console.log("Nombre del propietario: ", nombre);
+            //console.log("Apellidos del propietario: ", apellidos);
+            //console.log("Fecha Vencimiento: ", moment(fecha_vencimiento).format("MM/YYYY"));
+            //console.log("Codigo: ", codigo);
+            //console.log("Contrasenia: ", contrasenia);
+            //console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
+            let Change= await  WorkerObject.ChangeToPremium(PremiumWorkerObject);
+            }else{
+
+                //console.log("No ingreso su password bien")
+            }
         }
     };
+    
 
     const ValidarTarjeta = (inputtexto) => {
         let visa = new RegExp("^4[0-9]{12}(?:[0-9]{3})?$");
         let mastercard = new RegExp("^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$");
         if(visa.test(inputtexto)){
-            console.log("Soy Visa wuuuuuuu")
+            setImageTarjeta("visa");
+            //console.log("Soy Visa wuuuuuuu");
         }
-        if(mastercard.test(inputtexto)){
-            console.log("Soy MasterCard wuuuuu")
+        else if(mastercard.test(inputtexto)){
+            setImageTarjeta("mastercard");
+            //console.log("Soy MasterCard wuuuuu");
         }
-        console.log("Numero Tarjeta actual: ", numero);
+        else{
+            setImageTarjeta("otra");
+        }
+        //console.log("Numero Tarjeta actual: ", numero);
         setNumero(inputtexto);
     };
 
@@ -83,6 +120,10 @@ export default PagoAPremium = (props) => {
             alert('Falta el código de seguridad de la tarjeta');
             return false;
         }
+        if (!contrasenia.trim()) {
+            alert('Falta la contraseña de seguridad');
+            return false;
+        }
         return true;
     };
 
@@ -93,7 +134,8 @@ export default PagoAPremium = (props) => {
 
     return(
         <SafeAreaProvider style={Estilos.ContenedorApp}>
-            <Componentes.EncabezadoApp />
+            <Componentes.EncabezadoApp/>
+            <ScrollView style={Estilos.ScrollView}>
             <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15}}>
                 <Image
                     source={img_handshaker}
@@ -103,7 +145,7 @@ export default PagoAPremium = (props) => {
                     Estás a un paso de convertirte en premium
                 </Text>
             </View>
-            <View style={{flexDirection: 'row', flex: 1, width: "100%", justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15, marginBottom: 10}}>
+            <View style={{flexDirection: 'row', flex: 1, width: "100%", justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15}}>
                 <View style={{flex: 3}}>
                     <Input
                         name='numero_tarjeta'
@@ -118,13 +160,24 @@ export default PagoAPremium = (props) => {
                     />  
                 </View>
                 <View style={{flex: 1, padding: 10, marginTop: 10}}>
+                    {img_tarjeta==="otra" &&
                     <Image
                         source={img_otra}
                         style={Estilos.Imagen}
-                    />  
+                    />}
+                    {img_tarjeta==="visa" &&  
+                    <Image
+                        source={img_visa}
+                        style={Estilos.Imagen}
+                    />}
+                    {img_tarjeta==="mastercard" &&
+                    <Image
+                        source={img_mastercard}
+                        style={Estilos.Imagen}
+                    />}  
                 </View>
             </View>
-            <View style={{flexDirection: 'row', flex: 1, width: "50%", justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15, marginBottom: 10}}>
+            <View style={{flexDirection: 'row', flex: 1, width: "50%", justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15}}>
                 <Input
                     name='nombre'
                     label='Nombre(s)'
@@ -144,11 +197,11 @@ export default PagoAPremium = (props) => {
                     inputContainerStyle={{borderBottomWidth:0}}
                 />
             </View>
-            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15, marginBottom: 10}}>
+            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15}}>
                 <View style={{flex: 1, width: "50%", marginLeft: 15}}>
                     <Text style={Estilos.TextoSecundario}>Fecha Vencimiento</Text>
                     <Button
-                        title={moment(fecha_vencimiento).format("MM/YYYY")}
+                        title={moment(fecha_vencimiento).format("YYYY-MM")}
                         buttonStyle={Estilos.BotonFechaVencimiento}
                         padding= '100'
                         titleStyle={Estilos.TextoSecundario}
@@ -173,6 +226,7 @@ export default PagoAPremium = (props) => {
                         labelStyle={Estilos.TextoSecundario}
                         keyboardType = 'numeric'
                         placeholder='xxx'
+                        secureTextEntry={true}
                         maxLength={3}
                         onChangeText={(inputtexto)=>{setCodigo(inputtexto)}}
                         style={Estilos.Input}
@@ -181,27 +235,41 @@ export default PagoAPremium = (props) => {
                     
                 </View>
             </View>
-            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15, marginBottom: 10, marginTop:25}}>
-                <Text style={Estilos.Texto}>Usted está de acuerdo con el montón de cláusulas que vamos a poner aquí</Text>
+            <View style={{flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15, marginBottom: 10}}>
+                <Input
+                    name='contrasenia'
+                    label='Ingrese su contraseña actual como medida de seguridad'
+                    labelStyle={Estilos.TextoSecundario}
+                    placeholder='**********'
+                    maxLength={100}
+                    secureTextEntry={true}
+                    onChangeText={(inputtexto)=>{setContrasenia(inputtexto)}}
+                    style={Estilos.Input}
+                    inputContainerStyle={{borderBottomWidth:0}}
+                />
+                <Text style={Estilos.Texto}>Al oprimir el siguiente botón usted confirma que está de acuerdo con nuestras políticas de uso</Text>
             </View>
-            <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1, marginBottom: 10,}}>
-                <Button
-                    title={"¡Hazme Premium!"}
-                    buttonStyle={Estilos.BotonHazmePremium}
-                    padding= '100'
-                    titleStyle={Estilos.EtiquetaBoton}
-                    onPress={HacerPremium}
-                />              
+            <View style={{flex: 1, justifyContent: 'space-between', padding: 10, marginLeft: 15, marginRight: 15,}}>
+                 <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1, marginBottom: 10,}}>
+                    <Button
+                        title={"¡Hazme Premium!"}
+                        buttonStyle={Estilos.BotonHazmePremium}
+                        padding= '100'
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={HacerPremium}
+                    />              
+                </View>
+                <View style={{flexDirection: 'row', justifyContent: 'center', flex: 3, marginBottom: 10, marginTop:25}}>
+                    <Button
+                        title={"Cancelar"}
+                        buttonStyle={Estilos.BotonCancelar}
+                        titleStyle={Estilos.EtiquetaBoton}
+                        onPress={Cancelar}
+                    />       
+                </View>
             </View>
-            <View style={{flexDirection: 'row', justifyContent: 'center', flex: 3, marginBottom: 10, marginTop:25}}>
-                <Button
-                    title={"Cancelar"}
-                    buttonStyle={Estilos.BotonCancelar}
-                    titleStyle={Estilos.EtiquetaBoton}
-                    onPress={Cancelar}
-                />       
-            </View>
-            <Componentes.Navegacion />
+            </ScrollView>
+            <Componentes.Navegacion/>
         </SafeAreaProvider>
     )
 }
@@ -210,6 +278,10 @@ const Estilos = StyleSheet.create({
     ContenedorApp: {
         flex: 1,
         backgroundColor: Colores.fondo,
+    },
+    ScrollView: {
+        width: '100%',
+        height: '75%',
     },
     Icono: {
         flex: 1,
@@ -264,7 +336,6 @@ const Estilos = StyleSheet.create({
     BotonHazmePremium: {
         backgroundColor: Colores.fondoBotonOscuro,
         borderRadius: 20,
-        left: '3%',
         height: 60,
         width: 200,
         padding: 0,

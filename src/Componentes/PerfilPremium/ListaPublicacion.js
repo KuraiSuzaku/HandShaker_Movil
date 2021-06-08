@@ -4,7 +4,6 @@ import {
     ActivityIndicator,
     View,
 } from 'react-native';
-import { Button } from 'react-native-elements';
 import * as Componentes from '../Indice';
 import { Posts } from '../../Classes/Posts';
 
@@ -32,24 +31,6 @@ export default ListaPublicacion = (props) => {
         {
             !firstLoad ?
             <View>
-                <Button
-                    onPress={() => {
-                        navigation.navigate('Perfil', {
-                            profileUser: 'Worker@gmail.com',
-                            updateProfile: true
-                        });
-                    }}
-                    title='Perfil Worker'
-                />
-                <Button
-                    onPress={() => {
-                        navigation.navigate('Perfil', {
-                            profileUser: null,
-                            updateProfile: true
-                        });
-                    }}
-                    title='Perfil Premium (usuario)'
-                />
                 {
                     props.owner ?
                     <View>
@@ -66,6 +47,7 @@ export default ListaPublicacion = (props) => {
                     postList.slice(0).reverse().map((p, i) => (
                         <Componentes.PerfilPremium.Publicacion
                             {...props}
+                            setUploaded={ setUploaded }
                             {...p}
                             />
                     )) :

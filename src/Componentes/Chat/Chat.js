@@ -8,59 +8,24 @@ import {
 } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import Colors from '../../Estilos/Colores';
-const SERVER = "http://192.168.1.75:3001";
+import {SERVER} from './../../Classes/ip'
 import socketClient  from "socket.io-client";
 import { AllChats } from '../../Classes/AllChats';
 import { Chat } from '../../Classes/Chat';
 import { Message } from '../../Classes/Message';
-
+//const SERVER = "http://192.168.1.72:3001";
 //const [auxRender, setAuxrender] = useState(false);
 //const [chatSingle, setChats] = useState({});
 /*import { Thread } from 'react-native-threads';
 const thread = new Thread('./../../ThreadWorkers/thread.js');
 */
 
-let messages = [
-    {
-        _id: "msg01",
-        EmailUserFrom: "WorkerPremium@gmail.com",
-        EmailUserTo: "Worker@gmail.com",
-        MessageText: "Buenas tardes",
-        MessageDate: "01/11/2020"
-    },
-    {
-        _id: "msg02",
-        EmailUserFrom: "WorkerPremium@gmail.com",
-        EmailUserTo: "Worker@gmail.com",
-        MessageText: "¡Haga lo que le digo! >:v",
-        MessageDate: "02/11/2020"
-    },
-    {
-        _id: "msg03",
-        EmailUserFrom: "Worker@gmail.com",
-        EmailUserTo: "WorkerPremium@gmail.com",
-        MessageText: "Esta bien no se enoje O~O",
-        MessageDate: "03/11/2020"
-    },
-    {
-        _id: "msg04",
-        EmailUserFrom: "Worker@gmail.com",
-        EmailUserTo: "WorkerPremium@gmail.com",
-        MessageText: "Ya voy a ofrecerle mis servicios...",
-        MessageDate: "04/11/2020"
-    },
-    {
-        _id: "msg05",
-        EmailUserFrom: "WorkerPremium@gmail.com",
-        EmailUserTo: "Worker@gmail.com",
-        MessageText: "Excelente ^-^",
-        MessageDate: "05/11/2020"
-    },
-];
+const messages = [];
 
 export default class ChatC extends React.Component {
     
     constructor(props) {
+        //console.log("IP SERVER"+SERVER)
        var  socket = socketClient (SERVER);
         super(props);
         this.state = {
@@ -71,7 +36,7 @@ export default class ChatC extends React.Component {
         this.renderMessage = this.renderMessage.bind(this);
     
         socket.on("ChatChange", data => {
-            console.log("aqui Chat cambio desde Clase********"+data);
+            //console.log("aqui Chat cambio desde Clase*******************************"+data);
             this.UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
             
           });
@@ -92,10 +57,10 @@ export default class ChatC extends React.Component {
  
 
     sendMessage() {
-        console.log('Send', this.state.newMessage);
+        //console.log('Send', this.state.newMessage);
         //ESCRIBE EL MENSAJE WOOO
-       console.log("email to "+this.props.route.params.toUser)
-       console.log("email of "+this.props.route.params.fromUser)
+       //console.log("email to "+this.props.route.params.toUser)
+       //console.log("email of "+this.props.route.params.fromUser)
        
        let ArrChats= new Array();
        let ArrMess= new Array();
@@ -161,7 +126,7 @@ export default class ChatC extends React.Component {
      // send a message, strings only
 
 // listen for messages
-      //  thread.onmessage = (message) => console.log(message);
+      //  thread.onmessage = (message) => //console.log(message);
    
     /*if(auxRender==false){
         UpdateChat(this.props.route.params.fromUser,this.props.route.params.toUser);
@@ -173,8 +138,6 @@ export default class ChatC extends React.Component {
         return(
             <View style={{ flex: 10 }} >
             <View style={Estilos.MessagesContainer} >
-                    <Text>De: {this.props.route.params.fromUser}</Text>
-                    <Text>Para: {this.props.route.params.toUser}</Text>
                     {/* Aqui se agregan los mensajes */
                         this.state.load ?
                         <FlatList
@@ -208,21 +171,21 @@ export default class ChatC extends React.Component {
 
 
          UpdateChat=(email,emailchatwith)=>{
-         //console.log("se actualizara el chat");
+         ////console.log("se actualizara el chat");
          this.Getchat(email,emailchatwith)
         }
         
         Getchat = async(email,emailchatwith)=>{
-            console.log("AQUIIIEmail actual ", email );
+            //console.log("AQUIIIEmail actual ", email );
            
         
             let SingleChat= new AllChats()//Login
         
           const ret = await  SingleChat.GetChatWith(email,emailchatwith)
         
-        /*  console.log("Respuestas ret"+JSON.stringify(ret));
-          console.log("chat with" + ret.EmailChatWith)
-          console.log("Respuestas"+JSON.stringify(ret.ListOfMessages));*/
+        /*  //console.log("Respuestas ret"+JSON.stringify(ret));
+          //console.log("chat with" + ret.EmailChatWith)
+          //console.log("Respuestas"+JSON.stringify(ret.ListOfMessages));*/
           //messages=ret.ListOfMessages;
 
           this.setState({messages:ret.ListOfMessages.reverse()  })

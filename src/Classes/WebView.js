@@ -12,12 +12,12 @@ export default class BackgroundTaskRunner extends Component {
   }
   runJSInBackground (code) {
     this.webView.injectJavaScript(code)
-console.log("aqui")
+//console.log("aqui")
 
 
   }
   handleMessage = (e) => {
     const message = e.nativeEvent.data
-    console.log('message from webview:', message)
+    //console.log('message from webview:', message)
   }
 }*/

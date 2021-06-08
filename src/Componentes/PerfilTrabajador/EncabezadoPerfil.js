@@ -1,53 +1,191 @@
 import React, {useState, Component} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {Avatar, Button, Image, Rating, Text} from 'react-native-elements';
+import {ActivityIndicator, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Avatar, Button, Icon, Image, Rating, Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import Colores from '../../Estilos/Colores';
 import EditarPerfil from './EditarPerfil';
 import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
-
+import ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
+import PremiumWorker from '../../Classes/PremiumWorker';
 export default EncabezadoPerfil = (props) => {
-    const [propietario, setPropietario] = useState('si');
-    const [editando, setEditando] = useState('no');
+    const [propietario, setPropietario] = useState(props.owner);
+    const [editando, setEditando] = useState(false);
+
     const [editcategoria, setCategoria] = useState(props.user.Category);
     const [editprofesion, setProfesion] = useState(props.user.Profession);
     const [editdescripcion, setDescripcion] = useState(props.user.JobDescription);
+    const [confirm, setConfirm] = useState(false);
+    const [avatarCache, setAvatarCache] = useState(null);
+    const [backImage, setBackImage] = useState(null);
     
+    console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
-        setEditando('si');
+        setEditando(true);
         console.log("Se deben cambiar los datos del acerca de, pero primero comprobar que este elemento se activa cuando es el usuario correspondiente al perfil")
     }
 
-    const GuardarCambios = () => {
-        setEditando('no'); 
+
+    async function GuardarCambios () {
+       
+      
+        console.log("cambios"+ props.user.UserType);
+        props.user.Profession=editprofesion
+        props.user.Category=editcategoria
+        props.user.JobDescription=editdescripcion
+ if  (!props.user.UserType.includes("PremiumWorker"))
+       {  let WorkerObject = new Worker(props.user.Email);
+
+
+        WorkerObject.Category = editcategoria;
+        WorkerObject.Profession = editprofesion;
+        WorkerObject.JobDescription = editdescripcion;
+
+        const x =  await WorkerObject.UpdateWorkers(WorkerObject);
+
+       }else{
+console.log("premium")
+        let WorkerObject = new PremiumWorker(props.user.Email);
+        WorkerObject.Category = editcategoria;
+        WorkerObject.Profession = editprofesion;
+        WorkerObject.JobDescription = editdescripcion;
+
+        const x =  await WorkerObject.UpdatePremiumWorkers(WorkerObject);
+       
+    }
+ setEditando(false); 
+    }
+
+    const ActualizarUsuario = (Trabajador) => {
+        Trabajador.GetWorkerInformation(Trabajador).then((res) => {
+            props.setUser(res)
+        });
+
+
+    }
+
+    const ImprimirDatos = () =>{
         console.log("Aquí va todo el desmadre de tomar datos de cajas de texto y aventarlas al server");
         console.log("IDUser (email): " + props.user.Email);
         console.log("categoria: " + editcategoria);
         console.log("profesion: " + editprofesion);
         console.log("descripcion: " + editdescripcion);
-
-        let WorkerObject = new Worker(props.user.Email);
-        WorkerObject.Category = editcategoria;
-        WorkerObject.Profession = editprofesion;
-        WorkerObject.JobDescription = editdescripcion;
-        WorkerObject.UpdateWorkers(WorkerObject);
     }
 
     const navigation = useNavigation();
+
+    const changeCache = (avatar) => {
+        cancelUpload();
+        const options = {
+            mediaType: 'photo',
+            quality: 1,
+            maxWidth: 500,
+            maxHeight: 500
+        };
+        ImagePicker.showImagePicker(options, (response) => {      
+            if(!response.didCancel){
+                let base64 = null;
+                try {
+                    ImgToBase64.getBase64String(response.uri)
+                        .then( base64String => {
+                            base64 = 'data:image/jpg;base64,' + base64String;
+                            if(avatar)
+                                setAvatarCache({
+                                    name: response.name,
+                                    path: base64
+                                });
+                            else
+                                setBackImage({
+                                    name: response.name,
+                                    path: base64
+                                });
+                            setConfirm(true);
+
+                        }).catch( err => console.error(err) );
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+    }
     
+    updateAvatar = () => {
+
+        if(avatarCache) {
+            /**
+             * Sube el nuevo AVATAR a bd
+             *  usuario: props.user.Email
+             *  nombre: avatarCache.name
+             *  path: avatarCache.base64
+             */
+            props.setUser(
+                {
+                    ...props.user,
+                    ProfilePicture: {
+                        Name: avatarCache.name,
+                        Path: avatarCache.path
+                    }
+                }
+            );
+        } else {
+            /**
+             * Sube la nueva IMAGEN DE FONDO a bd
+             *  usuario: props.user.Email
+             *  nombre: backImage.name
+             *  path: backImage.base64
+             */
+             props.setUser(
+                {
+                    ...props.user,
+                    HeaderPicture: {
+                        Name: backImage.name,
+                        Path: backImage.path
+                    }
+                }
+            );
+        }
+        cancelUpload();
+        navigation.navigate('Perfil', {
+            profileUser: null,
+            updateProfile: true
+        });
+    }
+
+    cancelUpload = () => {
+        setAvatarCache(null);
+        setBackImage(null);
+        setConfirm(false);
+    }
+
     return(
         <View>
             <Image
-                source={props.imagenFondo}
+                source={
+                    backImage ?
+                    { uri: backImage.path } :
+                    { uri: props.user.HeaderPicture.Path}
+                }
                 style={Estilos.ImagenFondo}
                 resizeMode='cover'
                 PlaceholderContent={<ActivityIndicator />}
                 />
+            <View style={{ position: 'absolute', padding: 5 }}>
+                <Icon
+                    name='edit'
+                    type='font-awesome'
+                    color={Colores.etiquetas}
+                    size={25}
+                    containerStyle={{
+                        padding: 5
+                    }}
+                    onPress={ () => changeCache(false) }
+                />
+            </View>
             <View style={Estilos.Fila}>
                 <Rating 
                     imageSize={20} 
-                    readonly 
+                    readonly
                     startingValue={props.valoracion} 
                     ratingColor={Colores.simbolos}
                     ratingBackgroundColor={Colores.fondoOscuro}
@@ -55,23 +193,23 @@ export default EncabezadoPerfil = (props) => {
                     type='custom'
                     style={Estilos.ContenedorComponente} 
                     />
-                <Avatar
-                    rounded
-                    icon={{name:'user', type:'font-awesome', color:'black'}}
-                    source={props.avatar}
-                    size={100}
-                    containerStyle={Estilos.ContenedorAvatar}
-                    />
-                {propietario === 'no' &&
+                {
+                    propietario ?
+                    <TouchableOpacity onPress={ () => changeCache(true) } >
+                        <CustomAvatar {...props} avatarCache={ avatarCache } />
+                    </TouchableOpacity> :
+                    <CustomAvatar {...props} avatarCache={ null } />
+                }
+                {(!propietario) &&
                 <Button
                     title='Contratar'
                     containerStyle={Estilos.ContenedorComponente}
                     buttonStyle={Estilos.BotonContratar}
                     titleStyle={Estilos.EtiquetaBoton}
-                    onPress={() => navigation.navigate('Contratar')}
+                    onPress={() => navigation.navigate('Contratar',{user: props.user})}
                     />
                 }
-                {propietario === 'si' && editando === 'no' &&
+                {propietario && (!editando) &&
                 <Button
                     title='Editar'
                     containerStyle={Estilos.ContenedorComponente}
@@ -80,7 +218,7 @@ export default EncabezadoPerfil = (props) => {
                     onPress={CambiarDatos}
                 />
                 }
-                {propietario === 'si' && editando === 'si' &&
+                {propietario && editando &&
                     <Button
                         title='Guardar'
                         containerStyle={Estilos.ContenedorComponente}
@@ -89,8 +227,28 @@ export default EncabezadoPerfil = (props) => {
                         onPress={GuardarCambios}
                     />
                 }
+                {
+                    confirm ?
+                    <View style={Estilos.ButtonForm} >
+                        <Button
+                            title='Cancelar'
+                            containerStyle={[Estilos.ConfirmButtonContainer, Estilos.CancelButtonContainer]}
+                            buttonStyle={[Estilos.ConfirmButton, Estilos.CancelButton]}
+                            titleStyle={Estilos.ButtonFormTitle}
+                            onPress={ () => cancelUpload() }
+                        />
+                        <Button
+                            title='Confirmar'
+                            containerStyle={Estilos.ConfirmButtonContainer}
+                            buttonStyle={Estilos.ConfirmButton}
+                            titleStyle={Estilos.ButtonFormTitle}
+                            onPress={ () => updateAvatar() }
+                        />
+                    </View> :
+                    null
+                }
             </View>
-            {editando === 'no' &&
+            {(!editando) &&
                 <View style={Estilos.Datos}>
                     <Text style={Estilos.Informacion}>
                         {props.user.Name} {props.user.LastName}
@@ -103,7 +261,7 @@ export default EncabezadoPerfil = (props) => {
                     </Text>
                 </View>
             }
-            {propietario === 'si' && editando === 'si' &&
+            {propietario && editando &&
             <View style = {{padding: 40}}>
                 <EditarPerfil
                     setCategoria = {setCategoria}
@@ -118,6 +276,29 @@ export default EncabezadoPerfil = (props) => {
         </View>
     );
 }
+
+const CustomAvatar = (props) => {
+    return(
+        <Avatar
+            rounded
+            source={
+                props.avatarCache ?
+                { uri: props.avatarCache.path } :
+                { uri: props.user.ProfilePicture.Path }
+            }
+            size={100}
+            containerStyle={Estilos.ContenedorAvatar}
+        >
+                {
+                    props.owner ?
+                    <TouchableOpacity onPress={() => console.log('Change Avatar')} >
+                        <Avatar.Accessory size={30} /> 
+                    </TouchableOpacity> : 
+                    null
+                }
+        </Avatar>
+    );
+}
 // ESTILOS
 const Estilos = StyleSheet.create({
     ImagenFondo: {
@@ -127,12 +308,29 @@ const Estilos = StyleSheet.create({
         backgroundColor: 'gray',
     },
     Fila: {
-        alignSelf: 'center',
         position: 'absolute',
         width: '100%',
         marginTop: 50,
         flexDirection:'row',
         justifyContent: 'space-evenly',
+    },
+    ButtonForm: {
+        position: 'absolute',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        width: '85%'
+    },
+    ConfirmButton: {
+        paddingVertical: 2,
+        borderRadius: 25,
+        backgroundColor: '#282'
+    }, 
+    CancelButton: {
+        backgroundColor: '#822'
+    },
+    ButtonFormTitle: {
+        margin: 0,
+        fontSize: 14
     },
     ContenedorComponente: {
         justifyContent: 'flex-end',

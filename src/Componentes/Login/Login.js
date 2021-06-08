@@ -7,6 +7,7 @@ import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native'
+import * as Components from '../Indice';
 
 export default class Login extends Component {
     constructor(props) {
@@ -50,6 +51,7 @@ export default class Login extends Component {
                 const jsonValue = JSON.stringify(value);
                 await AsyncStorage.setItem('@user_Key', jsonValue);
                 this.props.setUser(value);
+                this.props.setLogged(true);
             } catch (e) {
                 console.error(e);
             }
@@ -71,11 +73,11 @@ export default class Login extends Component {
         let Password=this.state.password;      
     	let userObject= new User(Email,Password)//Login
         userObject.Login(userObject).then(res=>{
-            console.log("RESULTADO "+res.Response);
+            //console.log("RESULTADO "+res.Response);
         if ( res.Response=="1"){
             //userObject//este es el usuario
         //the user exist and *userObject has its properties filled.
-        console.log("tipo Usuario\t"+ userObject.UserType)// check the user type 
+        //console.log("tipo Usuario\t"+ userObject.UserType)// check the user type 
         if( userObject.UserType.includes("Worker")&& !userObject.UserType.includes("Premium")){
           // check if the user is a worker
            let WorkerObject = new Worker(userObject.Email);
@@ -123,7 +125,7 @@ export default class Login extends Component {
     else{ //there was an error on the login
       if(res.Response=="404")
         { 
-        console.log("No Existe Usuario")
+        //console.log("No Existe Usuario")
         ToastAndroid.show(("No Existe Usuario"), ToastAndroid.SHORT);
         }
       if(res.Response=="401")
@@ -139,7 +141,7 @@ export default class Login extends Component {
 
 
 handleGetAllWorkers( event ){
-    console.log("All Workers");
+    //console.log("All Workers");
 
     let allWorkers= new Worker()//Login
     allWorkers.GetAllWorkers().then(res=>{       
@@ -149,7 +151,7 @@ handleGetAllWorkers( event ){
 
 
 handleGetOnlyWorkers( event ){
-    console.log("Worker");
+    //console.log("Worker");
 
     let OnlyWorkers= new Worker()//Login
     OnlyWorkers.GetOnlyWorkers().then(res=>{       
@@ -158,16 +160,16 @@ handleGetOnlyWorkers( event ){
 }
 
 handleGetPremiumWorkers( event ){
-    console.log("Premium Worker");
+    //console.log("Premium Worker");
 
     //Code to get all Workers 
     let OnlyPremiumWorkers= new PremiumWorker()//Login
     OnlyPremiumWorkers.GetPremiumWorkers().then(res=>{       
        //Look at Premium Worker Class, it returns an array of PremiumWorkers 
-       console.log("TRABAJADORES PREMIUM");
+       //console.log("TRABAJADORES PREMIUM");
        res.forEach(element => {
-        console.log("trabajador n");
-        console.log(element.Name);
+        //console.log("trabajador n");
+        //console.log(element.Name);
       });
     })  
 }
@@ -188,13 +190,14 @@ handleGetPremiumWorkers( event ){
                             <FormInput 
                                 label="Correo electrónico" 
                                 value={ this.state.email }
-                                onChangeText={ this.handleEmail } 
+                                onChangeText={ this.handleEmail }
                             />
                             <FormInput 
+                                onSubmitEditing={ this.handleLogin }
                                 label="Contraseña" 
                                 password={ true }
                                 value={ this.state.password }
-                                onChangeText={ this.handlePassword } 
+                                onChangeText={ this.handlePassword }
                             />
                         </View>
 
@@ -213,7 +216,7 @@ handleGetPremiumWorkers( event ){
                         </View>
                     </ScrollView>
                 </View> :
-                <ActivityIndicator size='large' />
+                <Components.Loading />
             }
             </>
         )
@@ -232,6 +235,7 @@ const FormInput = ( props ) => (
             { props.label }
         </Text>
         <TextInput 
+            onSubmitEditing={ props.onSubmitEditing }
             style={ styles.input }
             secureTextEntry={ props.password ? true : false }
             value={ props.value }

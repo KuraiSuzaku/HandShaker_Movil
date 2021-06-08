@@ -8,12 +8,13 @@ export default ListaCostos = ( { user, owner } ) => {
     const [uploaded, setUploaded] = useState(false);
     const [firstLoad, setFirstLoad] = useState(true);
 
-    getPrices = () => {
+    getPrices = async () => {
+      
         const pricesObj = new Prices(user.Email);
-        pricesObj.GetPrice(user.Email)
-        .then( res => {
-            console.log('Prices Response: ', res);
-        }).catch( e => console.error(e) );
+        const priceObj= await  pricesObj.GetPrice(user.Email)
+      
+        setCostos( priceObj.ListOfPrices)
+        
     }
 
     if(firstLoad || uploaded) {
@@ -34,14 +35,20 @@ export default ListaCostos = ( { user, owner } ) => {
             }
             {
                 costos ?
-                costos.map((c, i) => (
+                costos.slice(0).reverse().map((c, i) => (
                     <Componentes.PerfilPremium.Costo
+                        user={ user }
+                        owner={ owner }
+                        setUploaded={ setUploaded }
                         {...c}
                         />
-                )) :
+                )):
                 null
             }
             <Componentes.PerfilTrabajador.FinSeccion />
         </View>
     );
 }
+/*
+
+                */

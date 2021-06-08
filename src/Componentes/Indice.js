@@ -9,6 +9,10 @@ import * as PerfilTrabajador from './PerfilTrabajador/Indice';
 import FilterByCategory from './Home/FilterByCategory';
 import Home from './Home/Home';
 import * as Chat from './Chat/Indice';
+import * as ListaContratacion from './ListaContratacion/Indice';
+import Loading from './Loading';
+import * as TarjetaContratacion from './Contratacion/Indice';
+import * as Promociones from './Promociones/Indice';
 
 export {
     EncabezadoApp,
@@ -21,5 +25,9 @@ export {
     PerfilTrabajador,
     FilterByCategory,
     Home,
-    Chat
+    Chat,
+    ListaContratacion,
+    Loading,
+    TarjetaContratacion,
+    Promociones,
 };

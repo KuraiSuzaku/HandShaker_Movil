@@ -7,6 +7,7 @@ import {
 import {
     Avatar,
     Card,
+    Icon,
     Rating,
     Text,
 } from 'react-native-elements';
@@ -14,12 +15,22 @@ import {
 import Colores from '../../Estilos/Colores';
 //////
 export default Publicacion = (props, { avatar, valoracion }) => {
+
+    const deletePost = () => {
+        /**
+         * Elimina la publicación
+         * Usuario: props.user.Email
+         * ID: props._id
+         */
+        
+        props.setUploaded(true);
+    }
+
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <View style={Estilos.Encabezado}>
                 <Avatar
                     rounded
-                    icon={{name:'user', type:'font-awesome', color:'black'}}
                     source={{ uri: props.user.ProfilePicture.Path }}
                     size='medium'
                     />
@@ -33,9 +44,17 @@ export default Publicacion = (props, { avatar, valoracion }) => {
                         ratingBackgroundColor={Colores.fondoOscuro}
                         tintColor={Colores.blanco}
                         type='custom'
+                        style={{ alignItems: 'flex-start' }}
                         />
                     <Text style={Estilos.Datos}>{props.DateOfPost.substring(0,10)}</Text>
                 </View>
+                <Icon
+                    name='trash'
+                    type='font-awesome'
+                    color={ Colores.etiquetas }
+                    size={ 20 }
+                    onPress={ deletePost }
+                />
             </View>
             <Text style={Estilos.Contenido}>{props.TextOfPost}</Text>
             {
@@ -65,6 +84,7 @@ const Estilos = StyleSheet.create({
     },
     ContenedorDatos: {
         paddingHorizontal: 15,
+        flex: 1
     },
     Datos: {
         fontSize: 10,
