@@ -20,11 +20,11 @@ export default class Lista extends React.Component {
 
     componentDidMount() {
         if(this.state.refresh) {
-            this.getAllPromotions();
+            this.getAllNotifications();
         }
     }
 
-    async getAllPromotions() {
+    async getAllNotifications() {
         const data = [
             {
                 Subject: "Notificación 1",
