@@ -190,13 +190,14 @@ handleGetPremiumWorkers( event ){
                             <FormInput 
                                 label="Correo electrónico" 
                                 value={ this.state.email }
-                                onChangeText={ this.handleEmail } 
+                                onChangeText={ this.handleEmail }
                             />
                             <FormInput 
+                                onSubmitEditing={ this.handleLogin }
                                 label="Contraseña" 
                                 password={ true }
                                 value={ this.state.password }
-                                onChangeText={ this.handlePassword } 
+                                onChangeText={ this.handlePassword }
                             />
                         </View>
 
@@ -234,6 +235,7 @@ const FormInput = ( props ) => (
             { props.label }
         </Text>
         <TextInput 
+            onSubmitEditing={ props.onSubmitEditing }
             style={ styles.input }
             secureTextEntry={ props.password ? true : false }
             value={ props.value }

@@ -45,7 +45,7 @@ export default class FilterByCategory extends Component {
                 {
                     this.state.trabajadores.map(item =>
                         <TouchableOpacity onPress={ ()=>this.props.navigation.navigate("Perfil", { profileUser: item.Email, updateProfile: true }) } key={ item.Email }>
-                            <IndividualWorker name={ item.Name }/>
+                            <IndividualWorker worker={ item } key={ item.Name }/>
                             {/* <Image 
                                 key={ item.Name }
                                 style={ styles.workerProfilePicture }

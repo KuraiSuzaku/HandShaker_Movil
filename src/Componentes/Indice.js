@@ -14,6 +14,7 @@ import Loading from './Loading';
 import * as TarjetaContratacion from './Contratacion/Indice';
 import * as Promociones from './Promociones/Indice';
 import * as TarjetaDarResena from './Resena/Indice';
+import * as Notificaciones from './Notificaciones/Indice';
 
 export {
     EncabezadoApp,
@@ -32,4 +33,5 @@ export {
     TarjetaContratacion,
     Promociones,
     TarjetaDarResena,
+    Notificaciones
 };

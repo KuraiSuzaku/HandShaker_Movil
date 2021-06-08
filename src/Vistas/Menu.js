@@ -217,6 +217,15 @@ export default props => {
                 { ()=><Componentes.TarjetaDarResena.TarjetaDarResena
                     {...props}
                 /> }
+            <Drawer.Screen
+                name='Notificaciones'
+                options={{
+                    unmountOnBlur: true
+                }}
+            >
+                {
+                    () => <Vistas.Notificaciones {...props} />
+                }
             </Drawer.Screen>
         </Drawer.Navigator>
     );

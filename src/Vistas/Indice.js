@@ -9,6 +9,7 @@ import Chat from './Chat';
 import ListaChats from './ListaChats';
 import ListaContratacion from './ListaContratacion';
 import Promociones from './Promociones';
+import Notificaciones from './Notificaciones';
 
 export {
     Menu,
@@ -22,4 +23,5 @@ export {
     ListaChats,
     ListaContratacion,
     Promociones,
+    Notificaciones
 }
