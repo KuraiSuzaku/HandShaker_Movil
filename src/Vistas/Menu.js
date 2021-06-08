@@ -193,7 +193,7 @@ export default props => {
                 { ()=><Componentes.TarjetaContratacion.TarjetaContratacion
                     {...props}
                 /> }
-                  </Drawer.Screen>
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Promociones'
                 options={{
@@ -203,6 +203,20 @@ export default props => {
                 { ()=><Vistas.Promociones
                     {...props}
                 />}
+            </Drawer.Screen>
+            <Drawer.Screen
+                name='TarjetaDarResena' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                }}
+                >
+                { ()=><Componentes.TarjetaDarResena.TarjetaDarResena
+                    {...props}
+                /> }
             </Drawer.Screen>
         </Drawer.Navigator>
     );
