@@ -28,7 +28,7 @@ export default class Lista extends React.Component {
                     userFrom: {
                         Name: "Pedrito",
                         ProfilePicture: [{
-                            Path: null
+                            Path: 'null'
                         }]
                     }
                 },
@@ -39,7 +39,7 @@ export default class Lista extends React.Component {
                     userFrom: {
                         Name: "Juanito",
                         ProfilePicture: [{
-                            Path: null
+                            Path: 'null'
                         }]
                     }
                 }
@@ -61,8 +61,7 @@ export default class Lista extends React.Component {
                 <Avatar
                     rounded
                     size='medium'
-                    source={ require('../../../public/Profile/user.png') }
-                        //{ uri: item.userFrom.ProfilePicture[0].Path } }
+                    source={{ uri: item.userFrom.ProfilePicture[0].Path }}
                     containerStyle={Estilos.AvatarContainer}
                 />
                 <View style={Estilos.ItemBody}>
