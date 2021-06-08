@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import Colores from '../../Estilos/Colores'
 import Job from './Job'
 import PremiumWorkerC from './PremiumWorkerC'
@@ -30,6 +30,7 @@ export default class Home extends Component {
 
     setPremiumWorker(pw){
         this.setState({premiumWorker:pw});
+        console.log(pw.Email)
     }
 
     handleCategorySelected (text){
@@ -48,7 +49,9 @@ export default class Home extends Component {
             // //console.log(res[0]);
             // //console.log("==============================");
             // //console.log(res[0].Name);
-            this.setPremiumWorker(res[1]);
+            rnd = Math.floor(Math.random() * res.length)
+            console.log("===========>"+ rnd)
+            this.setPremiumWorker(res[rnd]);
         })
     }
 
@@ -124,7 +127,8 @@ export default class Home extends Component {
                     <ScrollView style={ styles.bg }>
                         {
                             this.state.premiumWorker ?
-                            <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/> :
+                            <TouchableOpacity onPress={ ()=>this.props.navigation.navigate("Perfil", { profileUser: this.state.premiumWorker.Email, updateProfile: true }) }>
+                                <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/></TouchableOpacity> :
                                 this.RandomWorker()     
                         }
 

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import Colores from '../../Estilos/Colores'
 
 export default class PremiumWorkerC extends Component {
     constructor(props){
         super(props);
+        console.log("PW: "+this.props.premiumWorker.ProfilePicture.Path)
     }
 
     render() {
@@ -12,8 +13,8 @@ export default class PremiumWorkerC extends Component {
             <View style={ styles.premiumWorker }>
                 <Image 
                     style={ styles.profileImg }
-                    resizeMode="contain"
-                    source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    resizeMode="cover"
+                    source={{uri: this.props.premiumWorker.ProfilePicture.Path}}
                 />
                 <View style={ styles.premiumWorkerContent }>
                     <Text>
@@ -59,10 +60,11 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     profileImg: {
-        width: "100%",
-        height: 100,
-        borderRadius: 1000,
+        width: 100,
+        height: 80,
+        borderRadius: 100,
         marginRight: 10,
+        marginTop: 10,
         flex: 1
     },
     premiumWorkerContent: {
