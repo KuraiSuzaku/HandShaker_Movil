@@ -49,6 +49,7 @@ export default class Home extends Component {
             // console.log(res[0]);
             // console.log("==============================");
             // console.log(res[0].Name);
+            console.log(res.length)
             this.setPremiumWorker(res[1]);
         })
     }
@@ -74,6 +75,7 @@ export default class Home extends Component {
                 
                     // console.log("Aqui")
                     // console.log(categoria.Categories)
+                    
                     this.handleProfesiones(categoria.Categories)
                 
             })
@@ -88,6 +90,9 @@ export default class Home extends Component {
                 if(categoria.Name == this.state.categorySelected){
                     // console.log("Aqui")
                     // console.log(categoria.Categories)
+                    console.log(categoria.Name)
+                    console.log("Categoria<--------------------------------")
+                    console.log(categoria.Categories)
                     this.handleProfesiones(categoria.Categories)
                     categoria.Categories.forEach(profesiones => {
                         // Trabajador =  new PremiumWorker();

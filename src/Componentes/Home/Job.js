@@ -5,6 +5,11 @@ import Colores from '../../Estilos/Colores'
 import { PremiumWorker } from "./../../Classes/PremiumWorker"
 import { useNavigation } from '@react-navigation/native';
 import FilterByCategory from './FilterByCategory';
+import {
+    Avatar,
+    Header,
+    Icon,
+} from 'react-native-elements';
 
 export default class Job extends Component {
     constructor(props){
@@ -27,6 +32,8 @@ export default class Job extends Component {
 
         Trabajador.GetPremiumWorkersWithProfession(job).then((trabajadoresWithProfession) => {
             this.handleTrabajadores(trabajadoresWithProfession)
+            console.log("TRABAJADORES")
+            console.log(trabajadoresWithProfession)
             // trabajadoresWithProfession.forEach(trabajador => {
             //     console.log("trabajador de "+trabajador.Name+" nombre profesion " + job+ " foto " + trabajador.ProfilePicture.Path )
             // });  
@@ -55,11 +62,15 @@ export default class Job extends Component {
                             {
                                 this.state.trabajadores.map(item =>
                                     <TouchableOpacity onPress={ ()=>this.props.navigation.navigate("Perfil", { profileUser: item.Email, updateProfile: true }) }>
+                                        {/* <Avatar
+                                            source={{ uri: item.Picture.Path }}
+                                            rounded
+                                        /> */}
                                         <Image 
                                             key={ item.Name }
                                             style={ styles.workerProfilePicture }
                                             resizeMode="contain"
-                                            source={ {uri: 'https://reactnative.dev/img/tiny_logo.png'} }
+                                            source={ {uri: item.ProfilePicture.Path}} 
                                         /> 
                                     </TouchableOpacity>
                                 )

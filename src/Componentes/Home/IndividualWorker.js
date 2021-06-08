@@ -10,11 +10,11 @@ export default class IndividualWorker extends Component {
                 <Image 
                     style={ styles.img }
                     resizeMode="contain"
-                    source={ {uri: 'https://reactnative.dev/img/tiny_logo.png'} }
+                    source={ {uri: this.props.worker.ProfilePicture.Path} }
                 />
 
                 <View style={ styles.individualJobContent }>
-                    <Text style={ styles.individualJobTitle }>{ this.props.name }</Text>
+                    <Text style={ styles.individualJobTitle }>{ this.props.worker.Name }</Text>
                     <View style={ styles.individualJobWorkers }>
                         {
                             // this.props
