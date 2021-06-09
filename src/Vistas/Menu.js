@@ -217,6 +217,8 @@ export default props => {
                 { ()=><Componentes.TarjetaDarResena.TarjetaDarResena
                     {...props}
                 /> }
+
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Notificaciones'
                 options={{

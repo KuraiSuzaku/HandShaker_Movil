@@ -8,6 +8,7 @@ import {
 import * as Components from '../Indice';
 import Colors from '../../Estilos/Colores';
 import { Avatar } from 'react-native-elements';
+import { AllNotifications } from '../../Classes/AllNotifications';
 
 export default class Lista extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class Lista extends React.Component {
     }
 
     async getAllNotifications() {
-        const data = [
+        let data = [
             {
                 Subject: "Notificación 1",
                 Description: "Description de notificación 1",
@@ -49,10 +50,28 @@ export default class Lista extends React.Component {
                 }
             }
         ]
+
+        console.log("el status USUARIO ES "+this.props.user.Email);
+        let notificationsObject= new AllNotifications
+
+        notificationsObjectRes= await notificationsObject.GetNotification(this.props.user.Email)
+
+        console.log("el status es "+notificationsObjectRes.status);
+        if(notificationsObjectRes.status!="202"){
+        data=notificationsObjectRes.data.ListOfNotifications
+            console.log(notificationsObjectRes.data.ListOfNotifications[0].EmailFrom)
+            console.log(notificationsObjectRes.data.ListOfNotifications[0].userFrom[0].Name)
+        }else{
+            data={}
+        }
+
         /**
              * Carga las notificaciones
              * Usuario: this.props.user.Email
              */
+
+
+
          this.setState({
             refresh: false,
             data: data
@@ -65,7 +84,7 @@ export default class Lista extends React.Component {
                 <Avatar
                     rounded
                     size='medium'
-                    source={{ uri: item.userFrom.ProfilePicture[0].Path }}
+                    source={{ uri: item.userFrom[0].ProfilePicture.Path }}
                     containerStyle={Estilos.AvatarContainer}
                 />
                 <View style={Estilos.ItemBody}>
