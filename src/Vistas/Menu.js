@@ -74,7 +74,11 @@ export default props => {
                 options={{  title: 'Volverse Trabajador Premium',
                             unmountOnBlur: true }}
                 >
-                { ()=><Vistas.PagoAPremium user={props.user}/> }
+                { ()=><Vistas.PagoAPremium 
+                {...props}
+                user={props.user}
+                navigation={ navigation }
+                setLogged={ val => setLogged(val) }/> }
                 </Drawer.Screen>
             <Drawer.Screen
                 name='Cerrar Sesión'
@@ -217,6 +221,7 @@ export default props => {
                 { ()=><Componentes.TarjetaDarResena.TarjetaDarResena
                     {...props}
                 /> }
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Notificaciones'
                 options={{

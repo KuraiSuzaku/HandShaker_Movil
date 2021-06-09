@@ -11,10 +11,10 @@ export default Contratacion = (props) => {
     const avatar = require('../../../public/Profile/user.png');    
     const route= useRoute();
 
-    console.log("data C"+route.params.data.userClient)
+    //console.log("data C"+route.params.data.userClient)
 
-    console.log("data C"+route.params.data.userClient[0].Email)
-    console.log("data C"+route.params.data.userClient[0].LastName)
+    //console.log("data C"+route.params.data.userClient[0].Email)
+    //console.log("data C"+route.params.data.userClient[0].LastName)
 
     const data = {
         EmailWorker: route.params.data.EmailWorker,
@@ -178,7 +178,7 @@ export default Contratacion = (props) => {
     }
 
     const darResenia = () => {
-        //console.log("NAVEGAR a DAR las RESEÑAS asdadsad");
+        navigation.navigate('TarjetaDarResena', {...props});
     }
 
     const abrirChat = () => {
@@ -186,19 +186,6 @@ export default Contratacion = (props) => {
     }
 
      const enviarDatos = async (actualStatus) => {
-        //console.log("Enviada la contratación con los datos!");
-        //console.log("EmailWorker: " + data.EmailWorker);
-        //console.log("Email: " + data.Email);
-        //console.log("Subject: " + data.Subject);
-        //console.log("Date: " + data.Date);
-        //console.log("HiringDate: " + data.HiringDate);
-        //console.log("indications: " + data.indications);
-        //console.log("Addresses: " + data.Addresses);
-        //console.log("Status: " + actualStatus);
-        //console.log("IDcreated: " + data.IDcreated);
-        //console.log("_id: " + data._id);
-        //console.log('userWorker: ' + data.userWorker);
-        //console.log('userClient: ' + data.userClient); 
 
        let UpdateHiring= new WorkersHiring()
 

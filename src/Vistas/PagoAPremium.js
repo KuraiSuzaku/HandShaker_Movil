@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 
-import {StyleSheet, View, Text, ScrollView,ToastAndroid} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, ToastAndroid, Alert} from 'react-native';
 
 import {Input, Button, Image} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {Worker} from './../Classes/Worker'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import MonthPicker from 'react-native-month-year-picker';
 import moment from "moment"; 
@@ -32,6 +33,7 @@ export default PagoAPremium = (props) => {
     const [codigo, setCodigo] = useState("");
     const [contrasenia, setContrasenia] = useState("");
 
+    const navigation = useNavigation();
     const mostrar_picker = () => {
         setState('si');      
     };
@@ -48,16 +50,58 @@ export default PagoAPremium = (props) => {
         setFechaVencimiento(nuevafecha);
     };
 
-    const HacerPremium = async () =>{
+    const HacerPremium = () =>{
         if(ValidarCampos()){
-            let WorkerObject = new Worker(props.user.Email);
+            Alert.alert(
+                "¡Está a punto de volverse trabajador premium!",
+                "Si la información ingresada es correcta puede continuar sin problemas",
+                [
+                    {
+                    text: "Cancelar",
+                    onPress: () => console.log("Cancelado"),
+                    style: "cancel"
+                    },
+                    { 
+                    text: "Hazme Premium", 
+                    onPress: () => {clearStoredUser(); navigation.navigate('Login')} /*async () =>{
+                        console.log("Volviendo Premium");
+                        let WorkerObject = new Worker(props.user.Email);
+                            
+                        let userObject= new User()
+                        userObject.Email=props.user.Email;
+                        userObject.Password=contrasenia;
+                        let res= await userObject.Login(userObject)
+                        
+                        if(res.Response.includes("1")){
+                
+                            let PremiumWorkerObject = new PremiumWorker(props.user.Email);
+                            
+                            PremiumWorkerObject.isPremium = true;
+                            PremiumWorkerObject.Email=props.user.Email
+                            PremiumWorkerObject.SuscriptionDate=fecha_vencimiento
+                            PremiumWorkerObject.Password=contrasenia
+                            let Change= await  WorkerObject.ChangeToPremium(PremiumWorkerObject);
+                            logOut();
+                        }
+                        }*/
+                    },
+                ]
+            );
+        }
+        else{
+            alert('Su contraseña está mal');
+        }
+    };
+    
+    const onConfirmPremium = async () =>{
+        let WorkerObject = new Worker(props.user.Email);
             
-            let userObject= new User()
-            userObject.Email=props.user.Email;
-            userObject.Password=contrasenia;
-            let res= await userObject.Login(userObject)
-            
-            if(res.Response.includes("1")){
+        let userObject= new User()
+        userObject.Email=props.user.Email;
+        userObject.Password=contrasenia;
+        let res= await userObject.Login(userObject)
+        
+        if(res.Response.includes("1")){
 
             let PremiumWorkerObject = new PremiumWorker(props.user.Email);
             
@@ -65,25 +109,24 @@ export default PagoAPremium = (props) => {
             PremiumWorkerObject.Email=props.user.Email
             PremiumWorkerObject.SuscriptionDate=fecha_vencimiento
             PremiumWorkerObject.Password=contrasenia
-            //console.log("Fecha Vencimiento:**** ", PremiumWorkerObject.SuscriptionDate);
-            //console.log("IDUser: ", props.user.IdUser);
-            //console.log("_id: ", props.user._id);
-            //console.log("Nombre del usuario: ", props.user.Name);
-            //console.log("Numero Tarjeta: ", numero);
-            //console.log("Nombre del propietario: ", nombre);
-            //console.log("Apellidos del propietario: ", apellidos);
-            //console.log("Fecha Vencimiento: ", moment(fecha_vencimiento).format("MM/YYYY"));
-            //console.log("Codigo: ", codigo);
-            //console.log("Contrasenia: ", contrasenia);
-            //console.log('YA ERES PREMIUM WUUUUUU'); //Enviar valor de premium con el trabajador obtenido
             let Change= await  WorkerObject.ChangeToPremium(PremiumWorkerObject);
-            }else{
-
-                //console.log("No ingreso su password bien")
-            }
+            logOut();
+            navigation.navigate('Login');
         }
     };
     
+    const clearStoredUser = async () => {
+        try {
+            props.setLogged(false);
+            await AsyncStorage.removeItem('@user_Key');
+            props.setUser({
+                userType: null
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
 
     const ValidarTarjeta = (inputtexto) => {
         let visa = new RegExp("^4[0-9]{12}(?:[0-9]{3})?$");
@@ -127,7 +170,6 @@ export default PagoAPremium = (props) => {
         return true;
     };
 
-    const navigation = useNavigation();
     const Cancelar = () =>{
         navigation.goBack();
     };

@@ -6,20 +6,22 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default Resena = (props) => {
+    console.log("Si entreee wu: props = ",props);
     const avatar = require('../../../public/Profile/user.png');    
     const route= useRoute();
+    const navigation = useNavigation();
 
     const [resena, setResena] = useState("");
     const [valoracion, setValoracion] = useState(5);
 
     const data = {
-        EmailWorker: route.params.data.EmailWorker,
-        Email:route.params.data.Email,
-        ProfilePicture:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].ProfilePicture.Path:route.params.data.userWorker[0].ProfilePicture.Path),
-        ID:route.params.data.IDcreated,
-        Name:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].Name+" "+route.params.data.userClient[0].LastName:route.params.data.userWorker[0].Name+" "+route.params.data.userWorker[0].LastName),
+        EmailWorker: "aaa", //route.params.data.EmailWorker,
+        Email: "bbbb", //route.params.data.Email,
+        ProfilePicture: "ccc", //((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].ProfilePicture.Path:route.params.data.userWorker[0].ProfilePicture.Path),
+        ID: "dddd", //route.params.data.IDcreated,
+        Name: "eeee", //((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].Name+" "+route.params.data.userClient[0].LastName:route.params.data.userWorker[0].Name+" "+route.params.data.userWorker[0].LastName),
 
-        IDcreated: route.params.data.IDcreated,
+        IDcreated: "fff", //route.params.data.IDcreated,
     }
 
     const onSend = () => {
