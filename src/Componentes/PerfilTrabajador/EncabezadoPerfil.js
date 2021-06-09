@@ -171,16 +171,20 @@ console.log("premium")
                 PlaceholderContent={<ActivityIndicator />}
                 />
             <View style={{ position: 'absolute', padding: 5 }}>
-                <Icon
-                    name='edit'
-                    type='font-awesome'
-                    color={Colores.etiquetas}
-                    size={25}
-                    containerStyle={{
-                        padding: 5
-                    }}
-                    onPress={ () => changeCache(false) }
-                />
+                {   
+                    propietario ?
+                    <Icon
+                        name='edit'
+                        type='font-awesome'
+                        color={Colores.etiquetas}
+                        size={25}
+                        containerStyle={{
+                            padding: 5
+                        }}
+                        onPress={ () => changeCache(false) }
+                    /> :
+                    null
+                }
             </View>
             <View style={Estilos.Fila}>
                 <Rating 

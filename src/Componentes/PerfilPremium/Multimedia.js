@@ -43,17 +43,6 @@ export default Multimedia = (props) => {
                 <Text style={Estilos.Text}>
                     {props.MultimediaText}
                 </Text>
-                {
-                    props.owner ?
-                    <Icon
-                        name='trash'
-                        type='font-awesome'
-                        color={ Colors.etiquetas }
-                        size={ 20 }
-                        onPress={ deleteMedia }
-                    /> :
-                    null
-                }
             </View>
         </Card>
     );
