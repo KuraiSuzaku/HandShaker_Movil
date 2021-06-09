@@ -193,7 +193,7 @@ export default props => {
                 { ()=><Componentes.TarjetaContratacion.TarjetaContratacion
                     {...props}
                 /> }
-                  </Drawer.Screen>
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Promociones'
                 options={{
@@ -204,6 +204,19 @@ export default props => {
                     {...props}
                 />}
             </Drawer.Screen>
+            <Drawer.Screen
+                name='TarjetaDarResena' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                }}
+                >
+                { ()=><Componentes.TarjetaDarResena.TarjetaDarResena
+                    {...props}
+                /> }
             <Drawer.Screen
                 name='Notificaciones'
                 options={{
@@ -223,9 +236,7 @@ const CustomDrawerContent = (props) => {
     const check = (val) => {
         if( val === 'Contrataciones'
             || val === 'Nosotros'
-            || val === 'Cerrar Sesión'
-            || val == 'ListaChats'
-            || val == 'TarjetaContratacion')
+            || val === 'Cerrar Sesión')
             return true;
             if(props.user.UserType === "Worker")
                 if(val === 'Premium')

@@ -13,6 +13,7 @@ import * as ListaContratacion from './ListaContratacion/Indice';
 import Loading from './Loading';
 import * as TarjetaContratacion from './Contratacion/Indice';
 import * as Promociones from './Promociones/Indice';
+import * as TarjetaDarResena from './Resena/Indice';
 import * as Notificaciones from './Notificaciones/Indice';
 
 export {
@@ -31,5 +32,6 @@ export {
     Loading,
     TarjetaContratacion,
     Promociones,
+    TarjetaDarResena,
     Notificaciones
 };
