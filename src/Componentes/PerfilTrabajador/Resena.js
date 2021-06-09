@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ImageEditor, StyleSheet, View } from 'react-native';
 import {
     Avatar,
     Card,
@@ -8,19 +8,14 @@ import {
 } from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
 
-export default Resena = ({  nombre,
-                            valoracion,
-                            comentario,
-                            fecha,
-                            avatar,}) => {
+export default Resena = ({ item }) => {
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <View style={Estilos.Contenedor}>
                 <View style={Estilos.ContenedorAvatar}>
                     <Avatar
                         rounded
-                        icon={{name:'user', type:'font-awesome', color:'black'}}
-                        source={avatar}
+                        source={{ uri: item.userFrom.ProfilePicture[0].Path }}
                         size='medium'
                         />
                 </View>
@@ -28,15 +23,15 @@ export default Resena = ({  nombre,
                     <Rating 
                         imageSize={15} 
                         readonly 
-                        startingValue={valoracion} 
+                        startingValue={ item.RatingStar } 
                         ratingColor={Colores.simbolos}
                         ratingBackgroundColor={Colores.fondoOscuro}
                         tintColor={Colores.blanco}
                         type='custom'
                         />
-                    <Text style={Estilos.Nombre}>{nombre}</Text>
-                    <Text style={Estilos.Comentario}>{comentario}</Text>
-                    <Text style={[Estilos.Comentario, Estilos.Fecha]}>{fecha}</Text>
+                    <Text style={Estilos.Nombre}>{ item.userFrom.Name }</Text>
+                    <Text style={Estilos.Comentario}>{ item.TextReview }</Text>
+                    <Text style={[Estilos.Comentario, Estilos.Fecha]}>{ item.DateReview.substring(0,10) }</Text>
                 </View>
             </View>
         </Card>
