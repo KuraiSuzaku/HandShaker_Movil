@@ -9,13 +9,14 @@ import {
 import Colores from '../../Estilos/Colores';
 
 export default Resena = ({ item }) => {
+    console.log("aqui",item.RatingStar)
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <View style={Estilos.Contenedor}>
                 <View style={Estilos.ContenedorAvatar}>
                     <Avatar
                         rounded
-                        source={{ uri: item.userFrom.ProfilePicture[0].Path }}
+                        source={{ uri: item.User.ProfilePicture.Path }}
                         size='medium'
                         />
                 </View>
@@ -29,7 +30,7 @@ export default Resena = ({ item }) => {
                         tintColor={Colores.blanco}
                         type='custom'
                         />
-                    <Text style={Estilos.Nombre}>{ item.userFrom.Name }</Text>
+                    <Text style={Estilos.Nombre}>{ item.User.Name }</Text>
                     <Text style={Estilos.Comentario}>{ item.TextReview }</Text>
                     <Text style={[Estilos.Comentario, Estilos.Fecha]}>{ item.DateReview.substring(0,10) }</Text>
                 </View>

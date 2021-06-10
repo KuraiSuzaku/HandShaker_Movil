@@ -4,6 +4,7 @@ import {Avatar, Card, Button, Rating, Input,} from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Reviews } from '../../Classes/Reviews';
 
 export default Resena = (props) => {
     const avatar = require('../../../public/Profile/user.png');    
@@ -45,11 +46,15 @@ export default Resena = (props) => {
         }
     }
 
-    const sendToDatabase = () => {
+    const sendToDatabase = async () => {
         console.log("Resena = ", resena);
         console.log("Valoracion = ", valoracion);
         console.log("Cliente = ", data.Email);
         console.log("Trabajador = ", data.EmailWorker);
+       let datenow= new Date()
+let addReview= new Reviews()
+await addReview.AddReview(data.EmailWorker,valoracion,resena,datenow,data.Email)
+
     }
 
     const onCancel = () =>{

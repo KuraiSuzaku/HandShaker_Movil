@@ -8,7 +8,10 @@ import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
 import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
+import { Reviews } from '../../Classes/Reviews';
+
 import PremiumWorker from '../../Classes/PremiumWorker';
+import { Review } from '../../Classes/Review';
 export default EncabezadoPerfil = (props) => {
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
@@ -19,6 +22,8 @@ export default EncabezadoPerfil = (props) => {
     const [confirm, setConfirm] = useState(false);
     const [avatarCache, setAvatarCache] = useState(null);
     const [backImage, setBackImage] = useState(null);
+    const [Starts, setStar] = useState(0);
+    const [ReviewsState, setReview] = useState(0);
     
     console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
@@ -109,9 +114,37 @@ console.log("premium")
             }
         });
     }
+
+
+
+
+    const getAllReviews = async() => {
+        console.log('RESPONSE: ');
+        Revs = new Reviews();
+   
+   const rev= await  Revs.GetReview(props.user.Email);
+
+ console.log('RESPONSE RESEÑAS: ', rev.status);
+ 
+
+            //console.log('RESPONSE RESEÑAS: ', rev);
+            if  ( rev.status!=202){
+                console.log('RESPONSE RESEÑAS: ',rev.data.Stars);
+ 
+                setStar(rev.data.Stars);
+                setReview(rev.data.NumberReviews);
+        }
+    }
+
+    
+
+
+
+
+
     
     updateAvatar = () => {
-
+      
         if(avatarCache) {
             /**
              * Sube el nuevo AVATAR a bd
@@ -158,6 +191,7 @@ console.log("premium")
         setConfirm(false);
     }
 
+    getAllReviews()
     return(
         <View>
             <Image
@@ -190,7 +224,7 @@ console.log("premium")
                 <Rating 
                     imageSize={20} 
                     readonly
-                    startingValue={props.valoracion} 
+                    startingValue={Starts} 
                     ratingColor={Colores.simbolos}
                     ratingBackgroundColor={Colores.fondoOscuro}
                     tintColor={Colores.fondo}
@@ -254,6 +288,11 @@ console.log("premium")
             </View>
             {(!editando) &&
                 <View style={Estilos.Datos}>
+                     <Text style={Estilos.Informacion}>
+                       Numero de evaluaciones {ReviewsState} 
+                    </Text>
+
+
                     <Text style={Estilos.Informacion}>
                         {props.user.Name} {props.user.LastName}
                     </Text>

@@ -8,17 +8,31 @@ export default ListaResenas = (props) => {
     const [reviews, setReviews] = useState(null);
     const [refresh, setRefresh] = useState(true);
 
-    const getAllReviews = () => {
+    const getAllReviews = async() => {
         /**
          * Carga todas las reseñas del usuario
          * usuario: props.user.Email
          */
         Revs = new Reviews();
-        Revs.GetReview(props.user.Email).then( res => {
+       /* Revs.GetReview(props.user.Email).then( res => {
+            console.log('RESPONSE RESEÑAS: ', res.status);
             console.log('RESPONSE RESEÑAS: ', res);
-            setReviews(res);
-            setRefresh(false);
+           if(res.status!=2){
+           
+            setReviews(res.data);
+            setRefresh(false);}
         }).catch( err => console.error('Error: ', err) );
+    */
+   const rev= await  Revs.GetReview(props.user.Email);
+
+ console.log('RESPONSE RESEÑAS: ', rev.status);
+ 
+ console.log('RESPONSE RESEÑAS: ', rev.data.EmailPremiumWorker);
+ 
+ console.log('RESPONSE RESEÑAS: ', rev.data.ListOfReviews[0].RatingStar);
+            //console.log('RESPONSE RESEÑAS: ', rev);
+            setReviews(rev.data.ListOfReviews);
+            setRefresh(false);
     }
 
     if(refresh) {
