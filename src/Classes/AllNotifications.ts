@@ -27,13 +27,16 @@ export class AllNotifications {
 
 
       async GetNotification(Email: string) {// fill ClientObject with all information of the client
+        console.log("aqui")
         var num = 0;
         let Notification = new AllNotifications();
         try {
-          const response = await axios.post(rooturl+"Chat/GetNotifications",{Email});//the object to send must be *PostObject*
+          console.log("enviado")
+          const response = await axios.post(rooturl+"Notification/GetNotifications",{Email});//the object to send must be *PostObject*
+          console.log("---"+response.status)
           Notification=response.data
           //console.log(Notification)
-          return Notification;
+          return response;
         } catch (error) {
           //console.log("error del tipo" + error);
           //console.log("error del tipo" + error.response.status);          

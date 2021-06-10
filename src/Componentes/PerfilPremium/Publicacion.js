@@ -48,13 +48,6 @@ export default Publicacion = (props, { avatar, valoracion }) => {
                         />
                     <Text style={Estilos.Datos}>{props.DateOfPost.substring(0,10)}</Text>
                 </View>
-                <Icon
-                    name='trash'
-                    type='font-awesome'
-                    color={ Colores.etiquetas }
-                    size={ 20 }
-                    onPress={ deletePost }
-                />
             </View>
             <Text style={Estilos.Contenido}>{props.TextOfPost}</Text>
             {
