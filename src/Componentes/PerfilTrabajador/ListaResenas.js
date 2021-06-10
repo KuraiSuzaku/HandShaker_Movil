@@ -57,7 +57,7 @@ export default ListaResenas = (props) => {
 
 const Estilos = StyleSheet.create({
     Titulo: {    
-        fontSize: 12,
+        fontSize: 18,
         fontWeight: 'bold',
         marginTop: 12,
         marginLeft: 26,

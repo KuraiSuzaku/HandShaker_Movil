@@ -51,7 +51,7 @@ export default Multimedia = (props) => {
 const Estilos = StyleSheet.create({
     Tarjeta: {
         borderRadius: 20,
-        padding: 10
+        paddingVertical: 10,
     },
     Imagen: {
         borderRadius: 15
