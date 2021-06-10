@@ -221,16 +221,21 @@ console.log("premium")
                 }
             </View>
             <View style={Estilos.Fila}>
-                <Rating 
-                    imageSize={20} 
-                    readonly
-                    startingValue={Starts} 
-                    ratingColor={Colores.simbolos}
-                    ratingBackgroundColor={Colores.fondoOscuro}
-                    tintColor={Colores.fondo}
-                    type='custom'
-                    style={Estilos.ContenedorComponente} 
-                    />
+                <View style={{ justifyContent: 'flex-end' }}>
+                    <Rating 
+                        imageSize={20} 
+                        readonly
+                        startingValue={Starts} 
+                        ratingColor={Colores.simbolos}
+                        ratingBackgroundColor={Colores.fondoOscuro}
+                        tintColor={Colores.fondo}
+                        type='custom'
+                        style={Estilos.ContenedorComponente} 
+                        />
+                    <Text style={Estilos.Informacion}>
+                        Evaluaciones: {ReviewsState} 
+                    </Text>
+                </View>
                 {
                     propietario ?
                     <TouchableOpacity onPress={ () => changeCache(true) } >
@@ -241,7 +246,7 @@ console.log("premium")
                 {(!propietario) &&
                 <Button
                     title='Contratar'
-                    containerStyle={Estilos.ContenedorComponente}
+                    containerStyle={[Estilos.ContenedorComponente, { paddingBottom: 15 }]}
                     buttonStyle={Estilos.BotonContratar}
                     titleStyle={Estilos.EtiquetaBoton}
                     onPress={() => navigation.navigate('Contratar',{user: props.user})}
@@ -250,7 +255,7 @@ console.log("premium")
                 {propietario && (!editando) &&
                 <Button
                     title='Editar'
-                    containerStyle={Estilos.ContenedorComponente}
+                    containerStyle={[Estilos.ContenedorComponente, { paddingBottom: 15 }]}
                     buttonStyle={Estilos.BotonEditar}
                     titleStyle={Estilos.EtiquetaBoton}
                     onPress={CambiarDatos}
@@ -259,7 +264,7 @@ console.log("premium")
                 {propietario && editando &&
                     <Button
                         title='Guardar'
-                        containerStyle={Estilos.ContenedorComponente}
+                        containerStyle={[Estilos.ContenedorComponente, { paddingBottom: 15 }]}
                         buttonStyle={Estilos.BotonEditar}
                         titleStyle={Estilos.EtiquetaBoton}
                         onPress={GuardarCambios}
@@ -288,11 +293,6 @@ console.log("premium")
             </View>
             {(!editando) &&
                 <View style={Estilos.Datos}>
-                     <Text style={Estilos.Informacion}>
-                       Numero de evaluaciones {ReviewsState} 
-                    </Text>
-
-
                     <Text style={Estilos.Informacion}>
                         {props.user.Name} {props.user.LastName}
                     </Text>
