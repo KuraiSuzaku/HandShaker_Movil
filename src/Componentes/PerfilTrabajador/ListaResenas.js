@@ -40,17 +40,16 @@ export default ListaResenas = (props) => {
         return( <Componentes.Loading /> );
     }
 
-
-
     return(
         <View>
             <Text style={Estilos.Titulo}>
                 Reseñas
             </Text>
-            <FlatList
-                renderItem={ Componentes.PerfilTrabajador.Resena }
-                data={ reviews }
-            />
+            {reviews.map( (r, i) => (
+                <Componentes.PerfilTrabajador.Resena
+                    item={ r }
+                />
+            ))}
             <Componentes.PerfilTrabajador.FinSeccion />
         </View>
     );
