@@ -8,22 +8,44 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default Resena = (props) => {
     const avatar = require('../../../public/Profile/user.png');    
     const route= useRoute();
+    const navigation = useNavigation();
 
     const [resena, setResena] = useState("");
     const [valoracion, setValoracion] = useState(5);
 
     const data = {
         EmailWorker: route.params.data.EmailWorker,
-        Email:route.params.data.Email,
-        ProfilePicture:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].ProfilePicture.Path:route.params.data.userWorker[0].ProfilePicture.Path),
-        ID:route.params.data.IDcreated,
-        Name:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].Name+" "+route.params.data.userClient[0].LastName:route.params.data.userWorker[0].Name+" "+route.params.data.userWorker[0].LastName),
+        Email: route.params.data.Email,
+        ProfilePicture: ((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].ProfilePicture.Path:route.params.data.userWorker[0].ProfilePicture.Path),
+        ID: route.params.data.IDcreated,
+        Name: ((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].Name+" "+route.params.data.userClient[0].LastName:route.params.data.userWorker[0].Name+" "+route.params.data.userWorker[0].LastName),
 
         IDcreated: route.params.data.IDcreated,
     }
 
     const onSend = () => {
-        console.log("Enviar desmadre wuuu");
+        if(ValidarCampos()){
+            Alert.alert(
+            "¡Está a punto de dar la reseña de " + data.Name + "!",
+            "Asegúrese de dar una opinión objetiva y cumpliendo con las normas de la comunidad :D",
+            [
+                {
+                text: "Regresar",
+                style: "cancel"
+                },
+                { 
+                text: "Confirmar Reseña", 
+                onPress: () =>{
+                        sendToDatabase();
+                        navigation.navigate("Home");
+                        }
+                    },
+                ]
+            );
+        }
+    }
+
+    const sendToDatabase = () => {
         console.log("Resena = ", resena);
         console.log("Valoracion = ", valoracion);
         console.log("Cliente = ", data.Email);
@@ -31,8 +53,31 @@ export default Resena = (props) => {
     }
 
     const onCancel = () =>{
-        navigation.goBack();
+        Alert.alert(
+            "¿Está seguro de querer salir sin dar reseña?",
+            "No podrá volver a reseñar este trabajo, la oportunidad es única y su opinión ayuda a otros clientes para conocer a este trabajador",
+            [
+                {
+                text: "Regresar",
+                style: "cancel"
+                },
+                { 
+                text: "Salir sin dar reseña", 
+                onPress: () =>{
+                    navigation.navigate("Home");
+                        }
+                    },
+                ]
+            );
     }
+
+    const ValidarCampos = () => {
+        if (!resena.trim()) {
+            alert('Falta la reseña');
+            return false;
+        }
+        return true;
+    };
 
     return(
         <SafeAreaProvider>
