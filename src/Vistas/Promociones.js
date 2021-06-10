@@ -20,12 +20,14 @@ import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
 import { PromotionAll } from '../Classes/PromotionAll';
 import { Promotion } from '../Classes/Promotion';
+import { useNavigation } from '@react-navigation/native';
 
 export default PagoAPremium = (props) => {
     const [refresh, setRefresh] = useState(true);
     const [promos, setPromos] = useState({});
     const avatar = require('../../public/Profile/user.png');
     const imgpromocion = require('../../public/Icons/gift.png');
+    const navigation = useNavigation();
   
     let data = [
         {
@@ -101,36 +103,38 @@ export default PagoAPremium = (props) => {
         console.log("Debo mostrar promocion: ", auxemail);
     };
 
-    
+    const toUser = (email) =>{
+        navigation.navigate("Perfil", {profileUser: email, updateProfile: true});
+    }
+
     const Item = ({ item, onpress }) => {
 
         return(
-            <TouchableOpacity onPress={onpress}>
-                <Card containerStyle={Estilos.Tarjeta}>
-                    <View style={{width: '100%'}}>
-                        <Image
-                            source={imgpromocion}
-                            style={Estilos.ContenedorIcono}
-                        />
-                        <Text style={Estilos.TituloPromocion}>{item.Title}</Text>
-                        <Text style={Estilos.TextoPromocion }>{item.Content}</Text>
+            <Card containerStyle={Estilos.Tarjeta}>
+                <View style={{width: '100%'}}>
+                    <Image
+                        source={imgpromocion}
+                        style={Estilos.ContenedorIcono}
+                    />
+                    <Text style={Estilos.TituloPromocion}>{item.Title}</Text>
+                    <Text style={Estilos.TextoPromocion }>{item.Content}</Text>
+                </View>
+                <TouchableOpacity onPress={() => {toUser(item.Email)}}>
+                <View style={{flexDirection: 'row', paddingLeft: 10, marginTop: 30}}>
+                    <Avatar
+                        rounded
+                        icon={{name:'user', type:'font-awesome', color:'black'}}
+                        source={{ uri: item.Avatar}}
+                        size={50}
+                        containerStyle={Estilos.ContenedorAvatar}
+                    />
+                    <View style={{marginLeft: 15, justifyContent: "center"}}>
+                        <Text style={Estilos.Texto}>{item.Name}</Text>
+                        <Text style={Estilos.TextoSecundario}>Ver más</Text>
                     </View>
-
-                    <View style={{flexDirection: 'row', paddingLeft: 10, marginTop: 30}}>
-                        <Avatar
-                            rounded
-                            icon={{name:'user', type:'font-awesome', color:'black'}}
-                            source={{ uri: item.Avatar}}
-                            size={50}
-                            containerStyle={Estilos.ContenedorAvatar}
-                        />
-                        <View style={{marginLeft: 15}}>
-                            <Text style={Estilos.Texto}>{item.Name}</Text>
-                            <Text style={Estilos.TextoSecundario}>Ver más</Text>
-                        </View>
-                    </View>
-                </Card>
-            </TouchableOpacity>
+                </View>
+                </TouchableOpacity>
+            </Card>
         );
     };
 
@@ -152,7 +156,7 @@ export default PagoAPremium = (props) => {
         }
         return(
             <>
-            <View style={{ marginBottom: 10 }}>
+            <View style={{ marginBottom: 10, marginTop: 10 }}>
                 <Text style={Estilos.Titulo}>PROMOCIONES</Text>
                 <NewButton
                     {...props}
@@ -276,6 +280,7 @@ class NewButton extends React.Component {
                             value={ this.state.name }
                             onChangeText={ (newName) => this.setState({ name: newName }) }
                             style={Estilos.NewName}
+                            maxLength={20}
                         />
                         <TextInput
                             multiline={ true }

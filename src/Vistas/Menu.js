@@ -59,7 +59,7 @@ export default props => {
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
-                options={{  title: 'Sobre Nosotros',
+                options={{  title: 'Información de la APP',
                             unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
                                 <Icon
@@ -74,11 +74,8 @@ export default props => {
                 options={{  title: 'Volverse Trabajador Premium',
                             unmountOnBlur: true }}
                 >
-                { ()=><Vistas.PagoAPremium 
-                {...props}
-                user={props.user}
-                navigation={ navigation }
-                setLogged={ val => setLogged(val) }/> }
+                { ()=><Vistas.PagoAPremium
+                user={props.user}/> }
                 </Drawer.Screen>
             <Drawer.Screen
                 name='Cerrar Sesión'
@@ -239,8 +236,7 @@ export default props => {
 const CustomDrawerContent = (props) => {
 
     const check = (val) => {
-        if( val === 'Contrataciones'
-            || val === 'Nosotros'
+        if( val === 'Nosotros'
             || val === 'Cerrar Sesión')
             return true;
             if(props.user.UserType === "Worker")

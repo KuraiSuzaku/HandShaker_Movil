@@ -36,6 +36,7 @@ export default Contratacion = (props) => {
         LinkMaps: route.params.data.Addresses[0].LinkMaps,
 
         Name:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].Name+" "+route.params.data.userClient[0].LastName:route.params.data.userWorker[0].Name+" "+route.params.data.userWorker[0].LastName),
+        NameClient: route.params.data.userClient[0].Name,
         Linkclient: route.params.data.Linkclient,
 
        // Addresses: route.params.data.Addresses,
@@ -171,6 +172,7 @@ export default Contratacion = (props) => {
                     enviarDatos("Finalizado");
                     setEstadoContrato("Finalizado");
                     alert('¡La contratación fue finalizada!');
+                    darResenia();
                     } 
                 }
             ]
@@ -178,7 +180,7 @@ export default Contratacion = (props) => {
     }
 
     const darResenia = () => {
-        navigation.navigate('TarjetaDarResena', {...props});
+        navigation.navigate('TarjetaDarResena', {data:{...route.params.data}});
     }
 
     const abrirChat = () => {
@@ -214,7 +216,7 @@ export default Contratacion = (props) => {
                         <Text style={Estilos.TextoSecundario}>Asunto: {data.Subject}</Text>
                     </View>
                 </View>
-                <Card.Divider style={{height:2}}/>
+                <Card.Divider style={Estilos.Separador}/>
                 <View style={{flexDirection: 'row', justifyContent: "space-evenly", margin: 5}}>
                     <Text style={Estilos.TituloAux}>Estado: </Text>
                     <Text style={Estilos.Texto}>{estadoContrato}</Text>
@@ -294,7 +296,7 @@ export default Contratacion = (props) => {
                 </View>
                 }
 
-                {((estadoContrato === "Finalizado") || (estadoContrato === "Cancelado")) && (route.params.data.Email === props.user.Email) &&
+                {/*((estadoContrato === "Finalizado") || (estadoContrato === "Cancelado")) && (route.params.data.Email === props.user.Email) &&
                 <View style={{flexDirection: 'row', width: "100%", justifyContent: 'center'}}>
                     <Button
                         title='Dar Reseña'
@@ -303,13 +305,13 @@ export default Contratacion = (props) => {
                         onPress={darResenia}
                     />
                 </View>
-                }
+                */}
 
-                <Card.Divider style={{height:2}}/>
+                <Card.Divider style={Estilos.Separador}/>
                 <View style={{width: "100%", margin: 10}}>
                     <Text style={Estilos.Titulo}>Contacto del cliente:</Text>
                     <View style={{flexDirection: 'row'}}>
-                        <Text style={Estilos.TextoSecundario}>Nombre:</Text><Text style={Estilos.Texto}> {data.Name} </Text>
+                        <Text style={Estilos.TextoSecundario}>Nombre:</Text><Text style={Estilos.Texto}> {data.NameClient} </Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={Estilos.TextoSecundario}>Perfil:</Text><Text style={Estilos.Texto}> {data.Linkclient} </Text>
@@ -430,5 +432,7 @@ const Estilos = StyleSheet.create({
     Separador: {
         height: 2,
         color: Colores.separador,
+        marginTop: 10,
+        marginBottom: 10,
     },
 });
