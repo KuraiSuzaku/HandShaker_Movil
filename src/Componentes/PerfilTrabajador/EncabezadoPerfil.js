@@ -22,8 +22,8 @@ export default EncabezadoPerfil = (props) => {
     const [confirm, setConfirm] = useState(false);
     const [avatarCache, setAvatarCache] = useState(null);
     const [backImage, setBackImage] = useState(null);
-    const [Starts, setStar] = useState(0);
-    const [ReviewsState, setReview] = useState(0);
+    const [Starts, setStar] = useState(props.user.RatingStar);
+    const [ReviewsState, setReview] = useState(props.user.NReviews);
     
     console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
@@ -118,7 +118,7 @@ console.log("premium")
 
 
 
-    const getAllReviews = async() => {
+  /*  const getAllReviews = async() => {
         console.log('RESPONSE: ');
         Revs = new Reviews();
    
@@ -134,7 +134,7 @@ console.log("premium")
                 setStar(rev.data.Stars);
                 setReview(rev.data.NumberReviews);
         }
-    }
+    }*/
 
     
 
@@ -191,7 +191,7 @@ console.log("premium")
         setConfirm(false);
     }
 
-    getAllReviews()
+    //getAllReviews()
     return(
         <View>
             <Image

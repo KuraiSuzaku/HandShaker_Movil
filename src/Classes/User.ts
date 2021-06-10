@@ -15,6 +15,8 @@ export  class User {
   Birthday?: Date;
   Response?: String;
   _id?:String
+  RatingStar?:number
+  NReviews?:number
 
   constructor(
     Email: string,
@@ -27,7 +29,9 @@ export  class User {
     UserType?: String,
     Birthday?: Date,
     Response?: String,
-    HeaderPicture?:Image
+    HeaderPicture?:Image,
+    RatingStar?:number,
+    NReviews?:number
   ) {
     this.Email = Email;
     this.Password = Password;
@@ -41,6 +45,9 @@ export  class User {
     this.Birthday = Birthday;
     this.Response = Response;
     this.HeaderPicture = HeaderPicture;
+    this.RatingStar = RatingStar;
+    this.NReviews = NReviews;
+    
   }
 
   async Login(userObject: User) {
