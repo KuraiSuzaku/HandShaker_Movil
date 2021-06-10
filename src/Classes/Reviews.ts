@@ -9,7 +9,10 @@ export class Reviews {
     _id:String,
     EmailPremiumWorker:string,
     ListOfReviews: Review[],
+    NumberReviews:string,
+    Stars:string,
     Id:String
+
     ){}
 
 
