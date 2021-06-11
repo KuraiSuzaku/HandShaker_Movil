@@ -151,7 +151,7 @@ function Categories(props){
     return(
         <ScrollView horizontal={true} style={ styles.categories }>
             { props.categories.map(item => 
-                <IndividualCategory name={ item.Name } key={ item.Name } handleCategory={ props.handleCategorySelected } uri='https://reactnative.dev/img/tiny_logo.png'/>) 
+                <IndividualCategory name={ item.Name } key={ item.Name } handleCategory={ props.handleCategorySelected } uri={item.Image}/>) 
             }
         </ScrollView>
     )
