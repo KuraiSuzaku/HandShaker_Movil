@@ -30,17 +30,6 @@ export default Costo = (props) => {
                     <Text style={Estilos.Titulo}>${ props.Price }</Text>
                     <Text style={Estilos.Texto}>{ props.Description }</Text>
                 </View>
-                {
-                    props.owner ?
-                    <Icon
-                        name='trash'
-                        type='font-awesome'
-                        color={ Colors.etiquetas }
-                        size={ 20 }
-                        onPress={ deletePrice }
-                    /> :
-                    null
-                }
             </View>
         </Card>
     );

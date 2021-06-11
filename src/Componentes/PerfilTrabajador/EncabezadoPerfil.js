@@ -8,7 +8,11 @@ import {Worker} from '../../Classes/Worker';
 import Clases from '../../Classes/Indice';
 import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
+import { Reviews } from '../../Classes/Reviews';
+import  ImageN  from '../../Classes/Image';
 import PremiumWorker from '../../Classes/PremiumWorker';
+import { Review } from '../../Classes/Review';
+import User from '../../Classes/User';
 export default EncabezadoPerfil = (props) => {
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
@@ -19,6 +23,8 @@ export default EncabezadoPerfil = (props) => {
     const [confirm, setConfirm] = useState(false);
     const [avatarCache, setAvatarCache] = useState(null);
     const [backImage, setBackImage] = useState(null);
+    const [Starts, setStar] = useState(props.user.RatingStart);
+    const [ReviewsState, setReview] = useState(props.user.NReviews);
     
     console.log("OWNER ",props.owner);
     const CambiarDatos = () =>{
@@ -109,9 +115,37 @@ console.log("premium")
             }
         });
     }
-    
-    updateAvatar = () => {
 
+
+
+
+  /*  const getAllReviews = async() => {
+        console.log('RESPONSE: ');
+        Revs = new Reviews();
+   
+   const rev= await  Revs.GetReview(props.user.Email);
+
+ console.log('RESPONSE RESEÑAS: ', rev.status);
+ 
+
+            //console.log('RESPONSE RESEÑAS: ', rev);
+            if  ( rev.status!=202){
+                console.log('RESPONSE RESEÑAS: ',rev.data.Stars);
+ 
+                setStar(rev.data.Stars);
+                setReview(rev.data.NumberReviews);
+        }
+    }*/
+
+    
+
+
+
+
+
+    
+    updateAvatar = async () => {
+      
         if(avatarCache) {
             /**
              * Sube el nuevo AVATAR a bd
@@ -119,6 +153,14 @@ console.log("premium")
              *  nombre: avatarCache.name
              *  path: avatarCache.base64
              */
+
+             const upd= new User(props.user.Email)
+        let Imag=new ImageN()
+            Imag.Name="Foto Perfil"
+            Imag.Path=  avatarCache.path
+            upd.ProfilePicture=Imag
+            const updSend= await upd.UpdateUser(upd)
+
             props.setUser(
                 {
                     ...props.user,
@@ -135,6 +177,15 @@ console.log("premium")
              *  nombre: backImage.name
              *  path: backImage.base64
              */
+
+             const updHeader= new User(props.user.Email)
+             let Imag=new ImageN()
+                 Imag.Name="Foto Perfil"
+                 Imag.Path=  backImage.path
+                 updHeader.HeaderPicture=Imag
+                 const updHeaderSend= await updHeader.UpdateUser(updHeader)
+     
+
              props.setUser(
                 {
                     ...props.user,
@@ -158,6 +209,7 @@ console.log("premium")
         setConfirm(false);
     }
 
+    //getAllReviews()
     return(
         <View>
             <Image
@@ -171,28 +223,37 @@ console.log("premium")
                 PlaceholderContent={<ActivityIndicator />}
                 />
             <View style={{ position: 'absolute', padding: 5 }}>
-                <Icon
-                    name='edit'
-                    type='font-awesome'
-                    color={Colores.etiquetas}
-                    size={25}
-                    containerStyle={{
-                        padding: 5
-                    }}
-                    onPress={ () => changeCache(false) }
-                />
+                {   
+                    propietario ?
+                    <Icon
+                        name='edit'
+                        type='font-awesome'
+                        color={Colores.etiquetas}
+                        size={25}
+                        containerStyle={{
+                            padding: 5
+                        }}
+                        onPress={ () => changeCache(false) }
+                    /> :
+                    null
+                }
             </View>
             <View style={Estilos.Fila}>
-                <Rating 
-                    imageSize={20} 
-                    readonly
-                    startingValue={props.valoracion} 
-                    ratingColor={Colores.simbolos}
-                    ratingBackgroundColor={Colores.fondoOscuro}
-                    tintColor={Colores.fondo}
-                    type='custom'
-                    style={Estilos.ContenedorComponente} 
-                    />
+                <View style={{ justifyContent: 'flex-end' }}>
+                    <Rating  {... Starts ==0? setStar(1): true}
+                        imageSize={20} 
+                        readonly
+                        startingValue={Starts} 
+                        ratingColor={Colores.simbolos}
+                        ratingBackgroundColor={Colores.fondoOscuro}
+                        tintColor={Colores.fondo}
+                        type='custom'
+                        style={Estilos.ContenedorComponente} 
+                        />
+                    <Text style={Estilos.Informacion}>
+                        Evaluaciones: {ReviewsState} 
+                    </Text>
+                </View>
                 {
                     propietario ?
                     <TouchableOpacity onPress={ () => changeCache(true) } >
@@ -203,7 +264,7 @@ console.log("premium")
                 {(!propietario) &&
                 <Button
                     title='Contratar'
-                    containerStyle={Estilos.ContenedorComponente}
+                    containerStyle={[Estilos.ContenedorComponente, { paddingBottom: 15 }]}
                     buttonStyle={Estilos.BotonContratar}
                     titleStyle={Estilos.EtiquetaBoton}
                     onPress={() => navigation.navigate('Contratar',{user: props.user})}
@@ -212,7 +273,7 @@ console.log("premium")
                 {propietario && (!editando) &&
                 <Button
                     title='Editar'
-                    containerStyle={Estilos.ContenedorComponente}
+                    containerStyle={[Estilos.ContenedorComponente, { paddingBottom: 15 }]}
                     buttonStyle={Estilos.BotonEditar}
                     titleStyle={Estilos.EtiquetaBoton}
                     onPress={CambiarDatos}
@@ -221,7 +282,7 @@ console.log("premium")
                 {propietario && editando &&
                     <Button
                         title='Guardar'
-                        containerStyle={Estilos.ContenedorComponente}
+                        containerStyle={[Estilos.ContenedorComponente, { paddingBottom: 15 }]}
                         buttonStyle={Estilos.BotonEditar}
                         titleStyle={Estilos.EtiquetaBoton}
                         onPress={GuardarCambios}

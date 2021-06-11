@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
+import { Alert, View, Image, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import Colores from '../../Estilos/Colores'
 import DatePicker from 'react-native-datepicker'
 import {User}   from "./../../Classes/User"
@@ -64,7 +64,10 @@ export default class Registro extends Component {
             userObject.Name=this.state.names
             userObject.LastName=this.state.lastNames
             let phone= new PhoneNumber("Numero de telefono",this.state.phone)
-            userObject.Birthday=this.state.birthDate            
+
+            var parts = this.state.birthDate.split("-")
+            let birth= Date(parts[2], parts[1] - 1, parts[0])
+            userObject.Birthday=birth          
             userObject.Phones.push(phone)
             
             if(this.state.userType.includes("Cliente")){
@@ -80,7 +83,8 @@ export default class Registro extends Component {
                     ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
                    }
                    else{ 
-                    ToastAndroid.show(("Registro correcto "), ToastAndroid.SHORT);
+                       Alert.alert("Se ha registrado exitosamente.\nPor favor, inicie sesión.");
+                    this.props.navigation.navigate('Login');
                    }
                 });
             }else{
@@ -132,7 +136,8 @@ export default class Registro extends Component {
                     ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
                    }
                    else{ 
-                    ToastAndroid.show(("Registro correcto "), ToastAndroid.SHORT);
+                    Alert.alert("Se ha registrado exitosamente.\nPor favor, inicie sesión.");
+                       this.props.navigation.navigate('Login');
                    }
                 });
         
@@ -186,7 +191,7 @@ export default class Registro extends Component {
                         { this.state.nameError }
                     </Text>
 
-                    <TouchableOpacity style={ styles.btn } onPress={ this.handleRegister }>
+                    <TouchableOpacity style={ styles.btn } onPress={ (this.handleRegister) }>
                         <Text style={ styles.btnTxt }>Registrarse</Text>
                     </TouchableOpacity>
                 </ScrollView>

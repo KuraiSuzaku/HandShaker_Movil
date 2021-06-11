@@ -35,31 +35,10 @@ export default props => {
                 backgroundColor: Colores.fondoOscuro
             }}
             >
-
-            <Drawer.Screen
-                name='Contrataciones'
-                options={{ title: 'Ver Contrataciones',
-                            unmountOnBlur: true,
-                            drawerIcon: ({ focused, size }) => 
-                                <Icon
-                                    name='book'
-                                    type='font-awesome'
-                                    size={25}
-                                    color={focused ? Colores.simbolos : Colores.blanco}
-                                />}}
-
-             >   
-              { ({ navigation }) => <Vistas.ListaContratacion
-                                {...props}
-                                navigation={ navigation }
-                            />
-                    }
-                </Drawer.Screen>
-
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
-                options={{  title: 'Sobre Nosotros',
+                options={{  title: 'Información de la APP',
                             unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
                                 <Icon
@@ -74,7 +53,8 @@ export default props => {
                 options={{  title: 'Volverse Trabajador Premium',
                             unmountOnBlur: true }}
                 >
-                { ()=><Vistas.PagoAPremium user={props.user}/> }
+                { ()=><Vistas.PagoAPremium
+                user={props.user}/> }
                 </Drawer.Screen>
             <Drawer.Screen
                 name='Cerrar Sesión'
@@ -96,6 +76,25 @@ export default props => {
                         />
                 }
             </Drawer.Screen>
+            <Drawer.Screen
+                name='Contrataciones'
+                options={{ title: 'Ver Contrataciones',
+                            unmountOnBlur: true,
+                            drawerIcon: ({ focused, size }) => 
+                                <Icon
+                                    name='book'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                />}}
+
+             >   
+              { ({ navigation }) => <Vistas.ListaContratacion
+                                {...props}
+                                navigation={ navigation }
+                            />
+                    }
+                </Drawer.Screen>
             <Drawer.Screen 
                 name='Perfil' 
                 initialParams={{
@@ -193,7 +192,7 @@ export default props => {
                 { ()=><Componentes.TarjetaContratacion.TarjetaContratacion
                     {...props}
                 /> }
-                  </Drawer.Screen>
+            </Drawer.Screen>
             <Drawer.Screen
                 name='Promociones'
                 options={{
@@ -204,6 +203,30 @@ export default props => {
                     {...props}
                 />}
             </Drawer.Screen>
+            <Drawer.Screen
+                name='TarjetaDarResena' 
+                initialParams={{
+                    profileUser: null,
+                    updateProfile: true
+                }}
+                options={{
+                    unmountOnBlur: true,
+                }}
+                >
+                { ()=><Componentes.TarjetaDarResena.TarjetaDarResena
+                    {...props}
+                /> }
+            </Drawer.Screen>
+            <Drawer.Screen
+                name='Notificaciones'
+                options={{
+                    unmountOnBlur: true
+                }}
+            >
+                {
+                    () => <Vistas.Notificaciones {...props} />
+                }
+            </Drawer.Screen>
         </Drawer.Navigator>
     );
 }
@@ -211,11 +234,8 @@ export default props => {
 const CustomDrawerContent = (props) => {
 
     const check = (val) => {
-        if( val === 'Contrataciones'
-            || val === 'Nosotros'
-            || val === 'Cerrar Sesión'
-            || val == 'ListaChats'
-            || val == 'TarjetaContratacion')
+        if( val === 'Nosotros'
+            || val === 'Cerrar Sesión')
             return true;
             if(props.user.UserType === "Worker")
                 if(val === 'Premium')

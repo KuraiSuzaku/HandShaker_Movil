@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ImageEditor, StyleSheet, View } from 'react-native';
 import {
     Avatar,
     Card,
@@ -8,19 +8,15 @@ import {
 } from 'react-native-elements';
 import Colores from '../../Estilos/Colores';
 
-export default Resena = ({  nombre,
-                            valoracion,
-                            comentario,
-                            fecha,
-                            avatar,}) => {
+export default Resena = ({ item }) => {
+    console.log("aqui",item.RatingStar)
     return(
         <Card containerStyle={Estilos.Tarjeta}>
             <View style={Estilos.Contenedor}>
                 <View style={Estilos.ContenedorAvatar}>
                     <Avatar
                         rounded
-                        icon={{name:'user', type:'font-awesome', color:'black'}}
-                        source={avatar}
+                        source={{ uri: item.User.ProfilePicture.Path }}
                         size='medium'
                         />
                 </View>
@@ -28,15 +24,15 @@ export default Resena = ({  nombre,
                     <Rating 
                         imageSize={15} 
                         readonly 
-                        startingValue={valoracion} 
+                        startingValue={ item.RatingStar } 
                         ratingColor={Colores.simbolos}
                         ratingBackgroundColor={Colores.fondoOscuro}
                         tintColor={Colores.blanco}
                         type='custom'
                         />
-                    <Text style={Estilos.Nombre}>{nombre}</Text>
-                    <Text style={Estilos.Comentario}>{comentario}</Text>
-                    <Text style={[Estilos.Comentario, Estilos.Fecha]}>{fecha}</Text>
+                    <Text style={Estilos.Nombre}>{ item.User.Name }</Text>
+                    <Text style={Estilos.Comentario}>{ item.TextReview }</Text>
+                    <Text style={[Estilos.Comentario, Estilos.Fecha]}>{ item.DateReview.substring(0,10) }</Text>
                 </View>
             </View>
         </Card>
@@ -46,7 +42,7 @@ export default Resena = ({  nombre,
 const Estilos = StyleSheet.create({
     Tarjeta: {
         borderRadius: 20,
-        marginTop: 10,
+        paddingVertical: 10,
     },
     Contenedor: {
         flexDirection: 'row',
@@ -57,17 +53,20 @@ const Estilos = StyleSheet.create({
     },
     Datos: {
         flex: 6,
+        fontSize: 12,
         alignItems: 'flex-start',
         paddingLeft: 10,
+        marginLeft:10
     },
     Nombre: {
-        fontSize: 10,
+        fontSize: 14,
         fontWeight: 'bold',
     },
     Comentario: {
-        fontSize: 9,
+        fontSize: 14,
     },
     Fecha: {
+        alignSelf: "flex-end",
         marginTop: 10,
     },
 });

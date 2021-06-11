@@ -19,22 +19,6 @@ export default Navegacion = (props) => {
         <View>
         <View style={Estilos.Navegacion}>
             <Icon
-                name='home'
-                type='font-awesome'
-                color={Colores.simbolos}
-                size={25}
-                containerStyle={Estilos.ContenedorIcono}
-                onPress={() => Navegar('Home')}
-                />
-            <Icon
-                name='money'
-                type='font-awesome'
-                color={Colores.simbolos}
-                size={25}
-                containerStyle={Estilos.ContenedorIcono}
-                onPress={() => Navegar('Promociones')}
-                />
-            <Icon
                 name='envelope'
                 type='font-awesome'
                 color={Colores.simbolos}
@@ -51,12 +35,28 @@ export default Navegacion = (props) => {
                 onPress={() => Navegar('Notificaciones')}
                 />
             <Icon
-                name='question'
+                name='home'
                 type='font-awesome'
                 color={Colores.simbolos}
-                size={30}
+                size={50}
                 containerStyle={Estilos.ContenedorIcono}
-                onPress={() => Navegar('Ayuda')}
+                onPress={() => Navegar('Home')}
+                />
+            <Icon
+                name='money'
+                type='font-awesome'
+                color={Colores.simbolos}
+                size={25}
+                containerStyle={Estilos.ContenedorIcono}
+                onPress={() => Navegar('Promociones')}
+                />
+            <Icon
+                name='book'
+                type='font-awesome'
+                color={Colores.simbolos}
+                size={25}
+                containerStyle={Estilos.ContenedorIcono}
+                onPress={() => Navegar('Contrataciones')}
                 />
         </View>
         </View>

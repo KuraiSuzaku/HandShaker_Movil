@@ -11,10 +11,10 @@ export default Contratacion = (props) => {
     const avatar = require('../../../public/Profile/user.png');    
     const route= useRoute();
 
-    console.log("data C"+route.params.data.userClient)
+    //console.log("data C"+route.params.data.userClient)
 
-    console.log("data C"+route.params.data.userClient[0].Email)
-    console.log("data C"+route.params.data.userClient[0].LastName)
+    //console.log("data C"+route.params.data.userClient[0].Email)
+    //console.log("data C"+route.params.data.userClient[0].LastName)
 
     const data = {
         EmailWorker: route.params.data.EmailWorker,
@@ -24,7 +24,7 @@ export default Contratacion = (props) => {
         HiringDate: route.params.data.HiringDate,
         indications:route.params.data.indications,
 
-        ProfilePicture:route.params.data.userClient[0].Name,
+        ProfilePicture:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].ProfilePicture.Path:route.params.data.userWorker[0].ProfilePicture.Path),
         ID:route.params.data.IDcreated,
 
         Address: route.params.data.Addresses[0].Address,
@@ -35,7 +35,8 @@ export default Contratacion = (props) => {
         Reference: route.params.data.Addresses[0].Reference,
         LinkMaps: route.params.data.Addresses[0].LinkMaps,
 
-        Name: route.params.data.userClient[0].Name,
+        Name:((route.params.data.EmailWorker === props.user.Email) ? route.params.data.userClient[0].Name+" "+route.params.data.userClient[0].LastName:route.params.data.userWorker[0].Name+" "+route.params.data.userWorker[0].LastName),
+        NameClient: route.params.data.userClient[0].Name,
         Linkclient: route.params.data.Linkclient,
 
        // Addresses: route.params.data.Addresses,
@@ -171,6 +172,7 @@ export default Contratacion = (props) => {
                     enviarDatos("Finalizado");
                     setEstadoContrato("Finalizado");
                     alert('¡La contratación fue finalizada!');
+                    darResenia();
                     } 
                 }
             ]
@@ -178,7 +180,7 @@ export default Contratacion = (props) => {
     }
 
     const darResenia = () => {
-        //console.log("NAVEGAR a DAR las RESEÑAS asdadsad");
+        navigation.navigate('TarjetaDarResena', {data:{...route.params.data}});
     }
 
     const abrirChat = () => {
@@ -186,19 +188,6 @@ export default Contratacion = (props) => {
     }
 
      const enviarDatos = async (actualStatus) => {
-        //console.log("Enviada la contratación con los datos!");
-        //console.log("EmailWorker: " + data.EmailWorker);
-        //console.log("Email: " + data.Email);
-        //console.log("Subject: " + data.Subject);
-        //console.log("Date: " + data.Date);
-        //console.log("HiringDate: " + data.HiringDate);
-        //console.log("indications: " + data.indications);
-        //console.log("Addresses: " + data.Addresses);
-        //console.log("Status: " + actualStatus);
-        //console.log("IDcreated: " + data.IDcreated);
-        //console.log("_id: " + data._id);
-        //console.log('userWorker: ' + data.userWorker);
-        //console.log('userClient: ' + data.userClient); 
 
        let UpdateHiring= new WorkersHiring()
 
@@ -217,17 +206,17 @@ export default Contratacion = (props) => {
                     <Avatar
                         rounded
                         icon={{name:'user', type:'font-awesome', color:'black'}}
-                        source={data.ProfilePicture}
+                        source={{uri: data.ProfilePicture}}
                         size={75}
                         containerStyle={Estilos.ContenedorAvatar}
                     />
-                    <View style={{marginLeft: 15}}>
+                    <View style={{marginLeft: 15, maxWidth: "75%"}}>
                         <Text style={Estilos.Titulo}>{data.Name}</Text>
                         <Text style={Estilos.TextoSecundario}>Realizar para: {data.HiringDate}</Text>
                         <Text style={Estilos.TextoSecundario}>Asunto: {data.Subject}</Text>
                     </View>
                 </View>
-                <Card.Divider style={{height:2}}/>
+                <Card.Divider style={Estilos.Separador}/>
                 <View style={{flexDirection: 'row', justifyContent: "space-evenly", margin: 5}}>
                     <Text style={Estilos.TituloAux}>Estado: </Text>
                     <Text style={Estilos.Texto}>{estadoContrato}</Text>
@@ -307,7 +296,7 @@ export default Contratacion = (props) => {
                 </View>
                 }
 
-                {((estadoContrato === "Finalizado") || (estadoContrato === "Cancelado")) &&
+                {/*((estadoContrato === "Finalizado") || (estadoContrato === "Cancelado")) && (route.params.data.Email === props.user.Email) &&
                 <View style={{flexDirection: 'row', width: "100%", justifyContent: 'center'}}>
                     <Button
                         title='Dar Reseña'
@@ -316,13 +305,13 @@ export default Contratacion = (props) => {
                         onPress={darResenia}
                     />
                 </View>
-                }
+                */}
 
-                <Card.Divider style={{height:2}}/>
+                <Card.Divider style={Estilos.Separador}/>
                 <View style={{width: "100%", margin: 10}}>
                     <Text style={Estilos.Titulo}>Contacto del cliente:</Text>
                     <View style={{flexDirection: 'row'}}>
-                        <Text style={Estilos.TextoSecundario}>Nombre:</Text><Text style={Estilos.Texto}> {data.Name} </Text>
+                        <Text style={Estilos.TextoSecundario}>Nombre:</Text><Text style={Estilos.Texto}> {data.NameClient} </Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={Estilos.TextoSecundario}>Perfil:</Text><Text style={Estilos.Texto}> {data.Linkclient} </Text>
@@ -366,7 +355,7 @@ const Estilos = StyleSheet.create({
         backgroundColor: 'gray',
     },
     Titulo: {    
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'left',
     },
@@ -443,5 +432,7 @@ const Estilos = StyleSheet.create({
     Separador: {
         height: 2,
         color: Colores.separador,
+        marginTop: 10,
+        marginBottom: 10,
     },
 });

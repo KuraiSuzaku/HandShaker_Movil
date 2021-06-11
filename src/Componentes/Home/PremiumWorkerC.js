@@ -5,7 +5,7 @@ import Colores from '../../Estilos/Colores'
 export default class PremiumWorkerC extends Component {
     constructor(props){
         super(props);
-        console.log("PW: "+this.props.premiumWorker.ProfilePicture.Path)
+       // console.log("PW: "+this.props.premiumWorker.ProfilePicture.Path)
     }
 
     render() {

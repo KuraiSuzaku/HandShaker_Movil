@@ -1,3 +1,4 @@
+import User from "./User";
 
 export class Review {
 
@@ -7,6 +8,7 @@ export class Review {
     TextReview:String,
     DateReview:Date,
     EmailClient:String,
+    User: User,
     Id:String
     ){}
 

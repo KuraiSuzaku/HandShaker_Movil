@@ -43,17 +43,6 @@ export default Multimedia = (props) => {
                 <Text style={Estilos.Text}>
                     {props.MultimediaText}
                 </Text>
-                {
-                    props.owner ?
-                    <Icon
-                        name='trash'
-                        type='font-awesome'
-                        color={ Colors.etiquetas }
-                        size={ 20 }
-                        onPress={ deleteMedia }
-                    /> :
-                    null
-                }
             </View>
         </Card>
     );
@@ -62,7 +51,7 @@ export default Multimedia = (props) => {
 const Estilos = StyleSheet.create({
     Tarjeta: {
         borderRadius: 20,
-        padding: 10
+        paddingVertical: 10,
     },
     Imagen: {
         borderRadius: 15
@@ -70,7 +59,7 @@ const Estilos = StyleSheet.create({
     Text: {
         flex: 1,
         color: Colors.etiquetas,
-        fontSize: 10,
+        fontSize: 14,
         paddingHorizontal: 15,
         marginTop: 5,
         textAlign: 'center'

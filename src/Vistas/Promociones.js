@@ -18,14 +18,18 @@ import {
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Colores from '../Estilos/Colores';
 import * as Componentes from '../Componentes/Indice';
+import { PromotionAll } from '../Classes/PromotionAll';
+import { Promotion } from '../Classes/Promotion';
+import { useNavigation } from '@react-navigation/native';
 
 export default PagoAPremium = (props) => {
     const [refresh, setRefresh] = useState(true);
-
+    const [promos, setPromos] = useState({});
     const avatar = require('../../public/Profile/user.png');
     const imgpromocion = require('../../public/Icons/gift.png');
+    const navigation = useNavigation();
   
-    const data = [
+    let data = [
         {
             _id: '1',
             Email: 'promocion1@promocion.com',
@@ -52,10 +56,46 @@ export default PagoAPremium = (props) => {
         }
     ];
     
-    const getAllPromos = () => {
+    const  getAllPromos = async () => {
         /**
          * Obtiene todas las promociones
-         */
+        props.user.email 
+        */
+        let arrayData= new Array();
+        let arrayDataAll= new Array();
+        let promo = new PromotionAll()      
+       const allPromotion= await promo.GetPromotion()
+       
+       allPromotion.forEach(element => {
+       
+        console.log(element.EmailPremiumWorker)    
+        //console.log(element.userWorker.UserProfile.Name)    
+        element.ListOfPromotions.forEach(element2 => {
+            var obj = new Object();
+            console.log(element2.Title)   
+            console.log(element2.Description)   
+           let Email=element.userWorker[0].Email
+           let  Name= element.userWorker[0].Name
+           console.log("em",Email)   
+           console.log("em-",Name)  
+           let Avatar= element.userWorker[0].ProfilePicture.Path
+           let Title = element2.Title
+           let Content =element2.Description
+         
+           obj.Email=Email
+           obj.Name=Name
+           obj.Avatar=Avatar
+           obj.Title=Title
+           obj.Content=Content
+         
+         
+           arrayDataAll.push(obj)
+        });
+      
+        });
+       // console.log("respuestaaa *"+ JSON.stringify(arrayDataAll))
+        data=arrayDataAll;
+        setPromos(arrayDataAll)
         setRefresh(false);
     }
 
@@ -63,36 +103,38 @@ export default PagoAPremium = (props) => {
         console.log("Debo mostrar promocion: ", auxemail);
     };
 
-    
+    const toUser = (email) =>{
+        navigation.navigate("Perfil", {profileUser: email, updateProfile: true});
+    }
+
     const Item = ({ item, onpress }) => {
 
         return(
-            <TouchableOpacity onPress={onpress}>
-                <Card containerStyle={Estilos.Tarjeta}>
-                    <View style={{width: '100%'}}>
-                        <Image
-                            source={imgpromocion}
-                            style={Estilos.ContenedorIcono}
-                        />
-                        <Text style={Estilos.TituloPromocion}>{item.Title}</Text>
-                        <Text style={Estilos.TextoPromocion }>{item.Content}</Text>
+            <Card containerStyle={Estilos.Tarjeta}>
+                <View style={{width: '100%'}}>
+                    <Image
+                        source={imgpromocion}
+                        style={Estilos.ContenedorIcono}
+                    />
+                    <Text style={Estilos.TituloPromocion}>{item.Title}</Text>
+                    <Text style={Estilos.TextoPromocion }>{item.Content}</Text>
+                </View>
+                <TouchableOpacity onPress={() => {toUser(item.Email)}}>
+                <View style={{flexDirection: 'row', paddingLeft: 10, marginTop: 30}}>
+                    <Avatar
+                        rounded
+                        icon={{name:'user', type:'font-awesome', color:'black'}}
+                        source={{ uri: item.Avatar}}
+                        size={50}
+                        containerStyle={Estilos.ContenedorAvatar}
+                    />
+                    <View style={{marginLeft: 15, justifyContent: "center"}}>
+                        <Text style={Estilos.Texto}>{item.Name}</Text>
+                        <Text style={Estilos.TextoSecundario}>Ver más</Text>
                     </View>
-
-                    <View style={{flexDirection: 'row', paddingLeft: 10, marginTop: 30}}>
-                        <Avatar
-                            rounded
-                            icon={{name:'user', type:'font-awesome', color:'black'}}
-                            source={avatar}
-                            size={50}
-                            containerStyle={Estilos.ContenedorAvatar}
-                        />
-                        <View style={{marginLeft: 15}}>
-                            <Text style={Estilos.Texto}>{item.Name}</Text>
-                            <Text style={Estilos.TextoSecundario}>Ver más</Text>
-                        </View>
-                    </View>
-                </Card>
-            </TouchableOpacity>
+                </View>
+                </TouchableOpacity>
+            </Card>
         );
     };
 
@@ -114,7 +156,7 @@ export default PagoAPremium = (props) => {
         }
         return(
             <>
-            <View style={{ marginBottom: 10 }}>
+            <View style={{ marginBottom: 10, marginTop: 10 }}>
                 <Text style={Estilos.Titulo}>PROMOCIONES</Text>
                 <NewButton
                     {...props}
@@ -123,7 +165,7 @@ export default PagoAPremium = (props) => {
             </View>
             <View style={{flex: 1}}>
             <FlatList
-                    data={data}
+                    data={promos}
                     renderItem={renderItem}
                     containerStyle={Estilos.ScrollView}
                     contentContainerStyle={{flexGrow: 1}}
@@ -160,14 +202,25 @@ class NewButton extends React.Component {
         });
     }
 
-    uploadNewPromo() {
+  async  uploadNewPromo() {
 
-        /**
+        /**AGREEEGAR
          * Sube la nueva promoción
          * usuario: props.user.Email
          * titulo: this.state.name
          * descripcion: this.state.description
          */
+        console.log("upload");
+        let promo = new PromotionAll()
+        promo.EmailPremiumWorker = this.props.user.Email;
+        let arrPromos= new Array()
+        let promoNew = new Promotion()
+        promoNew.Title=this.state.name
+        promoNew.Description=this.state.description    
+        arrPromos.push(promoNew);
+         promo.ListOfPromotions=arrPromos
+
+        const add=  await promo.AddPromotion(promo);
 
         this.setState({
             visible: false,
@@ -176,6 +229,7 @@ class NewButton extends React.Component {
         })
         this.props.setRefresh(true);
         alert("Su nueva promoción ha sido publicada");
+        getAllPromos()
     }
 
     confirmUpload() {
@@ -226,6 +280,7 @@ class NewButton extends React.Component {
                             value={ this.state.name }
                             onChangeText={ (newName) => this.setState({ name: newName }) }
                             style={Estilos.NewName}
+                            maxLength={20}
                         />
                         <TextInput
                             multiline={ true }

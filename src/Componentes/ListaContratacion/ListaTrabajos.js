@@ -53,7 +53,7 @@ export default class ListaTrabajos extends React.Component {
                     startCount++;
                 else if(d.Status == StatusTypes[1])
                     processCount++;
-                else
+                else if(d.Status == StatusTypes[2])
                     endedCount++;
             });
             

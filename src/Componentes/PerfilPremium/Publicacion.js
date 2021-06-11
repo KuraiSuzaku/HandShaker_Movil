@@ -48,13 +48,6 @@ export default Publicacion = (props, { avatar, valoracion }) => {
                         />
                     <Text style={Estilos.Datos}>{props.DateOfPost.substring(0,10)}</Text>
                 </View>
-                <Icon
-                    name='trash'
-                    type='font-awesome'
-                    color={ Colores.etiquetas }
-                    size={ 20 }
-                    onPress={ deletePost }
-                />
             </View>
             <Text style={Estilos.Contenido}>{props.TextOfPost}</Text>
             {
@@ -77,7 +70,7 @@ export default Publicacion = (props, { avatar, valoracion }) => {
 const Estilos = StyleSheet.create({
     Tarjeta: {
         borderRadius: 20,
-        padding: 10,
+        paddingVertical: 10,
     },
     Encabezado: {
         flexDirection: 'row',
@@ -87,10 +80,11 @@ const Estilos = StyleSheet.create({
         flex: 1
     },
     Datos: {
-        fontSize: 10,
+        fontSize: 16,
+        //fontWeight: 'bold'
     },
     Contenido: {
         marginTop: 5,
-        fontSize: 11,
+        fontSize: 14,
     },
 });

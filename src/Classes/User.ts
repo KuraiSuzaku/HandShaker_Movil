@@ -15,6 +15,8 @@ export  class User {
   Birthday?: Date;
   Response?: String;
   _id?:String
+  RatingStar?:number
+  NReviews?:number
 
   constructor(
     Email: string,
@@ -27,7 +29,9 @@ export  class User {
     UserType?: String,
     Birthday?: Date,
     Response?: String,
-    HeaderPicture?:Image
+    HeaderPicture?:Image,
+    RatingStar?:number,
+    NReviews?:number
   ) {
     this.Email = Email;
     this.Password = Password;
@@ -41,6 +45,9 @@ export  class User {
     this.Birthday = Birthday;
     this.Response = Response;
     this.HeaderPicture = HeaderPicture;
+    this.RatingStar = RatingStar;
+    this.NReviews = NReviews;
+    
   }
 
   async Login(userObject: User) {
@@ -52,14 +59,14 @@ export  class User {
       this.Email = response.data.Email;
       this.UserType = response.data.UserType;
       this.Response = "1";
-      return this;
+      return response.status;
     } catch (error) {
       if( error.response.status==404||error.response.status==401){
         //console.log("aqui tipo error" );
         //console.log("error del tipo" + error);
       //console.log("error del tipo" + error.response.status);
       this.Response = error.response.status;
-      return this;}
+      return  error.response.status}
     }
   }
     
