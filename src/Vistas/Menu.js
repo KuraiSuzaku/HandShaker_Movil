@@ -35,27 +35,6 @@ export default props => {
                 backgroundColor: Colores.fondoOscuro
             }}
             >
-
-            <Drawer.Screen
-                name='Contrataciones'
-                options={{ title: 'Ver Contrataciones',
-                            unmountOnBlur: true,
-                            drawerIcon: ({ focused, size }) => 
-                                <Icon
-                                    name='book'
-                                    type='font-awesome'
-                                    size={25}
-                                    color={focused ? Colores.simbolos : Colores.blanco}
-                                />}}
-
-             >   
-              { ({ navigation }) => <Vistas.ListaContratacion
-                                {...props}
-                                navigation={ navigation }
-                            />
-                    }
-                </Drawer.Screen>
-
             <Drawer.Screen
                 name='Nosotros'
                 component={Vistas.Construccion}
@@ -97,6 +76,25 @@ export default props => {
                         />
                 }
             </Drawer.Screen>
+            <Drawer.Screen
+                name='Contrataciones'
+                options={{ title: 'Ver Contrataciones',
+                            unmountOnBlur: true,
+                            drawerIcon: ({ focused, size }) => 
+                                <Icon
+                                    name='book'
+                                    type='font-awesome'
+                                    size={25}
+                                    color={focused ? Colores.simbolos : Colores.blanco}
+                                />}}
+
+             >   
+              { ({ navigation }) => <Vistas.ListaContratacion
+                                {...props}
+                                navigation={ navigation }
+                            />
+                    }
+                </Drawer.Screen>
             <Drawer.Screen 
                 name='Perfil' 
                 initialParams={{

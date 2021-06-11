@@ -8,7 +8,7 @@ import {About} from '../../Classes/About'
 
 
 export default AcercaDe = (props) => {
-    const [propietario, setPropietario] = useState(true);
+    const [propietario, setPropietario] = useState(props.owner);
 
     const [Desc, setDesc] = useState("");
     const [editando, setEditando] = useState(false);
