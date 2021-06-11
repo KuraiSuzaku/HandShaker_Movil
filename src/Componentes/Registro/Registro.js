@@ -83,7 +83,7 @@ export default class Registro extends Component {
                     ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
                    }
                    else{ 
-                    ToastAndroid.show(("Registro correcto "), ToastAndroid.SHORT);
+                    this.props.navigation.navigate('Login');
                    }
                 });
             }else{
@@ -135,7 +135,7 @@ export default class Registro extends Component {
                     ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
                    }
                    else{ 
-                    ToastAndroid.show(("Registro correcto "), ToastAndroid.SHORT);
+                       this.props.navigation.navigate('Login');
                    }
                 });
         
@@ -189,7 +189,7 @@ export default class Registro extends Component {
                         { this.state.nameError }
                     </Text>
 
-                    <TouchableOpacity style={ styles.btn } onPress={ this.handleRegister }>
+                    <TouchableOpacity style={ styles.btn } onPress={ (this.handleRegister) }>
                         <Text style={ styles.btnTxt }>Registrarse</Text>
                     </TouchableOpacity>
                 </ScrollView>
