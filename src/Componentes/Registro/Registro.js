@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
+import { Alert, View, Image, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import Colores from '../../Estilos/Colores'
 import DatePicker from 'react-native-datepicker'
 import {User}   from "./../../Classes/User"
@@ -83,6 +83,7 @@ export default class Registro extends Component {
                     ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
                    }
                    else{ 
+                       Alert.alert("Se ha registrado exitosamente.\nPor favor, inicie sesión.");
                     this.props.navigation.navigate('Login');
                    }
                 });
@@ -135,6 +136,7 @@ export default class Registro extends Component {
                     ToastAndroid.show(("El usuario ya esta registrado"), ToastAndroid.SHORT);      
                    }
                    else{ 
+                    Alert.alert("Se ha registrado exitosamente.\nPor favor, inicie sesión.");
                        this.props.navigation.navigate('Login');
                    }
                 });
