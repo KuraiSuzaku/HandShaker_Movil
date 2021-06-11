@@ -90,7 +90,7 @@ let res= await userObject.Login(userObject)
             this.setState({
                 user: {...WorkerObject}
             });
-            this.props.navigation.navigate('ListaChats')
+            this.props.navigation.navigate('Home')
           });
         }
         if(userObject.UserType.includes("PremiumWorker")){
