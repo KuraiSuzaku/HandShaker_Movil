@@ -64,7 +64,10 @@ export default class Registro extends Component {
             userObject.Name=this.state.names
             userObject.LastName=this.state.lastNames
             let phone= new PhoneNumber("Numero de telefono",this.state.phone)
-            userObject.Birthday=this.state.birthDate            
+
+            var parts = this.state.birthDate.split("-")
+            let birth= Date(parts[2], parts[1] - 1, parts[0])
+            userObject.Birthday=birth          
             userObject.Phones.push(phone)
             
             if(this.state.userType.includes("Cliente")){

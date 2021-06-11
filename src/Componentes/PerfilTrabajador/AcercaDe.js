@@ -112,11 +112,11 @@ const Estilos = StyleSheet.create({
         paddingVertical: 10,
     },
     Dato: {
-        fontSize: 16,
+        fontSize: 17,
         fontWeight: 'bold'
     },
     DatoSecundario: {
-        fontSize: 16,
+        fontSize: 17,
     },
     Boton: {
         backgroundColor: Colores.fondoBotonOscuro,

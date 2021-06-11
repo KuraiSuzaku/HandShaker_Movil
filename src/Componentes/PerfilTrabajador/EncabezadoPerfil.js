@@ -9,9 +9,10 @@ import Clases from '../../Classes/Indice';
 import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
 import { Reviews } from '../../Classes/Reviews';
-
+import  ImageN  from '../../Classes/Image';
 import PremiumWorker from '../../Classes/PremiumWorker';
 import { Review } from '../../Classes/Review';
+import User from '../../Classes/User';
 export default EncabezadoPerfil = (props) => {
     const [propietario, setPropietario] = useState(props.owner);
     const [editando, setEditando] = useState(false);
@@ -22,7 +23,7 @@ export default EncabezadoPerfil = (props) => {
     const [confirm, setConfirm] = useState(false);
     const [avatarCache, setAvatarCache] = useState(null);
     const [backImage, setBackImage] = useState(null);
-    const [Starts, setStar] = useState(props.user.RatingStar);
+    const [Starts, setStar] = useState(props.user.RatingStart);
     const [ReviewsState, setReview] = useState(props.user.NReviews);
     
     console.log("OWNER ",props.owner);
@@ -143,7 +144,7 @@ console.log("premium")
 
 
     
-    updateAvatar = () => {
+    updateAvatar = async () => {
       
         if(avatarCache) {
             /**
@@ -152,6 +153,14 @@ console.log("premium")
              *  nombre: avatarCache.name
              *  path: avatarCache.base64
              */
+
+             const upd= new User(props.user.Email)
+        let Imag=new ImageN()
+            Imag.Name="Foto Perfil"
+            Imag.Path=  avatarCache.path
+            upd.ProfilePicture=Imag
+            const updSend= await upd.UpdateUser(upd)
+
             props.setUser(
                 {
                     ...props.user,
@@ -168,6 +177,15 @@ console.log("premium")
              *  nombre: backImage.name
              *  path: backImage.base64
              */
+
+             const updHeader= new User(props.user.Email)
+             let Imag=new ImageN()
+                 Imag.Name="Foto Perfil"
+                 Imag.Path=  backImage.path
+                 updHeader.HeaderPicture=Imag
+                 const updHeaderSend= await updHeader.UpdateUser(updHeader)
+     
+
              props.setUser(
                 {
                     ...props.user,
@@ -222,7 +240,7 @@ console.log("premium")
             </View>
             <View style={Estilos.Fila}>
                 <View style={{ justifyContent: 'flex-end' }}>
-                    <Rating 
+                    <Rating  {... Starts ==0? setStar(1): true}
                         imageSize={20} 
                         readonly
                         startingValue={Starts} 

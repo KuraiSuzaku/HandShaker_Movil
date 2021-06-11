@@ -16,7 +16,7 @@ export default EditarAcercaDe = (props) => {
                 labelStyle={Estilos.TextoSecundario}
                 multiline={true}
                 inputContainerStyle={{borderBottomWidth:0}}
-                maxLength={200}
+                maxLength={600}
             />
         </Card>
     );

@@ -120,7 +120,7 @@ export default class NewPublication extends Component {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <Text style={{fontSize: 11, maxWidth: 200}}>
+                    <Text style={{fontSize: 11, maxWidth: 100}}>
                         { this.state.image.name }
                     </Text>
                     <TouchableOpacity onPress={ () => this.publicar() }>
@@ -155,7 +155,7 @@ const Estilos = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colores.etiquetas,
         borderRadius: 25,
-        fontSize: 12,
+        fontSize: 13,
         paddingVertical: 0,
         paddingHorizontal: 20,
         margin: 5

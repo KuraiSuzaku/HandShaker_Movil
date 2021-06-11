@@ -59,7 +59,7 @@ const Estilos = StyleSheet.create({
     Text: {
         flex: 1,
         color: Colors.etiquetas,
-        fontSize: 10,
+        fontSize: 14,
         paddingHorizontal: 15,
         marginTop: 5,
         textAlign: 'center'

@@ -85,6 +85,6 @@ const Estilos = StyleSheet.create({
     },
     Contenido: {
         marginTop: 5,
-        fontSize: 11,
+        fontSize: 14,
     },
 });

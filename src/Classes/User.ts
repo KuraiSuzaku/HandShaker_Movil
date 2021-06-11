@@ -59,14 +59,14 @@ export  class User {
       this.Email = response.data.Email;
       this.UserType = response.data.UserType;
       this.Response = "1";
-      return this;
+      return response.status;
     } catch (error) {
       if( error.response.status==404||error.response.status==401){
         //console.log("aqui tipo error" );
         //console.log("error del tipo" + error);
       //console.log("error del tipo" + error.response.status);
       this.Response = error.response.status;
-      return this;}
+      return  error.response.status}
     }
   }
     

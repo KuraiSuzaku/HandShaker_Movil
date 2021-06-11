@@ -67,14 +67,16 @@ export default class Login extends Component {
         this.setState({ password: text })
      }
 
-    handleLogin( event ){
+  async  handleLogin( event ){
         //Login code with front end
         let Email=this.state.email;
         let Password=this.state.password;      
     	let userObject= new User(Email,Password)//Login
-        userObject.Login(userObject).then(res=>{
-            //console.log("RESULTADO "+res.Response);
-        if ( res.Response=="1"){
+
+let res= await userObject.Login(userObject)
+
+            console.log("RESULTADO "+res);
+        if ( res==200){
             //userObject//este es el usuario
         //the user exist and *userObject has its properties filled.
         //console.log("tipo Usuario\t"+ userObject.UserType)// check the user type 
@@ -123,18 +125,18 @@ export default class Login extends Component {
         
       } 
     else{ //there was an error on the login
-      if(res.Response=="404")
+      if(res=="404")
         { 
         //console.log("No Existe Usuario")
         ToastAndroid.show(("No Existe Usuario"), ToastAndroid.SHORT);
         }
-      if(res.Response=="401")
+      if(res=="401")
       {
           ToastAndroid.show(("Password incorrecto"), ToastAndroid.SHORT);      
         }
     }
 
-  })  
+
    
 
 }
