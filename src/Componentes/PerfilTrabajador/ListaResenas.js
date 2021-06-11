@@ -24,7 +24,7 @@ export default ListaResenas = (props) => {
         }).catch( err => console.error('Error: ', err) );
     */
    const rev= await  Revs.GetReview(props.user.Email);
-
+   if  ( rev.status!=202){
  console.log('RESPONSE RESEÑAS: ', rev.status);
  
  console.log('RESPONSE RESEÑAS: ', rev.data.EmailPremiumWorker);
@@ -32,8 +32,12 @@ export default ListaResenas = (props) => {
  console.log('RESPONSE RESEÑAS: ', rev.data.ListOfReviews[0].RatingStar);
             //console.log('RESPONSE RESEÑAS: ', rev);
             setReviews(rev.data.ListOfReviews);
-            setRefresh(false);
-    }
+           
+          }
+          console.log("finish"); 
+          setRefresh(false);
+    
+        }
 
     if(refresh) {
         getAllReviews();
@@ -45,11 +49,14 @@ export default ListaResenas = (props) => {
             <Text style={Estilos.Titulo}>
                 Reseñas
             </Text>
-            {reviews.map( (r, i) => (
+            {  reviews &&
+               reviews.map( (r, i) => (
                 <Componentes.PerfilTrabajador.Resena
                     item={ r }
                 />
-            ))}
+            ) 
+            
+            )}
             <Componentes.PerfilTrabajador.FinSeccion />
         </View>
     );
@@ -57,7 +64,7 @@ export default ListaResenas = (props) => {
 
 const Estilos = StyleSheet.create({
     Titulo: {    
-        fontSize: 12,
+        fontSize: 18,
         fontWeight: 'bold',
         marginTop: 12,
         marginLeft: 26,

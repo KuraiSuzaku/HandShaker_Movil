@@ -102,7 +102,7 @@ console.log("aqui")
 // ESTILOS
 const Estilos = StyleSheet.create({
     Titulo: {    
-        fontSize: 14,
+        fontSize: 18,
         fontWeight: 'bold',
         marginTop: 12,
         marginLeft: 26,
@@ -110,12 +110,13 @@ const Estilos = StyleSheet.create({
     Tarjeta: {
         borderRadius: 20,
         paddingVertical: 10,
-        flexDirection: 'row',
     },
-    Imagen: {
-        flex: 1,
-        width: '100%',
-        height: 300,
+    Dato: {
+        fontSize: 17,
+        fontWeight: 'bold'
+    },
+    DatoSecundario: {
+        fontSize: 17,
     },
     Boton: {
         backgroundColor: Colores.fondoBotonOscuro,

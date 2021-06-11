@@ -69,9 +69,9 @@ export default PagoAPremium = (props) => {
                             userObject.Email=props.user.Email;
                             userObject.Password=contrasenia;
                             let res= await userObject.Login(userObject)
-                            
-                            if(res.Response.includes("1")){
-                    
+                            console.log("res  "+res)
+                            if(res==200){
+                                console.log("login correcto")
                                 let PremiumWorkerObject = new PremiumWorker(props.user.Email);
                                 
                                 PremiumWorkerObject.isPremium = true;
@@ -82,7 +82,8 @@ export default PagoAPremium = (props) => {
                                 logOut();
                             }
                             else{
-                                alert("Algo salió mal, por favor intentelo de nuevo más tarde");
+                                console.log("login incorrecto")
+                                alert("su password ha sido incorrecto");
                             }
                         }
                     },

@@ -42,7 +42,7 @@ export default Resena = ({ item }) => {
 const Estilos = StyleSheet.create({
     Tarjeta: {
         borderRadius: 20,
-        marginTop: 10,
+        paddingVertical: 10,
     },
     Contenedor: {
         flexDirection: 'row',
@@ -53,17 +53,20 @@ const Estilos = StyleSheet.create({
     },
     Datos: {
         flex: 6,
+        fontSize: 12,
         alignItems: 'flex-start',
         paddingLeft: 10,
+        marginLeft:10
     },
     Nombre: {
-        fontSize: 10,
+        fontSize: 14,
         fontWeight: 'bold',
     },
     Comentario: {
-        fontSize: 9,
+        fontSize: 14,
     },
     Fecha: {
+        alignSelf: "flex-end",
         marginTop: 10,
     },
 });
