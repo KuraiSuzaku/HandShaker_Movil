@@ -90,7 +90,6 @@ let res= await userObject.Login(userObject)
             this.setState({
                 user: {...WorkerObject}
             });
-            ToastAndroid.show(("Worker User"), ToastAndroid.SHORT);
             this.props.navigation.navigate('ListaChats')
           });
         }
@@ -104,7 +103,6 @@ let res= await userObject.Login(userObject)
             this.setState({
                 user: {...PremiumWorkerObject}
             });
-            ToastAndroid.show(("Premium Worker User"), ToastAndroid.SHORT);
             this.props.navigation.navigate('Home')
           });
         }
@@ -118,7 +116,6 @@ let res= await userObject.Login(userObject)
             this.setState({
                 user: {...ClientObject}
             });
-            ToastAndroid.show(("Client User"), ToastAndroid.SHORT);
             this.props.navigation.navigate('Home')
           });
         }
