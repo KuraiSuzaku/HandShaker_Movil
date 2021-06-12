@@ -2,17 +2,25 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native';
 import Colores from '../../Estilos/Colores'
-import {Rating} from 'react-native-elements';
+import {Rating, Avatar} from 'react-native-elements';
 
 export default class IndividualWorker extends Component {
     render() {
         return (
             <View style={ styles.individualJob }>
-                <Image 
+                {/* <Image 
                     style={ styles.img }
                     resizeMode="contain"
-                    source={ {uri: this.props.worker.ProfilePicture.Path} }
-                />
+                    source={  }
+                /> */}
+                <Avatar
+                    rounded
+                    source={
+                        {uri: this.props.worker.ProfilePicture.Path}
+                    }
+                    size={100}
+                    containerStyle={styles.ContenedorAvatar}
+                ></Avatar>
 
                 <View style={ styles.individualJobContent }>
                     <Text style={ styles.individualJobTitle }>{ this.props.worker.Name } { this.props.worker.LastName }</Text>
@@ -47,6 +55,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colores.blanco,
         flexDirection: "row",
         borderRadius: 5
+    },
+    ContenedorAvatar: {
+        backgroundColor: 'gray',
     },
     img: {
         width: "100%",

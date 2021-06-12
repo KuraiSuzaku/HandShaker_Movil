@@ -62,16 +62,20 @@ export default class Job extends Component {
                             {
                                 this.state.trabajadores != null ? this.state.trabajadores.map((item, i) =>
                                     <TouchableOpacity onPress={ ()=>this.props.navigation.navigate("Perfil", { profileUser: item.Email, updateProfile: true }) } key={ i }>
-                                        {/* <Avatar
-                                            source={{ uri: item.Picture.Path }}
+                                        <Avatar
                                             rounded
-                                        /> */}
-                                        <Image 
+                                            source={
+                                                {uri: item.ProfilePicture.Path}
+                                            }
+                                            size={50}
+                                            containerStyle={styles.ContenedorAvatar}
+                                        ></Avatar>
+                                        {/* <Image 
                                             key={ item.Name }
                                             style={ styles.workerProfilePicture }
                                             resizeMode="contain"
                                             source={ {uri: item.ProfilePicture.Path}} 
-                                        /> 
+                                        />  */}
                                     </TouchableOpacity>
                                 ):n()
                             }
@@ -93,6 +97,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colores.blanco,
         flexDirection: "row",
         borderRadius: 5
+    },
+    ContenedorAvatar: {
+        backgroundColor: 'gray',
+        marginTop: 10 
     },
     img: {
         width: "100%",

@@ -10,7 +10,15 @@ export default class SobreNosotros extends Component {
             <View style={ styles.home }>
                 <EncabezadoApp style={ styles.enc }/>
                 <View style={ styles.flex }>
-                    <Text>Something</Text>
+                    <Image 
+                        style={ styles.img }
+                        source={require("../../../public/Images/HandShakerLogo2.png")}
+                    />
+
+                        <Image 
+                        style={ styles.imgName }
+                        source={require("../../../public/Images/nombreLogo.png")}
+                    />
                 </View>
                 <Navegacion style={ styles.nav }/>
             </View>
@@ -44,5 +52,17 @@ const styles = StyleSheet.create({
     },
     home:{
         flex: 10
-    }
+    },
+    img: {
+        alignSelf: 'center',
+        resizeMode: "contain",
+        height: '40%',
+        width: 200
+    },
+    imgName: {
+        alignSelf: 'center',
+        resizeMode: "contain",
+        height: '10%',
+        width: 300
+    },
 })

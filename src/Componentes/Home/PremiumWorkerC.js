@@ -23,7 +23,7 @@ export default class PremiumWorkerC extends Component {
                         { this.props.premiumWorker.Name }
                     </Text>
                     <Text style={ styles.profesion }>
-                        { this.props.premiumWorker.Profession } { this.props.premiumWorker.RatingStar }
+                        { this.props.premiumWorker.Profession } 
                     </Text>
                     <View style={ styles.premiumWorkerContentImages }>
                     <Rating  
