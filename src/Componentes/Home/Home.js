@@ -21,12 +21,13 @@ export default class Home extends Component {
             premiumWorker: null,
             categories: [],
             profesiones: [],
-            categorySelected: 'Todas',
+            categorySelected: null,
             default: []
         }
         // Esta es la peor practica posible y se debería evitar a toda costa
         this.category();
         this.profesiones();
+        console.log("Se cargó Home")
         this.inicio();
     }
 
@@ -38,6 +39,10 @@ export default class Home extends Component {
     handleCategorySelected (text){
         this.setState({ categorySelected: text })
         this.profesiones()
+    }
+
+    handleCategorySelected2 (text){
+        this.setState({ categorySelected: text })
     }
 
     handleProfesiones(profesiones){
@@ -86,23 +91,24 @@ export default class Home extends Component {
     }
 
     async inicio(){
-        if(this.state.categorySelected == 'Todas'){
+        console.log("Hola")
+        if(this.state.categorySelected == null){
             profs = []
             Cat = new Category();
-          const Prof= await Cat.GetAll()
-          Prof.forEach(cat => {
-              cat.Categories.forEach(element => {
-                profs.push(element)
-              });
-          });
+            const Prof= await Cat.GetAll()
+            Prof.forEach(cat => {
+                cat.Categories.forEach(element => {
+                    profs.push(element)
+                });
+            });
           
            
             this.handleProfesiones(profs)
+            this.handleCategorySelected2('Todas')
         }
     }
       
     profesiones(){
-        profs = []
         console.log("aqui 2")
         Cat = new Category();
         Cat.GetAll().then((categorias) => {
@@ -129,18 +135,8 @@ export default class Home extends Component {
 
                     });
                 }
-                else{
-                    // this.handleProfesiones(categoria.Categories)
-                    
-                    categoria.Categories.forEach(profesiones => {
-                        profs.push(profesiones)
-                    });
-                    
-                }
             });            
         }); 
-        console.log("PROFS")
-        this.handleProfesiones(profs)
         // console.log(profs)
     }
 
