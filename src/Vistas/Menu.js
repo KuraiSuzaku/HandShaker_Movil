@@ -37,7 +37,7 @@ export default props => {
             >
             <Drawer.Screen
                 name='Nosotros'
-                component={Vistas.Construccion}
+                component={Vistas.SobreNosotros}
                 options={{  title: 'Información de la APP',
                             unmountOnBlur: true,
                             drawerIcon: ({ focused, size }) => 
@@ -148,6 +148,13 @@ export default props => {
             <Drawer.Screen
                 name='Home'
                 component={Componentes.Home}
+                options={{  
+                            unmountOnBlur: true }}
+                >
+                </Drawer.Screen>
+            <Drawer.Screen
+                name='SobreNosotros'
+                component={Componentes.SobreNosotros}
                 options={{  
                             unmountOnBlur: true }}
                 >

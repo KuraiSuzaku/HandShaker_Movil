@@ -6,6 +6,7 @@ import PerfilTrabajador from './PerfilTrabajador';
 import Contratacion from './Contratacion';
 import PagoAPremium from './PagoAPremium';
 import Chat from './Chat';
+import SobreNosotros from './../Componentes/SobreNosotros/SobreNosotros';
 import ListaChats from './ListaChats';
 import ListaContratacion from './ListaContratacion';
 import Promociones from './Promociones';
@@ -20,6 +21,7 @@ export {
     Contratacion,
     PagoAPremium,
     Chat,
+    SobreNosotros,
     ListaChats,
     ListaContratacion,
     Promociones,

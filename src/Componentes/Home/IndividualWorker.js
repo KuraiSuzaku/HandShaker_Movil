@@ -20,7 +20,7 @@ export default class IndividualWorker extends Component {
                     <Rating  
                         imageSize={20} 
                         readonly
-                        startingValue={this.props.worker.RatingStart?this.props.worker.RatingStart:1} 
+                        startingValue={this.props.worker.RatingStar?this.props.worker.RatingStar:1} 
                         ratingColor={Colores.simbolos}
                         ratingBackgroundColor={Colores.fondoOscuro}
                         tintColor={Colores.fondo}
