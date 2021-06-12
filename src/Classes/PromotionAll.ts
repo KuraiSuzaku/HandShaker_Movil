@@ -41,8 +41,7 @@ export class PromotionAll {
         //  console.log("respuestaaa *"+ JSON.stringify(response.data[0]))
         console.log("prem")
         console.log("leng "+ response.data.length)
-        console.log("respuestaaa 1**"+ response.data[0].EmailPremiumWorker)
-       
+      
           return response.data;
         } catch (error) {
           //console.log("error del tipo" + error);

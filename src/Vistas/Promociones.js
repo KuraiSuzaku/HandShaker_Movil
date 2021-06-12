@@ -24,7 +24,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default PagoAPremium = (props) => {
     const [refresh, setRefresh] = useState(true);
-    const [promos, setPromos] = useState({});
+    const [promos, setPromos] = useState(null);
     const avatar = require('../../public/Profile/user.png');
     const imgpromocion = require('../../public/Icons/gift.png');
     const navigation = useNavigation();
@@ -65,7 +65,9 @@ export default PagoAPremium = (props) => {
         let arrayDataAll= new Array();
         let promo = new PromotionAll()      
        const allPromotion= await promo.GetPromotion()
-       
+       console.log(allPromotion)
+       console.log(allPromotion.length)
+       if(allPromotion.length>0){
        allPromotion.forEach(element => {
        
         console.log(element.EmailPremiumWorker)    
@@ -96,6 +98,8 @@ export default PagoAPremium = (props) => {
        // console.log("respuestaaa *"+ JSON.stringify(arrayDataAll))
         data=arrayDataAll;
         setPromos(arrayDataAll)
+    }
+
         setRefresh(false);
     }
 
@@ -164,12 +168,12 @@ export default PagoAPremium = (props) => {
                 />
             </View>
             <View style={{flex: 1}}>
-            <FlatList
+            { promos && <FlatList 
                     data={promos}
                     renderItem={renderItem}
                     containerStyle={Estilos.ScrollView}
                     contentContainerStyle={{flexGrow: 1}}
-                />
+                /> }
             </View> 
             </>
         );
