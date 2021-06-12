@@ -5,6 +5,7 @@ import {User} from "./../../Classes/User"
 import {Worker} from "./../../Classes/Worker"
 import {Client} from "./../../Classes/Client"
 import {PremiumWorker} from "./../../Classes/PremiumWorker"
+import {HandShakerLogo2} from "./../../../public/Images"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native'
 import * as Components from '../Indice';
@@ -181,10 +182,14 @@ handleGetPremiumWorkers( event ){
                 <View style={ styles.container }>
                     <Image 
                         style={ styles.img }
-                        source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                        source={require("../../../public/Images/HandShakerLogo2.png")}
                     />
 
-                    <ScrollView>
+                        <Image 
+                        style={ styles.imgName }
+                        source={require("../../../public/Images/nombreLogo.png")}
+                    />
+                    <ScrollView style={ styles.Scroll }>
                         <View>
                             <FormInput 
                                 label="Correo electrónico" 
@@ -200,9 +205,7 @@ handleGetPremiumWorkers( event ){
                             />
                         </View>
 
-                        <Text style={ styles.txt }>
-                            ¿Olvidaste tu contraseña?
-                        </Text>
+                       
 
                         <View style={ styles.btnsView }>
                             <FormButton txt="Registrarse"
@@ -247,12 +250,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        margin: 16,
+        margin: 10,
     },
     img: {
-        width: '100%',
-        height: 200,
-        marginBottom: 30
+        alignSelf: 'center',
+        resizeMode: "contain",
+        height: '40%',
+        width: 200
+    },
+    imgName: {
+        alignSelf: 'center',
+        resizeMode: "contain",
+        height: '10%',
+        width: 300
     },
     txt: {
         alignSelf: 'center',
@@ -284,6 +294,9 @@ const styles = StyleSheet.create({
     },
     btnTxt: {
         color: Colores.blanco
+    },
+    Scroll: {
+        padding: '10%'
     },
     btnsView: {
         flex: 1,
