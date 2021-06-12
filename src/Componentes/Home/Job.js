@@ -32,8 +32,8 @@ export default class Job extends Component {
 
         Trabajador.GetPremiumWorkersWithProfession(job).then((trabajadoresWithProfession) => {
             this.handleTrabajadores(trabajadoresWithProfession)
-            console.log("TRABAJADORES")
-            console.log(trabajadoresWithProfession)
+            // console.log("TRABAJADORES")
+            //console.log(trabajadoresWithProfession)
             // trabajadoresWithProfession.forEach(trabajador => {
             //     //console.log("trabajador de "+trabajador.Name+" nombre profesion " + job+ " foto " + trabajador.ProfilePicture.Path )
             // });  
@@ -60,8 +60,8 @@ export default class Job extends Component {
                         <Text style={ styles.individualJobTitle }>{ this.props.jobTitle }</Text>
                         <View style={ styles.individualJobWorkers }>
                             {
-                                this.state.trabajadores.map(item =>
-                                    <TouchableOpacity onPress={ ()=>this.props.navigation.navigate("Perfil", { profileUser: item.Email, updateProfile: true }) }>
+                                this.state.trabajadores != null ? this.state.trabajadores.map((item, i) =>
+                                    <TouchableOpacity onPress={ ()=>this.props.navigation.navigate("Perfil", { profileUser: item.Email, updateProfile: true }) } key={ i }>
                                         {/* <Avatar
                                             source={{ uri: item.Picture.Path }}
                                             rounded
@@ -73,7 +73,7 @@ export default class Job extends Component {
                                             source={ {uri: item.ProfilePicture.Path}} 
                                         /> 
                                     </TouchableOpacity>
-                                )
+                                ):n()
                             }
                         </View>
                     </View>
@@ -81,6 +81,9 @@ export default class Job extends Component {
             </View>
         )
     }
+}
+function n(){
+
 }
 
 const styles = StyleSheet.create({
@@ -114,6 +117,6 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 10,
         marginRight: 20, 
-        borderRadius: 100
+        borderRadius: 1000
     }
 })

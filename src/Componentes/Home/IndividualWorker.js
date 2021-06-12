@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native';
 import Colores from '../../Estilos/Colores'
+import {Rating} from 'react-native-elements';
 
 export default class IndividualWorker extends Component {
     render() {
@@ -14,21 +15,24 @@ export default class IndividualWorker extends Component {
                 />
 
                 <View style={ styles.individualJobContent }>
-                    <Text style={ styles.individualJobTitle }>{ this.props.worker.Name }</Text>
+                    <Text style={ styles.individualJobTitle }>{ this.props.worker.Name } { this.props.worker.LastName }</Text>
                     <View style={ styles.individualJobWorkers }>
-                        {
-                            // this.props
-                            // this.state.trabajadores.map(item =>
-                            //     <TouchableOpacity onPress={ () => //console.log(item.Email) }>
-                            //         <Image 
-                            //             key={ item.Name }
-                            //             style={ styles.workerProfilePicture }
-                            //             resizeMode="contain"
-                            //             source={ {uri: 'https://reactnative.dev/img/tiny_logo.png'} }
-                            //         /> 
-                            //     </TouchableOpacity>
-                            // )
-                        }
+                    <Rating  
+                        imageSize={20} 
+                        readonly
+                        startingValue={this.props.worker.RatingStart?this.props.worker.RatingStart:1} 
+                        ratingColor={Colores.simbolos}
+                        ratingBackgroundColor={Colores.fondoOscuro}
+                        tintColor={Colores.fondo}
+                        type='custom'
+                        style={styles.ContenedorComponente} 
+                        />
+                        <Text style={ styles.nReviews }>
+                         ({this.props.worker.NReviews})
+                        </Text>
+                    <Text>
+                    
+                    </Text>
                     </View>
                 </View>
             </View>
@@ -47,7 +51,7 @@ const styles = StyleSheet.create({
     img: {
         width: "100%",
         height: 100,
-        borderRadius: 0,
+        borderRadius: 1000,
         marginRight: 10,
         flex: 1
     },
@@ -57,7 +61,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10
     },
     individualJobTitle: {
-        fontSize: 20
+        fontSize: 20,
+        paddingBottom: 10 
     },
     individualJobWorkers: {
         flexDirection: "row"
@@ -68,5 +73,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginRight: 20, 
         borderRadius: 100
+    },
+    nReviews:{
+        paddingLeft: 5
     }
 })
