@@ -23,7 +23,7 @@ export default EncabezadoPerfil = (props) => {
     const [confirm, setConfirm] = useState(false);
     const [avatarCache, setAvatarCache] = useState(null);
     const [backImage, setBackImage] = useState(null);
-    const [Starts, setStar] = useState(props.user.RatingStart);
+    const [Starts, setStar] = useState(props.user.RatingStar);
     const [ReviewsState, setReview] = useState(props.user.NReviews);
     
     console.log("OWNER ",props.owner);

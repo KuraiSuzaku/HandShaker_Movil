@@ -42,20 +42,27 @@ export default EditarPerfil = (props) => {
                 <Picker.Item label="Abogado" value="Abogado"/> 
                 <Picker.Item label="Albañil" value="Albañil" />
                 <Picker.Item label="Arquitecto" value="Arquitecto" /> 
+                <Picker.Item label="Artesanal" value="Artesanal" /> 
                 <Picker.Item label="Carpintero" value="Carpintero" /> 
                 <Picker.Item label="Cerrajero" value="Cerrajero" />
+                <Picker.Item label="Comida casera" value="Comida casera" />
                 <Picker.Item label="Conserje" value="Conserje" />
                 <Picker.Item label="Consultor" value="Consultor" /> 
                 <Picker.Item label="Costurero" value="Costurero" />
                 <Picker.Item label="Dibujante" value="Dibujante" />
                 <Picker.Item label="Diseñador" value="Diseñador" /> 
+                <Picker.Item label="Escritor" value="Escritor" /> 
+                <Picker.Item label="Electricista" value="Electricista" /> 
+                <Picker.Item label="Fitness" value="Fitness" /> 
                 <Picker.Item label="Fotógrafo" value="Fotografo" /> 
                 <Picker.Item label="Herrero" value="Herrero" /> 
                 <Picker.Item label="Informático" value="Informatico" /> 
                 <Picker.Item label="Jardinero" value="Jardinero" /> 
                 <Picker.Item label="Maestro" value="Maestro" /> 
-                <Picker.Item label="Medico" value="Medico" /> 
+                <Picker.Item label="Médico" value="Médico" /> 
+                <Picker.Item label="Panadero" value="Panadero" /> 
                 <Picker.Item label="Pintor" value="Pintor" /> 
+                <Picker.Item label="Postres" value="Postres" /> 
                 <Picker.Item label="Programador" value="Programador" /> 
                 <Picker.Item label="Psicólogo" value="Psicologo" /> 
                 <Picker.Item label="Técnico" value="Tecnico" /> 
