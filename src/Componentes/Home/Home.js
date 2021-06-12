@@ -27,7 +27,7 @@ export default class Home extends Component {
         // Esta es la peor practica posible y se debería evitar a toda costa
         this.category();
         this.profesiones();
-        
+        this.inicio();
     }
 
     setPremiumWorker(pw){
@@ -83,6 +83,22 @@ export default class Home extends Component {
                 
             })
         })
+    }
+
+    async inicio(){
+        if(this.state.categorySelected == 'Todas'){
+            profs = []
+            Cat = new Category();
+          const Prof= await Cat.GetAll()
+          Prof.forEach(cat => {
+              cat.Categories.forEach(element => {
+                profs.push(element)
+              });
+          });
+          
+           
+            this.handleProfesiones(profs)
+        }
     }
       
     profesiones(){

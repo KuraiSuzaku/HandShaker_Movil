@@ -7,7 +7,7 @@ export default class PremiumWorkerC extends Component {
     constructor(props){
         super(props);
        // console.log("PW: "+this.props.premiumWorker.ProfilePicture.Path)
-       console.log("RATING: " + this.props.premiumWorker.RatingStart)
+       console.log("RATING: " + this.props.premiumWorker.RatingStar)
     }
 
     render() {
@@ -23,13 +23,13 @@ export default class PremiumWorkerC extends Component {
                         { this.props.premiumWorker.Name }
                     </Text>
                     <Text style={ styles.profesion }>
-                        { this.props.premiumWorker.Profession } { this.props.premiumWorker.RatingStar }
+                        { this.props.premiumWorker.Profession } 
                     </Text>
                     <View style={ styles.premiumWorkerContentImages }>
                     <Rating  
                         imageSize={20} 
                         readonly
-                        startingValue={this.props.premiumWorker.RatingStart?this.props.premiumWorker.RatingStart:1} 
+                        startingValue={this.props.premiumWorker.RatingStar?this.props.premiumWorker.RatingStar:1} 
                         ratingColor={Colores.simbolos}
                         ratingBackgroundColor={Colores.fondoOscuro}
                         tintColor={Colores.fondo}

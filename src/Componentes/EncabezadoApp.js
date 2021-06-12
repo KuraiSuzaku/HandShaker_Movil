@@ -39,7 +39,7 @@ export default Encabezado = (props) => {
                 iconStyle={Estilos.Icono}
                 onPress={() => AbrirMenu()}
                 />
-            <Input
+            {/* <Input
                 placeholder='Buscar...'
                 containerStyle={Estilos.ContenedorBusqueda}
                 inputContainerStyle={Estilos.Busqueda}
@@ -53,7 +53,7 @@ export default Encabezado = (props) => {
                 containerStyle={Estilos.ContenedorIcono}
                 iconStyle={Estilos.Icono}
                 onPress={ Buscar }
-                />
+                /> */}
         </Header>
     );
 };

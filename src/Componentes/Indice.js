@@ -8,6 +8,7 @@ import * as PerfilPremium from './PerfilPremium/Indice';
 import * as PerfilTrabajador from './PerfilTrabajador/Indice';
 import FilterByCategory from './Home/FilterByCategory';
 import Home from './Home/Home';
+import SobreNosotros from './SobreNosotros/SobreNosotros'
 import * as Chat from './Chat/Indice';
 import * as ListaContratacion from './ListaContratacion/Indice';
 import Loading from './Loading';
@@ -27,6 +28,7 @@ export {
     PerfilTrabajador,
     FilterByCategory,
     Home,
+    SobreNosotros,
     Chat,
     ListaContratacion,
     Loading,
