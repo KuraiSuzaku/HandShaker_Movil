@@ -179,7 +179,7 @@ export default Contacto = (props) => {
                     auxDomicilio = {editdomicilioM}
                 />
             }
-            {(!propietario) || (!editando) &&
+            {((!propietario) || (!editando)) &&
             <Card containerStyle={Estilos.Tarjeta}>
                 <Text style={Estilos.Dato}>
                     Correo: <Text>{editcorreoM}</Text>

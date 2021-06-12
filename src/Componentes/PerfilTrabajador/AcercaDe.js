@@ -87,7 +87,7 @@ console.log("aqui")
                     auxTexto = {props.acercade.informacion}
                 />
             }
-            {(!propietario) || (!editando) &&
+            {((!propietario) || (!editando) )&&
             <Card containerStyle={Estilos.Tarjeta}>
 
                 <Text>{Desc}</Text>
