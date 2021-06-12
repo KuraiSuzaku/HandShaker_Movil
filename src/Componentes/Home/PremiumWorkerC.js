@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import Colores from '../../Estilos/Colores'
+import {Rating} from 'react-native-elements';
 
 export default class PremiumWorkerC extends Component {
     constructor(props){
         super(props);
        // console.log("PW: "+this.props.premiumWorker.ProfilePicture.Path)
+       console.log("RATING: " + this.props.premiumWorker.RatingStart)
     }
 
     render() {
@@ -17,33 +19,26 @@ export default class PremiumWorkerC extends Component {
                     source={{uri: this.props.premiumWorker.ProfilePicture.Path}}
                 />
                 <View style={ styles.premiumWorkerContent }>
-                    <Text>
+                    <Text style={ styles.name }>
                         { this.props.premiumWorker.Name }
                     </Text>
-                    <Text>
-                        { this.props.premiumWorker.Profession } ****
+                    <Text style={ styles.profesion }>
+                        { this.props.premiumWorker.Profession } { this.props.premiumWorker.RatingStar }
                     </Text>
                     <View style={ styles.premiumWorkerContentImages }>
-                        <Image 
-                            style={ styles.premiumWorkerContentImg }
-                            resizeMode="contain"
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    <Rating  
+                        imageSize={20} 
+                        readonly
+                        startingValue={this.props.premiumWorker.RatingStart?this.props.premiumWorker.RatingStart:1} 
+                        ratingColor={Colores.simbolos}
+                        ratingBackgroundColor={Colores.fondoOscuro}
+                        tintColor={Colores.fondo}
+                        type='custom'
+                        style={styles.ContenedorComponente} 
                         />
-                        <Image 
-                            style={ styles.premiumWorkerContentImg }
-                            resizeMode="contain"
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                        />
-                        <Image 
-                            style={ styles.premiumWorkerContentImg }
-                            resizeMode="contain"
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                        />
-                        <Image 
-                            style={ styles.premiumWorkerContentImg }
-                            resizeMode="contain"
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                        />
+                        <Text style={ styles.nReviews }>
+                         ({this.props.premiumWorker.NReviews})
+                        </Text>
                     </View>
                 </View>
             </View>
@@ -82,5 +77,20 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 10,
         marginRight: 10,
+    },
+    ContenedorComponente: {
+        justifyContent: 'flex-end',
+        marginBottom: 7,
+    },
+    name:{
+        fontSize: 20,
+        paddingBottom: 5
+    },
+    profesion:{
+        fontSize: 15,
+        paddingBottom: 5
+    },
+    nReviews:{
+        paddingLeft: 5
     }
 })

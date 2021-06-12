@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
+import {Rating} from 'react-native-elements';
 import Colores from '../../Estilos/Colores'
 import Job from './Job'
 import PremiumWorkerC from './PremiumWorkerC'
@@ -20,17 +21,18 @@ export default class Home extends Component {
             premiumWorker: null,
             categories: [],
             profesiones: [],
-            categorySelected: 'Todas'
+            categorySelected: 'Todas',
+            default: []
         }
         // Esta es la peor practica posible y se debería evitar a toda costa
         this.category();
-        
+        this.profesiones();
         
     }
 
     setPremiumWorker(pw){
         this.setState({premiumWorker:pw});
-        console.log(pw.Email)
+        // console.log(pw.Email)
     }
 
     handleCategorySelected (text){
@@ -50,7 +52,7 @@ export default class Home extends Component {
             // //console.log("==============================");
             // //console.log(res[0].Name);
             rnd = Math.floor(Math.random() * res.length)
-            console.log("===========>"+ rnd)
+            // console.log("===========>"+ rnd)
             this.setPremiumWorker(res[rnd]);
         })
     }
@@ -84,7 +86,8 @@ export default class Home extends Component {
     }
       
     profesiones(){
-        //console.log("aqui 2")
+        profs = []
+        console.log("aqui 2")
         Cat = new Category();
         Cat.GetAll().then((categorias) => {
             categorias.forEach(categoria => {
@@ -92,11 +95,12 @@ export default class Home extends Component {
                 if(categoria.Name == this.state.categorySelected){
                     // console.log("Aqui")
                     // console.log(categoria.Categories)
-                    console.log(categoria.Name)
-                    console.log("Categoria<--------------------------------")
-                    console.log(categoria.Categories)
+                    // console.log(categoria.Name)
+                    // console.log("Categoria<--------------------------------")
+                    // console.log(categoria.Categories)
                     this.handleProfesiones(categoria.Categories)
                     categoria.Categories.forEach(profesiones => {
+                        profs.push(profesiones)
                         // Trabajador =  new PremiumWorker();
 
                         // Trabajador.GetPremiumWorkersWithProfession(profesiones.Name).then((trabajadoresWithProfession) => {
@@ -109,8 +113,19 @@ export default class Home extends Component {
 
                     });
                 }
+                else{
+                    // this.handleProfesiones(categoria.Categories)
+                    
+                    categoria.Categories.forEach(profesiones => {
+                        profs.push(profesiones)
+                    });
+                    
+                }
             });            
         }); 
+        console.log("PROFS")
+        this.handleProfesiones(profs)
+        // console.log(profs)
     }
 
     render() {
@@ -121,8 +136,8 @@ export default class Home extends Component {
         // //                  : this.category()
         // //                 this.state.category = 0
         return (
-            <View>
-                <EncabezadoApp/>
+            <View style={ styles.home }>
+                <EncabezadoApp style={ styles.enc }/>
                 <View style={ styles.flex }>
                     <ScrollView style={ styles.bg }>
                         {
@@ -131,17 +146,18 @@ export default class Home extends Component {
                                 <PremiumWorkerC premiumWorker={ this.state.premiumWorker }/></TouchableOpacity> :
                                 this.RandomWorker()     
                         }
-
                         <Text style={ styles.subtitle }>Categorías</Text>
                         <Categories categories={ this.state.categories } handleCategorySelected={ this.handleCategorySelected }/>
                         <Text style={ styles.subtitle }>Trabajos: { this.state.category }</Text>
                         {
-                            this.state.profesiones.map(item => 
-                                <Job jobTitle={ item.Name } profesiones={ item } navigation={ this.props.navigation } key={ item.Name } uri={ 'https://reactnative.dev/img/tiny_logo.png'/*item.ImageProfession.Path*/ } /*workers={ item.workers.slice(0, 3) }*/ />)
+                            this.state.profesiones.map((item, i) =>
+                                <Job jobTitle={ item.Name } profesiones={ item } navigation={ this.props.navigation } uri={ item.ImageProfession.Path } key={ i }/*workers={ item.workers.slice(0, 3) }*/ />
+                            )
                         }
+                            
                     </ScrollView>
                 </View>
-                <Navegacion/>
+                <Navegacion style={ styles.nav }/>
             </View>
         )
     }
@@ -151,7 +167,9 @@ function Categories(props){
     return(
         <ScrollView horizontal={true} style={ styles.categories }>
             { props.categories.map(item => 
-                <IndividualCategory name={ item.Name } key={ item.Name } handleCategory={ props.handleCategorySelected } uri='https://reactnative.dev/img/tiny_logo.png'/>) 
+                item.Name != "Otros" && <IndividualCategory name={ item.Name } key={ item.Name } handleCategory={ props.handleCategorySelected } uri={item.Image}/>) 
+            }{ props.categories.map(item => 
+                item.Name == "Otros" && <IndividualCategory name={ item.Name } key={ item.Name } handleCategory={ props.handleCategorySelected } uri={item.Image}/>) 
             }
         </ScrollView>
     )
@@ -159,7 +177,7 @@ function Categories(props){
 
 const styles = StyleSheet.create({
     flex: {
-        height: "77.5%"
+        flex: 3
     },
     bg: {
         flex: 1,
@@ -175,4 +193,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginBottom: 10
     },
+    nav:{
+        flex:1
+    },
+    enc:{
+        flex: 1
+    },
+    home:{
+        flex: 10
+    }
 })
