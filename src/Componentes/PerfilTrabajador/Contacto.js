@@ -25,11 +25,7 @@ export default Contacto = (props) => {
     const [firstState, setState] = useState(true);
 
     //console.log("domicilio: " + contacto.correo);
-    console.log("domicilio:** " + props.user.Email);
-    console.log("domicilio: " + props.contacto.correo);
-
-
-    console.log("domicilio: " + props.user.UserType);
+   
 
     const CambiarDatos = () =>{
 
