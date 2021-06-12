@@ -14,7 +14,7 @@ import {
 //////
 import Colores from '../../Estilos/Colores';
 //////
-export default Publicacion = (props, { avatar, valoracion }) => {
+export default Publicacion = (props) => {
 
     const deletePost = () => {
         /**
@@ -39,7 +39,11 @@ export default Publicacion = (props, { avatar, valoracion }) => {
                     <Rating
                         imageSize={15} 
                         readonly 
-                        startingValue={valoracion} 
+                        startingValue={
+                            props.user.RatingStar ?
+                            props.user.RatingStar :
+                            1
+                        }
                         ratingColor={Colores.simbolos}
                         ratingBackgroundColor={Colores.fondoOscuro}
                         tintColor={Colores.blanco}
@@ -47,7 +51,7 @@ export default Publicacion = (props, { avatar, valoracion }) => {
                         style={{ alignItems: 'flex-start' }}
                         />
                     <Text style={Estilos.Datos}>{props.DateOfPost.substring(0,10)}</Text>
-                </View>
+                </View> 
             </View>
             <Text style={Estilos.Contenido}>{props.TextOfPost}</Text>
             {

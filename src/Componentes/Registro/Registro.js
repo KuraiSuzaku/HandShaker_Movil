@@ -161,7 +161,7 @@ export default class Registro extends Component {
             <View style={ styles.container }>
                 <Image 
                     style={ styles.img }
-                    source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    source={require("../../../public/Images/nombreLogo.png")}
                 />
                 <Text style={ styles.txt }>
                     Ingrese los datos requeridos:
@@ -250,8 +250,10 @@ const styles = StyleSheet.create({
         margin: 16,
     },
     img: {
-        width: '100%',
-        height: 100
+        alignSelf: 'center',
+        resizeMode: "contain",
+        height: '10%',
+        width: 300
     },
     txt: {
         alignSelf: 'center',

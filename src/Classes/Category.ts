@@ -61,4 +61,18 @@ export class Category {
         }
       }
 
+
+      async GetAllProf() {// fill ClientObject with all information of the client
+      
+        try {
+          const response = await axios.post(rooturl+"Category/GetAllProfession",{});//the object to send must be *PostObject*
+       
+          return response.data;
+        } catch (error) {
+          //console.log("error del tipo" + error);
+          //console.log("error del tipo" + error.response.status);          
+          return this;
+        }
+      }
+
 }
