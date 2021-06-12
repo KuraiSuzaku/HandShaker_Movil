@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import Colores from '../../Estilos/Colores'
 import {Rating} from 'react-native-elements';
+import {
+    Avatar,
+    Header,
+    Icon,
+} from 'react-native-elements';
 
 export default class PremiumWorkerC extends Component {
     constructor(props){
@@ -13,11 +18,19 @@ export default class PremiumWorkerC extends Component {
     render() {
         return (
             <View style={ styles.premiumWorker }>
-                <Image 
+                {/* <Image 
                     style={ styles.profileImg }
                     resizeMode="cover"
                     source={{uri: this.props.premiumWorker.ProfilePicture.Path}}
-                />
+                /> */}
+                <Avatar
+                    rounded
+                    source={
+                        {uri: this.props.premiumWorker.ProfilePicture.Path}
+                    }
+                    size={80}
+                    containerStyle={styles.ContenedorAvatar}
+                ></Avatar>
                 <View style={ styles.premiumWorkerContent }>
                     <Text style={ styles.name }>
                         { this.props.premiumWorker.Name }
@@ -49,10 +62,17 @@ export default class PremiumWorkerC extends Component {
 const styles = StyleSheet.create({
     premiumWorker: {
         marginBottom: 10,
-        padding: 10,
         backgroundColor: Colores.blanco,
         flexDirection: "row",
-        borderRadius: 5
+        borderRadius: 5,
+        paddingLeft: 10,
+        paddingTop: 5,
+        paddingBottom: 10
+    },
+    ContenedorAvatar: {
+        backgroundColor: 'gray',
+        marginTop: 10,
+        marginRight: 20
     },
     profileImg: {
         width: 100,
