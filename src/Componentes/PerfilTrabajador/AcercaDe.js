@@ -84,7 +84,7 @@ console.log("aqui")
             {propietario && editando && 
                 <EditarAcercaDe 
                     setTexto = {setTexto}
-                    auxTexto = {props.acercade.informacion}
+                    auxTexto = {Desc}
                 />
             }
             {((!propietario) || (!editando) )&&
