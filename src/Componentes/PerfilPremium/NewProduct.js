@@ -37,6 +37,8 @@ export default class NewProduct extends Component {
         const options = {
             mediaType: 'photo',
             quality: 1,
+            height: 500,
+            width: 500
         };
         ImagePicker.showImagePicker(options, (response) => {
             if(response.didCancel) {
