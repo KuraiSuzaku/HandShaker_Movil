@@ -75,7 +75,7 @@ export default class SobreNosotros extends Component {
 
         <Card containerStyle={styles.Tarjeta}>
             <Card.Image
-                source={require("../../../public/Images/fotoRene.jpg")}
+                source={require("../../../public/Images/renePic.jpg")}
                 resizeMode='contain'
                 style={styles.Imagen}
           
