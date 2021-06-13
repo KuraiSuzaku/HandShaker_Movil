@@ -27,7 +27,7 @@ export default Navegacion = (props) => {
                         {...props}
                         />}
             </Pestañas.Screen>
-            <Pestañas.Screen name='Publicaciones'>
+            <Pestañas.Screen name='Publicación'>
                 {() => <Componentes.PerfilPremium.ListaPublicacion
                         {...props}
                         />}
@@ -63,7 +63,7 @@ const Estilos = StyleSheet.create({
         borderBottomWidth: 1,
     },
     EtiquetasPestañas: {
-        fontSize: 9,
+        fontSize: 8,
         fontWeight: 'bold',
     },
     Pestañas: {
