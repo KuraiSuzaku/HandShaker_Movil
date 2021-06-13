@@ -65,7 +65,7 @@ export default EditarPerfil = (props) => {
                 <Picker.Item label="Postres" value="Postres" /> 
                 <Picker.Item label="Programador" value="Programador" /> 
                 <Picker.Item label="Psicólogo" value="Psicologo" /> 
-                <Picker.Item label="Técnico" value="Tecnico" /> 
+                <Picker.Item label="Técnico" value="Técnico" /> 
                 <Picker.Item label="Veterinario" value="Veterinario" /> 
                 <Picker.Item label="Otro" value="Otro" /> 
             </Picker>
