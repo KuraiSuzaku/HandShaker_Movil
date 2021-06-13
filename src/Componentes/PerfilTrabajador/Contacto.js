@@ -80,10 +80,10 @@ export default Contacto = (props) => {
         //console.log("telefono: " + edittelefono);
         //console.log("celular: " + editcelular);
         //console.log("domicilio: " + editdomicilio);
-        console.log("domicilio: " + props.contacto.correo);
+        //console.log("domicilio: " + props.contacto.correo);
      
 
-        console.log("domicilio: " + props.user.UserType);
+        //console.log("domicilio: " + props.user.UserType);
 
         if  (!props.user.UserType.includes("PremiumWorker"))
         {  let WorkerObject = new Worker(props.user.Email);
